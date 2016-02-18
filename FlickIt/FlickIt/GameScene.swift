@@ -18,6 +18,13 @@ class GameScene: SKScene {
     var rulesBin = SKSpriteNode()
     var aboutBin = SKSpriteNode()
     var shape = SKSpriteNode()
+    //variables needed for flicking
+    var start=CGPoint();
+    var startTime=NSTimeInterval();
+    let kMinDistance=CGFloat(50)
+    let kMinDuration=CGFloat(0)
+    let kMinSpeed=CGFloat(100)
+    let kMaxSpeed=CGFloat(500)
     
     /** Creates scene by setting position and defining physics */
     func createScene(){
@@ -75,6 +82,13 @@ class GameScene: SKScene {
         aboutBin.position = CGPoint(x: self.frame.width*2/4, y: self.frame.height/2)
         shape.position = CGPoint(x: self.frame.width/2, y: self.frame.height/2)
         
+        /** Did Physics Stuff */
+        shape.userInteractionEnabled=false
+        shape.physicsBody=SKPhysicsBody(circleOfRadius: shape.frame.height/2)
+        shape.physicsBody?.dynamic=true
+        shape.physicsBody?.affectedByGravity=false
+        
+        
         /** Adding objects into screen */
         self.addChild(startBin)
         self.addChild(rulesBin)
@@ -88,8 +102,29 @@ class GameScene: SKScene {
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
        /* Called when a touch begins */
-
+        let touch: UITouch = touches.first!
+        let location: CGPoint = touch.locationInNode(self)
+        // Save start location and time
+        start = location
+        startTime = touch.timestamp
         
+    }
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        let touch: UITouch = touches.first!
+        let location: CGPoint = touch.locationInNode(self)
+        // Determine distance from the starting point
+        var dx: CGFloat = location.x - start.x
+        var dy: CGFloat = location.y - start.y
+        let magnitude: CGFloat = sqrt(dx * dx + dy * dy)
+        if (magnitude >= self.kMinDistance){
+            // Determine time difference from start of the gesture
+            dx = dx / magnitude
+            dy = dy / magnitude
+            let touchedNode=self.nodeAtPoint(start)
+            //make it move
+            touchedNode.physicsBody?.velocity=CGVectorMake(0.0, 0.0)
+            touchedNode.physicsBody?.applyImpulse(CGVectorMake(100*dx, 100*dy))
+        }
     }
    
     override func update(currentTime: CFTimeInterval) {
