@@ -23,10 +23,35 @@ class GameScene: SKScene {
     func createScene(){
         /** Puts in the title */
         let title = UILabel(frame: CGRectMake(self.frame.width/9, self.frame.height/8, self.frame.width/2, self.frame.height/8))
+        
         title.text = "Flick-It"
         title.font = UIFont(name: "Futura", size: 30)
         title.textColor = UIColor.blueColor()
         self.view?.addSubview(title)
+        
+    //New labels added in after Jeffrey's commit
+        //start label -- edit placement and width
+        let start = UILabel(frame: CGRectMake(self.frame.width/2, self.frame.height*1/4, self.frame.width/4, self.frame.height/12))
+        start.text = "Start"
+        start.font = UIFont(name: "Futura", size: 18)
+        start.textColor = UIColor.whiteColor();
+        self.view?.addSubview(start)
+        
+        //rules label -- edit placement and width
+        let rules = UILabel(frame: CGRectMake(self.frame.width/2 + 10, self.frame.height*1/4, self.frame.width/4, self.frame.height/12))
+        rules.text = "Rules"
+        rules.font = UIFont(name: "Futura", size: 18)
+        rules.textColor = UIColor.whiteColor();
+        self.view?.addSubview(rules)
+
+        //about label -- edit placement and width
+        let about = UILabel(frame: CGRectMake(self.frame.width/2, self.frame.height*1/2 - 10, self.frame.width/4, self.frame.height/12))
+        about.text = "About"
+        about.font = UIFont(name: "Futura", size: 18)
+        about.textColor = UIColor.whiteColor();
+        self.view?.addSubview(about)
+
+        
         
         /** Puts in background */
         self.view?.backgroundColor = UIColor.blackColor()
