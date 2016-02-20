@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		187EF1DC1C7900DB0087A94A /* StartGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187EF1DB1C7900DB0087A94A /* StartGameScene.swift */; };
 		1FA8C6521C6FB1E40072E83F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA8C6511C6FB1E40072E83F /* AppDelegate.swift */; };
 		1FA8C6541C6FB1E40072E83F /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 1FA8C6531C6FB1E40072E83F /* GameScene.sks */; };
 		1FA8C6561C6FB1E40072E83F /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA8C6551C6FB1E40072E83F /* GameScene.swift */; };
@@ -36,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		187EF1DB1C7900DB0087A94A /* StartGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartGameScene.swift; sourceTree = "<group>"; };
 		1FA8C64E1C6FB1E40072E83F /* FlickIt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlickIt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FA8C6511C6FB1E40072E83F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1FA8C6531C6FB1E40072E83F /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 				1FA8C6531C6FB1E40072E83F /* GameScene.sks */,
 				1FA8C6551C6FB1E40072E83F /* GameScene.swift */,
 				1FA8C6571C6FB1E40072E83F /* GameViewController.swift */,
+				187EF1DB1C7900DB0087A94A /* StartGameScene.swift */,
 				1FA8C6591C6FB1E40072E83F /* Main.storyboard */,
 				1FA8C65C1C6FB1E40072E83F /* Assets.xcassets */,
 				1FA8C65E1C6FB1E40072E83F /* LaunchScreen.storyboard */,
@@ -268,6 +271,7 @@
 			files = (
 				1FA8C6561C6FB1E40072E83F /* GameScene.swift in Sources */,
 				1FA8C6581C6FB1E40072E83F /* GameViewController.swift in Sources */,
+				187EF1DC1C7900DB0087A94A /* StartGameScene.swift in Sources */,
 				1FA8C6521C6FB1E40072E83F /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

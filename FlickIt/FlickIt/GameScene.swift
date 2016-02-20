@@ -103,9 +103,6 @@ class GameScene: SKScene {
             SKAction.moveBy(CGVectorMake(0, -self.frame.height / 20), duration: 50)
             ])
         )
-        
-        
-        
     }
     
     /** Creates scene by setting position and defining physics */
@@ -216,6 +213,29 @@ class GameScene: SKScene {
             }
             //touchedNode.physicsBody?.applyImpulse(CGVectorMake(100*dx, 100*dy))
         }
+        
+        
+    }
+    
+    func startGame() {
+        let scene: SKScene = StartGameScene(size: self.size)
+        
+        // Configure the view.
+        let skView = self.view as SKView!
+        skView.showsFPS = false
+        skView.showsNodeCount = false
+            
+        /* Sprite Kit applies additional optimizations to improve rendering performance */
+        skView.ignoresSiblingOrder = true
+            
+        /* Set the scale mode to scale to fit the window */
+        scene.scaleMode = .AspectFill
+        skView.presentScene(scene)
+        
+    }
+    
+    func getHelp() {
+        
     }
    
     override func update(currentTime: CFTimeInterval) {
@@ -224,14 +244,16 @@ class GameScene: SKScene {
             // call method to start game
             // for now just remove all the elements to show something has happened
             self.removeAllChildren();
-            self.addChild(bgImage);
+            self.startGame();
+            launchSquare.position.y = 0
         }
         
         if (launchCircle.position.y <= rulesCircle.position.y){
             // call method to start game
             // for now just remove all the elements to show something has happened
             self.removeAllChildren();
-            self.addChild(bgImage);
+            getHelp();
+            launchCircle.position.y = 0
         }
     }
     
