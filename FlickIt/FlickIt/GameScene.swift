@@ -33,13 +33,23 @@ class GameScene: SKScene {
     var launchCircle = SKSpriteNode(imageNamed: "launch_circle.jpg");
     
     func createHomeScreen(){
+        //set Z-positions
+        bgImage.zPosition = 1;
+        startSquare.zPosition = 2;
+        rulesCircle.zPosition = 2;
+        launchSquare.zPosition = 3;
+        launchCircle.zPosition = 3;
+        
+        
         // Sets the neon circle image to fill the entire screen
         bgImage.size = CGSize(width: self.size.width/2, height: self.size.height);
         bgImage.position = CGPointMake(self.size.width/2, self.size.height/2);
         
+        
         // Put the start square bin at the top center and rules circle bin at the bottom center
         startSquare.position = CGPointMake(self.frame.width/2, self.frame.height * 9 / 10);
         rulesCircle.position = CGPointMake(self.frame.width/2, self.frame.height / 10);
+        
         
         // Start the launch square and circle in the very middle of the screen
         launchSquare.position = CGPointMake(self.size.width/2, self.size.height/2);
