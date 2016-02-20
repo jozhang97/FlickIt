@@ -8,10 +8,10 @@
 
 import SpriteKit
 
-//struct PhysicsCategory {
-//    static let Bin : UInt32 = 0x1 <<1
-//    static let Shape : UInt32 = 0x1 <<2
-//}
+struct PhysicsCategory {
+    static let Bin : UInt32 = 0x1 << 1
+    static let Shape : UInt32 = 0x1 << 2
+}
 
 class GameScene: SKScene {
     var startBin = SKSpriteNode()
