@@ -20,21 +20,22 @@ class SpawnShape: SKScene
     let LOWERBOUND = CGFloat(40.0) // smallest velocity possible
     
     func spawnShape() {
-        let shapePicker = (Int) (arc4random()*4 + 1)
+        let shapePicker = (Int) (arc4random()*4)
         let shape = SKSpriteNode(imageNamed: shapes[shapePicker])
-        shape.name = shapes[shapePicker]
         shapeCounter[shapePicker] += 1
         shape.setScale(0.5)
-        shape.physicsBody?.categoryBitMask = PhysicsCategory.Shape
+        // What is this line for? Was there a reason why it was added?
+        //shape.physicsBody?.categoryBitMask = PhysicsCategory.Shape
         shape.position = CGPoint(x: self.frame.width/2, y: self.frame.height/2)
         shape.zPosition = 5 // assures shape shows up over other stuff
         shape.physicsBody = SKPhysicsBody(circleOfRadius: self.frame.height/2) //can generalize later
         shape.physicsBody?.affectedByGravity = false
-        shape.physicsBody?.dynamic = true
         
-        /** ASHWIN, CHANGE 0 TO BIN WHEN WORKING ON COLLISION */
-        shape.physicsBody?.collisionBitMask = 0 // PhysicsCategory.Bin
-        shape.physicsBody?.contactTestBitMask = 0 //PhysicsCategory.Bin
+        /** ASHWIN, sets up collision masks for the shapes*/
+        shape.physicsBody!.dynamic = false
+        shape.name = shapes[shapePicker]
+        // shape.physicsBody?.collisionBitMask  // want to track all collisions, which is the default
+        shape.physicsBody?.contactTestBitMask = shape.physicsBody!.collisionBitMask // which collisions do you want to know about (in this case all of them)
         
         // Randomizing velocity vectors
         var dx = CGFloat(Float(arc4random())/0xFFFFFFFF)

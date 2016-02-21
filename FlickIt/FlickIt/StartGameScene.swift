@@ -9,15 +9,19 @@
 
 import SpriteKit
 
-class StartGameScene: SKScene {
+class StartGameScene: SKScene, SKPhysicsContactDelegate {
     var bgImage = SKSpriteNode(imageNamed: "neon_circle.jpg");
     var startSquare = SKSpriteNode(imageNamed: "start_square.jpg");
     var launchSquare = SKSpriteNode(imageNamed: "launch_square.jpg");
     var rulesCircle = SKSpriteNode(imageNamed: "rules_circle.jpg");
     var launchCircle = SKSpriteNode(imageNamed: "launch_circle.jpg");
     
+    let shapes = ["blue_triangle", "red_square", "green_triangle","yellow_square"]
+    let bins = ["bin_1", "bin_2", "bin_3", "bin_4"]
+    
     override init(size: CGSize) {
         super.init(size: size)
+        physicsWorld.contactDelegate = self // error fix = do self.physicsWorld...
         createScene()
     }
 
@@ -39,6 +43,37 @@ class StartGameScene: SKScene {
         
         
         
+    }
+    
+    func perfectFlick(shape: SKNode) {
+        // increment score
+        // do some lovely animation of shape exploding into pixels 
+        // play audio 
+        shape.removeFromParent();
+    }
+    
+    func failedFlick(){
+        // play sad audio
+        // end game
+        // some animation symbolizing something bad 
+        self.removeAllChildren();
+        self.addChild(bgImage);
+    }
+    
+    func didBeginContact(contact: SKPhysicsContact) {
+        if ((contact.bodyA.node!.name == shapes[0] && contact.bodyB.node!.name == bins[0]) || (
+        contact.bodyA.node!.name == shapes[1] && contact.bodyB.node!.name == bins[1]) || (
+        contact.bodyA.node!.name == shapes[2] && contact.bodyB.node!.name == bins[2]) || (
+        contact.bodyA.node!.name == shapes[3] && contact.bodyB.node!.name == bins[3])){
+            perfectFlick(contact.bodyA.node!)
+        } else if ((contact.bodyB.node!.name == shapes[0] && contact.bodyA.node!.name == bins[0]) || (
+        contact.bodyB.node!.name == shapes[1] && contact.bodyA.node!.name == bins[1]) || (
+        contact.bodyB.node!.name == shapes[2] && contact.bodyA.node!.name == bins[2]) || (
+        contact.bodyB.node!.name == shapes[3] && contact.bodyA.node!.name == bins[3])) {
+            perfectFlick(contact.bodyB.node!)
+        } else {
+            failedFlick()
+        }
     }
 
     func delay(delay:Double, closure:()->()) {
