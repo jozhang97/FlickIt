@@ -16,6 +16,11 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     var rulesCircle = SKSpriteNode(imageNamed: "rules_circle.jpg");
     var launchCircle = SKSpriteNode(imageNamed: "launch_circle.jpg");
     
+    var bin_1 = SKSpriteNode(imageNamed: "bin-2.png"); //change this to differently oriented triangles
+    var bin_2 = SKSpriteNode(imageNamed: "bin-2.png");
+    var bin_3 = SKSpriteNode(imageNamed: "bin-2.png");
+    var bin_4 = SKSpriteNode(imageNamed: "bin-2.png");
+    
     let shapes = ["blue_triangle", "red_square", "green_triangle","yellow_square"]
     let bins = ["bin_1", "bin_2", "bin_3", "bin_4"]
     
@@ -38,10 +43,36 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         // Sets the neon circle image to fill the entire screen
         bgImage.size = CGSize(width: self.size.width/2, height: self.size.height);
         bgImage.position = CGPointMake(self.size.width/2, self.size.height/2);
+        bgImage.zPosition = 1
         self.addChild(bgImage);
+        
+        //adds bins on all 4 corners of screen with name, zposition and size
+        bin_1.size = CGSize(width: 100, height: 100)
+        bin_1.position = CGPointMake(0, self.size.height - 100)
+        bin_1.zPosition = 3
+        bin_1.name = "bin_1"
+        
+        bin_2.size = CGSize(width: 100, height: 100)
+        bin_2.position = CGPointMake(self.size.width - 100, self.size.height - 100)
+        bin_2.zPosition = 3
+        bin_2.name = "bin_2"
+        
+        bin_3.size = CGSize(width: 100, height: 100)
+        bin_3.position = CGPointMake(0, 0)
+        bin_3.zPosition = 3
+        bin_3.name = "bin_3"
+        
+        bin_4.size = CGSize(width: 100, height: 100)
+        bin_4.position = CGPointMake(self.size.width - 100, 0)
+        bin_4.zPosition = 3
+        bin_4.name = "bin_4"
+        
+        self.addChild(bin_1)
+        self.addChild(bin_2)
+        self.addChild(bin_3)
+        self.addChild(bin_4)
+        
         self.view?.backgroundColor = UIColor.blackColor();
-        
-        
         
     }
     
