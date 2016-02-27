@@ -24,6 +24,11 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     let shapes = ["blue_triangle", "red_square", "green_triangle","yellow_square"]
     let bins = ["bin_1", "bin_2", "bin_3", "bin_4"]
     
+    var time : CFTimeInterval = 2;
+    var shapeToAdd = SKSpriteNode();
+    
+    var shapeController = SpawnShape();
+    
     override init(size: CGSize) {
         super.init(size: size)
         physicsWorld.contactDelegate = self // error fix = do self.physicsWorld...
@@ -46,24 +51,26 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         bgImage.zPosition = 1
         self.addChild(bgImage);
         
+        print("Entered create scene")
+        
         //adds bins on all 4 corners of screen with name, zposition and size
-        bin_1.size = CGSize(width: 100, height: 100)
-        bin_1.position = CGPointMake(0, self.size.height - 100)
+        //bin_1.size = CGSize(width: 100, height: 100)
+        bin_1.position = CGPointMake(self.frame.width * 2 / 3, self.frame.height * 9 / 10)
         bin_1.zPosition = 3
         bin_1.name = "bin_1"
         
-        bin_2.size = CGSize(width: 100, height: 100)
-        bin_2.position = CGPointMake(self.size.width - 100, self.size.height - 100)
+        //bin_2.size = CGSize(width: 100, height: 100)
+        bin_2.position = CGPointMake(self.frame.width / 3, self.frame.height * 9 / 10)
         bin_2.zPosition = 3
         bin_2.name = "bin_2"
         
-        bin_3.size = CGSize(width: 100, height: 100)
-        bin_3.position = CGPointMake(0, 0)
+        //bin_3.size = CGSize(width: 100, height: 100)
+        bin_3.position = CGPointMake(self.frame.width * 2 / 3, self.frame.height / 10)
         bin_3.zPosition = 3
         bin_3.name = "bin_3"
         
-        bin_4.size = CGSize(width: 100, height: 100)
-        bin_4.position = CGPointMake(self.size.width - 100, 0)
+        //bin_4.size = CGSize(width: 100, height: 100)
+        bin_4.position = CGPointMake(self.frame.size.width / 3, self.frame.size.height / 10)
         bin_4.zPosition = 3
         bin_4.name = "bin_4"
         
@@ -72,7 +79,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(bin_3)
         self.addChild(bin_4)
         
-        self.view?.backgroundColor = UIColor.blackColor();
+        //self.view?.backgroundColor = UIColor.blackColor();
         
     }
     
@@ -80,18 +87,22 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         // increment score
         // do some lovely animation of shape exploding into pixels 
         // play audio 
-        shape.removeFromParent();
+        //shape.removeFromParent();
+        print("successful flick")
     }
     
     func failedFlick(){
         // play sad audio
         // end game
         // some animation symbolizing something bad 
-        self.removeAllChildren();
-        self.addChild(bgImage);
+//        self.removeAllChildren();
+//        self.addChild(bgImage);
+        print("failed flick")
     }
     
     func didBeginContact(contact: SKPhysicsContact) {
+        print(contact.bodyA.node?.name);
+        print(contact.bodyB.node?.name);
         if ((contact.bodyA.node!.name == shapes[0] && contact.bodyB.node!.name == bins[0]) || (
         contact.bodyA.node!.name == shapes[1] && contact.bodyB.node!.name == bins[1]) || (
         contact.bodyA.node!.name == shapes[2] && contact.bodyB.node!.name == bins[2]) || (
@@ -103,8 +114,31 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         contact.bodyB.node!.name == shapes[3] && contact.bodyA.node!.name == bins[3])) {
             perfectFlick(contact.bodyB.node!)
         } else {
-            failedFlick()
+            failedFlick();
         }
+    }
+    
+    override func update(currentTime: CFTimeInterval) {
+        if currentTime - time >= 2 {
+            shapeToAdd = self.shapeController.spawnShape();
+            shapeToAdd.position = CGPointMake(self.size.width/2, self.size.height/2);
+            
+            //print(shapeToAdd.physicsBody?.velocity);
+            self.addChild(shapeToAdd);
+            //shapeToAdd.physicsBody?.applyImpulse(CGVectorMake(shapeController.dx, shapeController.dy))
+            //self.addChild(self.shapeController.spawnShape());
+            time = currentTime;
+        }
+        
+        
+//        let spawn = SKAction.runBlock({
+//            () in
+//            self.addChild(self.shapeController.spawnShape())
+//        })
+//        let delay = SKAction.waitForDuration(2)
+//        let spawnDelay = SKAction.sequence([spawn,delay])
+//        let spawnDelayForever = SKAction.repeatActionForever(spawnDelay)
+//        self.runAction(spawnDelayForever)
     }
 
     func delay(delay:Double, closure:()->()) {

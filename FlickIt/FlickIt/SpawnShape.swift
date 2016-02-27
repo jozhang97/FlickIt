@@ -8,7 +8,7 @@
 
 import SpriteKit
 import Foundation
-class SpawnShape: SKScene
+class SpawnShape
 {
 
     let shapes = ["blue_triangle", "red_square", "green_triangle","yellow_square"]
@@ -19,27 +19,37 @@ class SpawnShape: SKScene
     let Y_VELOCITY_RANGE = CGFloat(1.5*range)
     let LOWERBOUND = CGFloat(40.0) // smallest velocity possible
     
-    func spawnShape() {
-        let shapePicker = (Int) (arc4random()*4)
+    var dx = CGFloat(0)
+    var dy = CGFloat(0)
+    
+    let sizeRect = UIScreen.mainScreen().applicationFrame;
+    
+    
+    func spawnShape() -> SKSpriteNode {
+        let width = sizeRect.size.width * UIScreen.mainScreen().scale; //screen width
+        let height = sizeRect.size.height * UIScreen.mainScreen().scale; //screen height
+        let scene = GameScene(size: CGSizeMake(width, height));
+        
+        let shapePicker = Int(arc4random_uniform(4))
         let shape = SKSpriteNode(imageNamed: shapes[shapePicker])
         shapeCounter[shapePicker] += 1
-        shape.setScale(0.5)
+        shape.setScale(0.1)
         // What is this line for? Was there a reason why it was added?
         //shape.physicsBody?.categoryBitMask = PhysicsCategory.Shape
-        shape.position = CGPoint(x: self.frame.width/2, y: self.frame.height/2)
+        //shape.position = CGPointMake(scene.frame.width/2, scene.frame.height/2)
         shape.zPosition = 5 // assures shape shows up over other stuff
-        shape.physicsBody = SKPhysicsBody(circleOfRadius: self.frame.height/2) //can generalize later
+        shape.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(shape.size.width, shape.size.height)) //can generalize later
         shape.physicsBody?.affectedByGravity = false
         
         /** ASHWIN, sets up collision masks for the shapes*/
-        shape.physicsBody!.dynamic = false
+        shape.physicsBody!.dynamic = true
         shape.name = shapes[shapePicker]
         // shape.physicsBody?.collisionBitMask  // want to track all collisions, which is the default
         shape.physicsBody?.contactTestBitMask = shape.physicsBody!.collisionBitMask // which collisions do you want to know about (in this case all of them)
         
         // Randomizing velocity vectors
-        var dx = CGFloat(Float(arc4random())/0xFFFFFFFF)
-        var dy = CGFloat(Float(arc4random())/0xFFFFFFFF)
+        dx = CGFloat(Float(arc4random())/0xFFFFFFFF)
+        dy = CGFloat(Float(arc4random())/0xFFFFFFFF)
         while (abs(dx) < LOWERBOUND && abs(dy) < LOWERBOUND)
         {
             dx = CGFloat(Float(arc4random())/0xFFFFFFFF)
@@ -48,20 +58,21 @@ class SpawnShape: SKScene
             dy = Y_VELOCITY_RANGE*dy - Y_VELOCITY_RANGE/2
         }
         shape.physicsBody?.velocity = CGVectorMake(dx, dy)
-        self.addChild(shape)
         print("in here")
+        return shape;
+        
     }
 
-    func startSpawning()
-    {
-        print("in here")
-        let spawn = SKAction.runBlock({
-            () in
-            self.spawnShape()
-        })
-        let delay = SKAction.waitForDuration(delayTime)
-        let spawnDelay = SKAction.sequence([spawn,delay])
-        let spawnDelayForever = SKAction.repeatActionForever(spawnDelay)
-        self.runAction(spawnDelayForever)
-    }
+//    func startSpawning()
+//    {
+//        print("in here")
+//        let spawn = SKAction.runBlock({
+//            () in
+//            self.spawnShape()
+//        })
+//        let delay = SKAction.waitForDuration(delayTime)
+//        let spawnDelay = SKAction.sequence([spawn,delay])
+//        let spawnDelayForever = SKAction.repeatActionForever(spawnDelay)
+//        scene.runAction(spawnDelayForever)
+//    }
 }
