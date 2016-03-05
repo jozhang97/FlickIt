@@ -14,18 +14,29 @@ class SpawnShape
     let shapes = ["blue_triangle", "blue_square", "blue_circle","blue_star"]
     var shapeCounter = [0,0,0,0]
     let delayTime = 2.0 // time between spawns
-    static let range = 100.0 //range of X velocities
-    let X_VELOCITY_RANGE = CGFloat(range)
-    let Y_VELOCITY_RANGE = CGFloat(1.5*range)
-    let LOWERBOUND = CGFloat(40.0) // smallest velocity possible
+    var range = 100.0 //range of X velocities
+    let UPPERRANGEBOUND = 300.0;
+    let LOWESTBOUND = CGFloat(100.0)
+    var X_VELOCITY_RANGE = CGFloat(0);
+    var Y_VELOCITY_RANGE = CGFloat(0);
+    var LOWERBOUND = CGFloat(40.0) // smallest velocity possible
     
     var dx = CGFloat(0)
     var dy = CGFloat(0)
     
     let sizeRect = UIScreen.mainScreen().applicationFrame;
     
+    func speedUpVelocity(speedFactor: Double) {
+        range += speedFactor
+        range = min(range, UPPERRANGEBOUND);
+        LOWERBOUND += CGFloat(speedFactor);
+        LOWERBOUND = min(LOWERBOUND, LOWESTBOUND)
+    }
     
     func spawnShape() -> SKSpriteNode {
+        
+        X_VELOCITY_RANGE = CGFloat(range)
+        Y_VELOCITY_RANGE = CGFloat(1.5*range)
         let width = sizeRect.size.width * UIScreen.mainScreen().scale; //screen width
         let height = sizeRect.size.height * UIScreen.mainScreen().scale; //screen height
         let scene = GameScene(size: CGSizeMake(width, height));
@@ -66,7 +77,6 @@ class SpawnShape
             dy = Y_VELOCITY_RANGE*dy - Y_VELOCITY_RANGE/2
         }
         shape.physicsBody?.velocity = CGVectorMake(dx, dy)
-        print("in here")
         return shape;
         
     }

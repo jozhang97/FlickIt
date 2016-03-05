@@ -29,9 +29,15 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     
     var shapeController = SpawnShape();
     
+    let sizeRect = UIScreen.mainScreen().applicationFrame;
+    // Actual dimensions of the screen
+    var sceneHeight = CGFloat(0);
+    var sceneWidth = CGFloat(0);
     override init(size: CGSize) {
         super.init(size: size)
         physicsWorld.contactDelegate = self // error fix = do self.physicsWorld...
+        sceneHeight = sizeRect.size.height * UIScreen.mainScreen().scale;
+        sceneWidth = sizeRect.size.width * UIScreen.mainScreen().scale;
         createScene()
     }
 
@@ -55,9 +61,11 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         
         //adds bins on all 4 corners of screen with name, zposition and size
         //bin_1.size = CGSize(width: 100, height: 100)
+        // top right
         bin_1.position = CGPointMake(self.frame.width * 2 / 3, self.frame.height * 9 / 10)
         bin_1.zPosition = 3
-        bin_1.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(bin_1.size.width, bin_1.size.height))
+//        bin_1.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(bin_1.size.width/2, bin_1.size.height/2))
+        bin_1.physicsBody = SKPhysicsBody(circleOfRadius: bin_1.size.width/2)
         bin_1.physicsBody?.dynamic=false
         bin_1.physicsBody?.affectedByGravity = false
         bin_1.physicsBody?.categoryBitMask=PhysicsCategory.Bin
@@ -66,9 +74,10 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         bin_1.name = "bin_1"
         
         //bin_2.size = CGSize(width: 100, height: 100)
+        // top left
         bin_2.position = CGPointMake(self.frame.width / 3, self.frame.height * 9 / 10)
         bin_2.zPosition = 3
-        bin_2.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(bin_2.size.width, bin_2.size.height))
+        bin_2.physicsBody = SKPhysicsBody(circleOfRadius: bin_2.size.width/2)
         bin_2.physicsBody?.dynamic=false
         bin_2.physicsBody?.affectedByGravity = false
         bin_2.physicsBody?.categoryBitMask=PhysicsCategory.Bin
@@ -77,9 +86,12 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         bin_2.name = "bin_2"
         
         //bin_3.size = CGSize(width: 100, height: 100)
+        // bottom right
         bin_3.position = CGPointMake(self.frame.width * 2 / 3, self.frame.height / 10)
         bin_3.zPosition = 3
-        bin_3.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(bin_3.size.width, bin_3.size.height))
+        
+        let physics = CGPointMake(self.frame.width * 2 / 3 + bin_3.size.width/2, self.frame.height / 10 - bin_3.size.height/2)
+        bin_3.physicsBody = SKPhysicsBody(circleOfRadius: bin_3.size.width/2, center: physics)
         bin_3.physicsBody?.dynamic=false
         bin_3.physicsBody?.affectedByGravity = false
         bin_3.physicsBody?.categoryBitMask=PhysicsCategory.Bin
@@ -89,9 +101,11 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         bin_3.name = "bin_3"
         
         //bin_4.size = CGSize(width: 100, height: 100)
+        //bottom left
         bin_4.position = CGPointMake(self.frame.size.width / 3, self.frame.size.height / 10)
         bin_4.zPosition = 3
-        bin_4.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(bin_4.size.width, bin_4.size.height))
+//        bin_4.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(bin_4.size.width, bin_4.size.height))
+        bin_4.physicsBody = SKPhysicsBody(circleOfRadius: bin_4.size.width/2)
         bin_4.physicsBody?.dynamic=false
         bin_4.physicsBody?.affectedByGravity = false
         bin_4.physicsBody?.categoryBitMask=PhysicsCategory.Bin
@@ -160,7 +174,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func update(currentTime: CFTimeInterval) {
-        if currentTime - time >= 2 {
+        if currentTime - time >= 2  {
             shapeToAdd = self.shapeController.spawnShape();
             shapeToAdd.position = CGPointMake(self.size.width/2, self.size.height/2);
             
@@ -169,8 +183,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
             //shapeToAdd.physicsBody?.applyImpulse(CGVectorMake(shapeController.dx, shapeController.dy))
             //self.addChild(self.shapeController.spawnShape());
             time = currentTime;
+            self.shapeController.speedUpVelocity(10);
         }
-        
         
 //        let spawn = SKAction.runBlock({
 //            () in
