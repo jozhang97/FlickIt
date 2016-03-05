@@ -11,7 +11,7 @@ import Foundation
 class SpawnShape
 {
 
-    let shapes = ["blue_triangle", "red_square", "green_triangle","yellow_square"]
+    let shapes = ["blue_triangle", "blue_square", "blue_circle","blue_star"]
     var shapeCounter = [0,0,0,0]
     let delayTime = 2.0 // time between spawns
     static let range = 100.0 //range of X velocities
@@ -34,6 +34,9 @@ class SpawnShape
         let shape = SKSpriteNode(imageNamed: shapes[shapePicker])
         shapeCounter[shapePicker] += 1
         shape.setScale(0.1)
+        if (shapePicker == 3) {
+            shape.setScale(0.05); 
+        }
         // What is this line for? Was there a reason why it was added?
         //shape.physicsBody?.categoryBitMask = PhysicsCategory.Shape
         //shape.position = CGPointMake(scene.frame.width/2, scene.frame.height/2)

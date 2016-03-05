@@ -138,6 +138,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
             //check if collision is correct
             //remove shape
             print("Collision by shape and bin")
+            secondBody.node?.removeFromParent();
         }
         /*
         print(contact.bodyA.node?.name);
