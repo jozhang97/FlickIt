@@ -16,10 +16,10 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     var rulesCircle = SKSpriteNode(imageNamed: "rules_circle.jpg");
     var launchCircle = SKSpriteNode(imageNamed: "launch_circle.jpg");
     
-    var bin_1 = SKSpriteNode(imageNamed: "bin-2.png"); //change this to differently oriented triangles
-    var bin_2 = SKSpriteNode(imageNamed: "bin-2.png");
-    var bin_3 = SKSpriteNode(imageNamed: "bin-2.png");
-    var bin_4 = SKSpriteNode(imageNamed: "bin-2.png");
+    var bin_1 = SKSpriteNode(imageNamed: "topRightBin.png"); //change this to differently oriented triangles
+    var bin_2 = SKSpriteNode(imageNamed: "topLeftBin.png");
+    var bin_3 = SKSpriteNode(imageNamed: "lowerRightBin.png");
+    var bin_4 = SKSpriteNode(imageNamed: "lowerLeftBin.png");
     
     let shapes = ["blue_triangle", "red_square", "green_triangle","yellow_square"]
     let bins = ["bin_1", "bin_2", "bin_3", "bin_4"]
