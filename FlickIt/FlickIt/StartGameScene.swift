@@ -129,11 +129,16 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     func didBeginContact(contact: SKPhysicsContact) {
         let firstBody=contact.bodyA
         let secondBody=contact.bodyB
-        print("BIN:",PhysicsCategory.Bin)
-        print("SHAPE:",PhysicsCategory.Shape)
-        print("FIRST BODY:",firstBody.categoryBitMask)
-        print("SECOND BODY",secondBody.categoryBitMask)
-        
+        //print("BIN:",PhysicsCategory.Bin)
+        //print("SHAPE:",PhysicsCategory.Shape)
+        //print("FIRST BODY:",firstBody.categoryBitMask)
+        //print("SECOND BODY",secondBody.categoryBitMask)
+        if(firstBody.categoryBitMask==PhysicsCategory.Bin && secondBody.categoryBitMask==PhysicsCategory.Shape){
+            //do something
+            //check if collision is correct
+            //remove shape
+            print("Collision by shape and bin")
+        }
         /*
         print(contact.bodyA.node?.name);
         print(contact.bodyB.node?.name);
