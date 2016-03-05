@@ -40,12 +40,17 @@ class SpawnShape
         shape.zPosition = 5 // assures shape shows up over other stuff
         shape.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(shape.size.width, shape.size.height)) //can generalize later
         shape.physicsBody?.affectedByGravity = false
+        shape.physicsBody?.categoryBitMask=PhysicsCategory.Shape;
+        
+        
         
         /** ASHWIN, sets up collision masks for the shapes*/
         shape.physicsBody!.dynamic = true
         shape.name = shapes[shapePicker]
-        // shape.physicsBody?.collisionBitMask  // want to track all collisions, which is the default
-        shape.physicsBody?.contactTestBitMask = shape.physicsBody!.collisionBitMask // which collisions do you want to know about (in this case all of them)
+        //shape.physicsBody?.collisionBitMask  // want to track all collisions, which is the default
+        //shape.physicsBody?.contactTestBitMask = shape.physicsBody!.collisionBitMask // which collisions do you want to know about (in this case all of them)
+        shape.physicsBody?.collisionBitMask=PhysicsCategory.Bin
+        shape.physicsBody?.contactTestBitMask=PhysicsCategory.Bin
         
         // Randomizing velocity vectors
         dx = CGFloat(Float(arc4random())/0xFFFFFFFF)

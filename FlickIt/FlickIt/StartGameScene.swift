@@ -57,21 +57,47 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         //bin_1.size = CGSize(width: 100, height: 100)
         bin_1.position = CGPointMake(self.frame.width * 2 / 3, self.frame.height * 9 / 10)
         bin_1.zPosition = 3
+        bin_1.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(bin_1.size.width, bin_1.size.height))
+        bin_1.physicsBody?.dynamic=false
+        bin_1.physicsBody?.affectedByGravity = false
+        bin_1.physicsBody?.categoryBitMask=PhysicsCategory.Bin
+        bin_1.physicsBody?.collisionBitMask=PhysicsCategory.Shape
+        bin_1.physicsBody?.contactTestBitMask=PhysicsCategory.Shape
         bin_1.name = "bin_1"
         
         //bin_2.size = CGSize(width: 100, height: 100)
         bin_2.position = CGPointMake(self.frame.width / 3, self.frame.height * 9 / 10)
         bin_2.zPosition = 3
+        bin_2.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(bin_2.size.width, bin_2.size.height))
+        bin_2.physicsBody?.dynamic=false
+        bin_2.physicsBody?.affectedByGravity = false
+        bin_2.physicsBody?.categoryBitMask=PhysicsCategory.Bin
+        bin_2.physicsBody?.collisionBitMask=PhysicsCategory.Shape
+        bin_2.physicsBody?.contactTestBitMask=PhysicsCategory.Shape
         bin_2.name = "bin_2"
         
         //bin_3.size = CGSize(width: 100, height: 100)
         bin_3.position = CGPointMake(self.frame.width * 2 / 3, self.frame.height / 10)
         bin_3.zPosition = 3
+        bin_3.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(bin_3.size.width, bin_3.size.height))
+        bin_3.physicsBody?.dynamic=false
+        bin_3.physicsBody?.affectedByGravity = false
+        bin_3.physicsBody?.categoryBitMask=PhysicsCategory.Bin
+        bin_3.physicsBody?.collisionBitMask=PhysicsCategory.Shape
+        bin_3.physicsBody?.contactTestBitMask=PhysicsCategory.Shape
+
         bin_3.name = "bin_3"
         
         //bin_4.size = CGSize(width: 100, height: 100)
         bin_4.position = CGPointMake(self.frame.size.width / 3, self.frame.size.height / 10)
         bin_4.zPosition = 3
+        bin_4.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(bin_4.size.width, bin_4.size.height))
+        bin_4.physicsBody?.dynamic=false
+        bin_4.physicsBody?.affectedByGravity = false
+        bin_4.physicsBody?.categoryBitMask=PhysicsCategory.Bin
+        bin_4.physicsBody?.collisionBitMask=PhysicsCategory.Shape
+        bin_4.physicsBody?.contactTestBitMask=PhysicsCategory.Shape
+
         bin_4.name = "bin_4"
         
         self.addChild(bin_1)
@@ -101,6 +127,14 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func didBeginContact(contact: SKPhysicsContact) {
+        let firstBody=contact.bodyA
+        let secondBody=contact.bodyB
+        print("BIN:",PhysicsCategory.Bin)
+        print("SHAPE:",PhysicsCategory.Shape)
+        print("FIRST BODY:",firstBody.categoryBitMask)
+        print("SECOND BODY",secondBody.categoryBitMask)
+        
+        /*
         print(contact.bodyA.node?.name);
         print(contact.bodyB.node?.name);
         if ((contact.bodyA.node!.name == shapes[0] && contact.bodyB.node!.name == bins[0]) || (
@@ -116,6 +150,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         } else {
             failedFlick();
         }
+        */
     }
     
     override func update(currentTime: CFTimeInterval) {
