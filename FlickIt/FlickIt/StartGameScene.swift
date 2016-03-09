@@ -64,8 +64,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         // top right
         bin_1.position = CGPointMake(self.frame.width * 2 / 3, self.frame.height * 9 / 10)
         bin_1.zPosition = 3
-//        bin_1.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(bin_1.size.width/2, bin_1.size.height/2))
-        bin_1.physicsBody = SKPhysicsBody(circleOfRadius: bin_1.size.width/2)
+        //bin_1.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(bin_1.size.width, bin_1.size.height))
+        bin_1.physicsBody = SKPhysicsBody(circleOfRadius: bin_1.size.width/6)
         bin_1.physicsBody?.dynamic=false
         bin_1.physicsBody?.affectedByGravity = false
         bin_1.physicsBody?.categoryBitMask=PhysicsCategory.Bin
@@ -77,7 +77,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         // top left
         bin_2.position = CGPointMake(self.frame.width / 3, self.frame.height * 9 / 10)
         bin_2.zPosition = 3
-        bin_2.physicsBody = SKPhysicsBody(circleOfRadius: bin_2.size.width/2)
+        //bin_2.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(bin_2.size.width, bin_2.size.height))
+        bin_2.physicsBody = SKPhysicsBody(circleOfRadius: bin_2.size.width/6)
         bin_2.physicsBody?.dynamic=false
         bin_2.physicsBody?.affectedByGravity = false
         bin_2.physicsBody?.categoryBitMask=PhysicsCategory.Bin
@@ -91,7 +92,9 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         bin_3.zPosition = 3
         
         let physics = CGPointMake(self.frame.width * 2 / 3 + bin_3.size.width/2, self.frame.height / 10 - bin_3.size.height/2)
-        bin_3.physicsBody = SKPhysicsBody(circleOfRadius: bin_3.size.width/2, center: physics)
+        //bin_3.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(bin_3.size.width, bin_3.size.height))
+        //bin_3.physicsBody = SKPhysicsBody(circleOfRadius: bin_3.size.width/4, center: physics)
+        bin_3.physicsBody = SKPhysicsBody(circleOfRadius: bin_3.size.width/6)
         bin_3.physicsBody?.dynamic=false
         bin_3.physicsBody?.affectedByGravity = false
         bin_3.physicsBody?.categoryBitMask=PhysicsCategory.Bin
@@ -104,8 +107,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         //bottom left
         bin_4.position = CGPointMake(self.frame.size.width / 3, self.frame.size.height / 10)
         bin_4.zPosition = 3
-//        bin_4.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(bin_4.size.width, bin_4.size.height))
-        bin_4.physicsBody = SKPhysicsBody(circleOfRadius: bin_4.size.width/2)
+        //bin_4.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(bin_4.size.width, bin_4.size.height))
+        bin_4.physicsBody = SKPhysicsBody(circleOfRadius: bin_4.size.width/6)
         bin_4.physicsBody?.dynamic=false
         bin_4.physicsBody?.affectedByGravity = false
         bin_4.physicsBody?.categoryBitMask=PhysicsCategory.Bin
@@ -143,16 +146,25 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     func didBeginContact(contact: SKPhysicsContact) {
         let firstBody=contact.bodyA
         let secondBody=contact.bodyB
-        //print("BIN:",PhysicsCategory.Bin)
-        //print("SHAPE:",PhysicsCategory.Shape)
-        //print("FIRST BODY:",firstBody.categoryBitMask)
-        //print("SECOND BODY",secondBody.categoryBitMask)
+        print("BIN:",PhysicsCategory.Bin)
+        print("SHAPE:",PhysicsCategory.Shape)
+        print("FIRST BODY:",firstBody.categoryBitMask)
+        print("SECOND BODY",secondBody.categoryBitMask)
+        
         if(firstBody.categoryBitMask==PhysicsCategory.Bin && secondBody.categoryBitMask==PhysicsCategory.Shape){
             //do something
             //check if collision is correct
             //remove shape
             print("Collision by shape and bin")
             secondBody.node?.removeFromParent();
+            //firstBody.node?.removeAllChildren();
+        }
+        else if(firstBody.categoryBitMask==PhysicsCategory.Shape && secondBody.categoryBitMask==PhysicsCategory.Bin){
+                //do something
+                //check if collision is correct
+                //remove shape
+            print("Collision by shape and bin")
+            firstBody.node?.removeFromParent();
         }
         /*
         print(contact.bodyA.node?.name);
