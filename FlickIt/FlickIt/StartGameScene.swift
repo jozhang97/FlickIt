@@ -21,6 +21,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     var bin_3 = SKSpriteNode(imageNamed: "lowerRightBin.png");
     var bin_4 = SKSpriteNode(imageNamed: "lowerLeftBin.png");
     
+    var score = 0;
+    
     let shapes = ["blue_triangle", "red_square", "green_triangle","yellow_square"]
     let bins = ["bin_1", "bin_2", "bin_3", "bin_4"]
     
@@ -30,7 +32,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     let kMinDuration=CGFloat(0)
     let kMinSpeed=CGFloat(100)
     let kMaxSpeed=CGFloat(500)
-    
+    var scoreLabel=SKLabelNode()
     var time : CFTimeInterval = 2;
     var shapeToAdd = SKSpriteNode();
     
@@ -129,6 +131,15 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(bin_3)
         self.addChild(bin_4)
         
+        
+        scoreLabel=SKLabelNode()
+        scoreLabel.text="Score: "+String(score)
+        scoreLabel.fontColor=UIColor.whiteColor()
+        scoreLabel.position=CGPointMake(self.frame.width/2,self.frame.height/2)
+        scoreLabel.zPosition=10
+        self.addChild(scoreLabel)
+        
+        
         //self.view?.backgroundColor = UIColor.blackColor();
         
     }
@@ -164,6 +175,10 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
             //remove shape
             print("Collision by shape and bin")
             secondBody.node?.removeFromParent();
+            
+            //change to only increase score if it hits correct bin
+            score++;
+            scoreLabel.text="Score:"+String(score)
             //firstBody.node?.removeAllChildren();
         }
         else if(firstBody.categoryBitMask==PhysicsCategory.Shape && secondBody.categoryBitMask==PhysicsCategory.Bin){
@@ -172,6 +187,10 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
                 //remove shape
             print("Collision by shape and bin")
             firstBody.node?.removeFromParent();
+            
+            //change to only increase score if it hits correct bin
+            score++;
+            scoreLabel.text="Score:"+String(score)
         }
         /*
         print(contact.bodyA.node?.name);
