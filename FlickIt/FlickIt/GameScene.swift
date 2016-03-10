@@ -42,7 +42,7 @@ class GameScene: SKScene {
         
         
         // Sets the neon circle image to fill the entire screen
-        bgImage.size = CGSize(width: self.size.width/2, height: self.size.height);
+        bgImage.size = CGSize(width: self.size.width, height: self.size.height);
         bgImage.position = CGPointMake(self.size.width/2, self.size.height/2);
         
         
