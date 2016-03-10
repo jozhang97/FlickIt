@@ -22,6 +22,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     var bin_4 = SKSpriteNode(imageNamed: "lowerLeftBin.png");
     
     var score = 0;
+    var missedCounter = 0;
     
     let shapes = ["blue_triangle", "blue_square", "blue_circle","blue_star"]
     let bins = ["bin_1", "bin_2", "bin_3", "bin_4"]
@@ -33,6 +34,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     let kMinSpeed=CGFloat(100)
     let kMaxSpeed=CGFloat(500)
     var scoreLabel=SKLabelNode()
+    var missedLabel = SKLabelNode()
     var time : CFTimeInterval = 2;
     var shapeToAdd = SKSpriteNode();
     
@@ -139,6 +141,13 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         scoreLabel.zPosition=10
         self.addChild(scoreLabel)
         
+        missedLabel = SKLabelNode()
+        missedLabel.text = "Missed: " + String(missedCounter)
+        missedLabel.fontColor = UIColor.redColor()
+        missedLabel.position = CGPointMake(self.frame.width/2, self.frame.height/3)
+        missedLabel.zPosition = 10
+        self.addChild(missedLabel)
+        
         
         //self.view?.backgroundColor = UIColor.blackColor();
         
@@ -192,6 +201,10 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
             score++;
             scoreLabel.text="Score:"+String(score)
         }
+//        if flicked into wrong bin {
+//            missedCounter += 1
+//            missedLabel.text = "Missed: " + String(missedCounter)
+//        }
         /*
         print(contact.bodyA.node?.name);
         print(contact.bodyB.node?.name);
@@ -224,20 +237,18 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
             self.shapeController.speedUpVelocity(10);
         }
         removeOffScreenNodes()
-        print(missedCounter)
     }
     
-    var missedCounter = 0; // increment when shape goes off screen or when flicked into wrong bin 
-    // make a label for it
+     // increment when shape goes off screen or when flicked into wrong bin
     func removeOffScreenNodes() {
         for shape in shapes {
             self.enumerateChildNodesWithName(shape, usingBlock: {
                 node, stop in
                 let sprite = node as! SKSpriteNode
-                print(sprite.position)
                 if (sprite.position.y < 0 || sprite.position.x < 0 || sprite.position.x > self.size.width || sprite.position.y > self.size.height) {
                     node.removeFromParent();
                     self.missedCounter += 1;
+                    self.missedLabel.text = "Missed: " + String(self.missedCounter)
                 }
             })
         }
