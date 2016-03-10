@@ -23,7 +23,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     
     var score = 0;
     
-    let shapes = ["blue_triangle", "red_square", "green_triangle","yellow_square"]
+    let shapes = ["blue_triangle", "blue_square", "blue_circle","blue_star"]
     let bins = ["bin_1", "bin_2", "bin_3", "bin_4"]
     
     var start=CGPoint();
@@ -223,7 +223,27 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
             time = currentTime;
             self.shapeController.speedUpVelocity(10);
         }
+        removeOffScreenNodes()
+        print(missedCounter)
     }
+    
+    var missedCounter = 0; // increment when shape goes off screen or when flicked into wrong bin 
+    // make a label for it
+    func removeOffScreenNodes() {
+        for shape in shapes {
+            self.enumerateChildNodesWithName(shape, usingBlock: {
+                node, stop in
+                let sprite = node as! SKSpriteNode
+                print(sprite.position)
+                if (sprite.position.y < 0 || sprite.position.x < 0 || sprite.position.x > self.size.width || sprite.position.y > self.size.height) {
+                    node.removeFromParent();
+                    self.missedCounter += 1;
+                }
+            })
+        }
+    }
+    
+    
     
 //        let spawn = SKAction.runBlock({
 //            () in
@@ -264,6 +284,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
             
         }
     }
+    
     func delay(delay:Double, closure:()->()) {
         dispatch_after(
             dispatch_time( DISPATCH_TIME_NOW, Int64(delay * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), closure)
