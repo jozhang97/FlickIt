@@ -72,7 +72,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         bin_1.position = CGPointMake(self.frame.width * 2 / 3, self.frame.height * 9 / 10)
         bin_1.zPosition = 3
         //bin_1.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(bin_1.size.width, bin_1.size.height))
-        bin_1.physicsBody = SKPhysicsBody(circleOfRadius: bin_1.size.width/6)
+        bin_1.physicsBody = SKPhysicsBody(circleOfRadius: bin_1.size.width/2, center: CGPointMake(self.frame.width * 2 / 3, self.frame.height * 9 / 10))
         bin_1.physicsBody?.dynamic=false
         bin_1.physicsBody?.affectedByGravity = false
         bin_1.physicsBody?.categoryBitMask=PhysicsCategory.Bin
