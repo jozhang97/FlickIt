@@ -213,8 +213,6 @@ class GameScene: SKScene {
             }
             //touchedNode.physicsBody?.applyImpulse(CGVectorMake(100*dx, 100*dy))
         }
-        
-        
     }
     
     func startGame() {

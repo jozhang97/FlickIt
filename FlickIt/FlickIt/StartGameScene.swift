@@ -24,6 +24,13 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     let shapes = ["blue_triangle", "red_square", "green_triangle","yellow_square"]
     let bins = ["bin_1", "bin_2", "bin_3", "bin_4"]
     
+    var start=CGPoint();
+    var startTime=NSTimeInterval();
+    let kMinDistance=CGFloat(50)
+    let kMinDuration=CGFloat(0)
+    let kMinSpeed=CGFloat(100)
+    let kMaxSpeed=CGFloat(500)
+    
     var time : CFTimeInterval = 2;
     var shapeToAdd = SKSpriteNode();
     
@@ -197,7 +204,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
             time = currentTime;
             self.shapeController.speedUpVelocity(10);
         }
-        
+    }
+    
 //        let spawn = SKAction.runBlock({
 //            () in
 //            self.addChild(self.shapeController.spawnShape())
@@ -206,8 +214,37 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
 //        let spawnDelay = SKAction.sequence([spawn,delay])
 //        let spawnDelayForever = SKAction.repeatActionForever(spawnDelay)
 //        self.runAction(spawnDelayForever)
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        /* Called when a touch begins */
+        let touch: UITouch = touches.first!
+        let location: CGPoint = touch.locationInNode(self)
+        // Save start location and time
+        start = location
+        startTime = touch.timestamp
+        
     }
-
+    
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        let touch: UITouch = touches.first!
+        let location: CGPoint = touch.locationInNode(self)
+        // Determine distance from the starting point
+        var dx: CGFloat = location.x - start.x
+        var dy: CGFloat = location.y - start.y
+        let magnitude: CGFloat = sqrt(dx * dx + dy * dy)
+        if (magnitude >= self.kMinDistance){
+            // Determine time difference from start of the gesture
+            dx = dx / magnitude
+            dy = dy / magnitude
+            let touchedNode=self.nodeAtPoint(start)
+            //make it move
+            //touchedNode.physicsBody?.velocity=CGVectorMake(0.0, 0.0)
+            
+            //change these values to make the flick go faster/slower
+            touchedNode.physicsBody?.applyImpulse(CGVectorMake(100*dx, 100*dy))
+            
+        }
+    }
     func delay(delay:Double, closure:()->()) {
         dispatch_after(
             dispatch_time( DISPATCH_TIME_NOW, Int64(delay * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), closure)
