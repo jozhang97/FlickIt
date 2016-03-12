@@ -10,6 +10,7 @@
 import SpriteKit
 
 class StartGameScene: SKScene, SKPhysicsContactDelegate {
+    var NUMBEROFLIFES = 1
     var bgImage = SKSpriteNode(imageNamed: "neon_circle.jpg");
     var startSquare = SKSpriteNode(imageNamed: "start_square.jpg");
     var launchSquare = SKSpriteNode(imageNamed: "launch_square.jpg");
@@ -39,6 +40,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     var shapeToAdd = SKSpriteNode();
     
     var shapeController = SpawnShape();
+    var restartBTN = SKSpriteNode();
+    var gameOver = false; // SET THESE
     
     let sizeRect = UIScreen.mainScreen().applicationFrame;
     // Actual dimensions of the screen
@@ -46,9 +49,6 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     var sceneWidth = CGFloat(0);
     override init(size: CGSize) {
         super.init(size: size)
-        physicsWorld.contactDelegate = self // error fix = do self.physicsWorld...
-        sceneHeight = sizeRect.size.height * UIScreen.mainScreen().scale;
-        sceneWidth = sizeRect.size.width * UIScreen.mainScreen().scale;
         createScene()
     }
 
@@ -62,6 +62,9 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
 //    }
     
     func createScene() {
+        physicsWorld.contactDelegate = self // error fix = do self.physicsWorld...
+        sceneHeight = sizeRect.size.height * UIScreen.mainScreen().scale;
+        sceneWidth = sizeRect.size.width * UIScreen.mainScreen().scale;
         // Sets the neon circle image to fill the entire screen
         bgImage.size = CGSize(width: self.size.width, height: self.size.height);
         bgImage.position = CGPointMake(self.size.width/2, self.size.height/2);
@@ -69,6 +72,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(bgImage);
         
         print("Entered create scene")
+        print(self.size.width)
+        print(self.size.height)
         
         //adds bins on all 4 corners of screen with name, zposition and size
         //bin_1.size = CGSize(width: 100, height: 100)
@@ -141,7 +146,6 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(bin_3)
         self.addChild(bin_4)
         
-        
         scoreLabel=SKLabelNode()
         scoreLabel.text="Score: "+String(score)
         scoreLabel.fontColor=UIColor.whiteColor()
@@ -155,8 +159,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         missedLabel.position = CGPointMake(self.frame.width/2, self.frame.height/3)
         missedLabel.zPosition = 10
         self.addChild(missedLabel)
-        
-        
+
+        gameOver = false
         //self.view?.backgroundColor = UIColor.blackColor();
         
     }
@@ -179,6 +183,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func didBeginContact(contact: SKPhysicsContact) {
+        if !gameOver {
         let firstBody=contact.bodyA
         let secondBody=contact.bodyB
         print("BIN:",PhysicsCategory.Bin)
@@ -208,6 +213,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
             //change to only increase score if it hits correct bin
             score++;
             scoreLabel.text="Score:"+String(score)
+        }
         }
 //        if flicked into wrong bin {
 //            missedCounter += 1
@@ -245,20 +251,25 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
             self.shapeController.speedUpVelocity(10);
         }
         removeOffScreenNodes()
+        if missedCounter == NUMBEROFLIFES {
+            createRestartBTN()
+        }
     }
     
      // increment when shape goes off screen or when flicked into wrong bin
     func removeOffScreenNodes() {
-        for shape in shapes {
-            self.enumerateChildNodesWithName(shape, usingBlock: {
-                node, stop in
-                let sprite = node as! SKSpriteNode
-                if (sprite.position.y < 0 || sprite.position.x < 0 || sprite.position.x > self.size.width || sprite.position.y > self.size.height) {
-                    node.removeFromParent();
-                    self.missedCounter += 1;
-                    self.missedLabel.text = "Missed: " + String(self.missedCounter)
-                }
-            })
+        if !gameOver {
+            for shape in shapes {
+                self.enumerateChildNodesWithName(shape, usingBlock: {
+                    node, stop in
+                    let sprite = node as! SKSpriteNode
+                    if (sprite.position.y < 0 || sprite.position.x < 0 || sprite.position.x > self.size.width || sprite.position.y > self.size.height) {
+                        node.removeFromParent();
+                        self.missedCounter += 1;
+                        self.missedLabel.text = "Missed: " + String(self.missedCounter)
+                    }
+                })
+            }
         }
     }
     
@@ -280,6 +291,9 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         // Save start location and time
         start = location
         startTime = touch.timestamp
+        if restartBTN.containsPoint(location) {
+            restartScene()
+        }
         
     }
     
@@ -304,11 +318,30 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    func createRestartBTN() {
+        scoreLabel.text = ""
+        missedLabel.text = ""
+        restartBTN = SKSpriteNode(color: SKColor.blueColor(), size: CGSize(width: self.size.width/2, height: self.size.height/8))
+        restartBTN.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
+        restartBTN.zPosition = 6
+        self.addChild(restartBTN);
+        gameOver = true
+    }
+    
+    func restartScene() {
+        // makes bins smaller
+        restartBTN = SKSpriteNode() // stopped being able to click when not there
+        self.removeAllActions()
+        self.removeAllChildren()
+        gameOver = false;
+        score = 0
+        missedCounter = 0
+        createScene()
+    }
+    
     func delay(delay:Double, closure:()->()) {
         dispatch_after(
             dispatch_time( DISPATCH_TIME_NOW, Int64(delay * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), closure)
         
     }
-    
-    
 }

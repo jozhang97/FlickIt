@@ -140,11 +140,6 @@ class GameScene: SKScene {
         about.font = UIFont(name: "Futura", size: 18)
         about.textColor = UIColor.whiteColor();
         self.view?.addSubview(about)
-
-        
-        
-        
-
         
         /** Giving the objects pictures */
         startBin = SKSpriteNode(imageNamed: "bin")
