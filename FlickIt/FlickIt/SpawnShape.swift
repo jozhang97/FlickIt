@@ -11,7 +11,7 @@ import Foundation
 class SpawnShape
 {
 
-    let shapes = ["blue_triangle", "blue_square", "blue_circle","blue_star"]
+    let shapes = ["blue_triangle", "blue_square", "blue_circle","blue_star-1"]
     var shapeCounter = [0,0,0,0]
     let delayTime = 2.0 // time between spawns
     var range = 100.0 //range of X velocities
@@ -39,16 +39,16 @@ class SpawnShape
         Y_VELOCITY_RANGE = CGFloat(1.5*range)
         let width = sizeRect.size.width * UIScreen.mainScreen().scale; //screen width
         let height = sizeRect.size.height * UIScreen.mainScreen().scale; //screen height
-        let scene = GameScene(size: CGSizeMake(width, height));
+        
+        print(width);
+        print(height);
         
         let shapePicker = Int(arc4random_uniform(4))
         let shape = SKSpriteNode(imageNamed: shapes[shapePicker])
+        //print("", shapes[shapePicker], ": ", shape.size.width);
         shapeCounter[shapePicker] += 1
-        shape.setScale(0.1)
-        if (shapePicker == 3) {
-            shape.setScale(0.05); 
-        }
-        // What is this line for? Was there a reason why it was added?
+        shape.setScale(0.2*width/1024) // see Ashwin's paper for description of how these numbers were computed
+        
         //shape.physicsBody?.categoryBitMask = PhysicsCategory.Shape
         //shape.position = CGPointMake(scene.frame.width/2, scene.frame.height/2)
         shape.zPosition = 5 // assures shape shows up over other stuff
