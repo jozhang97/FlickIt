@@ -28,7 +28,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     var bin_4_shape = SKSpriteNode(imageNamed: "blue_triangle-1");
     
     var score = 0;
-    var missedCounter = 0;
+    var lives = 3;
     
     let shapes = ["blue_triangle-1", "blue_square-1", "blue_circle-1","blue_star-1"]
     let bins = ["bin_1", "bin_2", "bin_3", "bin_4"]
@@ -40,7 +40,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     let kMinSpeed=CGFloat(100)
     let kMaxSpeed=CGFloat(500)
     var scoreLabel=SKLabelNode()
-    var missedLabel = SKLabelNode()
+    var livesLabel = SKLabelNode()
     var time : CFTimeInterval = 2;
     var shapeToAdd = SKSpriteNode();
     var touched:Bool = false;
@@ -59,15 +59,15 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         super.init(size: size)
         createScene()
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-//    override func didMoveToView(view: SKView) {
-//        print("hello")
-//        createScene()
-//    }
+    //    override func didMoveToView(view: SKView) {
+    //        print("hello")
+    //        createScene()
+    //    }
     
     func createScene() {
         physicsWorld.contactDelegate = self // error fix = do self.physicsWorld...
@@ -100,12 +100,14 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         bin_1.physicsBody?.categoryBitMask=PhysicsCategory.Bin
         bin_1.physicsBody?.collisionBitMask=PhysicsCategory.Shape
         bin_1.physicsBody?.contactTestBitMask=PhysicsCategory.Shape
-        bin_1.name = "bin_1"
+        //        bin_1.name = "bin_1"
         
         bin_1_shape.anchorPoint = CGPoint(x: 1, y: 1)
         bin_1_shape.setScale(shapeScaleFactor)
         bin_1_shape.position = CGPointMake(self.size.width - binWidth/20, self.size.height - binWidth/20)
         bin_1_shape.zPosition = 4;
+        
+        bin_1.name = shapes[3] //set bin names to name of shapes they take
         
         //bin_2.size = CGSize(width: 100, height: 100)
         // top left
@@ -120,12 +122,14 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         bin_2.physicsBody?.categoryBitMask=PhysicsCategory.Bin
         bin_2.physicsBody?.collisionBitMask=PhysicsCategory.Shape
         bin_2.physicsBody?.contactTestBitMask=PhysicsCategory.Shape
-        bin_2.name = "bin_2"
+        //        bin_2.name = "bin_2"
         
         bin_2_shape.anchorPoint = CGPoint(x: 0, y: 1)
         bin_2_shape.setScale(shapeScaleFactor)
         bin_2_shape.position = CGPointMake(binWidth / 20, self.size.height - binWidth/20)
         bin_2_shape.zPosition = 4;
+        
+        bin_2.name = shapes[1] //set bin names to name of shapes they take
         
         //bin_3.size = CGSize(width: 100, height: 100)
         // bottom right
@@ -143,12 +147,14 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         bin_3.physicsBody?.categoryBitMask=PhysicsCategory.Bin
         bin_3.physicsBody?.collisionBitMask=PhysicsCategory.Shape
         bin_3.physicsBody?.contactTestBitMask=PhysicsCategory.Shape
-        bin_3.name = "bin_3"
-        
+        //        bin_3.name = "bin_3"
+        //
         bin_3_shape.anchorPoint = CGPoint(x: 1, y: 0)
         bin_3_shape.setScale(shapeScaleFactor)
         bin_3_shape.position = CGPointMake(self.size.width - binWidth/20, binWidth/20)
         bin_3_shape.zPosition = 4;
+        
+        bin_3.name = shapes[2] //set bin names to name of shapes they take
         
         //bin_4.size = CGSize(width: 100, height: 100)
         //bottom left
@@ -163,12 +169,14 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         bin_4.physicsBody?.categoryBitMask=PhysicsCategory.Bin
         bin_4.physicsBody?.collisionBitMask=PhysicsCategory.Shape
         bin_4.physicsBody?.contactTestBitMask=PhysicsCategory.Shape
-        bin_4.name = "bin_4"
+        //        bin_4.name = "bin_4"
         
         bin_4_shape.anchorPoint = CGPoint(x: 0, y: 0)
         bin_4_shape.setScale(shapeScaleFactor)
         bin_4_shape.position = CGPointMake(binWidth/20, binWidth/20)
         bin_4_shape.zPosition = 4;
+        
+        bin_4.name = shapes[0] //set bin names to name of shapes they take
         
         self.addChild(bin_1)
         self.addChild(bin_2)
@@ -187,22 +195,49 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         scoreLabel.zPosition=10
         self.addChild(scoreLabel)
         
-        missedLabel = SKLabelNode()
-        missedLabel.text = "Missed: " + String(missedCounter)
-        missedLabel.fontColor = UIColor.redColor()
-        missedLabel.position = CGPointMake(self.frame.width/2, self.frame.height/3)
-        missedLabel.zPosition = 10
-        self.addChild(missedLabel)
-
+        livesLabel = SKLabelNode()
+        livesLabel.text = "Lives: " + String(lives)
+        livesLabel.fontColor = UIColor.redColor()
+        livesLabel.position = CGPointMake(self.frame.width/2, self.frame.height/3)
+        livesLabel.zPosition = 10
+        self.addChild(livesLabel)
+        
         gameOver = false
         //self.view?.backgroundColor = UIColor.blackColor();
+        
+        
+        //RANDOMIZED SHAPE SELECTING CODE --> FIX THIS LATER
+        //        var binList = [bin_1, bin_2, bin_3, bin_4] //list of bins
+        //        var i = 0;
+        //        var shapePickedlist = [Int] () //list of random numbers already chosen
+        //
+        //        while (i < 4) {
+        //            let shapePicker = Int(arc4random_uniform(4))
+        //            var j = 0;
+        //            while (j < shapePickedlist.count) {
+        //                if (shapePickedlist[j] == shapePicker) {
+        //                    j = j+5
+        //                }
+        //                j = j+1
+        //            }
+        //            if (j == shapePickedlist.count){
+        //                shapePickedlist.append(shapePicker)
+        //                let binShape = SKSpriteNode(imageNamed: shapes[shapePicker])
+        //                binList[shapePicker].name = shapes[shapePicker]
+        //                binShape.position = binList[i].position
+        //                self.addChild(binShape)
+        //                i = i+1
+        //            }
+        //            else {}
+        //        }
+        
         
     }
     
     func perfectFlick(shape: SKNode) {
         // increment score
-        // do some lovely animation of shape exploding into pixels 
-        // play audio 
+        // do some lovely animation of shape exploding into pixels
+        // play audio
         //shape.removeFromParent();
         print("successful flick")
     }
@@ -210,9 +245,9 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     func failedFlick(){
         // play sad audio
         // end game
-        // some animation symbolizing something bad 
-//        self.removeAllChildren();
-//        self.addChild(bgImage);
+        // some animation symbolizing something bad
+        //        self.removeAllChildren();
+        //        self.addChild(bgImage);
         print("failed flick")
     }
     
@@ -224,36 +259,45 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
             //print("SHAPE:",PhysicsCategory.Shape)
             //print("FIRST BODY:",firstBody.categoryBitMask)
             //print("SECOND BODY",secondBody.categoryBitMask)
-        
+            
             if(firstBody.categoryBitMask==PhysicsCategory.Bin && secondBody.categoryBitMask==PhysicsCategory.Shape){
                 //do something
                 //check if collision is correct
                 //remove shape
                 //print("Collision by shape and bin")
-            
+                
                 secondBody.node?.removeFromParent();
-            
-                //change to only increase score if it hits correct bin
-                score++;
+                
+                //check if shape name == bin name, correct shape
+                //score changes
+                if (firstBody.node?.name == secondBody.node?.name) {
+                    score++
+                } else {
+                    lives--
+                }
                 scoreLabel.text="Score:"+String(score)
+                livesLabel.text = "Lives:" + String(lives)
                 //firstBody.node?.removeAllChildren();
             }
             else if (firstBody.categoryBitMask==PhysicsCategory.Shape && secondBody.categoryBitMask==PhysicsCategory.Bin){
                 //print("Collision by shape and bin")
-            
+                
                 firstBody.node?.removeFromParent();
-            
-                //change to only increase score if it hits correct bin
-                score++;
+                
+                if (firstBody.node?.name == secondBody.node?.name) {
+                    score++
+                } else {
+                    lives--
+                }
                 scoreLabel.text="Score:"+String(score)
-            
+                livesLabel.text = "Lives:" + String(lives)
             }
         }
         
-//        if flicked into wrong bin {
-//            missedCounter += 1
-//            missedLabel.text = "Missed: " + String(missedCounter)
-//        }
+        //        if flicked into wrong bin {
+        //            missedCounter += 1
+        //            livesLabel.text = "Missed: " + String(missedCounter)
+        //        }
         /*
         print(contact.bodyA.node?.name);
         print(contact.bodyB.node?.name);
@@ -261,14 +305,14 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         contact.bodyA.node!.name == shapes[1] && contact.bodyB.node!.name == bins[1]) || (
         contact.bodyA.node!.name == shapes[2] && contact.bodyB.node!.name == bins[2]) || (
         contact.bodyA.node!.name == shapes[3] && contact.bodyB.node!.name == bins[3])){
-            perfectFlick(contact.bodyA.node!)
+        perfectFlick(contact.bodyA.node!)
         } else if ((contact.bodyB.node!.name == shapes[0] && contact.bodyA.node!.name == bins[0]) || (
         contact.bodyB.node!.name == shapes[1] && contact.bodyA.node!.name == bins[1]) || (
         contact.bodyB.node!.name == shapes[2] && contact.bodyA.node!.name == bins[2]) || (
         contact.bodyB.node!.name == shapes[3] && contact.bodyA.node!.name == bins[3])) {
-            perfectFlick(contact.bodyB.node!)
+        perfectFlick(contact.bodyB.node!)
         } else {
-            failedFlick();
+        failedFlick();
         }
         */
     }
@@ -286,12 +330,12 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
             self.shapeController.speedUpVelocity(10);
         }
         removeOffScreenNodes()
-        if missedCounter == NUMBEROFLIFES {
+        if lives == 0 {
             createRestartBTN()
         }
     }
     
-     // increment when shape goes off screen or when flicked into wrong bin
+    // increment when shape goes off screen or when flicked into wrong bin
     func removeOffScreenNodes() {
         if !gameOver {
             for shape in shapes {
@@ -300,8 +344,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
                     let sprite = node as! SKSpriteNode
                     if (sprite.position.y < 0 || sprite.position.x < 0 || sprite.position.x > self.size.width || sprite.position.y > self.size.height) {
                         node.removeFromParent();
-                        self.missedCounter += 1;
-                        self.missedLabel.text = "Missed: " + String(self.missedCounter)
+                        self.lives -= 1;
+                        self.livesLabel.text = "Lives: " + String(self.lives)
                     }
                 })
             }
@@ -310,14 +354,14 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     
     
     
-//        let spawn = SKAction.runBlock({
-//            () in
-//            self.addChild(self.shapeController.spawnShape())
-//        })
-//        let delay = SKAction.waitForDuration(2)
-//        let spawnDelay = SKAction.sequence([spawn,delay])
-//        let spawnDelayForever = SKAction.repeatActionForever(spawnDelay)
-//        self.runAction(spawnDelayForever)
+    //        let spawn = SKAction.runBlock({
+    //            () in
+    //            self.addChild(self.shapeController.spawnShape())
+    //        })
+    //        let delay = SKAction.waitForDuration(2)
+    //        let spawnDelay = SKAction.sequence([spawn,delay])
+    //        let spawnDelayForever = SKAction.repeatActionForever(spawnDelay)
+    //        self.runAction(spawnDelayForever)
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         /* Called when a touch begins */
@@ -364,7 +408,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     
     func createRestartBTN() {
         scoreLabel.text = ""
-        missedLabel.text = ""
+        livesLabel.text = ""
         restartBTN = SKSpriteNode(imageNamed: "restartBTN")
         restartBTN.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
         restartBTN.zPosition = 6
@@ -379,7 +423,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         self.removeAllChildren()
         gameOver = false;
         score = 0
-        missedCounter = 0
+        lives = 3
         createScene()
     }
     
