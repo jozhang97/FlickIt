@@ -11,7 +11,7 @@ import Foundation
 class SpawnShape
 {
 
-    let shapes = ["blue_triangle", "blue_square", "blue_circle","blue_star-1"]
+    let shapes = ["blue_triangle-1", "blue_square-1", "blue_circle-1","blue_star-1"]
     var shapeCounter = [0,0,0,0]
     let delayTime = 2.0 // time between spawns
     var range = 100.0 //range of X velocities
@@ -37,8 +37,8 @@ class SpawnShape
         
         X_VELOCITY_RANGE = CGFloat(range)
         Y_VELOCITY_RANGE = CGFloat(1.5*range)
-        let width = sizeRect.size.width * UIScreen.mainScreen().scale; //screen width
-        let height = sizeRect.size.height * UIScreen.mainScreen().scale; //screen height
+        let width = sizeRect.size.width * UIScreen.mainScreen().scale / 2; //screen width in points
+        let height = sizeRect.size.height * UIScreen.mainScreen().scale / 2; //screen height in points
         
         print(width);
         print(height);
@@ -47,7 +47,7 @@ class SpawnShape
         let shape = SKSpriteNode(imageNamed: shapes[shapePicker])
         //print("", shapes[shapePicker], ": ", shape.size.width);
         shapeCounter[shapePicker] += 1
-        shape.setScale(0.2*width/1024) // see Ashwin's paper for description of how these numbers were computed
+        shape.setScale(0.2*width/shape.size.width) // see Ashwin's paper for description of how these numbers were computed
         
         //shape.physicsBody?.categoryBitMask = PhysicsCategory.Shape
         //shape.position = CGPointMake(scene.frame.width/2, scene.frame.height/2)

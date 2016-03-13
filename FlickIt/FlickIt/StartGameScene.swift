@@ -22,10 +22,15 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     var bin_3 = SKSpriteNode(imageNamed: "lowerRightBin.png");
     var bin_4 = SKSpriteNode(imageNamed: "lowerLeftBin.png");
     
+    var bin_1_shape = SKSpriteNode(imageNamed: "blue_star-1"); //change this to differently oriented triangles
+    var bin_2_shape = SKSpriteNode(imageNamed: "blue_square-1");
+    var bin_3_shape = SKSpriteNode(imageNamed: "blue_circle-1");
+    var bin_4_shape = SKSpriteNode(imageNamed: "blue_triangle-1");
+    
     var score = 0;
     var missedCounter = 0;
     
-    let shapes = ["blue_triangle", "blue_square", "blue_circle","blue_star"]
+    let shapes = ["blue_triangle-1", "blue_square-1", "blue_circle-1","blue_star-1"]
     let bins = ["bin_1", "bin_2", "bin_3", "bin_4"]
     
     var start=CGPoint();
@@ -43,6 +48,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     var restartBTN = SKSpriteNode();
     var gameOver = false; // SET THESE
     var oldVelocities = [SKNode: CGVector]()
+    var binWidth = CGFloat(0);
+    var shapeScaleFactor = CGFloat(0);
     
     let sizeRect = UIScreen.mainScreen().applicationFrame;
     // Actual dimensions of the screen
@@ -76,11 +83,14 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         print(self.size.width)
         print(self.size.height)
         
+        binWidth = bin_1.size.width;
+        shapeScaleFactor = 0.14*self.size.width/bin_3_shape.size.width
+        
         //adds bins on all 4 corners of screen with name, zposition and size
         //bin_1.size = CGSize(width: 100, height: 100)
         // top right
         bin_1.anchorPoint = CGPoint(x: 1, y: 1)
-        bin_1.size = CGSize(width: bin_1.size.width / 2, height: bin_1.size.height/2)
+        bin_1.setScale(0.264*self.size.width/bin_1.size.width) // see Ashwin's paper for scaling math
         bin_1.position = CGPointMake(self.size.width, self.size.height)
         bin_1.zPosition = 3
         //bin_1.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(bin_1.size.width, bin_1.size.height))
@@ -92,10 +102,15 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         bin_1.physicsBody?.contactTestBitMask=PhysicsCategory.Shape
         bin_1.name = "bin_1"
         
+        bin_1_shape.anchorPoint = CGPoint(x: 1, y: 1)
+        bin_1_shape.setScale(shapeScaleFactor)
+        bin_1_shape.position = CGPointMake(self.size.width - binWidth/20, self.size.height - binWidth/20)
+        bin_1_shape.zPosition = 4;
+        
         //bin_2.size = CGSize(width: 100, height: 100)
         // top left
         bin_2.anchorPoint = CGPoint(x: 0, y: 1)
-        bin_2.size = CGSize(width: bin_2.size.width / 2, height: bin_2.size.height/2)
+        bin_2.setScale(0.264*self.size.width/bin_2.size.width)
         bin_2.position = CGPointMake(0, self.size.height)
         bin_2.zPosition = 3
         //bin_2.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(bin_2.size.width, bin_2.size.height))
@@ -107,10 +122,15 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         bin_2.physicsBody?.contactTestBitMask=PhysicsCategory.Shape
         bin_2.name = "bin_2"
         
+        bin_2_shape.anchorPoint = CGPoint(x: 0, y: 1)
+        bin_2_shape.setScale(shapeScaleFactor)
+        bin_2_shape.position = CGPointMake(binWidth / 20, self.size.height - binWidth/20)
+        bin_2_shape.zPosition = 4;
+        
         //bin_3.size = CGSize(width: 100, height: 100)
         // bottom right
         bin_3.anchorPoint = CGPoint(x: 1, y: 0)
-        bin_3.size = CGSize(width: bin_3.size.width / 2, height: bin_3.size.height/2)
+        bin_3.setScale(0.264*self.size.width/bin_3.size.width)
         bin_3.position = CGPointMake(self.size.width, 0)
         bin_3.zPosition = 3
         
@@ -123,13 +143,17 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         bin_3.physicsBody?.categoryBitMask=PhysicsCategory.Bin
         bin_3.physicsBody?.collisionBitMask=PhysicsCategory.Shape
         bin_3.physicsBody?.contactTestBitMask=PhysicsCategory.Shape
-
         bin_3.name = "bin_3"
+        
+        bin_3_shape.anchorPoint = CGPoint(x: 1, y: 0)
+        bin_3_shape.setScale(shapeScaleFactor)
+        bin_3_shape.position = CGPointMake(self.size.width - binWidth/20, binWidth/20)
+        bin_3_shape.zPosition = 4;
         
         //bin_4.size = CGSize(width: 100, height: 100)
         //bottom left
         bin_4.anchorPoint = CGPointZero
-        bin_4.size = CGSize(width: bin_4.size.width / 2, height: bin_4.size.height/2)
+        bin_4.setScale(0.264*self.size.width/bin_4.size.width)
         bin_4.position = CGPointMake(0, 0)
         bin_4.zPosition = 3
         //bin_4.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(bin_4.size.width, bin_4.size.height))
@@ -139,13 +163,22 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         bin_4.physicsBody?.categoryBitMask=PhysicsCategory.Bin
         bin_4.physicsBody?.collisionBitMask=PhysicsCategory.Shape
         bin_4.physicsBody?.contactTestBitMask=PhysicsCategory.Shape
-
         bin_4.name = "bin_4"
+        
+        bin_4_shape.anchorPoint = CGPoint(x: 0, y: 0)
+        bin_4_shape.setScale(shapeScaleFactor)
+        bin_4_shape.position = CGPointMake(binWidth/20, binWidth/20)
+        bin_4_shape.zPosition = 4;
         
         self.addChild(bin_1)
         self.addChild(bin_2)
         self.addChild(bin_3)
         self.addChild(bin_4)
+        
+        self.addChild(bin_1_shape)
+        self.addChild(bin_2_shape)
+        self.addChild(bin_3_shape)
+        self.addChild(bin_4_shape)
         
         scoreLabel=SKLabelNode()
         scoreLabel.text="Score: "+String(score)
