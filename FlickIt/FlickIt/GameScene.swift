@@ -31,6 +31,7 @@ class GameScene: SKScene {
     var launchSquare = SKSpriteNode(imageNamed: "launch_square.jpg");
     var rulesCircle = SKSpriteNode(imageNamed: "rules_circle.jpg");
     var launchCircle = SKSpriteNode(imageNamed: "launch_circle.jpg");
+    var title = UILabel()
     
     func createHomeScreen(){
         //set Z-positions
@@ -72,7 +73,7 @@ class GameScene: SKScene {
         launchCircle.physicsBody?.affectedByGravity=false
         
         // Create and add title to home screen CURRENTLY ONLY WORKS IF YOU DO title.center = CGPointMake(160, 284)
-        var title = UILabel(frame: CGRectMake(0, 0, 200, 21))
+        title = UILabel(frame: CGRectMake(0, 0, 200, 21))
         title.center = CGPointMake(self.frame.width/2, self.frame.height/2)
         title.textAlignment = NSTextAlignment.Center
         
@@ -211,6 +212,8 @@ class GameScene: SKScene {
     }
     
     func startGame() {
+
+        title.removeFromSuperview()
         let scene: SKScene = StartGameScene(size: self.size)
         
         // Configure the view.

@@ -332,7 +332,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     func createRestartBTN() {
         scoreLabel.text = ""
         missedLabel.text = ""
-        restartBTN = SKSpriteNode(color: SKColor.blueColor(), size: CGSize(width: self.size.width/2, height: self.size.height/8))
+        restartBTN = SKSpriteNode(imageNamed: "restartBTN")
         restartBTN.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
         restartBTN.zPosition = 6
         self.addChild(restartBTN);
