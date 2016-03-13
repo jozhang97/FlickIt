@@ -38,10 +38,11 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     var missedLabel = SKLabelNode()
     var time : CFTimeInterval = 2;
     var shapeToAdd = SKSpriteNode();
-    
+    var touched:Bool = false;
     var shapeController = SpawnShape();
     var restartBTN = SKSpriteNode();
     var gameOver = false; // SET THESE
+    var oldVelocities = [SKNode: CGVector]()
     
     let sizeRect = UIScreen.mainScreen().applicationFrame;
     // Actual dimensions of the screen
@@ -184,37 +185,38 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     
     func didBeginContact(contact: SKPhysicsContact) {
         if !gameOver {
-        let firstBody=contact.bodyA
-        let secondBody=contact.bodyB
-        print("BIN:",PhysicsCategory.Bin)
-        print("SHAPE:",PhysicsCategory.Shape)
-        print("FIRST BODY:",firstBody.categoryBitMask)
-        print("SECOND BODY",secondBody.categoryBitMask)
+            let firstBody=contact.bodyA
+            let secondBody=contact.bodyB
+            //print("BIN:",PhysicsCategory.Bin)
+            //print("SHAPE:",PhysicsCategory.Shape)
+            //print("FIRST BODY:",firstBody.categoryBitMask)
+            //print("SECOND BODY",secondBody.categoryBitMask)
         
-        if(firstBody.categoryBitMask==PhysicsCategory.Bin && secondBody.categoryBitMask==PhysicsCategory.Shape){
-            //do something
-            //check if collision is correct
-            //remove shape
-            print("Collision by shape and bin")
-            secondBody.node?.removeFromParent();
-            
-            //change to only increase score if it hits correct bin
-            score++;
-            scoreLabel.text="Score:"+String(score)
-            //firstBody.node?.removeAllChildren();
-        }
-        else if(firstBody.categoryBitMask==PhysicsCategory.Shape && secondBody.categoryBitMask==PhysicsCategory.Bin){
+            if(firstBody.categoryBitMask==PhysicsCategory.Bin && secondBody.categoryBitMask==PhysicsCategory.Shape){
                 //do something
                 //check if collision is correct
                 //remove shape
-            print("Collision by shape and bin")
-            firstBody.node?.removeFromParent();
+                //print("Collision by shape and bin")
             
-            //change to only increase score if it hits correct bin
-            score++;
-            scoreLabel.text="Score:"+String(score)
+                secondBody.node?.removeFromParent();
+            
+                //change to only increase score if it hits correct bin
+                score++;
+                scoreLabel.text="Score:"+String(score)
+                //firstBody.node?.removeAllChildren();
+            }
+            else if (firstBody.categoryBitMask==PhysicsCategory.Shape && secondBody.categoryBitMask==PhysicsCategory.Bin){
+                //print("Collision by shape and bin")
+            
+                firstBody.node?.removeFromParent();
+            
+                //change to only increase score if it hits correct bin
+                score++;
+                scoreLabel.text="Score:"+String(score)
+            
+            }
         }
-        }
+        
 //        if flicked into wrong bin {
 //            missedCounter += 1
 //            missedLabel.text = "Missed: " + String(missedCounter)
@@ -291,10 +293,12 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         // Save start location and time
         start = location
         startTime = touch.timestamp
+        let touchedNode=self.nodeAtPoint(start)
+        oldVelocities[touchedNode]=touchedNode.physicsBody?.velocity;
+        touchedNode.physicsBody?.velocity=CGVectorMake(0, 0)
         if restartBTN.containsPoint(location) {
             restartScene()
         }
-        
     }
     
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -309,12 +313,19 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
             dx = dx / magnitude
             dy = dy / magnitude
             let touchedNode=self.nodeAtPoint(start)
+            print(start)
             //make it move
             //touchedNode.physicsBody?.velocity=CGVectorMake(0.0, 0.0)
             
             //change these values to make the flick go faster/slower
+            //touchedNode.physicsBody?.velocity=CGVectorMake(0, 0)
             touchedNode.physicsBody?.applyImpulse(CGVectorMake(100*dx, 100*dy))
-            
+        }
+        else{
+            let touchedNode=self.nodeAtPoint(start)
+            if(oldVelocities[touchedNode] != nil){
+                touchedNode.physicsBody?.velocity=oldVelocities[touchedNode]!
+            }
         }
     }
     
