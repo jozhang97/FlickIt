@@ -11,7 +11,7 @@ import SpriteKit
 
 class StartGameScene: SKScene, SKPhysicsContactDelegate {
     var NUMBEROFLIFES = 1
-    var bgImage = SKSpriteNode(imageNamed: "neon_circle.jpg");
+    var bgImage = SKSpriteNode(imageNamed: "alt-image.jpg");
     var startSquare = SKSpriteNode(imageNamed: "start_square.jpg");
     var launchSquare = SKSpriteNode(imageNamed: "launch_square.jpg");
     var rulesCircle = SKSpriteNode(imageNamed: "rules_circle.jpg");
@@ -55,6 +55,18 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     // Actual dimensions of the screen
     var sceneHeight = CGFloat(0);
     var sceneWidth = CGFloat(0);
+    
+    override func canBecomeFirstResponder() -> Bool {
+        return true
+    }
+    
+    override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
+        print("in here?")
+        if motion == .MotionShake {
+            print("Shaken, not stirred")
+        }
+    }
+    
     override init(size: CGSize) {
         super.init(size: size)
         createScene()
@@ -293,6 +305,9 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
                 livesLabel.text = "Lives:" + String(lives)
             }
         }
+        else {  //gameover
+            
+        }
         
         //        if flicked into wrong bin {
         //            missedCounter += 1
@@ -318,7 +333,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func update(currentTime: CFTimeInterval) {
-        if currentTime - time >= 2  {
+        if currentTime - time >= 2 && !gameOver {
             shapeToAdd = self.shapeController.spawnShape();
             shapeToAdd.position = CGPointMake(self.size.width/2, self.size.height/2);
             
