@@ -70,7 +70,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     //    }
     
     func createScene() {
-        physicsWorld.contactDelegate = self // error fix = do self.physicsWorld...
+        self.physicsWorld.contactDelegate = self 
         sceneHeight = sizeRect.size.height * UIScreen.mainScreen().scale;
         sceneWidth = sizeRect.size.width * UIScreen.mainScreen().scale;
         // Sets the neon circle image to fill the entire screen

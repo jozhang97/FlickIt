@@ -26,7 +26,7 @@ class GameScene: SKScene {
     let kMinSpeed=CGFloat(100)
     let kMaxSpeed=CGFloat(500)
     
-    var bgImage = SKSpriteNode(imageNamed: "neon_circle.jpg");
+    var bgImage = SKSpriteNode(imageNamed: "flickitbg.png");
     var startSquare = SKSpriteNode(imageNamed: "start_square.jpg");
     var launchSquare = SKSpriteNode(imageNamed: "launch_square.jpg");
     var rulesCircle = SKSpriteNode(imageNamed: "rules_circle.jpg");
@@ -73,22 +73,43 @@ class GameScene: SKScene {
         launchCircle.physicsBody?.affectedByGravity=false
         
         // Create and add title to home screen CURRENTLY ONLY WORKS IF YOU DO title.center = CGPointMake(160, 284)
-        title = UILabel(frame: CGRectMake(0, 0, 200, 21))
-        title.center = CGPointMake(self.frame.width/2, self.frame.height/2)
+        title = UILabel(frame: CGRectMake(0, 0, 200, 40))
+        title.center = CGPointMake(self.frame.width/2 + self.frame.width/5, self.frame.height/2 - title.frame.height)
         title.textAlignment = NSTextAlignment.Center
         
-        title.text = "Flick-It"
-        title.font = UIFont(name: "Futura", size: 30)
-        title.textColor = UIColor.blueColor()
+        title.text = "FLICK IT"
+        title.font = UIFont(name: "Futura", size: 45)
+        title.textColor = UIColor.whiteColor()
         self.view?.addSubview(title)
         
         // Add all the elements to the screen
-        self.addChild(bgImage);
-        self.addChild(startSquare);
-        self.addChild(launchSquare);
+        self.addChild(bgImage)
+        self.addChild(startSquare)
+        self.addChild(launchSquare)
         
-        self.addChild(rulesCircle);
-        self.addChild(launchCircle);
+        self.addChild(rulesCircle)
+        self.addChild(launchCircle)
+        
+        //Add Curved Lines
+        let shape = SKShapeNode()
+        let circlePath : UIBezierPath = UIBezierPath(arcCenter: CGPointMake(CGFloat(self.frame.width/2), CGFloat(self.frame.height/4)), radius: CGFloat(self.frame.width/3), startAngle: CGFloat(1.5*M_PI), endAngle: CGFloat(M_PI), clockwise: false)
+        shape.path = circlePath.CGPath
+        shape.position = CGPointMake(0, self.frame.height/2)
+        shape.strokeColor = UIColor.grayColor()
+        shape.lineWidth = 3
+        shape.zPosition = 4
+        
+        let shape1 = SKShapeNode()
+        let circlePath2 : UIBezierPath = UIBezierPath(arcCenter: CGPointMake(CGFloat(self.frame.width/2), CGFloat(0)), radius: CGFloat(self.frame.width/3), startAngle: CGFloat(M_PI/2), endAngle: CGFloat(M_PI), clockwise: true)
+        shape1.path = circlePath2.CGPath
+        shape1.position = CGPointMake(0, self.frame.height/2 - shape1.frame.height)
+        shape1.strokeColor = UIColor.grayColor()
+        shape1.lineWidth = 3
+        shape1.zPosition = 4
+        
+        
+        self.addChild(shape)
+        self.addChild(shape1)
 
         // Have square first shoot up quickly, then slower and slower.
         launchSquare.runAction(SKAction.sequence([
@@ -106,7 +127,8 @@ class GameScene: SKScene {
         )
     }
     
-    /** Creates scene by setting position and defining physics */
+    /** Creates scene by setting position and defining physics--not being used */
+    /**
     func createScene(){
         
         /** Puts in background */
@@ -117,7 +139,7 @@ class GameScene: SKScene {
         
         title.text = "Flick-It"
         title.font = UIFont(name: "Futura", size: 30)
-        title.textColor = UIColor.blueColor()
+        title.textColor = UIColor.whiteColor()
         self.view?.addSubview(title)
         
     //New labels added in after Jeffrey's commit
@@ -173,6 +195,7 @@ class GameScene: SKScene {
         self.addChild(aboutBin)
         self.addChild(shape)
     }
+    */
     
     override func didMoveToView(view: SKView) {
         createHomeScreen()
@@ -187,6 +210,7 @@ class GameScene: SKScene {
         startTime = touch.timestamp
         
     }
+    
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         let touch: UITouch = touches.first!
         let location: CGPoint = touch.locationInNode(self)
@@ -229,6 +253,7 @@ class GameScene: SKScene {
         skView.presentScene(scene)
         
     }
+    
     
     func getHelp() {
         
