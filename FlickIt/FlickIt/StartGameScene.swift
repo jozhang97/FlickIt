@@ -56,16 +56,6 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     var sceneHeight = CGFloat(0);
     var sceneWidth = CGFloat(0);
     
-    override func canBecomeFirstResponder() -> Bool {
-        return true
-    }
-    
-    override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
-        print("in here?")
-        if motion == .MotionShake {
-            print("Shaken, not stirred")
-        }
-    }
     
     override init(size: CGSize) {
         super.init(size: size)
@@ -82,7 +72,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     //    }
     
     func createScene() {
-        physicsWorld.contactDelegate = self // error fix = do self.physicsWorld...
+        self.physicsWorld.contactDelegate = self
         sceneHeight = sizeRect.size.height * UIScreen.mainScreen().scale;
         sceneWidth = sizeRect.size.width * UIScreen.mainScreen().scale;
         // Sets the neon circle image to fill the entire screen
