@@ -17,188 +17,138 @@ class GameScene: SKScene {
     var startBin = SKSpriteNode()
     var rulesBin = SKSpriteNode()
     var aboutBin = SKSpriteNode()
-    var shape = SKSpriteNode()
-    //variables needed for flicking
-    var start=CGPoint();
-    var startTime=NSTimeInterval();
-    let kMinDistance=CGFloat(50)
-    let kMinDuration=CGFloat(0)
-    let kMinSpeed=CGFloat(100)
-    let kMaxSpeed=CGFloat(500)
+    var triangle = SKShapeNode()
     
-    var bgImage = SKSpriteNode(imageNamed: "flickitbg.png");
-    var startSquare = SKSpriteNode(imageNamed: "start_square.jpg");
-    var launchSquare = SKSpriteNode(imageNamed: "launch_square.jpg");
-    var rulesCircle = SKSpriteNode(imageNamed: "rules_circle.jpg");
-    var launchCircle = SKSpriteNode(imageNamed: "launch_circle.jpg");
-    var title = UILabel()
+    //variables needed for flicking
+    var start = CGPoint()
+    var startTime = NSTimeInterval()
+    let kMinDistance = CGFloat(50)
+    let kMinDuration = CGFloat(0)
+    let kMinSpeed = CGFloat(100)
+    let kMaxSpeed = CGFloat(500)
+    
+    var bgImage = SKSpriteNode(imageNamed: "flickitbg.png")
+    var startLabel = SKLabelNode(text: "START")
+    var launchTriangle = SKSpriteNode(imageNamed: "red_triangle.png")
+    var rulesLabel = SKLabelNode(text: "RULES")
+    var titleLabel = SKLabelNode(text: "FLICK IT")
+    var curveUp = SKShapeNode()
+    var curveDown = SKShapeNode()
+    
+    override func didMoveToView(view: SKView) {
+        createHomeScreen()
+    }
     
     func createHomeScreen(){
-        //set Z-positions
-        bgImage.zPosition = 1;
-        startSquare.zPosition = 2;
-        rulesCircle.zPosition = 2;
-        launchSquare.zPosition = 3;
-        launchCircle.zPosition = 3;
+        //create triangle SKShapeNode
+        createTriangle()
         
+        //setup Physics stuff of triangle SKShapeNode
+        setupTrianglePhysics()
         
-        // Sets the neon circle image to fill the entire screen
+        // Create and add title to home screen
+        setupTitleLabel()
+        
+        // Sets bg image to fill the entire screen
         bgImage.size = CGSize(width: self.size.width, height: self.size.height);
         bgImage.position = CGPointMake(self.size.width/2, self.size.height/2);
         
+        // Set up start Label
+        setupStartLabel()
         
-        // Put the start square bin at the top center and rules circle bin at the bottom center
-        startSquare.position = CGPointMake(self.frame.width/2, self.frame.height * 9 / 10);
-        rulesCircle.position = CGPointMake(self.frame.width/2, self.frame.height / 10);
+        // Set up rules Label
+        setupRulesLabel()
+        
+        //Add Curved Lines
+        addCurvedLines(curveUp, dub1: 1.5*M_PI, dub2: M_PI, bol: false)
+        addCurvedLines(curveDown, dub1: M_PI/2, dub2: M_PI, bol: true)
         
         
-        // Start the launch square and circle in the very middle of the screen
-        launchSquare.position = CGPointMake(self.size.width/2, self.size.height/2);
-        launchCircle.position = CGPointMake(self.size.width/2, self.size.height/2);
-        
-        // Set names for the launcher so that we can check what node is touched in the touchesEnded method
-        launchSquare.name = "launch square";
-        launchCircle.name = "launch circle";
-        
-        /** Add Physics Stuff for square launcher */
-        launchSquare.userInteractionEnabled=false
-        launchSquare.physicsBody=SKPhysicsBody(rectangleOfSize: CGSize(width: launchSquare.size.width, height: launchSquare.size.height));
-        launchSquare.physicsBody?.dynamic=true
-        launchSquare.physicsBody?.affectedByGravity=false
-        
-        /** Add Physics Stuff for circle launcher */
-        launchCircle.userInteractionEnabled=false
-        launchCircle.physicsBody=SKPhysicsBody(circleOfRadius: launchCircle.frame.height/2)
-        launchCircle.physicsBody?.dynamic=true
-        launchCircle.physicsBody?.affectedByGravity=false
-        
-        // Create and add title to home screen CURRENTLY ONLY WORKS IF YOU DO title.center = CGPointMake(160, 284)
-        title = UILabel(frame: CGRectMake(0, 0, 200, 40))
-        title.center = CGPointMake(self.frame.width/2 + self.frame.width/5, self.frame.height/2 - title.frame.height)
-        title.textAlignment = NSTextAlignment.Center
-        
-        title.text = "FLICK IT"
-        title.font = UIFont(name: "Futura", size: 45)
-        title.textColor = UIColor.whiteColor()
-        self.view?.addSubview(title)
+        //set Z-positions
+        bgImage.zPosition = 1
+        startLabel.zPosition = 2
+        rulesLabel.zPosition = 2
+        titleLabel.zPosition = 2
+        curveDown.zPosition = 3
+        curveUp.zPosition = 3
+        triangle.zPosition = 4
         
         // Add all the elements to the screen
         self.addChild(bgImage)
-        self.addChild(startSquare)
-        self.addChild(launchSquare)
-        
-        self.addChild(rulesCircle)
-        self.addChild(launchCircle)
-        
-        //Add Curved Lines
-        let shape = SKShapeNode()
-        let circlePath : UIBezierPath = UIBezierPath(arcCenter: CGPointMake(CGFloat(self.frame.width/2), CGFloat(self.frame.height/4)), radius: CGFloat(self.frame.width/3), startAngle: CGFloat(1.5*M_PI), endAngle: CGFloat(M_PI), clockwise: false)
-        shape.path = circlePath.CGPath
-        shape.position = CGPointMake(0, self.frame.height/2)
-        shape.strokeColor = UIColor.grayColor()
-        shape.lineWidth = 3
-        shape.zPosition = 4
-        
-        let shape1 = SKShapeNode()
-        let circlePath2 : UIBezierPath = UIBezierPath(arcCenter: CGPointMake(CGFloat(self.frame.width/2), CGFloat(0)), radius: CGFloat(self.frame.width/3), startAngle: CGFloat(M_PI/2), endAngle: CGFloat(M_PI), clockwise: true)
-        shape1.path = circlePath2.CGPath
-        shape1.position = CGPointMake(0, self.frame.height/2 - shape1.frame.height)
-        shape1.strokeColor = UIColor.grayColor()
-        shape1.lineWidth = 3
-        shape1.zPosition = 4
-        
-        
-        self.addChild(shape)
-        self.addChild(shape1)
+        self.addChild(triangle)
+        self.addChild(curveUp)
+        self.addChild(curveDown)
+        self.addChild(titleLabel)
+        self.addChild(rulesLabel)
+        self.addChild(startLabel)
 
-        // Have square first shoot up quickly, then slower and slower.
-        launchSquare.runAction(SKAction.sequence([
+        // Have triangle first shoot up quickly, then slower and slower.
+        triangle.runAction(SKAction.sequence([
             SKAction.moveBy(CGVectorMake(0, self.frame.height / 15), duration: 1),
             SKAction.moveBy(CGVectorMake(0, self.frame.height / 15), duration: 15),
             SKAction.moveBy(CGVectorMake(0, self.frame.height / 20), duration: 50)
             ])
         )
-        // Have circle first shoot down quickly, then slower and slower.
-        launchCircle.runAction(SKAction.sequence([
-            SKAction.moveBy(CGVectorMake(0, -self.frame.height / 15), duration: 1),
-            SKAction.moveBy(CGVectorMake(0, -self.frame.height / 15), duration: 15),
-            SKAction.moveBy(CGVectorMake(0, -self.frame.height / 20), duration: 50)
-            ])
-        )
     }
     
-    /** Creates scene by setting position and defining physics--not being used */
-    /**
-    func createScene(){
-        
-        /** Puts in background */
-        self.view?.backgroundColor = UIColor.blackColor()
-        
-        /** Puts in the title */
-        let title = UILabel(frame: CGRectMake(self.frame.width/9, self.frame.height/8, self.frame.width/2, self.frame.height/8))
-        
-        title.text = "Flick-It"
-        title.font = UIFont(name: "Futura", size: 30)
-        title.textColor = UIColor.whiteColor()
-        self.view?.addSubview(title)
-        
-    //New labels added in after Jeffrey's commit
-        //start label -- edit placement and width
-        let start = UILabel(frame: CGRectMake(self.frame.width/2, self.frame.height*1/4, self.frame.width/4, self.frame.height/12))
-        start.text = "Start"
-        start.font = UIFont(name: "Futura", size: 18)
-        start.textColor = UIColor.whiteColor();
-        self.view?.addSubview(start)
-        
-        //rules label -- edit placement and width
-        let rules = UILabel(frame: CGRectMake(self.frame.width/2 + 10, self.frame.height*1/4, self.frame.width/4, self.frame.height/12))
-        rules.text = "Rules"
-        rules.font = UIFont(name: "Futura", size: 18)
-        rules.textColor = UIColor.whiteColor();
-        self.view?.addSubview(rules)
-
-        //about label -- edit placement and width
-        let about = UILabel(frame: CGRectMake(self.frame.width/2, self.frame.height*1/2 - 10, self.frame.width/4, self.frame.height/12))
-        about.text = "About"
-        about.font = UIFont(name: "Futura", size: 18)
-        about.textColor = UIColor.whiteColor();
-        self.view?.addSubview(about)
-        
-        /** Giving the objects pictures */
-        startBin = SKSpriteNode(imageNamed: "bin")
-        rulesBin = SKSpriteNode(imageNamed: "bin")
-        aboutBin = SKSpriteNode(imageNamed: "bin")
-        shape = SKSpriteNode(imageNamed: "blue_triangle")
-        
-        /** Downsizes pictures to fit on screen better */
-        startBin.setScale(0.15)
-        rulesBin.setScale(0.15)
-        aboutBin.setScale(0.15)
-        shape.setScale(0.15)
-        
-        /** Sets positions of startBin, rulesBin, shape */
-        startBin.position = CGPoint(x: self.frame.width/2, y: self.frame.height*1/4)
-        rulesBin.position = CGPoint(x: self.frame.width*1/4, y: self.frame.height/2)
-        aboutBin.position = CGPoint(x: self.frame.width*2/4, y: self.frame.height/2)
-        shape.position = CGPoint(x: self.frame.width/2, y: self.frame.height/2)
-        
-        /** Did Physics Stuff */
-        shape.userInteractionEnabled=false
-        shape.physicsBody=SKPhysicsBody(circleOfRadius: shape.frame.height/2)
-        shape.physicsBody?.dynamic=true
-        shape.physicsBody?.affectedByGravity=false
-        
-        
-        /** Adding objects into screen */
-        self.addChild(startBin)
-        self.addChild(rulesBin)
-        self.addChild(aboutBin)
-        self.addChild(shape)
+    func addCurvedLines(curve: SKShapeNode, dub1: Double, dub2: Double, bol: Bool) {
+        let circlePath : UIBezierPath = UIBezierPath(arcCenter: CGPointMake(CGFloat(self.frame.width/2), CGFloat(self.frame.height/4)), radius: CGFloat(self.frame.width/3), startAngle: CGFloat(dub1), endAngle: CGFloat(dub2), clockwise: bol)
+        curve.path = circlePath.CGPath
+        curve.position = CGPointMake(0, self.frame.height/2)
+        curve.strokeColor = UIColor.grayColor()
+        curve.lineWidth = 3
     }
-    */
     
-    override func didMoveToView(view: SKView) {
-        createHomeScreen()
+    func triangleInRect(rect: CGRect) -> CGPathRef {
+        let offsetX: CGFloat = CGRectGetMidX(rect)
+        let offsetY: CGFloat = CGRectGetMidY(rect)
+        let bezierPath: UIBezierPath = UIBezierPath()
+        bezierPath.moveToPoint(CGPointMake(offsetX, 0))
+        bezierPath.addLineToPoint(CGPointMake(-offsetX, offsetY))
+        bezierPath.addLineToPoint(CGPointMake(-offsetX, -offsetY))
+        bezierPath.closePath()
+        return bezierPath.CGPath
+    }
+    
+    func createTriangle() {
+        let rect: CGRect = CGRectMake(0, 0, self.size.width/5, self.size.width/5)
+        triangle.path = self.triangleInRect(rect)
+        triangle.strokeColor = UIColor(red: 160/255, green: 80/255, blue: 76/255, alpha: 1)
+        triangle.fillColor = UIColor(red: 160/255, green: 80/255, blue: 76/255, alpha: 1)
+        triangle.position = CGPointMake(self.size.width/2, self.size.height/2);
+        // Set names for the launcher so that we can check what node is touched in the touchesEnded method
+        triangle.name = "launch triangle";
+    }
+    
+    func setupTrianglePhysics() {
+        triangle.userInteractionEnabled=false
+        triangle.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: launchTriangle.size.width, height: launchTriangle.size.height))
+        triangle.physicsBody?.dynamic = true
+        triangle.physicsBody?.affectedByGravity=false
+    }
+    
+    func setupTitleLabel() {
+        titleLabel.position = CGPointMake(self.frame.width/2, self.frame.height * 9 / 10);
+        titleLabel.horizontalAlignmentMode = .Center
+        titleLabel.fontColor = UIColor.whiteColor()
+        titleLabel.fontName = "Futura"
+        titleLabel.fontSize = 45
+    }
+    
+    func setupStartLabel() {
+        startLabel.position = CGPointMake(self.frame.width/2, self.frame.height * 9 / 10);
+        startLabel.horizontalAlignmentMode = .Center
+        startLabel.fontColor = UIColor.whiteColor()
+        startLabel.fontName = "Futura"
+        startLabel.fontSize = 40
+    }
+    
+    func setupRulesLabel() {
+        rulesLabel.position = CGPointMake(self.frame.width/2, self.frame.height / 10);
+        rulesLabel.horizontalAlignmentMode = .Center
+        rulesLabel.fontColor = UIColor.whiteColor()
+        rulesLabel.fontName = "Futura"
+        rulesLabel.fontSize = 40
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -225,10 +175,10 @@ class GameScene: SKScene {
             let touchedNode=self.nodeAtPoint(start)
             //make it move
             touchedNode.physicsBody?.velocity=CGVectorMake(0.0, 0.0)
-            if (touchedNode.name == "launch square" && dy > 0){
+            if (touchedNode.name == "launch triangle" && dy > 0){
                 touchedNode.physicsBody?.applyImpulse(CGVectorMake(0, 100*dy))
             }
-            if (touchedNode.name == "launch circle" && dy < 0){
+            if (touchedNode.name == "launch triangle" && dy < 0){
                 touchedNode.physicsBody?.applyImpulse(CGVectorMake(0, 100*dy))
             }
             //touchedNode.physicsBody?.applyImpulse(CGVectorMake(100*dx, 100*dy))
@@ -236,8 +186,7 @@ class GameScene: SKScene {
     }
     
     func startGame() {
-
-        title.removeFromSuperview()
+        //titleLabel.removeFromSuperview()
         let scene: SKScene = StartGameScene(size: self.size)
         
         // Configure the view.
@@ -253,29 +202,23 @@ class GameScene: SKScene {
         skView.presentScene(scene)
         
     }
-    
-    
-    func getHelp() {
-        
-    }
    
     override func update(currentTime: CFTimeInterval) {
-        /* Called before each frame is rendered */
-        if (launchSquare.position.y >= startSquare.position.y){
-            // call method to start game
-            // for now just remove all the elements to show something has happened
-            self.removeAllChildren();
-            self.startGame();
-            launchSquare.position.y = 0
-        }
-        
-        if (launchCircle.position.y <= rulesCircle.position.y){
-            // call method to start game
-            // for now just remove all the elements to show something has happened
-            self.removeAllChildren();
-            getHelp();
-            launchCircle.position.y = 0
-        }
+//        /* Called before each frame is rendered */
+//        if (launchTriangle.position.y >= startSquare.position.y){
+//            // call method to start game
+//            // for now just remove all the elements to show something has happened
+//            self.removeAllChildren();
+//            self.startGame();
+//            launchTriangle.position.y = 0
+//        }
+//        
+//        if (launchTriangle.position.y <= rulesCircle.position.y){
+//            // call method to start game
+//            // for now just remove all the elements to show something has happened
+//            self.removeAllChildren();
+//            launchTriangle.position.y = 0
+//        }
     }
     
     func delay(delay:Double, closure:()->()) {
