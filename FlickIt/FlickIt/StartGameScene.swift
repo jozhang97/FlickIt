@@ -10,8 +10,8 @@
 import SpriteKit
 
 class StartGameScene: SKScene, SKPhysicsContactDelegate {
-    var NUMBEROFLIFES = 1
-    var bgImage = SKSpriteNode(imageNamed: "alt-image.jpg");
+    var NUMBEROFLIFES = 3
+    var bgImage = SKSpriteNode(imageNamed: "neon_circle.jpg");
     var startSquare = SKSpriteNode(imageNamed: "start_square.jpg");
     var launchSquare = SKSpriteNode(imageNamed: "launch_square.jpg");
     var rulesCircle = SKSpriteNode(imageNamed: "rules_circle.jpg");
@@ -26,7 +26,11 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     var bin_2_shape = SKSpriteNode(imageNamed: "blue_square-1");
     var bin_3_shape = SKSpriteNode(imageNamed: "blue_circle-1");
     var bin_4_shape = SKSpriteNode(imageNamed: "blue_triangle-1");
-    
+    var bin_3_shape_width = CGFloat(1024)
+    var bin_1_width = CGFloat(85)
+    var bin_2_width = CGFloat(85)
+    var bin_3_width = CGFloat(85)
+    var bin_4_width = CGFloat(85)
     var score = 0;
     var lives = 3;
     
@@ -59,6 +63,16 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     
     override init(size: CGSize) {
         super.init(size: size)
+        physicsWorld.contactDelegate = self // error fix = do self.physicsWorld...
+        lives = NUMBEROFLIFES
+        bin_1_width = bin_1.size.width
+        bin_2_width = bin_2.size.width
+        bin_3_width = bin_3.size.width
+        bin_4_width = bin_4.size.width
+        bin_3_shape_width = bin_3_shape.size.width
+        binWidth = bin_1.size.width;
+        sceneHeight = sizeRect.size.height * UIScreen.mainScreen().scale;
+        sceneWidth = sizeRect.size.width * UIScreen.mainScreen().scale;
         createScene()
     }
     
@@ -81,18 +95,14 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         bgImage.zPosition = 1
         self.addChild(bgImage);
         
-        print("Entered create scene")
-        print(self.size.width)
-        print(self.size.height)
-        
-        binWidth = bin_1.size.width;
-        shapeScaleFactor = 0.14*self.size.width/bin_3_shape.size.width
+        shapeScaleFactor = 0.14*self.size.width/bin_3_shape_width
+        print(bin_3_shape.size.width) // this changes. (RESTART BUG HERE. MESSES UP SCALING)
         
         //adds bins on all 4 corners of screen with name, zposition and size
         //bin_1.size = CGSize(width: 100, height: 100)
         // top right
         bin_1.anchorPoint = CGPoint(x: 1, y: 1)
-        bin_1.setScale(0.264*self.size.width/bin_1.size.width) // see Ashwin's paper for scaling math
+        bin_1.setScale(0.264*self.size.width/bin_1_width) // see Ashwin's paper for scaling math
         bin_1.position = CGPointMake(self.size.width, self.size.height)
         bin_1.zPosition = 3
         //bin_1.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(bin_1.size.width, bin_1.size.height))
@@ -103,7 +113,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         bin_1.physicsBody?.collisionBitMask=PhysicsCategory.Shape
         bin_1.physicsBody?.contactTestBitMask=PhysicsCategory.Shape
         //        bin_1.name = "bin_1"
-        
+
         bin_1_shape.anchorPoint = CGPoint(x: 1, y: 1)
         bin_1_shape.setScale(shapeScaleFactor)
         bin_1_shape.position = CGPointMake(self.size.width - binWidth/20, self.size.height - binWidth/20)
@@ -114,7 +124,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         //bin_2.size = CGSize(width: 100, height: 100)
         // top left
         bin_2.anchorPoint = CGPoint(x: 0, y: 1)
-        bin_2.setScale(0.264*self.size.width/bin_2.size.width)
+        bin_2.setScale(0.264*self.size.width/bin_2_width)
         bin_2.position = CGPointMake(0, self.size.height)
         bin_2.zPosition = 3
         //bin_2.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(bin_2.size.width, bin_2.size.height))
@@ -136,7 +146,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         //bin_3.size = CGSize(width: 100, height: 100)
         // bottom right
         bin_3.anchorPoint = CGPoint(x: 1, y: 0)
-        bin_3.setScale(0.264*self.size.width/bin_3.size.width)
+        bin_3.setScale(0.264*self.size.width/bin_3_width)
         bin_3.position = CGPointMake(self.size.width, 0)
         bin_3.zPosition = 3
         
@@ -161,7 +171,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         //bin_4.size = CGSize(width: 100, height: 100)
         //bottom left
         bin_4.anchorPoint = CGPointZero
-        bin_4.setScale(0.264*self.size.width/bin_4.size.width)
+        bin_4.setScale(0.264*self.size.width/bin_4_width)
         bin_4.position = CGPointMake(0, 0)
         bin_4.zPosition = 3
         //bin_4.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(bin_4.size.width, bin_4.size.height))
@@ -299,10 +309,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
             
         }
         
-        //        if flicked into wrong bin {
-        //            missedCounter += 1
-        //            livesLabel.text = "Missed: " + String(missedCounter)
-        //        }
+ 
         /*
         print(contact.bodyA.node?.name);
         print(contact.bodyB.node?.name);
@@ -322,6 +329,9 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         */
     }
     
+    var timeRequired = 2.0
+    var timeSpeedUpFactor = 0.05
+    var minTimeRequired = 0.5
     override func update(currentTime: CFTimeInterval) {
         if currentTime - time >= 2 && !gameOver {
             shapeToAdd = self.shapeController.spawnShape();
@@ -333,10 +343,12 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
             //self.addChild(self.shapeController.spawnShape());
             time = currentTime;
             self.shapeController.speedUpVelocity(10);
+            timeRequired = max(timeRequired - timeSpeedUpFactor, minTimeRequired)
         }
         removeOffScreenNodes()
         if lives == 0 {
             createRestartBTN()
+        }
         }
     }
     
@@ -373,17 +385,20 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         let touch: UITouch = touches.first!
         let location: CGPoint = touch.locationInNode(self)
         // Save start location and time
+        if !gameOver {
         start = location
         startTime = touch.timestamp
         let touchedNode=self.nodeAtPoint(start)
         oldVelocities[touchedNode]=touchedNode.physicsBody?.velocity;
         touchedNode.physicsBody?.velocity=CGVectorMake(0, 0)
+        }
         if restartBTN.containsPoint(location) {
             restartScene()
         }
     }
     
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        if !gameOver {
         let touch: UITouch = touches.first!
         let location: CGPoint = touch.locationInNode(self)
         // Determine distance from the starting point
@@ -409,6 +424,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
                 touchedNode.physicsBody?.velocity=oldVelocities[touchedNode]!
             }
         }
+        }
     }
     
     func createRestartBTN() {
@@ -428,7 +444,9 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         self.removeAllChildren()
         gameOver = false;
         score = 0
-        lives = 3
+        lives = NUMBEROFLIFES
+        timeRequired = 2.0
+        self.shapeController.resetVelocityBounds()
         createScene()
     }
     
