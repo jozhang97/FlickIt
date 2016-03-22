@@ -202,7 +202,7 @@
 				TargetAttributes = {
 					1FA8C64D1C6FB1E40072E83F = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = 93GPGDAN9C;
+						DevelopmentTeam = 5F4H9R4HTA;
 					};
 					1FA8C6651C6FB1E40072E83F = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -419,7 +419,7 @@
 				INFOPLIST_FILE = FlickIt/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = test.FlickIter;
+				PRODUCT_BUNDLE_IDENTIFIER = test.FlickIt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -434,7 +434,7 @@
 				INFOPLIST_FILE = FlickIt/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = test.FlickIter;
+				PRODUCT_BUNDLE_IDENTIFIER = test.FlickIt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};

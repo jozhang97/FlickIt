@@ -10,7 +10,11 @@
 import SpriteKit
 
 class StartGameScene: SKScene, SKPhysicsContactDelegate {
+<<<<<<< HEAD
     var NUMBEROFLIFES = 3
+=======
+    var NUMBEROFLIFES = 1
+>>>>>>> parent of 2055e7e... fixed one restart bug
     var bgImage = SKSpriteNode(imageNamed: "neon_circle.jpg");
     var startSquare = SKSpriteNode(imageNamed: "start_square.jpg");
     var launchSquare = SKSpriteNode(imageNamed: "launch_square.jpg");
@@ -59,8 +63,11 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     // Actual dimensions of the screen
     var sceneHeight = CGFloat(0);
     var sceneWidth = CGFloat(0);
+<<<<<<< HEAD
     
     
+=======
+>>>>>>> parent of 2055e7e... fixed one restart bug
     override init(size: CGSize) {
         super.init(size: size)
         physicsWorld.contactDelegate = self // error fix = do self.physicsWorld...
@@ -305,9 +312,6 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
                 livesLabel.text = "Lives:" + String(lives)
             }
         }
-        else {  //gameover
-            
-        }
         
  
         /*
@@ -333,7 +337,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     var timeSpeedUpFactor = 0.05
     var minTimeRequired = 0.5
     override func update(currentTime: CFTimeInterval) {
-        if currentTime - time >= 2 && !gameOver {
+        if currentTime - time >= 2  {
             shapeToAdd = self.shapeController.spawnShape();
             shapeToAdd.position = CGPointMake(self.size.width/2, self.size.height/2);
             
