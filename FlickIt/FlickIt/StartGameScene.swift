@@ -6,11 +6,10 @@
 //  Created by Apple on 2/20/16.
 //  Copyright © 2016 Abhi_Shaili_Jeffrey_Rohan_Ashwin. All rights reserved.
 //
-
+import AVFoundation
 import SpriteKit
 
 class StartGameScene: SKScene, SKPhysicsContactDelegate {
-    var NUMBEROFLIFES = 1
     var bgImage = SKSpriteNode(imageNamed: "neon_circle.jpg");
     var startSquare = SKSpriteNode(imageNamed: "start_square.jpg");
     var launchSquare = SKSpriteNode(imageNamed: "launch_square.jpg");
@@ -50,24 +49,38 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     var oldVelocities = [SKNode: CGVector]()
     var binWidth = CGFloat(0);
     var shapeScaleFactor = CGFloat(0);
+    var audioPlayer = AVAudioPlayer()
     
     let sizeRect = UIScreen.mainScreen().applicationFrame;
     // Actual dimensions of the screen
     var sceneHeight = CGFloat(0);
     var sceneWidth = CGFloat(0);
+    
     override init(size: CGSize) {
         super.init(size: size)
         createScene()
+        playMusic("spectre", type: "mp3")
+    }
+    
+    func playMusic(path: String, type: String) {
+        let alertSound = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource(path, ofType: type)!)
+        print(alertSound)
+        
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            try AVAudioSession.sharedInstance().setActive(true)
+            try audioPlayer = AVAudioPlayer(contentsOfURL: alertSound)
+        }
+        catch {
+            
+        }
+        audioPlayer.prepareToPlay()
+        audioPlayer.play()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    //    override func didMoveToView(view: SKView) {
-    //        print("hello")
-    //        createScene()
-    //    }
     
     func createScene() {
         self.physicsWorld.contactDelegate = self 

@@ -7,6 +7,7 @@
 //
 
 import SpriteKit
+import AVFoundation
 
 struct PhysicsCategory {
     static let Bin : UInt32 = 0x1 << 1
@@ -37,9 +38,28 @@ class GameScene: SKScene {
     let aboutButton = GGButton(defaultButtonText: "ABOUT", buttonAction: goToAbout)
     var curveUpAction = SKAction()
     var curveDownAction = SKAction()
+    var audioPlayer = AVAudioPlayer()
+    
     
     override func didMoveToView(view: SKView) {
         createHomeScreen()
+        playMusic("intromusic", type: "mp3")
+    }
+    
+    func playMusic(path: String, type: String) {
+        let alertSound = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource(path, ofType: type)!)
+        print(alertSound)
+        
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            try AVAudioSession.sharedInstance().setActive(true)
+            try audioPlayer = AVAudioPlayer(contentsOfURL: alertSound)
+        }
+        catch {
+            
+        }
+        audioPlayer.prepareToPlay()
+        audioPlayer.play()
     }
     
     func createHomeScreen(){
@@ -181,6 +201,7 @@ class GameScene: SKScene {
     }
     
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        playMusic("swoosh", type: "mp3")
         let touch: UITouch = touches.first!
         let location: CGPoint = touch.locationInNode(self)
         // Determine distance from the starting point
