@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		187EF1DC1C7900DB0087A94A /* StartGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187EF1DB1C7900DB0087A94A /* StartGameScene.swift */; };
+		18FD23D61CA21C40008AB676 /* GGButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FD23D51CA21C40008AB676 /* GGButton.swift */; };
 		1F693A4F1C7910DE00C6B20E /* SpawnShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F693A4E1C7910DE00C6B20E /* SpawnShape.swift */; };
 		1FA8C6521C6FB1E40072E83F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA8C6511C6FB1E40072E83F /* AppDelegate.swift */; };
 		1FA8C6561C6FB1E40072E83F /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA8C6551C6FB1E40072E83F /* GameScene.swift */; };
@@ -38,6 +39,7 @@
 
 /* Begin PBXFileReference section */
 		187EF1DB1C7900DB0087A94A /* StartGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartGameScene.swift; sourceTree = "<group>"; };
+		18FD23D51CA21C40008AB676 /* GGButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GGButton.swift; sourceTree = "<group>"; };
 		1F693A4E1C7910DE00C6B20E /* SpawnShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpawnShape.swift; sourceTree = "<group>"; };
 		1FA8C64E1C6FB1E40072E83F /* FlickIt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlickIt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FA8C6511C6FB1E40072E83F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				1FA8C6511C6FB1E40072E83F /* AppDelegate.swift */,
 				1FA8C6551C6FB1E40072E83F /* GameScene.swift */,
 				1FA8C6571C6FB1E40072E83F /* GameViewController.swift */,
+				18FD23D51CA21C40008AB676 /* GGButton.swift */,
 				187EF1DB1C7900DB0087A94A /* StartGameScene.swift */,
 				1F693A4E1C7910DE00C6B20E /* SpawnShape.swift */,
 				1FA8C6591C6FB1E40072E83F /* Main.storyboard */,
@@ -273,6 +276,7 @@
 				1FA8C6581C6FB1E40072E83F /* GameViewController.swift in Sources */,
 				187EF1DC1C7900DB0087A94A /* StartGameScene.swift in Sources */,
 				1FA8C6521C6FB1E40072E83F /* AppDelegate.swift in Sources */,
+				18FD23D61CA21C40008AB676 /* GGButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
