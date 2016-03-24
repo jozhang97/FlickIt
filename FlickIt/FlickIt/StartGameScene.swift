@@ -268,10 +268,6 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         if !gameOver {
             let firstBody=contact.bodyA
             let secondBody=contact.bodyB
-            //print("BIN:",PhysicsCategory.Bin)
-            //print("SHAPE:",PhysicsCategory.Shape)
-            //print("FIRST BODY:",firstBody.categoryBitMask)
-            //print("SECOND BODY",secondBody.categoryBitMask)
             
             if(firstBody.categoryBitMask==PhysicsCategory.Bin && secondBody.categoryBitMask==PhysicsCategory.Shape){
                 //do something
@@ -285,6 +281,12 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
                 //score changes
                 if (firstBody.node?.name == secondBody.node?.name) {
                     score++
+                    //explode secondBody
+                    let explosionEmitterNode = SKEmitterNode(fileNamed:"ExplosionEffect.sks")
+                    explosionEmitterNode!.position = CGPointMake((secondBody.node?.position.x)!,(secondBody.node?.position.y)!)
+                    explosionEmitterNode?.zPosition=100
+                    self.addChild(explosionEmitterNode!)
+                    
                 } else {
                     lives--
                 }
@@ -299,6 +301,11 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
                 
                 if (firstBody.node?.name == secondBody.node?.name) {
                     score++
+                    let explosionEmitterNode = SKEmitterNode(fileNamed:"ExplosionEffect.sks")
+                    explosionEmitterNode!.position = CGPointMake((firstBody.node?.position.x)!,(firstBody.node?.position.y)!)
+                    explosionEmitterNode?.emissionAngle=CGFloat(30)
+                    explosionEmitterNode?.zPosition=100
+                    self.addChild(explosionEmitterNode!)
                 } else {
                     lives--
                 }
