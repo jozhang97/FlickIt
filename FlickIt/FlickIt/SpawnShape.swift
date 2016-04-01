@@ -33,6 +33,11 @@ class SpawnShape
         LOWERBOUND = min(LOWERBOUND, LOWESTBOUND)
     }
     
+    func resetVelocityBounds() {
+        range = 100.0
+        LOWERBOUND = CGFloat(40.0)
+    }
+    
     func spawnShape() -> SKSpriteNode {
         
         X_VELOCITY_RANGE = CGFloat(range)
