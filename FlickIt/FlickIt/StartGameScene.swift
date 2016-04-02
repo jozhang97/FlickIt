@@ -458,7 +458,15 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         gameOver = true
         playMusic("spectre", type: "mp3") // change to some lose song
         
-        self.removeAllChildren()
+        bin_1_shape.texture = SKTexture(imageNamed:"blue_triangle-1")
+        bin_2_shape.texture = SKTexture(imageNamed:"blue_triangle-1")
+        bin_3_shape.texture = SKTexture(imageNamed:"blue_triangle-1")
+        bin_4_shape.texture = SKTexture(imageNamed:"blue_triangle-1")
+        // change bin displays
+        // Add gameover label and star node
+        // add collision actions 
+        // readd star node if flicked off screen
+        // Change about to settings 
         
     }
     
