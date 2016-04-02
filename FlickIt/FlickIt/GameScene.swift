@@ -31,8 +31,7 @@ class GameScene: SKScene {
     let curveUp = SKShapeNode()
     let curveDown = SKShapeNode()
     let triangle = SKShapeNode()
-    let playButton = SKSpriteNode(imageNamed: "playNow.png")
-    let muteButton = SKSpriteNode(imageNamed: "muteNow.png")
+    let muteButton = SKSpriteNode(imageNamed: "playNow.png")
     let aboutButton = SKLabelNode(text: "ABOUT")
     var curveUpAction = SKAction()
     var curveDownAction = SKAction()
@@ -223,20 +222,19 @@ class GameScene: SKScene {
             pressedMute = true
             if mute == 0 {  //MUTE IT
                 audioPlayer.volume = 0.01
-                muteButton.texture = SKTexture(imageNamed: "playNow.png")
+                muteButton.texture = SKTexture(imageNamed: "muteNow.png")
                 mute = 1
             }
             else if mute == 1 { //UNMUTE IT
                 audioPlayer.volume = 1
-                muteButton.texture = SKTexture(imageNamed: "muteNow.png")
+                muteButton.texture = SKTexture(imageNamed: "playNow.png")
                 mute = 0
                 
             }
         }
         //doesn't recognize About Button location! need to fix!
         if aboutButton.containsPoint(location) {
-            print("here")
-            
+            startAbout()
         }
     }
     
@@ -284,6 +282,23 @@ class GameScene: SKScene {
             }
             //touchedNode.physicsBody?.applyImpulse(CGVectorMake(100*dx, 100*dy))
         }
+    }
+    
+    func startAbout() {
+        let scene: SKScene = AboutScene(size: self.size)
+        
+        // Configure the view.
+        let skView = self.view as SKView!
+        skView.showsFPS = false
+        skView.showsNodeCount = false
+        
+        /* Sprite Kit applies additional optimizations to improve rendering performance */
+        skView.ignoresSiblingOrder = true
+        
+        /* Set the scale mode to scale to fit the window */
+        scene.scaleMode = .AspectFill
+        skView.presentScene(scene)
+        
     }
     
     func startGame() {
