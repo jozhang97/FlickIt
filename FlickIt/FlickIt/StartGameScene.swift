@@ -278,11 +278,15 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
             firstBody=contact.bodyB
             secondBody=contact.bodyA
         }
+        //THIS SHOULD STILL BE HERE!!!!!!!!!!!
         if !gameOver {
             if (firstBody.categoryBitMask==PhysicsCategory.Shape && secondBody.categoryBitMask==PhysicsCategory.Bin){
                 let explosionEmitterNode = SKEmitterNode(fileNamed:"ExplosionEffect.sks")
                 explosionEmitterNode!.position = contact.contactPoint
                 explosionEmitterNode?.zPosition=100
+                if (firstBody.node?.name=="bomb") {
+                    print("HI")
+                }
                 if (firstBody.node?.name == secondBody.node?.name) {
                     score += 1
                 } else {
