@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		187EF1DC1C7900DB0087A94A /* StartGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187EF1DB1C7900DB0087A94A /* StartGameScene.swift */; };
 		18F63FDA1CA2581F00C2058A /* musicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F63FD91CA2581F00C2058A /* musicPlayer.swift */; };
+		18F84F8B1CB04BBB00053DE8 /* bokeh.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F84F891CB04BBB00053DE8 /* bokeh.png */; };
+		18F84F8C1CB04BBB00053DE8 /* ExplosionEffect.sks in Resources */ = {isa = PBXBuildFile; fileRef = 18F84F8A1CB04BBB00053DE8 /* ExplosionEffect.sks */; };
 		18FD23D61CA21C40008AB676 /* GGButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FD23D51CA21C40008AB676 /* GGButton.swift */; };
 		1F693A4F1C7910DE00C6B20E /* SpawnShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F693A4E1C7910DE00C6B20E /* SpawnShape.swift */; };
 		1FA8C6521C6FB1E40072E83F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA8C6511C6FB1E40072E83F /* AppDelegate.swift */; };
@@ -16,7 +18,6 @@
 		1FA8C6581C6FB1E40072E83F /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA8C6571C6FB1E40072E83F /* GameViewController.swift */; };
 		1FA8C65B1C6FB1E40072E83F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FA8C6591C6FB1E40072E83F /* Main.storyboard */; };
 		1FA8C65D1C6FB1E40072E83F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FA8C65C1C6FB1E40072E83F /* Assets.xcassets */; };
-		1FA8C6601C6FB1E40072E83F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FA8C65E1C6FB1E40072E83F /* LaunchScreen.storyboard */; };
 		1FA8C66B1C6FB1E40072E83F /* FlickItTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA8C66A1C6FB1E40072E83F /* FlickItTests.swift */; };
 		1FA8C6761C6FB1E40072E83F /* FlickItUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA8C6751C6FB1E40072E83F /* FlickItUITests.swift */; };
 /* End PBXBuildFile section */
@@ -41,6 +42,8 @@
 /* Begin PBXFileReference section */
 		187EF1DB1C7900DB0087A94A /* StartGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartGameScene.swift; sourceTree = "<group>"; };
 		18F63FD91CA2581F00C2058A /* musicPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = musicPlayer.swift; sourceTree = "<group>"; };
+		18F84F891CB04BBB00053DE8 /* bokeh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bokeh.png; sourceTree = "<group>"; };
+		18F84F8A1CB04BBB00053DE8 /* ExplosionEffect.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ExplosionEffect.sks; sourceTree = "<group>"; };
 		18FD23D51CA21C40008AB676 /* GGButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GGButton.swift; sourceTree = "<group>"; };
 		1F693A4E1C7910DE00C6B20E /* SpawnShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpawnShape.swift; sourceTree = "<group>"; };
 		1FA8C64E1C6FB1E40072E83F /* FlickIt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlickIt.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -49,7 +52,6 @@
 		1FA8C6571C6FB1E40072E83F /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		1FA8C65A1C6FB1E40072E83F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1FA8C65C1C6FB1E40072E83F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		1FA8C65F1C6FB1E40072E83F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1FA8C6611C6FB1E40072E83F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1FA8C6661C6FB1E40072E83F /* FlickItTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlickItTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FA8C66A1C6FB1E40072E83F /* FlickItTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickItTests.swift; sourceTree = "<group>"; };
@@ -111,12 +113,13 @@
 				1FA8C6551C6FB1E40072E83F /* GameScene.swift */,
 				1FA8C6571C6FB1E40072E83F /* GameViewController.swift */,
 				18FD23D51CA21C40008AB676 /* GGButton.swift */,
+				18F84F891CB04BBB00053DE8 /* bokeh.png */,
+				18F84F8A1CB04BBB00053DE8 /* ExplosionEffect.sks */,
 				187EF1DB1C7900DB0087A94A /* StartGameScene.swift */,
 				1F693A4E1C7910DE00C6B20E /* SpawnShape.swift */,
 				18F63FD91CA2581F00C2058A /* musicPlayer.swift */,
 				1FA8C6591C6FB1E40072E83F /* Main.storyboard */,
 				1FA8C65C1C6FB1E40072E83F /* Assets.xcassets */,
-				1FA8C65E1C6FB1E40072E83F /* LaunchScreen.storyboard */,
 				1FA8C6611C6FB1E40072E83F /* Info.plist */,
 			);
 			path = FlickIt;
@@ -247,9 +250,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1FA8C6601C6FB1E40072E83F /* LaunchScreen.storyboard in Resources */,
+				18F84F8C1CB04BBB00053DE8 /* ExplosionEffect.sks in Resources */,
 				1FA8C65D1C6FB1E40072E83F /* Assets.xcassets in Resources */,
 				1FA8C65B1C6FB1E40072E83F /* Main.storyboard in Resources */,
+				18F84F8B1CB04BBB00053DE8 /* bokeh.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,14 +326,6 @@
 				1FA8C65A1C6FB1E40072E83F /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		1FA8C65E1C6FB1E40072E83F /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				1FA8C65F1C6FB1E40072E83F /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

@@ -35,10 +35,14 @@ class GameScene: SKScene {
     let curveUp = SKShapeNode()
     let curveDown = SKShapeNode()
     let triangle = SKShapeNode()
+    let playButton = SKSpriteNode(imageNamed: "playNow.png")
+    let muteButton = SKSpriteNode(imageNamed: "muteNow.png")
     let aboutButton = GGButton(defaultButtonText: "ABOUT", buttonAction: goToAbout)
     var curveUpAction = SKAction()
     var curveDownAction = SKAction()
     var audioPlayer = AVAudioPlayer()
+    var mute = 0
+    var pressedMute = false
     
     
     override func didMoveToView(view: SKView) {
@@ -59,6 +63,7 @@ class GameScene: SKScene {
             
         }
         audioPlayer.prepareToPlay()
+        audioPlayer.numberOfLoops = -1
         audioPlayer.play()
     }
     
@@ -91,6 +96,8 @@ class GameScene: SKScene {
         // Set up about Button
         aboutButton.position = CGPointMake(self.frame.width * 8/10, self.frame.height/12)
         
+        //set up mute button features
+        createMuteButton()
         
         //set Z-positions
         bgImage.zPosition = 1
@@ -101,7 +108,7 @@ class GameScene: SKScene {
         curveDown.zPosition = 3
         curveUp.zPosition = 3
         triangle.zPosition = 4
-        
+        muteButton.zPosition = 5
         
         // Add all the elements to the screen
         self.addChild(bgImage)
@@ -112,7 +119,8 @@ class GameScene: SKScene {
         self.addChild(rulesLabel)
         self.addChild(startLabel)
         self.addChild(aboutButton)
-
+        self.addChild(muteButton);
+        
         // Have triangle first shoot up quickly, then slower and slower.
         /*
         triangle.runAction(SKAction.sequence([
@@ -191,6 +199,11 @@ class GameScene: SKScene {
         rulesLabel.fontSize = 30
     }
     
+    func createMuteButton() {
+        muteButton.position = CGPoint(x: self.size.width/10, y: self.size.height/10)
+        muteButton.size = CGSize(width: self.size.width/5, height: self.size.height/10);
+    }
+    
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
        /* Called when a touch begins */
         let touch: UITouch = touches.first!
@@ -198,10 +211,35 @@ class GameScene: SKScene {
         // Save start location and time
         start = location
         startTime = touch.timestamp
+        
+        //let touchedNode = self.nodeAtPoint(start)
+        //oldVelocities[touchedNode]=touchedNode.physicsBody?.velocity;
+        //touchedNode.physicsBody?.velocity=CGVectorMake(0, 0)
+        if muteButton.containsPoint(location) {
+            pressedMute = true
+            if mute == 0 {  //MUTE IT
+                audioPlayer.volume = 0.01
+                muteButton.texture = SKTexture(imageNamed: "playNow.png")
+                mute = 1
+            }
+            else if mute == 1 { //UNMUTE IT
+                audioPlayer.volume = 1
+                muteButton.texture = SKTexture(imageNamed: "muteNow.png")
+                mute = 0
+                
+            }
+        }
     }
     
+    
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        playMusic("swoosh", type: "mp3")
+        if (!pressedMute) {
+            audioPlayer.numberOfLoops = 0
+            playMusic("swoosh", type: "mp3")
+        }
+        else {
+            pressedMute = false
+        }
         let touch: UITouch = touches.first!
         let location: CGPoint = touch.locationInNode(self)
         // Determine distance from the starting point
@@ -214,6 +252,7 @@ class GameScene: SKScene {
             print("here")
             aboutButton.action()
         }
+        
         
         if (magnitude >= self.kMinDistance){
             // Determine time difference from start of the gesture
