@@ -36,7 +36,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     var score = 0;
     var lives = 3;
     
-    let shapes = ["blue_triangle-1", "blue_square-1", "blue_circle-1","blue_star-1"]
+    let shapes = ["blue_triangle-1", "blue_square-1", "blue_circle-1","blue_star-1", "gameOverStar"]
     let bins = ["bin_1", "bin_2", "bin_3", "bin_4"]
     
     var start=CGPoint();
@@ -51,6 +51,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     var shapeToAdd = SKSpriteNode();
     var touched:Bool = false;
     var shapeController = SpawnShape();
+    var homeController = GameScene();
     var restartBTN = SKSpriteNode();
     var gameOver = false; // SET THESE
     var oldVelocities = [SKNode: CGVector]()
@@ -126,6 +127,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         bin_1_shape.setScale(shapeScaleFactor)
         bin_1_shape.position = CGPointMake(self.size.width - binWidth/20, self.size.height - binWidth/20)
         bin_1_shape.zPosition = 4;
+        bin_1_shape.texture = SKTexture(imageNamed: "blue_star-1")
         
         bin_1.name = shapes[3] //set bin names to name of shapes they take
         
@@ -148,7 +150,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         bin_2_shape.setScale(shapeScaleFactor)
         bin_2_shape.position = CGPointMake(binWidth / 20, self.size.height - binWidth/20)
         bin_2_shape.zPosition = 4;
-        
+        bin_2_shape.texture = SKTexture(imageNamed: "blue_square-1")
+
         bin_2.name = shapes[1] //set bin names to name of shapes they take
         
         //bin_3.size = CGSize(width: 100, height: 100)
@@ -173,7 +176,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         bin_3_shape.setScale(shapeScaleFactor)
         bin_3_shape.position = CGPointMake(self.size.width - binWidth/20, binWidth/20)
         bin_3_shape.zPosition = 4;
-        
+        bin_3_shape.texture = SKTexture(imageNamed: "blue_circle-1")
+
         bin_3.name = shapes[2] //set bin names to name of shapes they take
         
         //bin_4.size = CGSize(width: 100, height: 100)
@@ -195,7 +199,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         bin_4_shape.setScale(shapeScaleFactor)
         bin_4_shape.position = CGPointMake(binWidth/20, binWidth/20)
         bin_4_shape.zPosition = 4;
-        
+        bin_4_shape.texture = SKTexture(imageNamed: "blue_triangle-1")
+
         bin_4.name = shapes[0] //set bin names to name of shapes they take
         
         self.addChild(bin_1)
@@ -280,12 +285,12 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         }
         if !gameOver {
             if (firstBody.categoryBitMask==PhysicsCategory.Shape && secondBody.categoryBitMask==PhysicsCategory.Bin){
+                if(firstBody.node!.name=="bomb"){
+                    firstBody.node?.removeFromParent()
+                }
                 let explosionEmitterNode = SKEmitterNode(fileNamed:"ExplosionEffect.sks")
                 explosionEmitterNode!.position = contact.contactPoint
                 explosionEmitterNode?.zPosition=100
-                if (firstBody.node?.name=="bomb") {
-                    print("HI")
-                }
                 if (firstBody.node?.name == secondBody.node?.name) {
                     score += 1
                 } else {
@@ -309,7 +314,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
                 if (binName == "restart") {
                     restartScene()
                 } else if (binName == "home") {
-                    print("go to home")
+                    self.removeAllChildren()
+                    self.goToHome()
                 } else if (binName == "highScore") {
                     print("go to high")
                 } else if (binName == "settings") {
@@ -317,66 +323,56 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
                 }
             }
         }
-        
-        //        if flicked into wrong bin {
-        //            missedCounter += 1
-        //            livesLabel.text = "Missed: " + String(missedCounter)
-        //        }
-        /*
-        print(contact.bodyA.node?.name);
-        print(contact.bodyB.node?.name);
-        if ((contact.bodyA.node!.name == shapes[0] && contact.bodyB.node!.name == bins[0]) || (
-        contact.bodyA.node!.name == shapes[1] && contact.bodyB.node!.name == bins[1]) || (
-        contact.bodyA.node!.name == shapes[2] && contact.bodyB.node!.name == bins[2]) || (
-        contact.bodyA.node!.name == shapes[3] && contact.bodyB.node!.name == bins[3])){
-        perfectFlick(contact.bodyA.node!)
-        } else if ((contact.bodyB.node!.name == shapes[0] && contact.bodyA.node!.name == bins[0]) || (
-        contact.bodyB.node!.name == shapes[1] && contact.bodyA.node!.name == bins[1]) || (
-        contact.bodyB.node!.name == shapes[2] && contact.bodyA.node!.name == bins[2]) || (
-        contact.bodyB.node!.name == shapes[3] && contact.bodyA.node!.name == bins[3])) {
-        perfectFlick(contact.bodyB.node!)
-        } else {
-        failedFlick();
-        }
-        */
+    }
+    
+    func goToHome() {
+        let scene: SKScene = GameScene(size: self.size)
+        // Configure the view.
+        let skView = self.view as SKView!
+        skView.showsFPS = false
+        skView.showsNodeCount = false
+        /* Sprite Kit applies additional optimizations to improve rendering performance */
+        skView.ignoresSiblingOrder = true
+        /* Set the scale mode to scale to fit the window */
+        scene.scaleMode = .AspectFill
+        skView.presentScene(scene)
     }
     
     var timeRequired = 2.0
     var timeSpeedUpFactor = 0.05
     var minTimeRequired = 1.0
     var multiplicativeSpeedUpFactor = 1.0
+    
     override func update(currentTime: CFTimeInterval) {
+        let didRemoveGameover = removeOffScreenNodes()
         if !gameOver {
-        if currentTime - time >= timeRequired {
-            shapeToAdd = self.shapeController.spawnShape();
-            shapeToAdd.position = CGPointMake(self.size.width/2, self.size.height/2);
-            
-            //print(shapeToAdd.physicsBody?.velocity);
-            self.addChild(shapeToAdd);
-            //shapeToAdd.physicsBody?.applyImpulse(CGVectorMake(shapeController.dx, shapeController.dy))
-            //self.addChild(self.shapeController.spawnShape());
-            time = currentTime;
-            self.shapeController.speedUpVelocity(5);
-//            timeRequired = max(timeRequired - timeSpeedUpFactor, minTimeRequired)
-            timeRequired = max(timeRequired * multiplicativeSpeedUpFactor, minTimeRequired)
-            multiplicativeSpeedUpFactor -= 0.005
-        }
-        removeOffScreenNodes()
-        if lives == 0 {
-            createRestartBTN()
-        }
+            if currentTime - time >= timeRequired {
+                shapeToAdd = self.shapeController.spawnShape();
+                shapeToAdd.position = CGPointMake(self.size.width/2, self.size.height/2);
+                self.addChild(shapeToAdd);
+                //shapeToAdd.physicsBody?.applyImpulse(CGVectorMake(shapeController.dx, shapeController.dy))
+                //self.addChild(self.shapeController.spawnShape());
+                time = currentTime;
+                self.shapeController.speedUpVelocity(5);
+    //            timeRequired = max(timeRequired - timeSpeedUpFactor, minTimeRequired)
+                timeRequired = max(timeRequired * multiplicativeSpeedUpFactor, minTimeRequired)
+                multiplicativeSpeedUpFactor -= 0.005
+            }
+            if lives == 0 {
+                createRestartBTN()
+            }
         }
         else {
-            
-            if (removeOffScreenNodes()) {
-                print("HELLO")
+            if didRemoveGameover {
+                gameOverStar.removeFromParent()
+                setUpGameOverStar()
             }
         }
     }
     
     // increment when shape goes off screen or when flicked into wrong bin
     func removeOffScreenNodes() -> Bool {
-        var didRemove = false
+        var didRemoveGameOver = false
         if !gameOver {
             for shape in shapes {
                 self.enumerateChildNodesWithName(shape, usingBlock: {
@@ -384,14 +380,19 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
                     let sprite = node as! SKSpriteNode
                     if (sprite.position.y < 0 || sprite.position.x < 0 || sprite.position.x > self.size.width || sprite.position.y > self.size.height) {
                         node.removeFromParent();
-                        self.lives -= 1;
-                        self.livesLabel.text = "Lives: " + String(self.lives)
-                        didRemove = true
+                        if !self.gameOver {
+                            self.lives -= 1;
+                            self.livesLabel.text = "Lives: " + String(self.lives)
+                        } else {
+                            if (node.name == "gameOverStar") {
+                                didRemoveGameOver = true
+                            }
+                        }
                     }
                 })
             }
         }
-        return didRemove
+        return didRemoveGameOver
     }
     
     
@@ -413,6 +414,19 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         start = location
         startTime = touch.timestamp
         let touchedNode=self.nodeAtPoint(start)
+        if(touchedNode.name=="bomb"){
+            lives=0;
+            livesLabel.text="Lives:" + String(lives)
+            let explosionEmitterNode = SKEmitterNode(fileNamed: "ExplosionEffect.sks")
+            explosionEmitterNode?.position=touchedNode.position
+            explosionEmitterNode?.zPosition=100
+            explosionEmitterNode?.particleColorSequence=SKKeyframeSequence(keyframeValues: [UIColor.redColor()], times: [0])
+            explosionEmitterNode?.particleLifetime=5.0
+            explosionEmitterNode?.numParticlesToEmit=200
+            explosionEmitterNode?.particleSpeed=100
+            self.addChild(explosionEmitterNode!)
+            touchedNode.removeFromParent()
+        }
         oldVelocities[touchedNode]=touchedNode.physicsBody?.velocity;
         touchedNode.physicsBody?.velocity=CGVectorMake(0, 0)
         if restartBTN.containsPoint(location) {

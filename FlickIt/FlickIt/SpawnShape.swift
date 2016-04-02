@@ -11,8 +11,8 @@ import Foundation
 class SpawnShape
 {
 
-    let shapes = ["blue_triangle-1", "blue_square-1", "blue_circle-1","blue_star-1"]
-    var shapeCounter = [0,0,0,0]
+    let shapes = ["blue_triangle-1", "blue_square-1", "blue_circle-1","blue_star-1","bomb"]
+    var shapeCounter = [0,0,0,0,0]
     let delayTime = 2.0 // time between spawns
     var range = 100.0 //range of X velocities
     let UPPERRANGEBOUND = 200.0;
@@ -60,7 +60,13 @@ class SpawnShape
         Y_VELOCITY_RANGE = CGFloat(1.5*range)
         let width = sizeRect.size.width * UIScreen.mainScreen().scale / 2; //screen width in points
         let height = sizeRect.size.height * UIScreen.mainScreen().scale / 2; //screen height in points
-        let shapePicker = Int(arc4random_uniform(4))
+        var shapePicker=100
+        if((shapeCounter.reduce(0,combine: +) > 10) && Int(arc4random_uniform(6))==5){
+            shapePicker=Int(4)
+        }
+        else{
+            shapePicker = Int(arc4random_uniform(4))
+        }
         let shape = SKSpriteNode(imageNamed: shapes[shapePicker])
         //print("", shapes[shapePicker], ": ", shape.size.width);
         
