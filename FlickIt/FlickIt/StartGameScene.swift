@@ -158,7 +158,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         bin_3.position = CGPointMake(self.size.width, 0)
         bin_3.zPosition = 3
         
-        let physics = CGPointMake(self.frame.width * 2 / 3 + bin_3.size.width/2, self.frame.height / 10 - bin_3.size.height/2)
+        //let physics = CGPointMake(self.frame.width * 2 / 3 + bin_3.size.width/2, self.frame.height / 10 - bin_3.size.height/2)
         //bin_3.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(bin_3.size.width, bin_3.size.height))
         //bin_3.physicsBody = SKPhysicsBody(circleOfRadius: bin_3.size.width/4, center: physics)
         bin_3.physicsBody = SKPhysicsBody(circleOfRadius: bin_3.size.width)
@@ -285,7 +285,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
                 //check if shape name == bin name, correct shape
                 //score changes
                 if (firstBody.node?.name == secondBody.node?.name) {
-                    score++
+                    score += 1
                     //explode secondBody
                     /*
                     let explosionEmitterNode = SKEmitterNode(fileNamed:"ExplosionEffect.sks")
@@ -297,7 +297,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
                     */
                     
                 } else {
-                    lives--
+                    lives -= 1
                 }
                 scoreLabel.text="Score:"+String(score)
                 livesLabel.text = "Lives:" + String(lives)
@@ -309,7 +309,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
             
                 
                 if (firstBody.node?.name == secondBody.node?.name) {
-                    score++
+                    score += 1
                     let explosionEmitterNode = SKEmitterNode(fileNamed:"ExplosionEffect.sks")
                     
                     explosionEmitterNode!.position = contact.contactPoint
@@ -319,7 +319,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
                     explosionEmitterNode?.zPosition=100
                     self.addChild(explosionEmitterNode!)
                 } else {
-                    lives--
+                    lives -= 1
                 }
                 scoreLabel.text="Score:"+String(score)
                 livesLabel.text = "Lives:" + String(lives)
