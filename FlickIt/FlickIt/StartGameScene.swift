@@ -272,10 +272,9 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func didBeginContact(contact: SKPhysicsContact) {
+        var firstBody=contact.bodyA
+        var secondBody=contact.bodyB
         if !gameOver {
-            let firstBody=contact.bodyA
-            let secondBody=contact.bodyB
-            
             if(firstBody.categoryBitMask==PhysicsCategory.Bin && secondBody.categoryBitMask==PhysicsCategory.Shape){
                 //do something
                 //check if collision is correct
@@ -326,6 +325,10 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
                 firstBody.node?.removeFromParent();
             }
         }
+        else {
+            
+            
+        }
         
         //        if flicked into wrong bin {
         //            missedCounter += 1
@@ -375,10 +378,17 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
             createRestartBTN()
         }
         }
+        else {
+            
+            if (removeOffScreenNodes()) {
+                print("HELLO")
+            }
+        }
     }
     
     // increment when shape goes off screen or when flicked into wrong bin
-    func removeOffScreenNodes() {
+    func removeOffScreenNodes() -> Bool {
+        var didRemove = false
         if !gameOver {
             for shape in shapes {
                 self.enumerateChildNodesWithName(shape, usingBlock: {
@@ -388,10 +398,12 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
                         node.removeFromParent();
                         self.lives -= 1;
                         self.livesLabel.text = "Lives: " + String(self.lives)
+                        didRemove = true
                     }
                 })
             }
         }
+        return didRemove
     }
     
     
@@ -451,24 +463,46 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     func createRestartBTN() {
         scoreLabel.text = ""
         livesLabel.text = ""
-        restartBTN = SKSpriteNode(imageNamed: "restartBTN")
-        restartBTN.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
-        restartBTN.zPosition = 6
-        self.addChild(restartBTN);
+//        restartBTN = SKSpriteNode(imageNamed: "restartBTN")
+//        restartBTN.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
+//        restartBTN.zPosition = 6
+//        self.addChild(restartBTN);
         gameOver = true
         playMusic("spectre", type: "mp3") // change to some lose song
         
+        // change bin displays
         bin_1_shape.texture = SKTexture(imageNamed:"blue_triangle-1")
         bin_2_shape.texture = SKTexture(imageNamed:"blue_triangle-1")
         bin_3_shape.texture = SKTexture(imageNamed:"blue_triangle-1")
         bin_4_shape.texture = SKTexture(imageNamed:"blue_triangle-1")
-        // change bin displays
         // Add gameover label and star node
+        setupGameOverLabel()
+        setUpGameOverStar()
         // add collision actions 
         // readd star node if flicked off screen
-        // Change about to settings 
-        
+
+
+        // Change about to settings
     }
+    let gameOverLabel = SKLabelNode(text: "GAMEOVER")
+    var gameOverStar = SKSpriteNode(imageNamed: "blue_star-1")
+
+    func setupGameOverLabel() {
+        gameOverLabel.position = CGPointMake(self.size.width/2, self.size.height/2);
+        gameOverLabel.horizontalAlignmentMode = .Center
+        gameOverLabel.fontColor = UIColor.whiteColor()
+        gameOverLabel.fontName = "Futura"
+        gameOverLabel.fontSize = 25
+        gameOverLabel.zPosition = 5
+        self.addChild(gameOverLabel)
+    }
+    
+    func setUpGameOverStar() {
+        self.shapeController.setUpShape(gameOverStar, scale: shapeScaleFactor)
+        gameOverStar.position = CGPointMake(self.size.width/2, self.size.height/2);
+        self.addChild(gameOverStar)
+    }
+    
     
     func restartScene() {
         // makes bins smaller
