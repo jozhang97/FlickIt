@@ -14,10 +14,6 @@ struct PhysicsCategory {
     static let Shape : UInt32 = 0x1 << 2
 }
 
-func goToAbout() -> Void {
-    print("About:")
-}
-
 class GameScene: SKScene {
     //variables needed for flicking
     var start = CGPoint()
@@ -37,7 +33,7 @@ class GameScene: SKScene {
     let triangle = SKShapeNode()
     let playButton = SKSpriteNode(imageNamed: "playNow.png")
     let muteButton = SKSpriteNode(imageNamed: "muteNow.png")
-    let aboutButton = GGButton(defaultButtonText: "ABOUT", buttonAction: goToAbout)
+    let aboutButton = SKLabelNode(text: "ABOUT")
     var curveUpAction = SKAction()
     var curveDownAction = SKAction()
     var audioPlayer = AVAudioPlayer()
@@ -94,7 +90,7 @@ class GameScene: SKScene {
         setupRulesLabel(radius)
         
         // Set up about Button
-        aboutButton.position = CGPointMake(self.frame.width * 8/10, self.frame.height/12)
+        setupAboutLabel()
         
         //set up mute button features
         createMuteButton()
@@ -130,6 +126,14 @@ class GameScene: SKScene {
             ])
         )
         */
+    }
+    
+    func setupAboutLabel() {
+        aboutButton.position = CGPointMake(self.frame.width * 8/10, self.frame.height/12)
+        aboutButton.horizontalAlignmentMode = .Center
+        aboutButton.fontColor = UIColor.whiteColor()
+        aboutButton.fontName = "Futura"
+        aboutButton.fontSize = 30
     }
     
     func addCurvedLines(curve: SKShapeNode, dub1: Double, dub2: Double, bol: Bool, arch: Double, radi: CGFloat) {
@@ -229,30 +233,30 @@ class GameScene: SKScene {
                 
             }
         }
+        //doesn't recognize About Button location! need to fix!
+        if aboutButton.containsPoint(location) {
+            print("here")
+            
+        }
     }
     
     
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         if (!pressedMute) {
-            audioPlayer.numberOfLoops = 0
+            
             playMusic("swoosh", type: "mp3")
+            audioPlayer.stop()
         }
         else {
             pressedMute = false
         }
+        
         let touch: UITouch = touches.first!
         let location: CGPoint = touch.locationInNode(self)
         // Determine distance from the starting point
         var dx: CGFloat = location.x - start.x
         var dy: CGFloat = location.y - start.y
         let magnitude: CGFloat = sqrt(dx * dx + dy * dy)
-        
-        //doesn't recognize About Button location! need to fix!
-        if aboutButton.containsPoint(location) {
-            print("here")
-            aboutButton.action()
-        }
-        
         
         if (magnitude >= self.kMinDistance){
             // Determine time difference from start of the gesture
