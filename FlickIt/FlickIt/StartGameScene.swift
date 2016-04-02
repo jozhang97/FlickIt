@@ -310,7 +310,6 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
                     return;
                 }
                 let binName = secondBody.node?.name
-                print(binName)
                 if (binName == "restart") {
                     restartScene()
                 } else if (binName == "home") {
@@ -369,7 +368,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
     }
-    
+
+
     // increment when shape goes off screen or when flicked into wrong bin
     func removeOffScreenNodes() -> Bool {
         var didRemoveGameOver = false
