@@ -278,7 +278,6 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
             firstBody=contact.bodyB
             secondBody=contact.bodyA
         }
-        //THIS SHOULD STILL BE HERE!!!!!!!!!!!
         if !gameOver {
             if (firstBody.categoryBitMask==PhysicsCategory.Shape && secondBody.categoryBitMask==PhysicsCategory.Bin){
                 let explosionEmitterNode = SKEmitterNode(fileNamed:"ExplosionEffect.sks")
@@ -301,8 +300,21 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         }
         else {
             if (firstBody.categoryBitMask==PhysicsCategory.Shape && secondBody.categoryBitMask==PhysicsCategory.Bin){
-                restartScene()
-            
+                let shapeName = firstBody.node?.name
+                if (shapeName != "gameOverStar") {
+                    return;
+                }
+                let binName = secondBody.node?.name
+                print(binName)
+                if (binName == "restart") {
+                    restartScene()
+                } else if (binName == "home") {
+                    print("go to home")
+                } else if (binName == "highScore") {
+                    print("go to high")
+                } else if (binName == "settings") {
+                    print("go to settings")
+                }
             }
         }
         
@@ -451,14 +463,15 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         bin_2_shape.texture = SKTexture(imageNamed:"blue_triangle-1")
         bin_3_shape.texture = SKTexture(imageNamed:"blue_triangle-1")
         bin_4_shape.texture = SKTexture(imageNamed:"blue_triangle-1")
+        bin_1.name = "highScore"
+        bin_2.name = "restart"
+        bin_3.name = "settings"
+        bin_4.name = "home"
         // Add gameover label and star node
         setupGameOverLabel()
         setUpGameOverStar()
         // add collision actions 
         // readd star node if flicked off screen
-
-
-        // Change about to settings
     }
     let gameOverLabel = SKLabelNode(text: "GAMEOVER")
     var gameOverStar = SKSpriteNode(imageNamed: "blue_star-1")
@@ -476,6 +489,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     func setUpGameOverStar() {
         self.shapeController.setUpShape(gameOverStar, scale: shapeScaleFactor)
         gameOverStar.position = CGPointMake(self.size.width/2, self.size.height/2);
+        gameOverStar.name = "gameOverStar"
         self.addChild(gameOverStar)
     }
     
