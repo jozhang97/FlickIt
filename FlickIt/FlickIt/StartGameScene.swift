@@ -274,52 +274,22 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     func didBeginContact(contact: SKPhysicsContact) {
         var firstBody=contact.bodyA
         var secondBody=contact.bodyB
+        if(firstBody.categoryBitMask==PhysicsCategory.Bin && secondBody.categoryBitMask==PhysicsCategory.Shape){
+            firstBody=contact.bodyB
+            secondBody=contact.bodyA
+        }
         if !gameOver {
-            if(firstBody.categoryBitMask==PhysicsCategory.Bin && secondBody.categoryBitMask==PhysicsCategory.Shape){
-                //do something
-                //check if collision is correct
-                //remove shape
-                //print("Collision by shape and bin")
-                
-                //check if shape name == bin name, correct shape
-                //score changes
+            if (firstBody.categoryBitMask==PhysicsCategory.Shape && secondBody.categoryBitMask==PhysicsCategory.Bin){
+                let explosionEmitterNode = SKEmitterNode(fileNamed:"ExplosionEffect.sks")
+                explosionEmitterNode!.position = contact.contactPoint
+                explosionEmitterNode?.zPosition=100
                 if (firstBody.node?.name == secondBody.node?.name) {
                     score += 1
-                    //explode secondBody
-                    /*
-                    let explosionEmitterNode = SKEmitterNode(fileNamed:"ExplosionEffect.sks")
-                    explosionEmitterNode!.position = CGPointMake((secondBody.node?.position.x)!,(secondBody.node?.position.y)!)
-                    let angle=atan2(secondBody.velocity.dy,secondBody.velocity.dx)
-                    explosionEmitterNode?.emissionAngle=angle
-                    explosionEmitterNode?.zPosition=100
-                    self.addChild(explosionEmitterNode!)
-                    */
-                    
                 } else {
+                    explosionEmitterNode?.particleColorSequence=SKKeyframeSequence(keyframeValues: [UIColor.redColor()], times: [0])
                     lives -= 1
                 }
-                scoreLabel.text="Score:"+String(score)
-                livesLabel.text = "Lives:" + String(lives)
-                secondBody.node?.removeFromParent();
-                //firstBody.node?.removeAllChildren();
-            }
-            else if (firstBody.categoryBitMask==PhysicsCategory.Shape && secondBody.categoryBitMask==PhysicsCategory.Bin){
-                //print("Collision by shape and bin")
-            
-                
-                if (firstBody.node?.name == secondBody.node?.name) {
-                    score += 1
-                    let explosionEmitterNode = SKEmitterNode(fileNamed:"ExplosionEffect.sks")
-                    
-                    explosionEmitterNode!.position = contact.contactPoint
-                    let angle=atan2(firstBody.velocity.dy,firstBody.velocity.dx)
-                    explosionEmitterNode?.emissionAngle=angle*CGFloat(180/M_PI)
-                    print("ADSADASd    ",angle*CGFloat(180/M_PI))
-                    explosionEmitterNode?.zPosition=100
-                    self.addChild(explosionEmitterNode!)
-                } else {
-                    lives -= 1
-                }
+                self.addChild(explosionEmitterNode!)
                 scoreLabel.text="Score:"+String(score)
                 livesLabel.text = "Lives:" + String(lives)
                 firstBody.node?.removeFromParent();
