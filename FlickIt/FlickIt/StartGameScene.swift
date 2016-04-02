@@ -296,8 +296,10 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
         else {
+            if (firstBody.categoryBitMask==PhysicsCategory.Shape && secondBody.categoryBitMask==PhysicsCategory.Bin){
+                restartScene()
             
-            
+            }
         }
         
         //        if flicked into wrong bin {
