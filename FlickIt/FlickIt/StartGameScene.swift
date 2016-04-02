@@ -352,9 +352,10 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     
     var timeRequired = 2.0
     var timeSpeedUpFactor = 0.05
-    var minTimeRequired = 0.5
-    
+    var minTimeRequired = 1.0
+    var multiplicativeSpeedUpFactor = 1.0
     override func update(currentTime: CFTimeInterval) {
+        if !gameOver {
         if currentTime - time >= timeRequired {
             shapeToAdd = self.shapeController.spawnShape();
             shapeToAdd.position = CGPointMake(self.size.width/2, self.size.height/2);
@@ -364,12 +365,15 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
             //shapeToAdd.physicsBody?.applyImpulse(CGVectorMake(shapeController.dx, shapeController.dy))
             //self.addChild(self.shapeController.spawnShape());
             time = currentTime;
-            self.shapeController.speedUpVelocity(10);
-            timeRequired = max(timeRequired - timeSpeedUpFactor, minTimeRequired)
+            self.shapeController.speedUpVelocity(5);
+//            timeRequired = max(timeRequired - timeSpeedUpFactor, minTimeRequired)
+            timeRequired = max(timeRequired * multiplicativeSpeedUpFactor, minTimeRequired)
+            multiplicativeSpeedUpFactor -= 0.005
         }
         removeOffScreenNodes()
         if lives == 0 {
             createRestartBTN()
+        }
         }
     }
     
@@ -453,6 +457,9 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(restartBTN);
         gameOver = true
         playMusic("spectre", type: "mp3") // change to some lose song
+        
+        self.removeAllChildren()
+        
     }
     
     func restartScene() {

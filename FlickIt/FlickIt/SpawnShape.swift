@@ -15,7 +15,7 @@ class SpawnShape
     var shapeCounter = [0,0,0,0]
     let delayTime = 2.0 // time between spawns
     var range = 100.0 //range of X velocities
-    let UPPERRANGEBOUND = 300.0;
+    let UPPERRANGEBOUND = 200.0;
     let LOWESTBOUND = CGFloat(100.0)
     var X_VELOCITY_RANGE = CGFloat(0);
     var Y_VELOCITY_RANGE = CGFloat(0);
