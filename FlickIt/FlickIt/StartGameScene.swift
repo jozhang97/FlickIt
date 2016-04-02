@@ -288,19 +288,21 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
                 if(firstBody.node!.name=="bomb"){
                     firstBody.node?.removeFromParent()
                 }
-                let explosionEmitterNode = SKEmitterNode(fileNamed:"ExplosionEffect.sks")
-                explosionEmitterNode!.position = contact.contactPoint
-                explosionEmitterNode?.zPosition=100
-                if (firstBody.node?.name == secondBody.node?.name) {
-                    score += 1
-                } else {
-                    explosionEmitterNode?.particleColorSequence=SKKeyframeSequence(keyframeValues: [UIColor.redColor()], times: [0])
-                    lives -= 1
+                else{
+                    let explosionEmitterNode = SKEmitterNode(fileNamed:"ExplosionEffect.sks")
+                    explosionEmitterNode!.position = contact.contactPoint
+                    explosionEmitterNode?.zPosition=100
+                    if (firstBody.node?.name == secondBody.node?.name) {
+                        score += 1
+                    } else {
+                        explosionEmitterNode?.particleColorSequence=SKKeyframeSequence(keyframeValues: [UIColor.redColor()], times: [0])
+                        lives -= 1
+                    }
+                    self.addChild(explosionEmitterNode!)
+                    scoreLabel.text="Score:"+String(score)
+                    livesLabel.text = "Lives:" + String(lives)
+                    firstBody.node?.removeFromParent();
                 }
-                self.addChild(explosionEmitterNode!)
-                scoreLabel.text="Score:"+String(score)
-                livesLabel.text = "Lives:" + String(lives)
-                firstBody.node?.removeFromParent();
             }
         }
         else {
@@ -355,7 +357,10 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
                 self.shapeController.speedUpVelocity(5);
     //            timeRequired = max(timeRequired - timeSpeedUpFactor, minTimeRequired)
                 timeRequired = max(timeRequired * multiplicativeSpeedUpFactor, minTimeRequired)
+//                self.shapeController.specialShapeProbability = max(Int(multiplicativeSpeedUpFactor * Double( self.shapeController.specialShapeProbability)), self.shapeController.sShapeProbabilityBound)
+                self.shapeController.specialShapeProbability = max(self.shapeController.specialShapeProbability - 4, self.shapeController.sShapeProbabilityBound)
                 multiplicativeSpeedUpFactor -= 0.005
+                
             }
             if lives == 0 {
                 createRestartBTN()
@@ -469,7 +474,6 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
 //        self.addChild(restartBTN);
         gameOver = true
         playMusic("spectre", type: "mp3") // change to some lose song
-        
         // change bin displays
         bin_1_shape.texture = SKTexture(imageNamed:"blue_triangle-1")
         bin_2_shape.texture = SKTexture(imageNamed:"blue_triangle-1")
@@ -517,6 +521,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         timeRequired = 2.0
         self.shapeController.resetVelocityBounds()
         createScene()
+        self.shapeController.resetSpecialShapeProbability()
+        self.shapeController.shapeCounter = [0,0,0,0,0]
         playMusic("spectre", type: "mp3")
     }
     

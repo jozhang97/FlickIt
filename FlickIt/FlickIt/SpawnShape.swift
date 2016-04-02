@@ -20,7 +20,8 @@ class SpawnShape
     var X_VELOCITY_RANGE = CGFloat(0);
     var Y_VELOCITY_RANGE = CGFloat(0);
     var LOWERBOUND = CGFloat(40.0) // smallest velocity possible
-    
+    var sShapeProbabilityBound = 600
+    var specialShapeProbability = 1000
     var dx = CGFloat(0)
     var dy = CGFloat(0)
     
@@ -36,6 +37,10 @@ class SpawnShape
     func resetVelocityBounds() {
         range = 100.0
         LOWERBOUND = CGFloat(40.0)
+    }
+    
+    func resetSpecialShapeProbability() {
+        specialShapeProbability = 1000
     }
     
     func setUpShape(shape: SKSpriteNode, scale: CGFloat) {
@@ -61,7 +66,7 @@ class SpawnShape
         let width = sizeRect.size.width * UIScreen.mainScreen().scale / 2; //screen width in points
         let height = sizeRect.size.height * UIScreen.mainScreen().scale / 2; //screen height in points
         var shapePicker=100
-        if((shapeCounter.reduce(0,combine: +) > 10) && Int(arc4random_uniform(6))==5){
+        if((shapeCounter.reduce(0,combine: +) > 10) && Int(arc4random_uniform(UInt32(specialShapeProbability))) < 80){
             shapePicker=Int(4)
         }
         else{
