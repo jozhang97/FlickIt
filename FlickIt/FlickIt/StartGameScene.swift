@@ -373,7 +373,6 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     // increment when shape goes off screen or when flicked into wrong bin
     func removeOffScreenNodes() -> Bool {
         var didRemoveGameOver = false
-        if !gameOver {
             for shape in shapes {
                 self.enumerateChildNodesWithName(shape, usingBlock: {
                     node, stop in
@@ -391,7 +390,6 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
                     }
                 })
             }
-        }
         return didRemoveGameOver
     }
     
