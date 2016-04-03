@@ -12,6 +12,7 @@ class SpawnShape
 {
 
     let shapes = ["blue_triangle-1", "blue_square-1", "blue_circle-1","blue_star-1","bomb"]
+    let triangle = SKShapeNode()
     var shapeCounter = [0,0,0,0,0]
     let delayTime = 2.0 // time between spawns
     var range = 100.0 //range of X velocities
@@ -32,6 +33,36 @@ class SpawnShape
         range = min(range, UPPERRANGEBOUND);
         LOWERBOUND += CGFloat(speedFactor);
         LOWERBOUND = min(LOWERBOUND, LOWESTBOUND)
+    }
+    
+    func triangleInRect(rect: CGRect) -> CGPathRef {
+        let offsetX: CGFloat = CGRectGetMidX(rect)
+        let offsetY: CGFloat = CGRectGetMidY(rect)
+        let bezierPath: UIBezierPath = UIBezierPath()
+        bezierPath.moveToPoint(CGPointMake(offsetX, 0))
+        bezierPath.addLineToPoint(CGPointMake(-offsetX, offsetY))
+        bezierPath.addLineToPoint(CGPointMake(-offsetX, -offsetY))
+        bezierPath.closePath()
+        return bezierPath.CGPath
+    }
+    
+    func createTriangle() {
+        let rect: CGRect = CGRectMake(0, 0, sizeRect.size.width/6, sizeRect.size.width/6)
+        triangle.path = self.triangleInRect(rect)
+        triangle.strokeColor = UIColor(red: 160/255, green: 80/255, blue: 76/255, alpha: 1)
+        triangle.fillColor = UIColor(red: 160/255, green: 80/255, blue: 76/255, alpha: 1)
+        triangle.position = CGPointMake(sizeRect.size.width/2 - triangle.frame.width/2, sizeRect.size.height/2);
+        // Set names for the launcher so that we can check what node is touched in the touchesEnded method
+        triangle.name = "launch triangle";
+        //could randomize rotation here
+        triangle.runAction(SKAction.rotateByAngle(CGFloat(M_PI/2), duration: 3))
+    }
+    
+    func setupTrianglePhysics() {
+        triangle.userInteractionEnabled = false
+        triangle.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: triangle.frame.width, height: triangle.frame.height))
+        triangle.physicsBody?.dynamic = true
+        triangle.physicsBody?.affectedByGravity=false
     }
     
     func resetVelocityBounds() {
@@ -73,6 +104,7 @@ class SpawnShape
             shapePicker = Int(arc4random_uniform(4))
         }
         let shape = SKSpriteNode(imageNamed: shapes[shapePicker])
+        //let shape = shapes[shapePicker]
         //print("", shapes[shapePicker], ": ", shape.size.width);
         
         shapeCounter[shapePicker] += 1

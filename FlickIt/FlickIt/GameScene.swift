@@ -36,6 +36,7 @@ class GameScene: SKScene {
     var curveUpAction = SKAction()
     var curveDownAction = SKAction()
     var audioPlayer = AVAudioPlayer()
+    var audioPlayer2 = AVAudioPlayer()
     var mute = 0
     var pressedMute = false
     
@@ -60,6 +61,22 @@ class GameScene: SKScene {
         audioPlayer.prepareToPlay()
         audioPlayer.numberOfLoops = -1
         audioPlayer.play()
+    }
+    
+    func playMusic2(path: String, type: String) {
+        let alertSound = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource(path, ofType: type)!)
+        print(alertSound)
+        
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            try AVAudioSession.sharedInstance().setActive(true)
+            try audioPlayer2 = AVAudioPlayer(contentsOfURL: alertSound)
+        }
+        catch {
+            
+        }
+        audioPlayer2.prepareToPlay()
+        audioPlayer2.play()
     }
     
     func createHomeScreen(){
@@ -241,9 +258,9 @@ class GameScene: SKScene {
     
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         if (!pressedMute) {
-            
-            playMusic("swoosh", type: "mp3")
-            audioPlayer.stop()
+            audioPlayer.volume -= 0.5
+            playMusic2("swoosh", type: "mp3")
+            audioPlayer.volume += 0.5
         }
         else {
             pressedMute = false
