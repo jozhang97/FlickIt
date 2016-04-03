@@ -12,11 +12,11 @@ import SpriteKit
 class StartGameScene: SKScene, SKPhysicsContactDelegate {
     var NUMBEROFLIFES = 3
 
-    let red: UIColor = UIColor(red: 160/255, green: 80/255, blue: 76/255, alpha: 1)
-    let blue: UIColor = UIColor(red: 85/255, green: 135/255, blue: 76/255, alpha: 1)
-    let green: UIColor = UIColor(red: 144/255, green: 155/255, blue: 103/255, alpha: 1)
+    let red: UIColor = UIColor(red: 164/255, green: 84/255, blue: 80/255, alpha: 1)
+    let blue: UIColor = UIColor(red: 85/255, green: 135/255, blue: 141/255, alpha: 1)
+    let green: UIColor = UIColor(red: 147/255, green: 158/255, blue: 106/255, alpha: 1)
     let purple: UIColor = UIColor(red: 99/255, green: 103/255, blue: 211/255, alpha: 1)
-    let yellow: UIColor = UIColor(red: 249/255, green: 234/255, blue: 82/255, alpha: 1)
+    let yellow: UIColor = UIColor(red: 250/255, green: 235/255, blue: 83/255, alpha: 1)
     
     var bomb = SKSpriteNode(imageNamed: "bomb.png")
 
@@ -42,7 +42,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     var score = 0;
     var lives = 3;
     
-    let shapes = ["blue_triangle-1", "blue_square-1", "blue_circle-1","blue_star-1", "gameOverStar"]
+    let shapes = ["triangle", "blue_square-1","circle","gameOverStar"]
     let bins = ["bin_1", "bin_2", "bin_3", "bin_4"]
     
     var start=CGPoint();
@@ -54,7 +54,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     var scoreLabel=SKLabelNode()
     var livesLabel = SKLabelNode()
     var time : CFTimeInterval = 2;
-    var shapeToAdd = SKSpriteNode();
+    var shapeToAdd = SKNode();
     var touched:Bool = false;
     var shapeController = SpawnShape();
     var homeController = GameScene();
@@ -396,6 +396,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
                     shapeToAdd = self.shapeController.spawnShape();
                     print("shape added")
                     shapeToAdd.position = CGPointMake(self.size.width/2, self.size.height/2);
+                    //shapeToAdd.zPosition=10;
                     self.addChild(shapeToAdd);
                     //shapeToAdd.physicsBody?.applyImpulse(CGVectorMake(shapeController.dx, shapeController.dy))
                     //self.addChild(self.shapeController.spawnShape());
@@ -427,7 +428,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
             for shape in shapes {
                 self.enumerateChildNodesWithName(shape, usingBlock: {
                     node, stop in
-                    let sprite = node as! SKSpriteNode
+                    let sprite = node as! SKNode
                     if (sprite.position.y < 0 || sprite.position.x < 0 || sprite.position.x > self.size.width || sprite.position.y > self.size.height) {
                         node.removeFromParent();
                         if !self.gameOver {
@@ -566,7 +567,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func setUpGameOverStar() {
-        self.shapeController.setUpShape(gameOverStar, scale: shapeScaleFactor)
+        self.shapeController.setUpSpecialShape(gameOverStar, scale: shapeScaleFactor)
         gameOverStar.position = CGPointMake(self.size.width/2, self.size.height/2 - self.gameOverLabel.frame.height);
         gameOverStar.name = "gameOverStar"
         self.addChild(gameOverStar)
