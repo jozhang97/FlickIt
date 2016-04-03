@@ -19,6 +19,7 @@ class RulesScene: SKScene {
     var screenImage: SKSpriteNode = SKSpriteNode(imageNamed: "blue_triangle")
     var start = CGPoint();
     var swipe = UISwipeGestureRecognizer();
+    var bgImage = SKSpriteNode(imageNamed: "flickitbg")
     
     override init(size: CGSize) {
         super.init(size: size)
@@ -47,7 +48,12 @@ class RulesScene: SKScene {
         screenImage.size = CGSize(width: self.size.width * 2/3, height: self.size.height * 1/2)
         self.addChild(screenImage)
         
-        self.view?.backgroundColor = UIColor.blackColor();
+        bgImage.size = CGSize(width: self.size.width, height: self.size.height);
+        bgImage.position = CGPointMake(self.size.width/2, self.size.height/2);
+        bgImage.zPosition = 0;
+        
+        self.addChild(bgImage)
+        
         addSwipe()
         
     }

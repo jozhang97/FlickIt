@@ -432,6 +432,12 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
                         node.removeFromParent();
                         if !self.gameOver {
                             self.lives -= 1;
+                            let explosionEmitterNode = SKEmitterNode(fileNamed: "ExplosionEffect.sks")
+                            explosionEmitterNode?.position=sprite.position
+                            explosionEmitterNode?.zPosition=100
+                            explosionEmitterNode?.particleColorSequence=SKKeyframeSequence(keyframeValues: [UIColor.redColor()], times: [0])
+                            explosionEmitterNode?.particleLifetime=0.3
+                            self.addChild(explosionEmitterNode!)
                             self.livesLabel.text = "Lives: " + String(self.lives)
                         } else {
                             if (node.name == "gameOverStar") {
@@ -574,6 +580,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         self.removeAllChildren()
         gameOver = false;
         score = 0
+        firstTimeCount = 1
         lives = NUMBEROFLIFES
         firstTimeCount = 1;
         timeRequired = 2.0
