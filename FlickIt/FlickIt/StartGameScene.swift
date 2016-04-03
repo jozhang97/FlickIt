@@ -11,6 +11,13 @@ import SpriteKit
 
 class StartGameScene: SKScene, SKPhysicsContactDelegate {
     var NUMBEROFLIFES = 3
+    let red: UIColor = UIColor(red: 160/255, green: 80/255, blue: 76/255, alpha: 1)
+    let blue: UIColor = UIColor(red: 85/255, green: 135/255, blue: 76/255, alpha: 1)
+    let green: UIColor = UIColor(red: 144/255, green: 155/255, blue: 103/255, alpha: 1)
+    let purple: UIColor = UIColor(red: 99/255, green: 103/255, blue: 211/255, alpha: 1)
+    let yellow: UIColor = UIColor(red: 249/255, green: 234/255, blue: 82/255, alpha: 1)
+    
+    var bomb = SKSpriteNode(imageNamed: "bomb.png")
     var bgImage = SKSpriteNode(imageNamed: "neon_circle.jpg");
     var startSquare = SKSpriteNode(imageNamed: "start_square.jpg");
     var launchSquare = SKSpriteNode(imageNamed: "launch_square.jpg");
@@ -427,6 +434,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
             explosionEmitterNode?.particleLifetime=5.0
             explosionEmitterNode?.numParticlesToEmit=200
             explosionEmitterNode?.particleSpeed=100
+            playMusic("bombSound", type: "mp3")
             self.addChild(explosionEmitterNode!)
             touchedNode.removeFromParent()
         }
@@ -473,7 +481,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
 //        restartBTN.zPosition = 6
 //        self.addChild(restartBTN);
         gameOver = true
-        playMusic("spectre", type: "mp3") // change to some lose song
+        playMusic("loser_goodbye", type: "mp3") // change to some lose song
         // change bin displays
         bin_1_shape.texture = SKTexture(imageNamed:"blue_triangle-1")
         bin_2_shape.texture = SKTexture(imageNamed:"blue_triangle-1")
