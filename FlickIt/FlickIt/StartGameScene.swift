@@ -484,27 +484,36 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         bin_3.name = "settings"
         bin_4.name = "home"
         // Add gameover label and star node
-        setupGameOverLabel()
+        setupGameOverLabels()
         setUpGameOverStar()
         // add collision actions 
         // readd star node if flicked off screen
     }
     let gameOverLabel = SKLabelNode(text: "GAMEOVER")
     var gameOverStar = SKSpriteNode(imageNamed: "blue_star-1")
+    let gameOverScoreLabel = SKLabelNode(text: "")
 
-    func setupGameOverLabel() {
+    func setupGameOverLabels() {
         gameOverLabel.position = CGPointMake(self.size.width/2, self.size.height/2);
         gameOverLabel.horizontalAlignmentMode = .Center
         gameOverLabel.fontColor = UIColor.whiteColor()
         gameOverLabel.fontName = "Futura"
-        gameOverLabel.fontSize = 25
+        gameOverLabel.fontSize = 22
         gameOverLabel.zPosition = 5
         self.addChild(gameOverLabel)
+        gameOverScoreLabel.position = CGPointMake(self.size.width/2, self.size.height/2 + gameOverLabel.frame.height);
+        gameOverScoreLabel.horizontalAlignmentMode = .Center
+        gameOverScoreLabel.fontColor = UIColor.whiteColor()
+        gameOverScoreLabel.fontName = "Futura"
+        gameOverScoreLabel.fontSize = 25
+        gameOverScoreLabel.zPosition = 5
+        gameOverScoreLabel.text = "Score " + String(score)
+        self.addChild(gameOverScoreLabel)
     }
     
     func setUpGameOverStar() {
         self.shapeController.setUpShape(gameOverStar, scale: shapeScaleFactor)
-        gameOverStar.position = CGPointMake(self.size.width/2, self.size.height/2);
+        gameOverStar.position = CGPointMake(self.size.width/2, self.size.height/2 - self.gameOverLabel.frame.height);
         gameOverStar.name = "gameOverStar"
         self.addChild(gameOverStar)
     }

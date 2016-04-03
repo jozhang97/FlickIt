@@ -326,11 +326,9 @@ class GameScene: SKScene {
             self.removeAllChildren();
             self.startGame();
             triangle.position.y = 0
-        }
-        
-        if (triangle.position.y <= rulesLabel.position.y + rulesLabel.frame.height + 20){
-            // call method to show Rules
-            // for now just remove all the elements to show something has happened
+        } else if (triangle.position.y <= rulesLabel.position.y + rulesLabel.frame.height + 20){
+            // call method to show Rules    
+            // for now jus  t remove all the elements to show something has happened
             self.removeAllChildren();
             self.goToRules();
             triangle.position.y = 0
