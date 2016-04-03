@@ -13,7 +13,12 @@ class AboutScene: SKScene {
 
     let sizeRect = UIScreen.mainScreen().applicationFrame;
     let titleLabel = SKLabelNode()
+    let titleLabel1 = SKLabelNode()
+    let titleLabel2 = SKLabelNode()
     var audioPlayer = AVAudioPlayer()
+    let backButton = SKLabelNode()
+    var start = 0
+    let bgImage = SKSpriteNode(imageNamed: "flickitbg.png")
     
     override init(size: CGSize) {
         super.init(size: size)
@@ -44,14 +49,77 @@ class AboutScene: SKScene {
     }
     
     func createDetailsLabel() {
-        titleLabel.text = "Made by Ashwin, Abhi, Rohan, Shaili, Jeffrey."
-        titleLabel.position = CGPointMake(self.frame.width/2, self.frame.height/2)
+        titleLabel.text = "This app was made by Ashwin Vaidyanathan,"
+        titleLabel.position = CGPointMake(self.frame.width/2, self.frame.height * 4.25/5)
         titleLabel.horizontalAlignmentMode = .Center
         titleLabel.fontColor = UIColor.whiteColor()
-        titleLabel.fontName = "Futura"
-        titleLabel.fontSize = 20
+        titleLabel.fontName = "Open Sans Condensed Light"
+        titleLabel.fontSize = 14
+        titleLabel.zPosition = 3
+        
+        titleLabel1.text = "Abhi Mangla, Rohan Narayan, Shaili"
+        titleLabel1.position = CGPointMake(self.frame.width/2, self.frame.height * 4.25/5 - 20)
+        titleLabel1.horizontalAlignmentMode = .Center
+        titleLabel1.fontColor = UIColor.whiteColor()
+        titleLabel1.fontName = "Open Sans Condensed Light"
+        titleLabel1.fontSize = 14
+        titleLabel1.zPosition = 3
+        
+        titleLabel2.text = "Patel, and Jeffrey Zhang."
+        titleLabel2.position = CGPointMake(self.frame.width/2, self.frame.height * 4.25/5 - 40)
+        titleLabel2.horizontalAlignmentMode = .Center
+        titleLabel2.fontColor = UIColor.whiteColor()
+        titleLabel2.fontName = "Open Sans Condensed Light"
+        titleLabel2.fontSize = 14
+        titleLabel2.zPosition = 3
+        
+        backButton.text = "BACK"
+        backButton.position = CGPointMake(self.frame.width/8, self.frame.height * 7.5/8)
+        backButton.horizontalAlignmentMode = .Center
+        backButton.fontColor = UIColor.whiteColor()
+        backButton.fontName = "Open Sans Condensed Light"
+        backButton.fontSize = 15
+        backButton.zPosition = 3
+        
+        bgImage.size = CGSize(width: self.size.width, height: self.size.height);
+        bgImage.position = CGPointMake(self.size.width/2, self.size.height/2);
+        bgImage.zPosition = 0;
+        
         self.addChild(titleLabel)
+        self.addChild(titleLabel1)
+        self.addChild(titleLabel2)
+        self.addChild(backButton)
+        self.addChild(bgImage)
+        
     }
+    
+    func returnMain() {
+        let scene: SKScene = GameScene(size: self.size)
+        
+        // Configure the view.
+        let skView = self.view as SKView!
+        skView.showsFPS = false
+        skView.showsNodeCount = false
+        
+        /* Sprite Kit applies additional optimizations to improve rendering performance */
+        skView.ignoresSiblingOrder = true
+        
+        /* Set the scale mode to scale to fit the window */
+        scene.scaleMode = .AspectFill
+        skView.presentScene(scene)
+        
+    }
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        /* Called when a touch begins */
+        let touch: UITouch = touches.first!
+        let location: CGPoint = touch.locationInNode(self)
+        // Save start location and time
+        if backButton.containsPoint(location) {
+            returnMain()
+        }
+    }
+    
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
