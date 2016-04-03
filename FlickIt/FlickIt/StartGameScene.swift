@@ -331,6 +331,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
                         score += 1
                     } else {
                         explosionEmitterNode?.particleColorSequence=SKKeyframeSequence(keyframeValues: [UIColor.redColor()], times: [0])
+                        print("Hello Jeffrey")
                         lives -= 1
                     }
                     self.addChild(explosionEmitterNode!)
@@ -375,7 +376,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     var timeRequired = 2.0
-    var firstTimeCount = 2
+    var firstTimeCount = 1
     var timeSpeedUpFactor = 0.05
     var minTimeRequired = 1.0
     var multiplicativeSpeedUpFactor = 1.0
@@ -386,10 +387,14 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         if !gameOver {
             if currentTime - time >= timeRequired {
 
-                if (firstTimeCount >= 0) {
+                if (firstTimeCount > 0) {
+                    time = currentTime;
+                    print("entered if statement")
+                    
                     firstTimeCount -= 1
                 } else {
                     shapeToAdd = self.shapeController.spawnShape();
+                    print("shape added")
                     shapeToAdd.position = CGPointMake(self.size.width/2, self.size.height/2);
                     self.addChild(shapeToAdd);
                     //shapeToAdd.physicsBody?.applyImpulse(CGVectorMake(shapeController.dx, shapeController.dy))
@@ -459,6 +464,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         startTime = touch.timestamp
         let touchedNode=self.nodeAtPoint(start)
         if(touchedNode.name=="bomb"){
+            print("Hello Ashwin bomb")
             lives=0;
             livesLabel.text="Lives:" + String(lives)
             let explosionEmitterNode = SKEmitterNode(fileNamed: "ExplosionEffect.sks")
@@ -570,6 +576,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         score = 0
         lives = NUMBEROFLIFES
         timeRequired = 2.0
+        multiplicativeSpeedUpFactor = 1.0
         self.shapeController.resetVelocityBounds()
         createScene()
         self.shapeController.resetSpecialShapeProbability()
