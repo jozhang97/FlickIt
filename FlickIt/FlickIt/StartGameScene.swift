@@ -39,6 +39,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     var bin_3_width = CGFloat(85)
     var bin_4_width = CGFloat(85)
 
+    var pauseButton = SKSpriteNode(imageNamed: "pauseButton")
     var score = 0;
     var lives = 3;
     
@@ -57,7 +58,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     var shapeToAdd = SKSpriteNode();
     var touched:Bool = false;
     var shapeController = SpawnShape();
-    var homeController = GameScene();
+    var gameSceneController = GameScene();
     var restartBTN = SKSpriteNode();
     var gameOver = false; // SET THESE
     var oldVelocities = [SKNode: CGVector]()
@@ -65,8 +66,11 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     var shapeScaleFactor = CGFloat(0);
     var audioPlayer = AVAudioPlayer()
     var audioPlayer2 = AVAudioPlayer()
-    
+    var arePaused = false
+    var pausedShapeVelocities = [SKNode: CGVector]()
+    var aud2exists: Bool = false
     let sizeRect = UIScreen.mainScreen().applicationFrame;
+    
     // Actual dimensions of the screen
     var sceneHeight = CGFloat(0);
     var sceneWidth = CGFloat(0);
@@ -257,6 +261,11 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         delay(0.5) {
             self.animateBinsAtStart();
         }
+        pauseButton.zPosition = 5
+        pauseButton.setScale(0.5)
+        pauseButton.name = "pauseButton"
+        pauseButton.position = CGPointMake(self.size.width / 2, 15*self.size.height/16)
+        self.addChild(pauseButton)
         
         
         //self.view?.backgroundColor = UIColor.blackColor();
@@ -381,7 +390,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     override func update(currentTime: CFTimeInterval) {
         let didRemoveGameover = removeOffScreenNodes()
         
-        if !gameOver {
+        if !gameOver && !arePaused {
             if currentTime - time >= timeRequired {
 
                 if (firstTimeCount > 0) {
@@ -464,6 +473,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         startTime = touch.timestamp
         let touchedNode=self.nodeAtPoint(start)
         if(touchedNode.name=="bomb"){
+            aud2exists = true
             playMusic2("bombSound", type: "mp3")
             lives=0;
             livesLabel.text="Lives:" + String(lives)
@@ -477,11 +487,31 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
             
             self.addChild(explosionEmitterNode!)
             touchedNode.removeFromParent()
+        } else if (touchedNode.name == "pauseButton") {
+            openPause()
         }
         oldVelocities[touchedNode]=touchedNode.physicsBody?.velocity;
         touchedNode.physicsBody?.velocity=CGVectorMake(0, 0)
-        if restartBTN.containsPoint(location) {
-            restartScene()
+//        if restartBTN.containsPoint(location) {
+//            restartScene()
+//        }
+        
+        if arePaused {
+            if unPausedLabel.containsPoint(location) {
+                closePause()
+            } else if muteLabel.containsPoint(location) {
+                pressedMute()
+            } else if (restartLabel.containsPoint(location)) {
+                closePause()
+                restartScene()
+            } else if (homeLabel.containsPoint(location)) {
+                goToHome()
+                closePause()
+            } else if (themeSettingsLabel.containsPoint(location)) {
+                print("go to settings")
+                closePause()
+            }
+            
         }
     }
     
@@ -532,6 +562,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         // Add gameover label and star node
         setupGameOverLabels()
         setUpGameOverStar()
+        self.removeChildrenInArray([pauseButton])
         // add collision actions 
         // readd star node if flicked off screen
     }
@@ -574,7 +605,6 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         score = 0
         firstTimeCount = 1
         lives = NUMBEROFLIFES
-        firstTimeCount = 1;
         timeRequired = 2.0
         multiplicativeSpeedUpFactor = 1.0
         self.shapeController.resetVelocityBounds()
@@ -584,9 +614,111 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         playMusic("spectre", type: "mp3")
     }
     
+    var unPausedLabel = SKLabelNode()
+    var muteLabel = SKLabelNode()
+    var restartLabel = SKLabelNode()
+    var homeLabel = SKLabelNode()
+    var themeSettingsLabel = SKLabelNode()
+    var pauseBackground = SKShapeNode()
+    
+    
+    func openPause() {
+        unPausedLabel.text = "Unpause"
+        unPausedLabel.fontColor=UIColor.whiteColor()
+        unPausedLabel.position=CGPointMake(self.frame.width/2, 5 * self.frame.height / 6)
+        unPausedLabel.zPosition=5
+        self.addChild(unPausedLabel)
+        arePaused = true
+        muteLabel.text = "Mute"
+        muteLabel.fontColor=UIColor.whiteColor()
+        muteLabel.position=CGPointMake(self.frame.width/2,3.5*self.frame.height/5)
+        muteLabel.zPosition=5
+        self.addChild(muteLabel)
+        restartLabel.text = "Restart Game"
+        restartLabel.fontColor=UIColor.whiteColor()
+        restartLabel.position=CGPointMake(self.frame.width/2, 3*self.frame.height/5)
+        restartLabel.zPosition=5
+        self.addChild(restartLabel)
+        homeLabel.text = "Go Home"
+        homeLabel.fontColor=UIColor.whiteColor()
+        homeLabel.position=CGPointMake(self.frame.width/2, 2*self.frame.height/5)
+        homeLabel.zPosition=5
+        self.addChild(homeLabel)
+        themeSettingsLabel.text = "Pick a new theme"
+        themeSettingsLabel.fontColor=UIColor.whiteColor()
+        themeSettingsLabel.position=CGPointMake(self.frame.width/2,self.frame.height/5)
+        themeSettingsLabel.zPosition=5
+        self.addChild(themeSettingsLabel)
+        pauseBackground = SKShapeNode(rectOfSize: CGSize(width: 11 * self.size.width/16, height: 11 * self.size.height/16))
+        pauseBackground.fillColor = UIColor(red: 70/255, green: 80/255, blue: 160/255, alpha: 0.5)
+        pauseBackground.position = CGPointMake(self.size.width/2, self.size.height/2);
+        pauseBackground.zPosition = 4
+        self.addChild(pauseBackground)
+        stopShapes()
+        self.removeChildrenInArray([pauseButton])
+    }
+    
+    func stopShapes() {
+        for node in self.children {
+            if node.physicsBody?.categoryBitMask == PhysicsCategory.Shape {
+                pausedShapeVelocities[node] = node.physicsBody?.velocity
+                node.physicsBody?.velocity = CGVectorMake(0, 0)
+            }
+        }
+    }
+    
+    func closePause() {
+        arePaused = false
+        // manipulate touch end
+        self.removeChildrenInArray([muteLabel, restartLabel, homeLabel, themeSettingsLabel, unPausedLabel, pauseBackground])
+        muteLabel = SKLabelNode()
+        restartLabel = SKLabelNode()
+        homeLabel = SKLabelNode()
+        themeSettingsLabel = SKLabelNode()
+        unPausedLabel = SKLabelNode()
+        for node in pausedShapeVelocities.keys {
+            node.physicsBody?.velocity = pausedShapeVelocities[node]!
+        }
+        pausedShapeVelocities.removeAll()
+        self.addChild(pauseButton)
+    }
+    
+    func pressedMute() {
+        if muteLabel.text == "Unmute" {
+            muteLabel.text = "Mute"
+            unMuteThis()
+            
+        } else {
+            muteLabel.text = "Unmute"
+            muteThis()
+        }
+    }
+    
+    func muteThis() {
+        if audioPlayer.playing {
+            audioPlayer.volume = 0.01
+        }
+        if aud2exists {
+            if audioPlayer2.playing {
+                
+            }
+        }
+    }
+    
+    func unMuteThis() {
+        if audioPlayer.volume == 0.01 {
+            audioPlayer.volume = 1
+        }
+        if aud2exists {
+            if audioPlayer2.volume == 0.01 {
+                audioPlayer2.volume = 1
+            }
+        }
+    }
+    
+    
     func delay(delay:Double, closure:()->()) {
         dispatch_after(
             dispatch_time( DISPATCH_TIME_NOW, Int64(delay * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), closure)
-        
     }
 }

@@ -238,21 +238,28 @@ class GameScene: SKScene {
         if muteButton.containsPoint(location) {
             pressedMute = true
             if mute == 0 {  //MUTE IT
-                audioPlayer.volume = 0.01
-                muteButton.texture = SKTexture(imageNamed: "muteNow.png")
-                mute = 1
+                muteIt()
             }
             else if mute == 1 { //UNMUTE IT
-                audioPlayer.volume = 1
-                muteButton.texture = SKTexture(imageNamed: "playNow.png")
-                mute = 0
-                
+                unmuteIt()
             }
         }
         //doesn't recognize About Button location! need to fix!
         if aboutButton.containsPoint(location) {
             startAbout()
         }
+    }
+    
+    func muteIt() {
+        audioPlayer.volume = 0.01
+        muteButton.texture = SKTexture(imageNamed: "muteNow.png")
+        mute = 1
+    }
+    
+    func unmuteIt() {
+        audioPlayer.volume = 1
+        muteButton.texture = SKTexture(imageNamed: "playNow.png")
+        mute = 0
     }
     
     
