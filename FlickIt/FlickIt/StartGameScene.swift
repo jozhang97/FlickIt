@@ -598,15 +598,19 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         
         self.addChild(bin_1)
         bin_1.position = CGPoint(x: self.size.width, y: self.size.height)
+        bin_1.name = shapes[0]
         
         self.addChild(bin_2)
         bin_2.position = CGPoint(x: 0, y: self.size.height)
+        bin_2.name = shapes[1]
         
         self.addChild(bin_3)
         bin_3.position = CGPoint(x: self.size.width, y: 0)
+        bin_3.name = shapes[2]
         
         self.addChild(bin_4)
         bin_4.position = CGPoint(x: 0, y: 0)
+        bin_4.name = shapes[3]
         
         animateBinsRestart()
         
