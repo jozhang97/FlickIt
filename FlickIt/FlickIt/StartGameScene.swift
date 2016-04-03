@@ -65,6 +65,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     var binWidth = CGFloat(0);
     var shapeScaleFactor = CGFloat(0);
     var audioPlayer = AVAudioPlayer()
+    var audioPlayer2 = AVAudioPlayer()
     
     let sizeRect = UIScreen.mainScreen().applicationFrame;
     // Actual dimensions of the screen
@@ -101,6 +102,22 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         }
         audioPlayer.prepareToPlay()
         audioPlayer.play()
+    }
+    
+    func playMusic2(path: String, type: String) {
+        let alertSound = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource(path, ofType: type)!)
+        print(alertSound)
+        
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            try AVAudioSession.sharedInstance().setActive(true)
+            try audioPlayer2 = AVAudioPlayer(contentsOfURL: alertSound)
+        }
+        catch {
+            
+        }
+        audioPlayer2.prepareToPlay()
+        audioPlayer2.play()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -266,23 +283,6 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         
     }
     
-    func perfectFlick(shape: SKNode) {
-        // increment score
-        // do some lovely animation of shape exploding into pixels
-        // play audio
-        //shape.removeFromParent();
-        print("successful flick")
-    }
-    
-    func failedFlick(){
-        // play sad audio
-        // end game
-        // some animation symbolizing something bad
-        //        self.removeAllChildren();
-        //        self.addChild(bgImage);
-        print("failed flick")
-    }
-    
     func didBeginContact(contact: SKPhysicsContact) {
         var firstBody=contact.bodyA
         var secondBody=contact.bodyB
@@ -425,6 +425,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         startTime = touch.timestamp
         let touchedNode=self.nodeAtPoint(start)
         if(touchedNode.name=="bomb"){
+            playMusic2("bombSound", type: "mp3")
             lives=0;
             livesLabel.text="Lives:" + String(lives)
             let explosionEmitterNode = SKEmitterNode(fileNamed: "ExplosionEffect.sks")
@@ -434,7 +435,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
             explosionEmitterNode?.particleLifetime=5.0
             explosionEmitterNode?.numParticlesToEmit=200
             explosionEmitterNode?.particleSpeed=100
-            playMusic("bombSound", type: "mp3")
+            
             self.addChild(explosionEmitterNode!)
             touchedNode.removeFromParent()
         }
