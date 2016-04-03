@@ -326,14 +326,28 @@ class GameScene: SKScene {
             self.removeAllChildren();
             self.startGame();
             triangle.position.y = 0
-        }
-        
-        if (triangle.position.y <= rulesLabel.position.y + rulesLabel.frame.height + 20){
-            // call method to show Rules
-            // for now just remove all the elements to show something has happened
+        } else if (triangle.position.y <= rulesLabel.position.y + rulesLabel.frame.height + 20){
+            // call method to show Rules    
+            // for now jus  t remove all the elements to show something has happened
             self.removeAllChildren();
+            self.goToRules();
             triangle.position.y = 0
         }
+    }
+    
+    func goToRules() {
+        let scene: SKScene = RulesScene(size: self.size)
+        let skView = self.view as SKView!
+        skView.showsFPS = false
+        skView.showsNodeCount = false
+        
+        /* Sprite Kit applies additional optimizations to improve rendering performance */
+        skView.ignoresSiblingOrder = true
+        
+        /* Set the scale mode to scale to fit the window */
+        scene.scaleMode = .AspectFill
+        skView.presentScene(scene)
+        
     }
     
     func delay(delay:Double, closure:()->()) {
