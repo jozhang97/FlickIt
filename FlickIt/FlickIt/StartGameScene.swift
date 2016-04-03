@@ -11,6 +11,7 @@ import SpriteKit
 
 class StartGameScene: SKScene, SKPhysicsContactDelegate {
     var NUMBEROFLIFES = 3
+
     let red: UIColor = UIColor(red: 160/255, green: 80/255, blue: 76/255, alpha: 1)
     let blue: UIColor = UIColor(red: 85/255, green: 135/255, blue: 76/255, alpha: 1)
     let green: UIColor = UIColor(red: 144/255, green: 155/255, blue: 103/255, alpha: 1)
@@ -18,16 +19,14 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     let yellow: UIColor = UIColor(red: 249/255, green: 234/255, blue: 82/255, alpha: 1)
     
     var bomb = SKSpriteNode(imageNamed: "bomb.png")
-    var bgImage = SKSpriteNode(imageNamed: "neon_circle.jpg");
-    var startSquare = SKSpriteNode(imageNamed: "start_square.jpg");
-    var launchSquare = SKSpriteNode(imageNamed: "launch_square.jpg");
-    var rulesCircle = SKSpriteNode(imageNamed: "rules_circle.jpg");
-    var launchCircle = SKSpriteNode(imageNamed: "launch_circle.jpg");
+
+    var bgImage = SKSpriteNode(imageNamed: "background.png");
+
     
-    var bin_1 = SKSpriteNode(imageNamed: "topRightBin.png"); //change this to differently oriented triangles
-    var bin_2 = SKSpriteNode(imageNamed: "topLeftBin.png");
-    var bin_3 = SKSpriteNode(imageNamed: "lowerRightBin.png");
-    var bin_4 = SKSpriteNode(imageNamed: "lowerLeftBin.png");
+    var bin_1 = SKSpriteNode(imageNamed: "blue_bin_t.png"); // all bins are facing bottom right corner
+    var bin_2 = SKSpriteNode(imageNamed: "red_bin_t.png");
+    var bin_3 = SKSpriteNode(imageNamed: "green_bin_t.png");
+    var bin_4 = SKSpriteNode(imageNamed: "purple_bin_t.png");
     
     var bin_1_shape = SKSpriteNode(imageNamed: "blue_star-1"); //change this to differently oriented triangles
     var bin_2_shape = SKSpriteNode(imageNamed: "blue_square-1");
@@ -125,8 +124,9 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func createScene() {
+        print("hey")
         self.physicsWorld.contactDelegate = self
-        // Sets the neon circle image to fill the entire screen
+        
         bgImage.size = CGSize(width: self.size.width, height: self.size.height);
         bgImage.position = CGPointMake(self.size.width/2, self.size.height/2);
         bgImage.zPosition = 1
@@ -134,9 +134,10 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         //adds bins on all 4 corners of screen with name, zposition and size
         //bin_1.size = CGSize(width: 100, height: 100)
         // top right
-        bin_1.anchorPoint = CGPoint(x: 1, y: 1)
+        bin_1.anchorPoint = CGPoint(x: 1, y: 0)
         bin_1.setScale(0.264*self.size.width/bin_1_width) // see Ashwin's paper for scaling math
-        bin_1.position = CGPointMake(self.size.width, self.size.height)
+        bin_1.position = CGPointMake(self.size.width / 2, self.size.height / 2)
+        bin_1.zRotation = CGFloat(-M_PI_2)
         bin_1.zPosition = 3
         //bin_1.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(bin_1.size.width, bin_1.size.height))
         bin_1.physicsBody = SKPhysicsBody(circleOfRadius: bin_1.size.width)
@@ -157,9 +158,10 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         
         //bin_2.size = CGSize(width: 100, height: 100)
         // top left
-        bin_2.anchorPoint = CGPoint(x: 0, y: 1)
+        bin_2.anchorPoint = CGPoint(x: 1, y: 0)
         bin_2.setScale(0.264*self.size.width/bin_2_width)
-        bin_2.position = CGPointMake(0, self.size.height)
+        bin_2.position = CGPointMake(self.size.width / 2, self.size.height / 2)
+        // don't rotate this bin
         bin_2.zPosition = 3
         //bin_2.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(bin_2.size.width, bin_2.size.height))
         bin_2.physicsBody = SKPhysicsBody(circleOfRadius: bin_2.size.width)
@@ -181,8 +183,9 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         //bin_3.size = CGSize(width: 100, height: 100)
         // bottom right
         bin_3.anchorPoint = CGPoint(x: 1, y: 0)
+        bin_3.position = CGPointMake(self.size.width / 2, self.size.height / 2)
         bin_3.setScale(0.264*self.size.width/bin_3_width)
-        bin_3.position = CGPointMake(self.size.width, 0)
+        bin_3.zRotation = CGFloat(M_PI)
         bin_3.zPosition = 3
         
         //let physics = CGPointMake(self.frame.width * 2 / 3 + bin_3.size.width/2, self.frame.height / 10 - bin_3.size.height/2)
@@ -206,9 +209,10 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         
         //bin_4.size = CGSize(width: 100, height: 100)
         //bottom left
-        bin_4.anchorPoint = CGPointZero
+        bin_4.anchorPoint = CGPoint(x: 1, y: 0)
         bin_4.setScale(0.264*self.size.width/bin_4_width)
-        bin_4.position = CGPointMake(0, 0)
+        bin_4.position = CGPointMake(self.size.width / 2, self.size.height / 2)
+        bin_4.zRotation = CGFloat(M_PI_2)
         bin_4.zPosition = 3
         //bin_4.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(bin_4.size.width, bin_4.size.height))
         bin_4.physicsBody = SKPhysicsBody(circleOfRadius: bin_4.size.width)
@@ -252,6 +256,11 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(livesLabel)
         
         gameOver = false
+        delay(0.5) {
+            self.animateBinsAtStart();
+        }
+        
+        
         //self.view?.backgroundColor = UIColor.blackColor();
         
         
@@ -283,6 +292,25 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         
     }
     
+    func animateBinsAtStart() {
+        let rotate = SKAction.rotateByAngle(CGFloat(M_PI), duration: 1.0);
+        //bin_1.anchorPoint = CGPoint(x: 0, y: 1)
+        bin_1.runAction(rotate)
+        bin_1.runAction(SKAction.moveTo(CGPoint(x: self.size.width, y: self.size.height), duration: 1.0))
+        
+        bin_2.runAction(rotate)
+        bin_2.runAction(SKAction.moveTo(CGPoint(x: 0, y: self.size.height), duration: 1.0))
+        
+        bin_3.runAction(rotate)
+        bin_3.runAction(SKAction.moveTo(CGPoint(x: self.size.width, y: 0), duration: 1.0))
+        
+        bin_4.runAction(rotate)
+        bin_4.runAction(SKAction.moveTo(CGPoint(x: 0, y: 0), duration: 1.0))
+        //bin_2.runAction(SKAction.group([rotate, SKAction.moveTo(CGPoint(x: 0, y: self.size.height), duration: 1.0)]))
+        //bin_3.runAction(SKAction.group([rotate, SKAction.moveTo(CGPoint(x: self.size.width, y: 0), duration: 1.0)]))
+        //bin_4.runAction(SKAction.group([rotate, SKAction.moveTo(CGPoint(x: 0, y: 0), duration: 1.0)]))
+    }
+    
     func didBeginContact(contact: SKPhysicsContact) {
         var firstBody=contact.bodyA
         var secondBody=contact.bodyB
@@ -303,6 +331,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
                         score += 1
                     } else {
                         explosionEmitterNode?.particleColorSequence=SKKeyframeSequence(keyframeValues: [UIColor.redColor()], times: [0])
+                        print("Hello Jeffrey")
                         lives -= 1
                     }
                     self.addChild(explosionEmitterNode!)
@@ -347,27 +376,37 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     var timeRequired = 2.0
+    var firstTimeCount = 1
     var timeSpeedUpFactor = 0.05
     var minTimeRequired = 1.0
     var multiplicativeSpeedUpFactor = 1.0
     
     override func update(currentTime: CFTimeInterval) {
         let didRemoveGameover = removeOffScreenNodes()
+        
         if !gameOver {
             if currentTime - time >= timeRequired {
-                shapeToAdd = self.shapeController.spawnShape();
-                shapeToAdd.position = CGPointMake(self.size.width/2, self.size.height/2);
-                self.addChild(shapeToAdd);
-                //shapeToAdd.physicsBody?.applyImpulse(CGVectorMake(shapeController.dx, shapeController.dy))
-                //self.addChild(self.shapeController.spawnShape());
-                time = currentTime;
-                self.shapeController.speedUpVelocity(5);
-    //            timeRequired = max(timeRequired - timeSpeedUpFactor, minTimeRequired)
-                timeRequired = max(timeRequired * multiplicativeSpeedUpFactor, minTimeRequired)
-//                self.shapeController.specialShapeProbability = max(Int(multiplicativeSpeedUpFactor * Double( self.shapeController.specialShapeProbability)), self.shapeController.sShapeProbabilityBound)
-                self.shapeController.specialShapeProbability = max(self.shapeController.specialShapeProbability - 4, self.shapeController.sShapeProbabilityBound)
-                multiplicativeSpeedUpFactor -= 0.005
-                
+
+                if (firstTimeCount > 0) {
+                    time = currentTime;
+                    print("entered if statement")
+                    
+                    firstTimeCount -= 1
+                } else {
+                    shapeToAdd = self.shapeController.spawnShape();
+                    print("shape added")
+                    shapeToAdd.position = CGPointMake(self.size.width/2, self.size.height/2);
+                    self.addChild(shapeToAdd);
+                    //shapeToAdd.physicsBody?.applyImpulse(CGVectorMake(shapeController.dx, shapeController.dy))
+                    //self.addChild(self.shapeController.spawnShape());
+                    time = currentTime;
+                    self.shapeController.speedUpVelocity(5);
+                    //            timeRequired = max(timeRequired - timeSpeedUpFactor, minTimeRequired)
+                    timeRequired = max(timeRequired * multiplicativeSpeedUpFactor, minTimeRequired)
+                    //                self.shapeController.specialShapeProbability = max(Int(multiplicativeSpeedUpFactor * Double( self.shapeController.specialShapeProbability)), self.shapeController.sShapeProbabilityBound)
+                    self.shapeController.specialShapeProbability = max(self.shapeController.specialShapeProbability - 4, self.shapeController.sShapeProbabilityBound)
+                    multiplicativeSpeedUpFactor -= 0.005
+                }
             }
             if lives == 0 {
                 createRestartBTN()
@@ -537,6 +576,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         score = 0
         lives = NUMBEROFLIFES
         timeRequired = 2.0
+        multiplicativeSpeedUpFactor = 1.0
         self.shapeController.resetVelocityBounds()
         createScene()
         self.shapeController.resetSpecialShapeProbability()
