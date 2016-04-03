@@ -11,8 +11,7 @@ import Foundation
 class SpawnShape
 {
 
-    let shapes = ["blue_triangle-1", "blue_square-1", "blue_circle-1","blue_star-1","bomb"]
-    //let shapes = [createTriangle()]
+    let specialShapes = ["bomb"]
     var shapeCounter = [0,0,0,0,0]
     let delayTime = 2.0 // time between spawns
     var range = 100.0 //range of X velocities
@@ -25,6 +24,11 @@ class SpawnShape
     var specialShapeProbability = 1000
     var dx = CGFloat(0)
     var dy = CGFloat(0)
+    let red: UIColor = UIColor(red: 164/255, green: 84/255, blue: 80/255, alpha: 1)
+    let blue: UIColor = UIColor(red: 85/255, green: 135/255, blue: 141/255, alpha: 1)
+    let green: UIColor = UIColor(red: 147/255, green: 158/255, blue: 106/255, alpha: 1)
+    let purple: UIColor = UIColor(red: 99/255, green: 103/255, blue: 211/255, alpha: 1)
+    let yellow: UIColor = UIColor(red: 250/255, green: 235/255, blue: 83/255, alpha: 1)
     
     let sizeRect = UIScreen.mainScreen().applicationFrame;
     
@@ -35,6 +39,34 @@ class SpawnShape
         LOWERBOUND = min(LOWERBOUND, LOWESTBOUND)
     }
     
+    func pentagonPath(rect: CGRect) -> CGPath {
+        let dw = M_PI / 2.5
+        let path = UIBezierPath()
+        for i in 0...4 {
+            let x = rect.size.width/2 * CGFloat(cos(Double(i) * dw))
+            let y = rect.size.width/2 * CGFloat(sin(Double(i) * dw))
+            if i == 0 {
+                path.moveToPoint(CGPoint(x: x, y: y))
+            } else {
+                path.addLineToPoint(CGPoint(x: x, y: y))
+            }
+        }
+        path.closePath()
+        return path.CGPath
+    }
+    
+    func createPentagon() -> SKShapeNode {
+        let rect: CGRect = CGRectMake(0, 0, sizeRect.size.width/6, sizeRect.size.width/6)
+        let pentagon = SKShapeNode()
+        pentagon.path = pentagonPath(rect)
+        pentagon.strokeColor = red
+        pentagon.fillColor = red
+        //circle.position = CGPointMake(sceneWidth/2, sceneHeight/2);
+        pentagon.name = "pentagon";
+        pentagon.zPosition=5
+        setupTrianglePhysics(pentagon)
+        return pentagon
+    }
     func triangleInRect(rect: CGRect) -> CGPathRef {
         let offsetX: CGFloat = CGRectGetMidX(rect)
         let offsetY: CGFloat = CGRectGetMidY(rect)
@@ -46,17 +78,65 @@ class SpawnShape
         return bezierPath.CGPath
     }
     
+    func circlePath() -> CGPathRef {
+        let circlePath : UIBezierPath = UIBezierPath(arcCenter: CGPointMake(CGFloat(0), CGFloat(0)), radius: sizeRect.width/13, startAngle: CGFloat(0), endAngle: CGFloat(2*M_PI), clockwise: true)
+        return circlePath.CGPath
+    }
+    
+    func squarePath(rect:CGRect) -> CGPathRef {
+        let path = UIBezierPath(roundedRect: rect, cornerRadius: 2)
+        return path.CGPath
+    }
+    
+    func createSquare() -> SKShapeNode {
+        let rect: CGRect = CGRectMake(-sizeRect.size.width/12, -sizeRect.size.width/12, sizeRect.size.width/6, sizeRect.size.width/6)
+        let square = SKShapeNode()
+        square.path = squarePath(rect)
+        square.strokeColor = green
+        square.fillColor = green
+        square.name = "square";
+        square.zPosition=5
+        setupTrianglePhysics(square)
+        return square
+    }
+    
+    
+    func createCircle() -> SKShapeNode {
+        let sceneHeight = sizeRect.size.height * UIScreen.mainScreen().scale;
+        let sceneWidth = sizeRect.size.width * UIScreen.mainScreen().scale;
+        let circle = SKShapeNode()
+        circle.path = self.circlePath()
+        circle.strokeColor = blue
+        circle.fillColor = blue
+        //circle.position = CGPointMake(sceneWidth/2, sceneHeight/2);
+        circle.name = "circle";
+        circle.zPosition=5
+        setupCirclePhysics(circle)
+        return circle
+    }
+    
+    func setupCirclePhysics(circle: SKShapeNode) {
+        circle.userInteractionEnabled = false
+        circle.physicsBody = SKPhysicsBody(circleOfRadius: circle.frame.width/2)
+        circle.physicsBody?.dynamic = true
+        circle.physicsBody?.affectedByGravity=false
+        circle.physicsBody?.categoryBitMask=PhysicsCategory.Shape;
+        circle.physicsBody?.collisionBitMask=PhysicsCategory.Bin
+        circle.physicsBody?.contactTestBitMask=PhysicsCategory.Bin
+    }
+    
     func createTriangle () -> SKShapeNode {
         let rect: CGRect = CGRectMake(0, 0, sizeRect.size.width/6, sizeRect.size.width/6)
         let triangle = SKShapeNode()
         triangle.path = self.triangleInRect(rect)
-        triangle.strokeColor = UIColor(red: 160/255, green: 80/255, blue: 76/255, alpha: 1)
-        triangle.fillColor = UIColor(red: 160/255, green: 80/255, blue: 76/255, alpha: 1)
+        triangle.strokeColor = purple
+        triangle.fillColor = purple
         triangle.position = CGPointMake(sizeRect.size.width/2 - triangle.frame.width/2, sizeRect.size.height/2);
         // Set names for the launcher so that we can check what node is touched in the touchesEnded method
-        triangle.name = "launch triangle";
+        triangle.name = "triangle";
         //could randomize rotation here
         triangle.runAction(SKAction.rotateByAngle(CGFloat(M_PI/2), duration: 3))
+        triangle.zPosition=5
         setupTrianglePhysics(triangle)
         return triangle
     }
@@ -66,7 +146,11 @@ class SpawnShape
         triangle.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: triangle.frame.width, height: triangle.frame.height))
         triangle.physicsBody?.dynamic = true
         triangle.physicsBody?.affectedByGravity=false
+        triangle.physicsBody?.categoryBitMask=PhysicsCategory.Shape;
+        triangle.physicsBody?.collisionBitMask=PhysicsCategory.Bin
+        triangle.physicsBody?.contactTestBitMask=PhysicsCategory.Bin
     }
+    
     
     func resetVelocityBounds() {
         range = 100.0
@@ -77,12 +161,12 @@ class SpawnShape
         specialShapeProbability = 1000
     }
     
-    func setUpShape(shape: SKSpriteNode, scale: CGFloat) {
+    func setUpSpecialShape(shape: SKNode, scale: CGFloat) {
         shape.setScale(scale) // see Ashwin's paper for description of how these numbers were computed
                //shape.physicsBody?.categoryBitMask = PhysicsCategory.Shape
         //shape.position = CGPointMake(scene.frame.width/2, scene.frame.height/2)
         shape.zPosition = 5 // assures shape shows up over other stuff
-        shape.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(shape.size.width, shape.size.height)) //can generalize later
+        shape.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(shape.frame.width, shape.frame.height)) //can generalize later
         shape.physicsBody?.affectedByGravity = false
         shape.physicsBody?.categoryBitMask=PhysicsCategory.Shape;
         /** ASHWIN, sets up collision masks for the shapes*/
@@ -94,25 +178,32 @@ class SpawnShape
         
     }
     
-    func spawnShape() -> SKSpriteNode {    
-        X_VELOCITY_RANGE = CGFloat(range)
-        Y_VELOCITY_RANGE = CGFloat(1.5*range)
+    func spawnShape() -> SKNode {
+        
         let width = sizeRect.size.width * UIScreen.mainScreen().scale / 2; //screen width in points
         let height = sizeRect.size.height * UIScreen.mainScreen().scale / 2; //screen height in points
         var shapePicker=100
+        let shapes = [createTriangle(),createSquare(),createPentagon(),createCircle()]
+        X_VELOCITY_RANGE = CGFloat(range)
+        Y_VELOCITY_RANGE = CGFloat(1.5*range)
+        var shape = SKNode()
         if((shapeCounter.reduce(0,combine: +) > 10) && Int(arc4random_uniform(UInt32(specialShapeProbability))) < 80){
             shapePicker=Int(4)
+            shape=SKSpriteNode(imageNamed: specialShapes[0])
+            shape=shape as SKNode
+            setUpSpecialShape(shape, scale: 0.2*width/shape.frame.width)
+            shape.name="bomb"
         }
         else{
             shapePicker = Int(arc4random_uniform(4))
+            shape = shapes[shapePicker] as SKNode
         }
-        let shape = SKSpriteNode(imageNamed: shapes[shapePicker])
-        //let shape = shapes[shapePicker]
+        //let shape = SKSpriteNode(imageNamed: shapes[shapePicker])
         //print("", shapes[shapePicker], ": ", shape.size.width);
         
         shapeCounter[shapePicker] += 1
-        setUpShape(shape, scale: 0.2*width/shape.size.width)
-        shape.name = shapes[shapePicker]
+        //setUpShape(shape, scale: 0.2*width/shape.size.width)
+        //shape.name = shapes[shapePicker]
         // Randomizing velocity vectors
         dx = CGFloat(Float(arc4random())/0xFFFFFFFF)
         dy = CGFloat(Float(arc4random())/0xFFFFFFFF)
