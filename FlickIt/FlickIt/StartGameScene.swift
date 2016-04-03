@@ -84,13 +84,11 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         shapeScaleFactor = 0.14*self.size.width/bin_3_shape_width
         createScene()
         playMusic("spectre", type: "mp3")
-        
     }
     
     func playMusic(path: String, type: String) {
         let alertSound = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource(path, ofType: type)!)
         print(alertSound)
-        
         do {
             try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
             try AVAudioSession.sharedInstance().setActive(true)
@@ -331,7 +329,6 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
                         score += 1
                     } else {
                         explosionEmitterNode?.particleColorSequence=SKKeyframeSequence(keyframeValues: [UIColor.redColor()], times: [0])
-                        print("Hello Jeffrey")
                         lives -= 1
                     }
                     self.addChild(explosionEmitterNode!)
@@ -389,12 +386,9 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
 
                 if (firstTimeCount > 0) {
                     time = currentTime;
-                    print("entered if statement")
-                    
                     firstTimeCount -= 1
                 } else {
                     shapeToAdd = self.shapeController.spawnShape();
-                    print("shape added")
                     shapeToAdd.position = CGPointMake(self.size.width/2, self.size.height/2);
                     self.addChild(shapeToAdd);
                     //shapeToAdd.physicsBody?.applyImpulse(CGVectorMake(shapeController.dx, shapeController.dy))
@@ -503,10 +497,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
             dx = dx / magnitude
             dy = dy / magnitude
             let touchedNode=self.nodeAtPoint(start)
-            print(start)
             //make it move
             //touchedNode.physicsBody?.velocity=CGVectorMake(0.0, 0.0)
-            
             //change these values to make the flick go faster/slower
             //touchedNode.physicsBody?.velocity=CGVectorMake(0, 0)
             touchedNode.physicsBody?.applyImpulse(CGVectorMake(100*dx, 100*dy))
@@ -529,10 +521,10 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         gameOver = true
         playMusic("loser_goodbye", type: "mp3") // change to some lose song
         // change bin displays
-        bin_1_shape.texture = SKTexture(imageNamed:"blue_triangle-1")
-        bin_2_shape.texture = SKTexture(imageNamed:"blue_triangle-1")
-        bin_3_shape.texture = SKTexture(imageNamed:"blue_triangle-1")
-        bin_4_shape.texture = SKTexture(imageNamed:"blue_triangle-1")
+        bin_1_shape.texture = SKTexture(imageNamed:"graphs")
+        bin_2_shape.texture = SKTexture(imageNamed:"refreshArrow")
+        bin_3_shape.texture = SKTexture(imageNamed:"settingsPic")
+        bin_4_shape.texture = SKTexture(imageNamed:"house")
         bin_1.name = "highScore"
         bin_2.name = "restart"
         bin_3.name = "settings"
