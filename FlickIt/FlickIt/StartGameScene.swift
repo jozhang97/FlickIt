@@ -42,7 +42,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     var score = 0;
     var lives = 3;
     
-    let shapes = ["triangle", "blue_square-1","circle","gameOverStar"]
+    let shapes = ["pentagon", "square","circle","triangle"]
     let bins = ["bin_1", "bin_2", "bin_3", "bin_4"]
     
     var start=CGPoint();
@@ -98,7 +98,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         bin_1.physicsBody?.collisionBitMask=PhysicsCategory.Shape
         bin_1.physicsBody?.contactTestBitMask=PhysicsCategory.Shape
         //        bin_1.name = "bin_1"
-        bin_1.name = shapes[3] //set bin names to name of shapes they take
+        bin_1.name = shapes[0] //set bin names to name of shapes they take
 
         
         //bin_2.size = CGSize(width: 100, height: 100)
@@ -154,7 +154,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         bin_4.physicsBody?.collisionBitMask=PhysicsCategory.Shape
         bin_4.physicsBody?.contactTestBitMask=PhysicsCategory.Shape
         //        bin_4.name = "bin_4"
-        bin_4.name = shapes[0] //set bin names to name of shapes they take
+        bin_4.name = shapes[3] //set bin names to name of shapes they take
 
 
         

@@ -39,6 +39,34 @@ class SpawnShape
         LOWERBOUND = min(LOWERBOUND, LOWESTBOUND)
     }
     
+    func pentagonPath(rect: CGRect) -> CGPath {
+        let dw = M_PI / 2.5
+        let path = UIBezierPath()
+        for i in 0...4 {
+            let x = rect.size.width/2 * CGFloat(cos(Double(i) * dw))
+            let y = rect.size.width/2 * CGFloat(sin(Double(i) * dw))
+            if i == 0 {
+                path.moveToPoint(CGPoint(x: x, y: y))
+            } else {
+                path.addLineToPoint(CGPoint(x: x, y: y))
+            }
+        }
+        path.closePath()
+        return path.CGPath
+    }
+    
+    func createPentagon() -> SKShapeNode {
+        let rect: CGRect = CGRectMake(0, 0, sizeRect.size.width/6, sizeRect.size.width/6)
+        let pentagon = SKShapeNode()
+        pentagon.path = pentagonPath(rect)
+        pentagon.strokeColor = red
+        pentagon.fillColor = red
+        //circle.position = CGPointMake(sceneWidth/2, sceneHeight/2);
+        pentagon.name = "pentagon";
+        pentagon.zPosition=5
+        setupTrianglePhysics(pentagon)
+        return pentagon
+    }
     func triangleInRect(rect: CGRect) -> CGPathRef {
         let offsetX: CGFloat = CGRectGetMidX(rect)
         let offsetY: CGFloat = CGRectGetMidY(rect)
@@ -51,9 +79,27 @@ class SpawnShape
     }
     
     func circlePath() -> CGPathRef {
-        let circlePath : UIBezierPath = UIBezierPath(arcCenter: CGPointMake(CGFloat(sizeRect.width/2), CGFloat(sizeRect.height/2)), radius: sizeRect.width/10, startAngle: CGFloat(0), endAngle: CGFloat(2*M_PI), clockwise: true)
+        let circlePath : UIBezierPath = UIBezierPath(arcCenter: CGPointMake(CGFloat(0), CGFloat(0)), radius: sizeRect.width/13, startAngle: CGFloat(0), endAngle: CGFloat(2*M_PI), clockwise: true)
         return circlePath.CGPath
     }
+    
+    func squarePath(rect:CGRect) -> CGPathRef {
+        let path = UIBezierPath(roundedRect: rect, cornerRadius: 2)
+        return path.CGPath
+    }
+    
+    func createSquare() -> SKShapeNode {
+        let rect: CGRect = CGRectMake(-sizeRect.size.width/12, -sizeRect.size.width/12, sizeRect.size.width/6, sizeRect.size.width/6)
+        let square = SKShapeNode()
+        square.path = squarePath(rect)
+        square.strokeColor = green
+        square.fillColor = green
+        square.name = "square";
+        square.zPosition=5
+        setupTrianglePhysics(square)
+        return square
+    }
+    
     
     func createCircle() -> SKShapeNode {
         let sceneHeight = sizeRect.size.height * UIScreen.mainScreen().scale;
@@ -62,7 +108,7 @@ class SpawnShape
         circle.path = self.circlePath()
         circle.strokeColor = blue
         circle.fillColor = blue
-        circle.position = CGPointMake(sceneWidth/2, sceneHeight/2);
+        //circle.position = CGPointMake(sceneWidth/2, sceneHeight/2);
         circle.name = "circle";
         circle.zPosition=5
         setupCirclePhysics(circle)
@@ -133,12 +179,13 @@ class SpawnShape
     }
     
     func spawnShape() -> SKNode {
-        let shapes = [createTriangle(),createCircle(),createTriangle(),createCircle(),createTriangle()]
-        X_VELOCITY_RANGE = CGFloat(range)
-        Y_VELOCITY_RANGE = CGFloat(1.5*range)
+        
         let width = sizeRect.size.width * UIScreen.mainScreen().scale / 2; //screen width in points
         let height = sizeRect.size.height * UIScreen.mainScreen().scale / 2; //screen height in points
         var shapePicker=100
+        let shapes = [createTriangle(),createSquare(),createPentagon(),createCircle()]
+        X_VELOCITY_RANGE = CGFloat(range)
+        Y_VELOCITY_RANGE = CGFloat(1.5*range)
         var shape = SKNode()
         if((shapeCounter.reduce(0,combine: +) > 10) && Int(arc4random_uniform(UInt32(specialShapeProbability))) < 80){
             shapePicker=Int(4)
