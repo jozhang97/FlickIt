@@ -185,7 +185,7 @@ class GameScene: SKScene {
         // Set names for the launcher so that we can check what node is touched in the touchesEnded method
         triangle.name = "launch triangle";
         //could randomize rotation here
-        triangle.runAction(SKAction.rotateByAngle(CGFloat(M_PI/2), duration: 3))
+        triangle.runAction(SKAction.rotateByAngle(CGFloat(M_PI/2), duration: 1.5))
     }
     
     func setupTrianglePhysics() {
@@ -285,14 +285,14 @@ class GameScene: SKScene {
                 //move on the curve up path
                 
                 let circle = UIBezierPath(arcCenter: CGPointMake(0, radiu), radius: radiu, startAngle: CGFloat(1.5*M_PI), endAngle: CGFloat(M_PI), clockwise: false)
-                let test = SKAction.followPath(circle.CGPath, asOffset: true, orientToPath: true, duration: 3)
+                let test = SKAction.followPath(circle.CGPath, asOffset: true, orientToPath: true, duration: 1.5)
                 triangle.runAction(test)
                 //touchedNode.physicsBody?.applyImpulse(CGVectorMake(0, 100*dy))
             }
             if (touchedNode.name == "launch triangle" && dy < 0){
                 //move on the curve down path
                 let circle = UIBezierPath(arcCenter: CGPointMake(0, -1*radiu), radius: radiu, startAngle: CGFloat(M_PI/2), endAngle: CGFloat(M_PI), clockwise: true)
-                let test = SKAction.followPath(circle.CGPath, asOffset: true, orientToPath: true, duration: 3)
+                let test = SKAction.followPath(circle.CGPath, asOffset: true, orientToPath: true, duration: 1.5)
                 triangle.runAction(test)
                 //triangle.runAction(curveDownAction)
                 //touchedNode.physicsBody?.applyImpulse(CGVectorMake(0, 100*dy))

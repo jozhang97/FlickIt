@@ -12,7 +12,7 @@ class SpawnShape
 {
 
     let shapes = ["blue_triangle-1", "blue_square-1", "blue_circle-1","blue_star-1","bomb"]
-    let triangle = SKShapeNode()
+    //let shapes = [createTriangle()]
     var shapeCounter = [0,0,0,0,0]
     let delayTime = 2.0 // time between spawns
     var range = 100.0 //range of X velocities
@@ -46,8 +46,9 @@ class SpawnShape
         return bezierPath.CGPath
     }
     
-    func createTriangle() {
+    func createTriangle () -> SKShapeNode {
         let rect: CGRect = CGRectMake(0, 0, sizeRect.size.width/6, sizeRect.size.width/6)
+        let triangle = SKShapeNode()
         triangle.path = self.triangleInRect(rect)
         triangle.strokeColor = UIColor(red: 160/255, green: 80/255, blue: 76/255, alpha: 1)
         triangle.fillColor = UIColor(red: 160/255, green: 80/255, blue: 76/255, alpha: 1)
@@ -56,9 +57,11 @@ class SpawnShape
         triangle.name = "launch triangle";
         //could randomize rotation here
         triangle.runAction(SKAction.rotateByAngle(CGFloat(M_PI/2), duration: 3))
+        setupTrianglePhysics(triangle)
+        return triangle
     }
     
-    func setupTrianglePhysics() {
+    func setupTrianglePhysics(triangle: SKShapeNode) {
         triangle.userInteractionEnabled = false
         triangle.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: triangle.frame.width, height: triangle.frame.height))
         triangle.physicsBody?.dynamic = true
