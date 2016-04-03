@@ -124,7 +124,6 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func createScene() {
-        print("hey")
         self.physicsWorld.contactDelegate = self
         
         bgImage.size = CGSize(width: self.size.width, height: self.size.height);
@@ -159,6 +158,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         //bin_2.size = CGSize(width: 100, height: 100)
         // top left
         bin_2.anchorPoint = CGPoint(x: 1, y: 0)
+        bin_2.zRotation = 0
         bin_2.setScale(0.264*self.size.width/bin_2_width)
         bin_2.position = CGPointMake(self.size.width / 2, self.size.height / 2)
         // don't rotate this bin
@@ -582,6 +582,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         score = 0
         firstTimeCount = 1
         lives = NUMBEROFLIFES
+        firstTimeCount = 1;
         timeRequired = 2.0
         multiplicativeSpeedUpFactor = 1.0
         self.shapeController.resetVelocityBounds()
