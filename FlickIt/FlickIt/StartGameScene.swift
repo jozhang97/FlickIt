@@ -43,7 +43,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     var score = 0;
     var lives = 3;
     
-    let shapes = ["pentagon", "square","circle","triangle"]
+    let shapes = ["pentagon", "square","circle","triangle", "gameOverStar", "bomb"]
     let bins = ["bin_1", "bin_2", "bin_3", "bin_4"]
     
     var start=CGPoint();
@@ -254,14 +254,14 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         scoreLabel.text="Score: "+String(score)
         scoreLabel.fontColor=UIColor.whiteColor()
         scoreLabel.position=CGPointMake(self.frame.width/2,self.frame.height/2)
-        scoreLabel.zPosition=10
+        scoreLabel.zPosition=2
         self.addChild(scoreLabel)
         
         livesLabel = SKLabelNode()
         livesLabel.text = "Lives: " + String(lives)
         livesLabel.fontColor = UIColor.redColor()
         livesLabel.position = CGPointMake(self.frame.width/2, self.frame.height/3)
-        livesLabel.zPosition = 10
+        livesLabel.zPosition = 2
         self.addChild(livesLabel)
         
         gameOver = false
@@ -459,6 +459,9 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
                     if (sprite.position.y < 0 || sprite.position.x < 0 || sprite.position.x > self.size.width || sprite.position.y > self.size.height) {
                         node.removeFromParent();
                         if !self.gameOver {
+                            if node.name == "bomb" {
+                                return;
+                            }
                             self.lives -= 1;
                             let explosionEmitterNode = SKEmitterNode(fileNamed: "ExplosionEffect.sks")
                             explosionEmitterNode?.position=sprite.position
