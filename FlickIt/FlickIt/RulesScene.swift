@@ -13,9 +13,9 @@ class RulesScene: SKScene {
     //keep track of which way user swipes
     var numTouches = 0;
     //create caption for "how to play" screenshots
-    var caption: SKLabelNode = SKLabelNode(fontNamed: "Open Sans Condensed Light")
-    var total = 5; //change this based on number of screens
-    var rules: SKLabelNode = SKLabelNode(fontNamed: "Open Sans Condensed Light")
+    var caption: SKLabelNode = SKLabelNode(fontNamed: "Open Sans Cond Light")
+    var total = 6; //change this based on number of screens
+    var rules: SKLabelNode = SKLabelNode(fontNamed: "Open Sans Cond Light")
     var screenImage: SKSpriteNode = SKSpriteNode(imageNamed: "blue_triangle")
     var start = CGPoint();
     var swipe = UISwipeGestureRecognizer();
@@ -36,9 +36,10 @@ class RulesScene: SKScene {
         rules.color = UIColor.whiteColor()
         rules.position = CGPoint(x: self.frame.width/2, y: self.frame.height*3.5/4)
         rules.fontSize = 30
+        rules.zPosition = 3
         self.addChild(rules)
         
-        caption.text = "Random shapes will appear on the screen"
+        caption.text = "There's 4 basic shapes that will enter the screen..."
         caption.color = UIColor.whiteColor()
         caption.position = CGPoint(x: self.frame.width/2, y: self.frame.height*3/4)
         caption.fontSize = 16
@@ -61,23 +62,30 @@ class RulesScene: SKScene {
     func setCaptionText () {
         if (numTouches == 0) {
             caption.text = "There's 4 basic shapes that will enter the screen..."
+//            self.addChild(caption)
             screenImage.texture = SKTexture(imageNamed: "blue_triangle")
         } else if (numTouches == 1) {
             caption.text = "Flick them into the proper bins they belong to!"
+//            self.addChild(caption)
             screenImage.texture = SKTexture(imageNamed: "blue_circle")
         } else if (numTouches == 2) {
             caption.text = "Earn as many points as you can with 3 lives!"
+//            self.addChild(caption)
             screenImage.texture = SKTexture(imageNamed: "blue_star")
         } else if (numTouches == 3) {
             caption.text = "Avoid bombs and use stars to get extra points!"
+//            self.addChild(caption)
             screenImage.texture = SKTexture(imageNamed: "blue_square")
         } else if (numTouches == 4) {
             caption.text = "Swipe to Play"
-            screenImage.texture = SKTexture(imageNamed: "")
+//            self.addChild(caption)
+            screenImage.texture = SKTexture(imageNamed: "blue_triangle")
         } else {
             let scene: SKScene = StartGameScene(size: self.size)
+            numTouches = 0
             
             // Configure the view.
+            self.removeAllChildren()
             let skView = self.view as SKView!
             skView.showsFPS = false
             skView.showsNodeCount = false
@@ -131,6 +139,7 @@ class RulesScene: SKScene {
             swipe.direction = .Left
             handleSwipe(swipe)
         }
+        start = CGPoint(x: self.size.width/2, y: self.size.height/2)
     }
     
 }

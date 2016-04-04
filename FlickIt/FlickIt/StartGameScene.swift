@@ -253,15 +253,17 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         scoreLabel=SKLabelNode()
         scoreLabel.text="Score: "+String(score)
         scoreLabel.fontColor=UIColor.whiteColor()
-        scoreLabel.position=CGPointMake(self.frame.width/2,self.frame.height/2)
+        scoreLabel.position=CGPointMake(self.frame.width/2,self.frame.height * 7.5/9)
         scoreLabel.zPosition=2
+        scoreLabel.fontName = "Open Sans Cond Light"
         self.addChild(scoreLabel)
         
         livesLabel = SKLabelNode()
         livesLabel.text = "Lives: " + String(lives)
         livesLabel.fontColor = UIColor.redColor()
-        livesLabel.position = CGPointMake(self.frame.width/2, self.frame.height/3)
+        livesLabel.position = CGPointMake(self.frame.width/2, self.frame.height * 0.5/9)
         livesLabel.zPosition = 2
+        livesLabel.fontName = "Open Sans Cond Light"
         self.addChild(livesLabel)
         
         gameOver = false
@@ -602,14 +604,14 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         gameOverLabel.position = CGPointMake(self.size.width/2, self.size.height/2);
         gameOverLabel.horizontalAlignmentMode = .Center
         gameOverLabel.fontColor = UIColor.whiteColor()
-        gameOverLabel.fontName = "Futura"
+        gameOverLabel.fontName = "Open Sans Cond Light"
         gameOverLabel.fontSize = 22
         gameOverLabel.zPosition = 5
         self.addChild(gameOverLabel)
         gameOverScoreLabel.position = CGPointMake(self.size.width/2, self.size.height/2 + gameOverLabel.frame.height);
         gameOverScoreLabel.horizontalAlignmentMode = .Center
         gameOverScoreLabel.fontColor = UIColor.whiteColor()
-        gameOverScoreLabel.fontName = "Futura"
+        gameOverScoreLabel.fontName = "Open Sans Cond Light"
         gameOverScoreLabel.fontSize = 25
         gameOverScoreLabel.zPosition = 5
         gameOverScoreLabel.text = "Score " + String(score)
@@ -674,27 +676,32 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         unPausedLabel.fontColor=UIColor.whiteColor()
         unPausedLabel.position=CGPointMake(self.frame.width/2, 5 * self.frame.height / 6)
         unPausedLabel.zPosition=5
+        unPausedLabel.fontName = "Open Sans Cond Light"
         self.addChild(unPausedLabel)
         arePaused = true
         muteLabel.text = "Mute"
         muteLabel.fontColor=UIColor.whiteColor()
         muteLabel.position=CGPointMake(self.frame.width/2,3.5*self.frame.height/5)
         muteLabel.zPosition=5
+        muteLabel.fontName = "Open Sans Cond Light"
         self.addChild(muteLabel)
         restartLabel.text = "Restart Game"
         restartLabel.fontColor=UIColor.whiteColor()
         restartLabel.position=CGPointMake(self.frame.width/2, 3*self.frame.height/5)
         restartLabel.zPosition=5
+        restartLabel.fontName = "Open Sans Cond Light"
         self.addChild(restartLabel)
         homeLabel.text = "Go Home"
         homeLabel.fontColor=UIColor.whiteColor()
         homeLabel.position=CGPointMake(self.frame.width/2, 2*self.frame.height/5)
         homeLabel.zPosition=5
+        homeLabel.fontName = "Open Sans Cond Light"
         self.addChild(homeLabel)
         themeSettingsLabel.text = "Pick a new theme"
         themeSettingsLabel.fontColor=UIColor.whiteColor()
         themeSettingsLabel.position=CGPointMake(self.frame.width/2,self.frame.height/5)
         themeSettingsLabel.zPosition=5
+        themeSettingsLabel.fontName = "Open Sans Cond Light"
         self.addChild(themeSettingsLabel)
         pauseBackground = SKShapeNode(rectOfSize: CGSize(width: 11 * self.size.width/16, height: 11 * self.size.height/16))
         pauseBackground.fillColor = UIColor(red: 70/255, green: 80/255, blue: 160/255, alpha: 0.5)
@@ -719,10 +726,15 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         // manipulate touch end
         self.removeChildrenInArray([muteLabel, restartLabel, homeLabel, themeSettingsLabel, unPausedLabel, pauseBackground])
         muteLabel = SKLabelNode()
+        muteLabel.fontName = "Open Sans Cond Light"
         restartLabel = SKLabelNode()
+        restartLabel.fontName = "Open Sans Cond Light"
         homeLabel = SKLabelNode()
+        homeLabel.fontName = "Open Sans Cond Light"
         themeSettingsLabel = SKLabelNode()
+        themeSettingsLabel.fontName = "Open Sans Cond Light"
         unPausedLabel = SKLabelNode()
+        unPausedLabel.fontName = "Open Sans Cond Light"
         for node in pausedShapeVelocities.keys {
             node.physicsBody?.velocity = pausedShapeVelocities[node]!
         }

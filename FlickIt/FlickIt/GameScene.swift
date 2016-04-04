@@ -148,7 +148,7 @@ class GameScene: SKScene {
         aboutButton.position = CGPointMake(self.frame.width * 8/10, self.frame.height/12)
         aboutButton.horizontalAlignmentMode = .Center
         aboutButton.fontColor = UIColor.whiteColor()
-        aboutButton.fontName = "Futura"
+        aboutButton.fontName = "Open Sans Cond Light"
         aboutButton.fontSize = 30
     }
     
@@ -199,7 +199,7 @@ class GameScene: SKScene {
         titleLabel.position = CGPointMake(self.size.width/2 + self.size.width/5, self.size.height/2 - titleLabel.frame.height/2);
         titleLabel.horizontalAlignmentMode = .Center
         titleLabel.fontColor = UIColor.whiteColor()
-        titleLabel.fontName = "Futura"
+        titleLabel.fontName = "Open Sans Cond Light"
         titleLabel.fontSize = 45
     }
     
@@ -207,7 +207,7 @@ class GameScene: SKScene {
         startLabel.position = CGPointMake(self.size.width/2 - rad, self.size.height/2 + rad);
         startLabel.horizontalAlignmentMode = .Center
         startLabel.fontColor = UIColor.whiteColor()
-        startLabel.fontName = "Futura"
+        startLabel.fontName = "Open Sans Cond Light"
         startLabel.fontSize = 30
     }
     
@@ -215,7 +215,7 @@ class GameScene: SKScene {
         rulesLabel.position = CGPointMake(self.size.width/2 - rad, self.size.height/2 - (rad + rulesLabel.frame.height));
         rulesLabel.horizontalAlignmentMode = .Center
         rulesLabel.fontColor = UIColor.whiteColor()
-        rulesLabel.fontName = "Futura"
+        rulesLabel.fontName = "Open Sans Cond Light"
         rulesLabel.fontSize = 30
     }
     
