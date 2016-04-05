@@ -451,36 +451,46 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
 
-
     // increment when shape goes off screen or when flicked into wrong bin
+    // also kills pause button when theres another shape there
     func removeOffScreenNodes() -> Bool {
+        var pauseBlocksShapeCounter = 0
         var didRemoveGameOver = false
-            for shape in shapes {
-                self.enumerateChildNodesWithName(shape, usingBlock: {
-                    node, stop in
-                    let sprite = node as! SKNode
-                    if (sprite.position.y < 0 || sprite.position.x < 0 || sprite.position.x > self.size.width || sprite.position.y > self.size.height) {
-                        node.removeFromParent();
-                        if !self.gameOver {
-                            if node.name == "bomb" {
-                                return;
-                            }
-                            self.lives -= 1;
-                            let explosionEmitterNode = SKEmitterNode(fileNamed: "ExplosionEffect.sks")
-                            explosionEmitterNode?.position=sprite.position
-                            explosionEmitterNode?.zPosition=100
-                            explosionEmitterNode?.particleColorSequence=SKKeyframeSequence(keyframeValues: [UIColor.redColor()], times: [0])
-                            explosionEmitterNode?.particleLifetime=0.3
-                            self.addChild(explosionEmitterNode!)
-                            self.livesLabel.text = "Lives: " + String(self.lives)
-                        } else {
-                            if (node.name == "gameOverStar") {
-                                didRemoveGameOver = true
-                            }
+        for shape in shapes {
+            self.enumerateChildNodesWithName(shape, usingBlock: {
+                node, stop in
+                let sprite = node as! SKNode
+                // CHECKS TO SEE IF ANY SHAPE IS ABOVE PAUSE
+                if self.pauseButton.containsPoint(CGPointMake(sprite.position.x, sprite.position.y)){
+                    pauseBlocksShapeCounter += 1
+                }
+                if (sprite.position.y < 0 || sprite.position.x < 0 || sprite.position.x > self.size.width || sprite.position.y > self.size.height) {
+                    node.removeFromParent();
+                    if !self.gameOver {
+                        if node.name == "bomb" {
+                            return;
+                        }
+                        self.lives -= 1;
+                        let explosionEmitterNode = SKEmitterNode(fileNamed: "ExplosionEffect.sks")
+                        explosionEmitterNode?.position=sprite.position
+                        explosionEmitterNode?.zPosition=100
+                        explosionEmitterNode?.particleColorSequence=SKKeyframeSequence(keyframeValues: [UIColor.redColor()], times: [0])
+                        explosionEmitterNode?.particleLifetime=0.3
+                        self.addChild(explosionEmitterNode!)
+                        self.livesLabel.text = "Lives: " + String(self.lives)
+                    } else {
+                        if (node.name == "gameOverStar") {
+                            didRemoveGameOver = true
                         }
                     }
-                })
-            }
+                }
+            })
+        }
+        if pauseBlocksShapeCounter == 0 {
+            pauseButton.alpha = 1
+        } else {
+            pauseButton.alpha = 0
+        }
         return didRemoveGameOver
     }
     
