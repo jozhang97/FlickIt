@@ -48,7 +48,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     
     var start=CGPoint();
     var startTime=NSTimeInterval();
-    let kMinDistance=CGFloat(50)
+    let kMinDistance=CGFloat(20)
     let kMinDuration=CGFloat(0)
     let kMinSpeed=CGFloat(100)
     let kMaxSpeed=CGFloat(500)
@@ -70,6 +70,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     var pausedShapeVelocities = [SKNode: CGVector]()
     var aud2exists: Bool = false
     let sizeRect = UIScreen.mainScreen().applicationFrame;
+    var line = SKShapeNode()
+    var touchedNode=SKNode();
     
     // Actual dimensions of the screen
     var sceneHeight = CGFloat(0);
@@ -215,10 +217,11 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         // top right
         
         bin_1_shape.anchorPoint = CGPoint(x: 1, y: 1)
-        bin_1_shape.setScale(shapeScaleFactor)
+        //bin_1_shape.setScale(shapeScaleFactor)
+        bin_1_shape.setScale(0.05) //CHANGE THIS
         bin_1_shape.position = CGPointMake(self.size.width - binWidth/20, self.size.height - binWidth/20)
         bin_1_shape.zPosition = 4;
-        bin_1_shape.texture = SKTexture(imageNamed: "blue_star-1")
+        bin_1_shape.texture = SKTexture(imageNamed: "blue_pentagon-1")
         
         
         
@@ -501,7 +504,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         // Save start location and time
         start = location
         startTime = touch.timestamp
-        let touchedNode=self.nodeAtPoint(start)
+        touchedNode=self.nodeAtPoint(start)
         if(touchedNode.name=="bomb"){
             aud2exists = true
             playMusic2("bombSound", type: "mp3")
@@ -544,8 +547,18 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
             
         }
     }
+    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        for touch in touches{
+            self.removeChildrenInArray([line])
+            let currentLocation=touch.locationInNode(self)
+            createLine(currentLocation)
+            self.addChild(line)
+        }
+        
+    }
     
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        self.removeChildrenInArray([line])
         let touch: UITouch = touches.first!
         let location: CGPoint = touch.locationInNode(self)
         // Determine distance from the starting point
@@ -556,7 +569,6 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
             // Determine time difference from start of the gesture
             dx = dx / magnitude
             dy = dy / magnitude
-            let touchedNode=self.nodeAtPoint(start)
             //make it move
             //touchedNode.physicsBody?.velocity=CGVectorMake(0.0, 0.0)
             //change these values to make the flick go faster/slower
@@ -779,5 +791,24 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     func delay(delay:Double, closure:()->()) {
         dispatch_after(
             dispatch_time( DISPATCH_TIME_NOW, Int64(delay * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), closure)
+    }
+    
+    func linePath(end: CGPoint) -> CGPath {
+        let path = UIBezierPath()
+        for i in 0...1 {
+            if i == 0 {
+                path.moveToPoint(start)
+            } else {
+                path.addLineToPoint(end)
+            }
+        }
+        path.closePath()
+        return path.CGPath
+    }
+    func createLine(end: CGPoint){
+        line.lineWidth=1.5
+        line.path = linePath(end)
+        line.strokeColor = UIColor.whiteColor()
+        line.zPosition=4
     }
 }
