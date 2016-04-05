@@ -506,6 +506,19 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         
         if !arePaused {
             touchedNode=self.nodeAtPoint(start)
+            /* This is for touching nodes within a range of 5 of your touch
+            var i=CGFloat(0)
+            var j=CGFloat(0)
+            while(touchedNode != SKNode() && i < 5){
+                touchedNode=self.nodeAtPoint(CGPoint(x: start.x+i,y: start.y))
+                j=0
+                while(touchedNode != SKNode() && j < 5){
+                    touchedNode=self.nodeAtPoint(CGPoint(x: start.x,y: start.y+j))
+                    j+=1
+                }
+                i+=1
+            }
+ */
             if(touchedNode.name=="bomb"){
                 aud2exists = true
                 playMusic2("bombSound", type: "mp3")
@@ -524,6 +537,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
             } else if (touchedNode.name == "pauseButton") {
                 openPause()
             }
+            start=touchedNode.position;
             oldVelocities[touchedNode]=touchedNode.physicsBody?.velocity;
             touchedNode.physicsBody?.velocity=CGVectorMake(0, 0)
         } else {
@@ -545,7 +559,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        if !arePaused {
+        if ((!arePaused) && (start.x != 160) && (start.y != 284)) {
             for touch in touches{
                 self.removeChildrenInArray([line])
                 let currentLocation=touch.locationInNode(self)
@@ -563,7 +577,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         var dx: CGFloat = location.x - start.x
         var dy: CGFloat = location.y - start.y
         let magnitude: CGFloat = sqrt(dx * dx + dy * dy)
-        if (magnitude >= self.kMinDistance){
+        if (magnitude >= kMinDistance){
             // Determine time difference from start of the gesture
             dx = dx / magnitude
             dy = dy / magnitude
