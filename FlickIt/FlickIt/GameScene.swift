@@ -243,11 +243,13 @@ class GameScene: SKScene {
             else if mute == 1 { //UNMUTE IT
                 unmuteIt()
             }
-        }
-        //doesn't recognize About Button location! need to fix!
-        if aboutButton.containsPoint(location) {
+        } else if aboutButton.containsPoint(location) {//doesn't recognize AboutButton location need to fix!
             startAbout()
-        }
+        } else if startLabel.containsPoint(location) {
+            followSemicircleUp()
+        } else if rulesLabel.containsPoint(location) {
+            followSemicircleDown()
+        }   
     }
     
     func muteIt() {
@@ -287,25 +289,33 @@ class GameScene: SKScene {
             let touchedNode=self.nodeAtPoint(start)
             //make it move
             touchedNode.physicsBody?.velocity=CGVectorMake(0.0, 0.0)
-            let radiu = self.size.height/6
             if (touchedNode.name == "launch triangle" && dy > 0){
-                //move on the curve up path
-                
-                let circle = UIBezierPath(arcCenter: CGPointMake(0, radiu), radius: radiu, startAngle: CGFloat(1.5*M_PI), endAngle: CGFloat(M_PI), clockwise: false)
-                let test = SKAction.followPath(circle.CGPath, asOffset: true, orientToPath: true, duration: 1.5)
-                triangle.runAction(test)
+                followSemicircleUp();
                 //touchedNode.physicsBody?.applyImpulse(CGVectorMake(0, 100*dy))
             }
             if (touchedNode.name == "launch triangle" && dy < 0){
-                //move on the curve down path
-                let circle = UIBezierPath(arcCenter: CGPointMake(0, -1*radiu), radius: radiu, startAngle: CGFloat(M_PI/2), endAngle: CGFloat(M_PI), clockwise: true)
-                let test = SKAction.followPath(circle.CGPath, asOffset: true, orientToPath: true, duration: 1.5)
-                triangle.runAction(test)
+                followSemicircleDown()
                 //triangle.runAction(curveDownAction)
                 //touchedNode.physicsBody?.applyImpulse(CGVectorMake(0, 100*dy))
             }
             //touchedNode.physicsBody?.applyImpulse(CGVectorMake(100*dx, 100*dy))
         }
+    }
+    
+    func followSemicircleUp() {
+        let radiu = self.size.height/6
+        //move on the curve up path
+        let circle = UIBezierPath(arcCenter: CGPointMake(0, radiu), radius: radiu, startAngle: CGFloat(1.5*M_PI), endAngle: CGFloat(M_PI), clockwise: false)
+        let test = SKAction.followPath(circle.CGPath, asOffset: true, orientToPath: true, duration: 1.5)
+        triangle.runAction(test)
+    }
+    
+    func followSemicircleDown() {
+        let radiu = self.size.height/6
+        //move on the curve down path
+        let circle = UIBezierPath(arcCenter: CGPointMake(0, -1*radiu), radius: radiu, startAngle: CGFloat(M_PI/2), endAngle: CGFloat(M_PI), clockwise: true)
+        let test = SKAction.followPath(circle.CGPath, asOffset: true, orientToPath: true, duration: 1.5)
+        triangle.runAction(test)
     }
     
     func startAbout() {

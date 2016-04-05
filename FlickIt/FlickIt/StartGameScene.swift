@@ -354,7 +354,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
             firstBody=contact.bodyB
             secondBody=contact.bodyA
         }
-        if !gameOver {
+        if !gameOver && !arePaused {
             if (firstBody.categoryBitMask==PhysicsCategory.Shape && secondBody.categoryBitMask==PhysicsCategory.Bin){
                 if(firstBody.node!.name=="bomb"){
                     firstBody.node?.removeFromParent()
@@ -418,17 +418,21 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     
     override func update(currentTime: CFTimeInterval) {
         let didRemoveGameover = removeOffScreenNodes()
-        
-        if !gameOver && !arePaused {
+        if arePaused {
+            time = currentTime
+        } else if gameOver {
+            if didRemoveGameover {
+                gameOverStar.removeFromParent()
+                setUpGameOverStar()
+            }
+        } else {
             if currentTime - time >= timeRequired {
-
                 if (firstTimeCount > 0) {
                     time = currentTime;
                     firstTimeCount -= 1
                 } else {
                     shapeToAdd = self.shapeController.spawnShape();
                     shapeToAdd.position = CGPointMake(self.size.width/2, self.size.height/2);
-                    //shapeToAdd.zPosition=10;
                     self.addChild(shapeToAdd);
                     //shapeToAdd.physicsBody?.applyImpulse(CGVectorMake(shapeController.dx, shapeController.dy))
                     //self.addChild(self.shapeController.spawnShape());
@@ -443,12 +447,6 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
             }
             if lives == 0 {
                 createRestartBTN()
-            }
-        }
-        else {
-            if didRemoveGameover {
-                gameOverStar.removeFromParent()
-                setUpGameOverStar()
             }
         }
     }
@@ -504,32 +502,31 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         // Save start location and time
         start = location
         startTime = touch.timestamp
-        touchedNode=self.nodeAtPoint(start)
-        if(touchedNode.name=="bomb"){
-            aud2exists = true
-            playMusic2("bombSound", type: "mp3")
-            lives=0;
-            livesLabel.text="Lives:" + String(lives)
-            let explosionEmitterNode = SKEmitterNode(fileNamed: "ExplosionEffect.sks")
-            explosionEmitterNode?.position=touchedNode.position
-            explosionEmitterNode?.zPosition=100
-            explosionEmitterNode?.particleColorSequence=SKKeyframeSequence(keyframeValues: [UIColor.redColor()], times: [0])
-            explosionEmitterNode?.particleLifetime=5.0
-            explosionEmitterNode?.numParticlesToEmit=200
-            explosionEmitterNode?.particleSpeed=100
-            
-            self.addChild(explosionEmitterNode!)
-            touchedNode.removeFromParent()
-        } else if (touchedNode.name == "pauseButton") {
-            openPause()
-        }
-        oldVelocities[touchedNode]=touchedNode.physicsBody?.velocity;
-        touchedNode.physicsBody?.velocity=CGVectorMake(0, 0)
-//        if restartBTN.containsPoint(location) {
-//            restartScene()
-//        }
         
-        if arePaused {
+        
+        if !arePaused {
+            touchedNode=self.nodeAtPoint(start)
+            if(touchedNode.name=="bomb"){
+                aud2exists = true
+                playMusic2("bombSound", type: "mp3")
+                lives=0;
+                livesLabel.text="Lives:" + String(lives)
+                let explosionEmitterNode = SKEmitterNode(fileNamed: "ExplosionEffect.sks")
+                explosionEmitterNode?.position=touchedNode.position
+                explosionEmitterNode?.zPosition=100
+                explosionEmitterNode?.particleColorSequence=SKKeyframeSequence(keyframeValues: [UIColor.redColor()], times: [0])
+                explosionEmitterNode?.particleLifetime=5.0
+                explosionEmitterNode?.numParticlesToEmit=200
+                explosionEmitterNode?.particleSpeed=100
+                
+                self.addChild(explosionEmitterNode!)
+                touchedNode.removeFromParent()
+            } else if (touchedNode.name == "pauseButton") {
+                openPause()
+            }
+            oldVelocities[touchedNode]=touchedNode.physicsBody?.velocity;
+            touchedNode.physicsBody?.velocity=CGVectorMake(0, 0)
+        } else {
             if unPausedLabel.containsPoint(location) {
                 closePause()
             } else if muteLabel.containsPoint(location) {
@@ -548,13 +545,14 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        for touch in touches{
-            self.removeChildrenInArray([line])
-            let currentLocation=touch.locationInNode(self)
-            createLine(currentLocation)
-            self.addChild(line)
+        if !arePaused {
+            for touch in touches{
+                self.removeChildrenInArray([line])
+                let currentLocation=touch.locationInNode(self)
+                createLine(currentLocation)
+                self.addChild(line)
+            }
         }
-        
     }
     
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -684,9 +682,10 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     
     
     func openPause() {
+        bgImage.runAction(SKAction.fadeAlphaTo(0.2, duration: 0.5));
         unPausedLabel.text = "Unpause"
         unPausedLabel.fontColor=UIColor.whiteColor()
-        unPausedLabel.position=CGPointMake(self.frame.width/2, 5 * self.frame.height / 6)
+        unPausedLabel.position=CGPointMake(self.frame.width/2, 9 * self.frame.height / 12)
         unPausedLabel.zPosition=5
         unPausedLabel.fontName = "Open Sans Cond Light"
         self.addChild(unPausedLabel)
@@ -734,6 +733,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func closePause() {
+        bgImage.runAction(SKAction.fadeAlphaTo(1.0, duration: 0.5));
         arePaused = false
         // manipulate touch end
         self.removeChildrenInArray([muteLabel, restartLabel, homeLabel, themeSettingsLabel, unPausedLabel, pauseBackground])
