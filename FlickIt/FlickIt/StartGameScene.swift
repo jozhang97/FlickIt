@@ -50,11 +50,10 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     let bins = ["bin_1", "bin_2", "bin_3", "bin_4"]
     
     var start=CGPoint();
-    var startTime=NSTimeInterval();
+    var startTimeOfTouch=NSTimeInterval();
     let kMinDistance=CGFloat(20)
     let kMinDuration=CGFloat(0)
-    let kMinSpeed=CGFloat(100)
-    let kMaxSpeed=CGFloat(500)
+    let kMaxSpeed=CGFloat(200)
     var scoreLabel=SKLabelNode()
     var livesLabel = SKLabelNode()
     var time : CFTimeInterval = 2;
@@ -514,7 +513,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         let location: CGPoint = touch.locationInNode(self)
         // Save start location and time
         start = location
-        startTime = touch.timestamp
+        startTimeOfTouch = touch.timestamp
         
         
         if !arePaused {
@@ -592,7 +591,6 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     
     }
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        print(self.nodeAtPoint(start).name)
         if ((!arePaused) && self.nodeAtPoint(start).name != nil && touching) {
             for touch in touches{
                 self.removeChildrenInArray([line])
@@ -610,16 +608,22 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         // Determine distance from the starting point
         var dx: CGFloat = location.x - start.x
         var dy: CGFloat = location.y - start.y
+        let timeOfTouch=touch.timestamp-startTimeOfTouch
         let magnitude: CGFloat = sqrt(dx * dx + dy * dy)
         if (magnitude >= kMinDistance){
             // Determine time difference from start of the gesture
             dx = dx / magnitude
             dy = dy / magnitude
+            var speed=(magnitude/CGFloat(timeOfTouch))/5;
+            if(speed > kMaxSpeed){
+                speed = kMaxSpeed
+            }
+           
             //make it move
             //touchedNode.physicsBody?.velocity=CGVectorMake(0.0, 0.0)
             //change these values to make the flick go faster/slower
             //touchedNode.physicsBody?.velocity=CGVectorMake(0, 0)
-            touchedNode.physicsBody?.applyImpulse(CGVectorMake(100*dx, 100*dy))
+            touchedNode.physicsBody?.applyImpulse(CGVectorMake(speed*dx, speed*dy))
         }
         else{
             let touchedNode=self.nodeAtPoint(start)
