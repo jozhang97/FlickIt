@@ -38,8 +38,6 @@ class GameScene: SKScene {
     var audioPlayer = AVAudioPlayer()
     var audioPlayer2 = AVAudioPlayer()
     var mute = 0
-    var pressedMute = false
-    
     
     override func didMoveToView(view: SKView) {
         createHomeScreen()
@@ -236,7 +234,6 @@ class GameScene: SKScene {
         //oldVelocities[touchedNode]=touchedNode.physicsBody?.velocity;
         //touchedNode.physicsBody?.velocity=CGVectorMake(0, 0)
         if muteButton.containsPoint(location) {
-            pressedMute = true
             if mute == 0 {  //MUTE IT
                 muteIt()
             }
@@ -266,14 +263,7 @@ class GameScene: SKScene {
     
     
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        if (!pressedMute) {
-            audioPlayer.volume -= 0.5
-            playMusic2("swoosh", type: "mp3")
-            audioPlayer.volume += 0.5
-        }
-        else {
-            pressedMute = false
-        }
+        
         
         let touch: UITouch = touches.first!
         let location: CGPoint = touch.locationInNode(self)
@@ -289,6 +279,11 @@ class GameScene: SKScene {
             let touchedNode=self.nodeAtPoint(start)
             //make it move
             touchedNode.physicsBody?.velocity=CGVectorMake(0.0, 0.0)
+            
+            if (mute != 1 && touchedNode.name == "launch triangle") {
+                playMusic2("swoosh", type: "mp3")
+            }
+            
             if (touchedNode.name == "launch triangle" && dy > 0){
                 followSemicircleUp();
                 //touchedNode.physicsBody?.applyImpulse(CGVectorMake(0, 100*dy))
