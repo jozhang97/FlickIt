@@ -144,8 +144,9 @@ class GameScene: SKScene {
         self.addChild(startLabel)
         self.addChild(aboutButton)
         self.addChild(muteButton);
-        
-        animateBinsAtStart()
+        delay(1) {
+            self.animateBinsAtStart()
+        }
         // Have triangle first shoot up quickly, then slower and slower.
         /*
         triangle.runAction(SKAction.sequence([
@@ -187,8 +188,8 @@ class GameScene: SKScene {
     func createTriangle() {
         let rect: CGRect = CGRectMake(0, 0, self.size.width/6, self.size.width/6)
         triangle.path = self.triangleInRect(rect)
-        triangle.strokeColor = UIColor(red: 160/255, green: 80/255, blue: 76/255, alpha: 1)
-        triangle.fillColor = UIColor(red: 160/255, green: 80/255, blue: 76/255, alpha: 1)
+        triangle.strokeColor = yellow
+        triangle.fillColor = yellow
         triangle.position = CGPointMake(self.size.width/2 - triangle.frame.width/2, self.size.height/2);
         // Set names for the launcher so that we can check what node is touched in the touchesEnded method
         triangle.name = "launch triangle";
@@ -260,7 +261,7 @@ class GameScene: SKScene {
     }
     
     func muteIt() {
-        audioPlayer.volume = 0.01
+        audioPlayer.volume = 0.0
         muteButton.texture = SKTexture(imageNamed: "muteNow.png")
         mute = 1
     }
@@ -294,16 +295,7 @@ class GameScene: SKScene {
                 playMusic2("swoosh", type: "mp3")
             }
             
-            if (touchedNode.name == "launch triangle" && dy > 0){
-                //followSemicircleUp();
-                //touchedNode.physicsBody?.applyImpulse(CGVectorMake(0, 100*dy))
-            }
-            if (touchedNode.name == "launch triangle" && dy < 0){
-                //followSemicircleDown()
-                //triangle.runAction(curveDownAction)
-                //touchedNode.physicsBody?.applyImpulse(CGVectorMake(0, 100*dy))
-            }
-            //touchedNode.physicsBody?.applyImpulse(CGVectorMake(100*dx, 100*dy))
+            touchedNode.physicsBody?.applyImpulse(CGVectorMake(100*dx, 100*dy))
         }
     }
     
@@ -378,11 +370,18 @@ class GameScene: SKScene {
    
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
-        if (triangle.position.y >= startLabel.position.y - 20){
+        if (triangle.position.y >= startLabel.position.y - 20 && triangle.position.x <= startLabel.position.x){
             // call method to start game
             // for now just remove all the elements to show something has happened
             self.removeAllChildren();
             self.startGame();
+            triangle.position.y = 0
+        }
+        else if ((triangle.position.y >= startLabel.position.y - 20) && (triangle.position.x >= aboutButton.position.x)){
+                // call method to start game
+                // for now just remove all the elements to show something has happened
+            self.removeAllChildren();
+            self.startAbout();
             triangle.position.y = 0
         } else if (triangle.position.y <= rulesLabel.position.y + rulesLabel.frame.height + 20){
             // call method to show Rules
@@ -391,6 +390,7 @@ class GameScene: SKScene {
             self.goToRules();
             triangle.position.y = 0
         }
+        removeOffScreenNodes()
     }
     
     func goToRules() {
@@ -411,5 +411,17 @@ class GameScene: SKScene {
     func delay(delay:Double, closure:()->()) {
         dispatch_after(
             dispatch_time( DISPATCH_TIME_NOW, Int64(delay * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), closure)
+    }
+    func removeOffScreenNodes() {
+        for shape in ["launch triangle"] {
+            self.enumerateChildNodesWithName(shape, usingBlock: {
+                node, stop in
+                let sprite = node as! SKNode
+                if (sprite.position.y < 0 || sprite.position.x < 0 || sprite.position.x > self.size.width || sprite.position.y > self.size.height) {
+                    self.triangle.position = CGPointMake(self.size.width/2 - self.triangle.frame.width/2, self.size.height/2);
+                    self.triangle.physicsBody?.velocity = CGVectorMake(0, 0)
+                }
+            })
+        }
     }
 }
