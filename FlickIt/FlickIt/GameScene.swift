@@ -28,16 +28,21 @@ class GameScene: SKScene {
     let startLabel = SKLabelNode(text: "START")
     let rulesLabel = SKLabelNode(text: "RULES")
     let titleLabel = SKLabelNode(text: "FLICK IT")
-    let curveUp = SKShapeNode()
-    let curveDown = SKShapeNode()
+    let topLeft = SKShapeNode()
+    let topRight = SKShapeNode()
+    let bottomLeft = SKShapeNode()
+    let bottomRight = SKShapeNode()
     let triangle = SKShapeNode()
     let muteButton = SKSpriteNode(imageNamed: "playNow.png")
     let aboutButton = SKLabelNode(text: "ABOUT")
-    var curveUpAction = SKAction()
-    var curveDownAction = SKAction()
     var audioPlayer = AVAudioPlayer()
     var audioPlayer2 = AVAudioPlayer()
     var mute = 0
+    let red: UIColor = UIColor(red: 164/255, green: 84/255, blue: 80/255, alpha: 1)
+    let blue: UIColor = UIColor(red: 85/255, green: 135/255, blue: 141/255, alpha: 1)
+    let green: UIColor = UIColor(red: 147/255, green: 158/255, blue: 106/255, alpha: 1)
+    let purple: UIColor = UIColor(red: 99/255, green: 103/255, blue: 211/255, alpha: 1)
+    let yellow: UIColor = UIColor(red: 250/255, green: 235/255, blue: 83/255, alpha: 1)
     
     override func didMoveToView(view: SKView) {
         createHomeScreen()
@@ -88,10 +93,15 @@ class GameScene: SKScene {
         setupTitleLabel()
         
         //curve up shape
+        
         let radius = self.size.height/6
-        addCurvedLines(curveUp, dub1: 1.5*M_PI, dub2: M_PI, bol: false, arch: Double(self.size.height/2 + radius), radi: radius)
+        
+        addCurvedLines(topRight, dub1: 0, dub2: M_PI/2, bol: true, arch: Double(self.size.height/2 + radius), radi: radius, color: red)
         //curve down shape
-        addCurvedLines(curveDown, dub1: M_PI/2, dub2: M_PI, bol: true, arch: Double(self.size.height/2 - radius), radi: radius)
+        addCurvedLines(topLeft, dub1: M_PI/2, dub2: M_PI, bol: true, arch: Double(self.size.height/2 - radius), radi: radius, color: blue)
+        addCurvedLines(bottomLeft, dub1: M_PI, dub2: M_PI*3/2, bol: true, arch: Double(self.size.height/2 - radius), radi: radius, color: green)
+        addCurvedLines(bottomRight, dub1: M_PI*3/2, dub2: M_PI*2, bol: true, arch: Double(self.size.height/2 - radius), radi: radius, color: purple)
+        
         
         // Sets bg image to fill the entire screen
         bgImage.size = CGSize(width: self.size.width, height: self.size.height);
@@ -115,22 +125,27 @@ class GameScene: SKScene {
         rulesLabel.zPosition = 2
         titleLabel.zPosition = 2
         aboutButton.zPosition = 2
-        curveDown.zPosition = 3
-        curveUp.zPosition = 3
+        topLeft.zPosition = 3
+        topRight.zPosition = 3
+        bottomLeft.zPosition = 3
+        bottomRight.zPosition = 3
         triangle.zPosition = 4
         muteButton.zPosition = 5
         
         // Add all the elements to the screen
         self.addChild(bgImage)
         self.addChild(triangle)
-        self.addChild(curveUp)
-        self.addChild(curveDown)
+        self.addChild(topRight)
+        self.addChild(topLeft)
+        self.addChild(bottomLeft)
+        self.addChild(bottomRight)
         self.addChild(titleLabel)
         self.addChild(rulesLabel)
         self.addChild(startLabel)
         self.addChild(aboutButton)
         self.addChild(muteButton);
         
+        animateBinsAtStart()
         // Have triangle first shoot up quickly, then slower and slower.
         /*
         triangle.runAction(SKAction.sequence([
@@ -143,24 +158,19 @@ class GameScene: SKScene {
     }
     
     func setupAboutLabel() {
-        aboutButton.position = CGPointMake(self.frame.width * 8/10, self.frame.height/12)
+        aboutButton.position = CGPointMake(self.size.width - rulesLabel.frame.width/2, self.size.height - 2 * startLabel.frame.height)
         aboutButton.horizontalAlignmentMode = .Center
         aboutButton.fontColor = UIColor.whiteColor()
         aboutButton.fontName = "Open Sans Cond Light"
-        aboutButton.fontSize = 30
+        aboutButton.fontSize = 20
     }
     
-    func addCurvedLines(curve: SKShapeNode, dub1: Double, dub2: Double, bol: Bool, arch: Double, radi: CGFloat) {
-        let circlePath : UIBezierPath = UIBezierPath(arcCenter: CGPointMake(CGFloat(self.size.width/2), CGFloat(arch)), radius: radi, startAngle: CGFloat(dub1), endAngle: CGFloat(dub2), clockwise: bol)
-        if curve == curveUp {
-            curveUpAction = SKAction.followPath(circlePath.CGPath, asOffset: true, orientToPath: true, duration: 1)
-        }
-        else if curve == curveDown {
-            curveDownAction = SKAction.followPath(circlePath.CGPath, asOffset: true, orientToPath: true, duration: 1)
-        }
+    func addCurvedLines(curve: SKShapeNode, dub1: Double, dub2: Double, bol: Bool, arch: Double, radi: CGFloat, color: UIColor) {
+        let circlePath : UIBezierPath = UIBezierPath(arcCenter: CGPointMake(CGFloat(0), CGFloat(0)), radius: radi, startAngle: CGFloat(dub1), endAngle: CGFloat(dub2), clockwise: bol)
         curve.path = circlePath.CGPath
-        curve.strokeColor = UIColor.grayColor()
+        curve.strokeColor = color
         curve.lineWidth = 3
+        curve.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
     }
     
     func triangleInRect(rect: CGRect) -> CGPathRef {
@@ -194,27 +204,27 @@ class GameScene: SKScene {
     }
     
     func setupTitleLabel() {
-        titleLabel.position = CGPointMake(self.size.width/2 + self.size.width/5, self.size.height/2 - titleLabel.frame.height/2);
+        titleLabel.position = CGPointMake(self.size.width/2, self.size.height - titleLabel.frame.height - 20);
         titleLabel.horizontalAlignmentMode = .Center
         titleLabel.fontColor = UIColor.whiteColor()
         titleLabel.fontName = "Open Sans Cond Light"
-        titleLabel.fontSize = 45
+        titleLabel.fontSize = 30
     }
     
     func setupStartLabel(rad: CGFloat) {
-        startLabel.position = CGPointMake(self.size.width/2 - rad, self.size.height/2 + rad);
+        startLabel.position = CGPointMake(startLabel.frame.width/2, self.size.height - 2 * startLabel.frame.height);
         startLabel.horizontalAlignmentMode = .Center
         startLabel.fontColor = UIColor.whiteColor()
         startLabel.fontName = "Open Sans Cond Light"
-        startLabel.fontSize = 30
+        startLabel.fontSize = 20
     }
     
     func setupRulesLabel(rad: CGFloat) {
-        rulesLabel.position = CGPointMake(self.size.width/2 - rad, self.size.height/2 - (rad + rulesLabel.frame.height));
+        rulesLabel.position = CGPointMake(self.size.width - rulesLabel.frame.width/2, rulesLabel.frame.height);
         rulesLabel.horizontalAlignmentMode = .Center
         rulesLabel.fontColor = UIColor.whiteColor()
         rulesLabel.fontName = "Open Sans Cond Light"
-        rulesLabel.fontSize = 30
+        rulesLabel.fontSize = 20
     }
     
     func createMuteButton() {
@@ -243,9 +253,9 @@ class GameScene: SKScene {
         } else if aboutButton.containsPoint(location) {//doesn't recognize AboutButton location need to fix!
             startAbout()
         } else if startLabel.containsPoint(location) {
-            followSemicircleUp()
+            //followSemicircleUp()
         } else if rulesLabel.containsPoint(location) {
-            followSemicircleDown()
+            //followSemicircleDown()
         }   
     }
     
@@ -285,17 +295,19 @@ class GameScene: SKScene {
             }
             
             if (touchedNode.name == "launch triangle" && dy > 0){
-                followSemicircleUp();
+                //followSemicircleUp();
                 //touchedNode.physicsBody?.applyImpulse(CGVectorMake(0, 100*dy))
             }
             if (touchedNode.name == "launch triangle" && dy < 0){
-                followSemicircleDown()
+                //followSemicircleDown()
                 //triangle.runAction(curveDownAction)
                 //touchedNode.physicsBody?.applyImpulse(CGVectorMake(0, 100*dy))
             }
             //touchedNode.physicsBody?.applyImpulse(CGVectorMake(100*dx, 100*dy))
         }
     }
+    
+    /*
     
     func followSemicircleUp() {
         let radiu = self.size.height/6
@@ -312,6 +324,8 @@ class GameScene: SKScene {
         let test = SKAction.followPath(circle.CGPath, asOffset: true, orientToPath: true, duration: 1.5)
         triangle.runAction(test)
     }
+
+    */
     
     func startAbout() {
         let scene: SKScene = AboutScene(size: self.size)
@@ -341,6 +355,25 @@ class GameScene: SKScene {
         scene.scaleMode = .AspectFill
         skView.presentScene(scene)
         
+    }
+    
+    func animateBinsAtStart() {
+        let rotate = SKAction.rotateByAngle(CGFloat(M_PI), duration: 1.0);
+        //bin_1.anchorPoint = CGPoint(x: 0, y: 1)
+        topRight.runAction(rotate)
+        topRight.runAction(SKAction.moveTo(CGPoint(x: self.size.width, y: self.size.height), duration: 1.0))
+        
+        topLeft.runAction(rotate)
+        topLeft.runAction(SKAction.moveTo(CGPoint(x: 0, y: self.size.height), duration: 1.0))
+        
+        bottomLeft.runAction(rotate)
+        bottomLeft.runAction(SKAction.moveTo(CGPoint(x: 0, y: 0), duration: 1.0))
+        
+        bottomRight.runAction(rotate)
+        bottomRight.runAction(SKAction.moveTo(CGPoint(x: self.size.width, y: 0), duration: 1.0))
+        //bin_2.runAction(SKAction.group([rotate, SKAction.moveTo(CGPoint(x: 0, y: self.size.height), duration: 1.0)]))
+        //bin_3.runAction(SKAction.group([rotate, SKAction.moveTo(CGPoint(x: self.size.width, y: 0), duration: 1.0)]))
+        //bin_4.runAction(SKAction.group([rotate, SKAction.moveTo(CGPoint(x: 0, y: 0), duration: 1.0)]))
     }
    
     override func update(currentTime: CFTimeInterval) {
