@@ -21,7 +21,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     var bomb = SKSpriteNode(imageNamed: "bomb.png")
     var hand = SKSpriteNode(imageNamed: "hand_icon")
     var showHand = 0;
-
+    var touching = false;
+    
     var bgImage = SKSpriteNode(imageNamed: "background.png");
 
     
@@ -518,6 +519,9 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         
         if !arePaused {
             touchedNode=self.nodeAtPoint(start)
+            if(touchedNode.name != nil){
+                touching = true
+            }
             /* This is for touching nodes within a range of 5 of your touch
             var i=CGFloat(0)
             var j=CGFloat(0)
@@ -588,7 +592,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     
     }
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        if ((!arePaused) && (start.x != 160) && (start.y != 284)) {
+        print(self.nodeAtPoint(start).name)
+        if ((!arePaused) && self.nodeAtPoint(start).name != nil && touching) {
             for touch in touches{
                 self.removeChildrenInArray([line])
                 let currentLocation=touch.locationInNode(self)
@@ -622,6 +627,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
                 touchedNode.physicsBody?.velocity=oldVelocities[touchedNode]!
             }
         }
+        touching = false
         
     }
     
