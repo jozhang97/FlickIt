@@ -19,6 +19,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     let yellow: UIColor = UIColor(red: 250/255, green: 235/255, blue: 83/255, alpha: 1)
     
     var bomb = SKSpriteNode(imageNamed: "bomb.png")
+    var hand = SKSpriteNode(imageNamed: "hand_icon")
+    var showHand = 0;
 
     var bgImage = SKSpriteNode(imageNamed: "background.png");
 
@@ -567,6 +569,23 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
             }
             
         }
+        delay(0.5) {
+            if (self.gameOver && self.showHand > 2) {
+                self.showHand = 0
+                self.hand.position = CGPoint(x: self.size.width / 2, y: self.size.height / 2)
+                self.hand.xScale = 0.30
+                self.hand.yScale = 0.30
+                self.hand.zPosition = 3
+                self.addChild(self.hand)
+                let move = SKAction.moveTo(CGPoint(x: self.size.width * 3 / 8, y: self.size.height * 5 / 8), duration: 0.4)
+                let remove = SKAction.removeFromParent()
+                //self.hand.removeFromParent()
+                self.hand.runAction(SKAction.sequence([move, remove]))
+                print("entered this")
+            }
+        }
+        showHand += 1;
+    
     }
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
         if ((!arePaused) && (start.x != 160) && (start.y != 284)) {
@@ -603,6 +622,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
                 touchedNode.physicsBody?.velocity=oldVelocities[touchedNode]!
             }
         }
+        
     }
     
     func createRestartBTN() {
@@ -684,6 +704,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         
         animateBinsRestart()
         
+        showHand = 0;
         gameOver = false;
         score = 0
         firstTimeCount = 1
