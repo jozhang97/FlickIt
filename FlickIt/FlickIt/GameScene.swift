@@ -83,6 +83,17 @@ class GameScene: SKScene {
     }
     
     func createHomeScreen(){
+        
+        // JEFFREY look into trackers
+        let tracker = GAI.sharedInstance().defaultTracker
+        tracker.set(kGAIScreenName, value: name)
+        let builder = GAIDictionaryBuilder.createScreenView()
+        tracker.send(builder.build() as [NSObject : AnyObject])
+        print("HELLO")
+        let event = GAIDictionaryBuilder.createEventWithCategory("Action", action: "Share", label: nil, value: nil)
+        tracker.send(event.build() as [NSObject : AnyObject])
+        
+        
         //create triangle SKShapeNode
         createTriangle()
         

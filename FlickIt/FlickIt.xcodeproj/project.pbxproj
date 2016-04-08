@@ -10,6 +10,9 @@
 		187EF1DC1C7900DB0087A94A /* StartGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187EF1DB1C7900DB0087A94A /* StartGameScene.swift */; };
 		18F84F8B1CB04BBB00053DE8 /* bokeh.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F84F891CB04BBB00053DE8 /* bokeh.png */; };
 		18F84F8C1CB04BBB00053DE8 /* ExplosionEffect.sks in Resources */ = {isa = PBXBuildFile; fileRef = 18F84F8A1CB04BBB00053DE8 /* ExplosionEffect.sks */; };
+		1F19BEE31CB784B80030B930 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F19BEE21CB784B80030B930 /* GoogleService-Info.plist */; };
+		1F19BEE41CB784B80030B930 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F19BEE21CB784B80030B930 /* GoogleService-Info.plist */; };
+		1F19BEE51CB784B80030B930 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F19BEE21CB784B80030B930 /* GoogleService-Info.plist */; };
 		1F693A4F1C7910DE00C6B20E /* SpawnShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F693A4E1C7910DE00C6B20E /* SpawnShape.swift */; };
 		1FA8C6521C6FB1E40072E83F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA8C6511C6FB1E40072E83F /* AppDelegate.swift */; };
 		1FA8C6561C6FB1E40072E83F /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA8C6551C6FB1E40072E83F /* GameScene.swift */; };
@@ -18,6 +21,7 @@
 		1FA8C65D1C6FB1E40072E83F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FA8C65C1C6FB1E40072E83F /* Assets.xcassets */; };
 		1FA8C66B1C6FB1E40072E83F /* FlickItTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA8C66A1C6FB1E40072E83F /* FlickItTests.swift */; };
 		1FA8C6761C6FB1E40072E83F /* FlickItUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA8C6751C6FB1E40072E83F /* FlickItUITests.swift */; };
+		68F666C702121242D64B3C39 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2143432F0F4947862F575E02 /* libPods.a */; };
 		CF3B18DD1CB0D2F500C763E2 /* AboutScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF3B18DC1CB0D2F500C763E2 /* AboutScene.swift */; };
 		CF3B18DF1CB0D2FC00C763E2 /* RulesScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF3B18DE1CB0D2FC00C763E2 /* RulesScene.swift */; };
 /* End PBXBuildFile section */
@@ -43,6 +47,8 @@
 		187EF1DB1C7900DB0087A94A /* StartGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartGameScene.swift; sourceTree = "<group>"; };
 		18F84F891CB04BBB00053DE8 /* bokeh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bokeh.png; sourceTree = "<group>"; };
 		18F84F8A1CB04BBB00053DE8 /* ExplosionEffect.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ExplosionEffect.sks; sourceTree = "<group>"; };
+		1F19BEE11CB781BA0030B930 /* FlickIt-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FlickIt-Bridging-Header.h"; sourceTree = "<group>"; };
+		1F19BEE21CB784B80030B930 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1F693A4E1C7910DE00C6B20E /* SpawnShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpawnShape.swift; sourceTree = "<group>"; };
 		1FA8C64E1C6FB1E40072E83F /* FlickIt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlickIt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FA8C6511C6FB1E40072E83F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -57,8 +63,11 @@
 		1FA8C6711C6FB1E40072E83F /* FlickItUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlickItUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FA8C6751C6FB1E40072E83F /* FlickItUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickItUITests.swift; sourceTree = "<group>"; };
 		1FA8C6771C6FB1E40072E83F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2143432F0F4947862F575E02 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		671832A9E6B704EBA564C578 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		CF3B18DC1CB0D2F500C763E2 /* AboutScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutScene.swift; sourceTree = "<group>"; };
 		CF3B18DE1CB0D2FC00C763E2 /* RulesScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RulesScene.swift; sourceTree = "<group>"; };
+		E5159313417D3D50D48045D1 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				68F666C702121242D64B3C39 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,6 +103,8 @@
 				1FA8C6691C6FB1E40072E83F /* FlickItTests */,
 				1FA8C6741C6FB1E40072E83F /* FlickItUITests */,
 				1FA8C64F1C6FB1E40072E83F /* Products */,
+				F36E6A09D9CB1958EEC70987 /* Pods */,
+				5211FE1CBA31AF3965B71E66 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -110,6 +122,7 @@
 			isa = PBXGroup;
 			children = (
 				1FA8C6511C6FB1E40072E83F /* AppDelegate.swift */,
+				1F19BEE11CB781BA0030B930 /* FlickIt-Bridging-Header.h */,
 				1FA8C6551C6FB1E40072E83F /* GameScene.swift */,
 				1FA8C6571C6FB1E40072E83F /* GameViewController.swift */,
 				18F84F891CB04BBB00053DE8 /* bokeh.png */,
@@ -121,6 +134,7 @@
 				1FA8C6591C6FB1E40072E83F /* Main.storyboard */,
 				1FA8C65C1C6FB1E40072E83F /* Assets.xcassets */,
 				1FA8C6611C6FB1E40072E83F /* Info.plist */,
+				1F19BEE21CB784B80030B930 /* GoogleService-Info.plist */,
 			);
 			path = FlickIt;
 			sourceTree = "<group>";
@@ -143,6 +157,23 @@
 			path = FlickItUITests;
 			sourceTree = "<group>";
 		};
+		5211FE1CBA31AF3965B71E66 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2143432F0F4947862F575E02 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F36E6A09D9CB1958EEC70987 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				671832A9E6B704EBA564C578 /* Pods.debug.xcconfig */,
+				E5159313417D3D50D48045D1 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -150,9 +181,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1FA8C67A1C6FB1E40072E83F /* Build configuration list for PBXNativeTarget "FlickIt" */;
 			buildPhases = (
+				6B01EBA804D218A904C4E7EB /* Check Pods Manifest.lock */,
 				1FA8C64A1C6FB1E40072E83F /* Sources */,
 				1FA8C64B1C6FB1E40072E83F /* Frameworks */,
 				1FA8C64C1C6FB1E40072E83F /* Resources */,
+				97B2733E023D20D9CFA91D50 /* Embed Pods Frameworks */,
+				235DA535850F4B3C3F6A3F86 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -254,6 +288,7 @@
 				1FA8C65D1C6FB1E40072E83F /* Assets.xcassets in Resources */,
 				1FA8C65B1C6FB1E40072E83F /* Main.storyboard in Resources */,
 				18F84F8B1CB04BBB00053DE8 /* bokeh.png in Resources */,
+				1F19BEE31CB784B80030B930 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,6 +296,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F19BEE41CB784B80030B930 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,10 +304,59 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F19BEE51CB784B80030B930 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		235DA535850F4B3C3F6A3F86 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6B01EBA804D218A904C4E7EB /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		97B2733E023D20D9CFA91D50 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1FA8C64A1C6FB1E40072E83F /* Sources */ = {
@@ -416,6 +501,7 @@
 		};
 		1FA8C67B1C6FB1E40072E83F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 671832A9E6B704EBA564C578 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -423,14 +509,16 @@
 				INFOPLIST_FILE = FlickIt/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = test.FlickIt;
+				PRODUCT_BUNDLE_IDENTIFIER = FlickItTeam;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "FlickIt/FlickIt-Bridging-Header.h";
 			};
 			name = Debug;
 		};
 		1FA8C67C1C6FB1E40072E83F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E5159313417D3D50D48045D1 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -438,9 +526,10 @@
 				INFOPLIST_FILE = FlickIt/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = test.FlickIt;
+				PRODUCT_BUNDLE_IDENTIFIER = FlickItTeam;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "FlickIt/FlickIt-Bridging-Header.h";
 			};
 			name = Release;
 		};

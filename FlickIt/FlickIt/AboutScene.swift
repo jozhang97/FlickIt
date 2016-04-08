@@ -28,7 +28,6 @@ class AboutScene: SKScene {
 //        shapeScaleFactor = 0.14*self.size.width/bin_3_shape_width
 //        createScene()
         playMusic("jcena", type: "mp3")
-        
     }
     
     func playMusic(path: String, type: String) {
