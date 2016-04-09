@@ -51,7 +51,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     var score = 0;
     var lives = 3;
     
-    let shapes = ["pentagon", "square","circle","triangle", "gameOverStar", "bomb"]
+    let shapes = ["pentagon", "square","triangle","circle", "gameOverStar", "bomb"]
     let bins = ["bin_1", "bin_2", "bin_3", "bin_4"]
     
     var start=CGPoint();
@@ -83,15 +83,10 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     // Actual dimensions of the screen
     var sceneHeight = CGFloat(0);
     var sceneWidth = CGFloat(0);
+    
     override init(size: CGSize) {
         super.init(size: size)
         lives = NUMBEROFLIFES
-//        bin_1_width = bin_1.size.width
-//        bin_2_width = bin_2.size.width
-//        bin_3_width = bin_3.size.width
-//        bin_4_width = bin_4.size.width
-//        bin_3_shape_width = bin_3_shape.size.width
-//        binWidth = bin_1.size.width
         sceneHeight = sizeRect.size.height * UIScreen.mainScreen().scale;
         sceneWidth = sizeRect.size.width * UIScreen.mainScreen().scale;
         shapeScaleFactor = 0.14*self.size.width/bin_3_shape_width
@@ -334,7 +329,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     
     // will randomly rotate the bins
     func rotateBins() {
-        var randInt = 0
+        let randInt = 0
         if ((randInt == 0 && bin_1_pos == 1) || (randInt == 3 && bin_1_pos == 3) || (randInt == 2 && bin_1_pos == 4)) { //3 to bottom right, 2 to bottom left, 1 to top left, 4 to top right
             bin_1.runAction(SKAction.rotateToAngle(-(CGFloat(M_PI_2)), duration: 0.5, shortestUnitArc: true))
             bin_1.runAction(SKAction.moveTo(CGPoint(x: 0, y: self.size.height), duration: 0.5))
@@ -510,7 +505,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         for shape in shapes {
             self.enumerateChildNodesWithName(shape, usingBlock: {
                 node, stop in
-                let sprite = node as! SKNode
+                let sprite = node
                 // CHECKS TO SEE IF ANY SHAPE IS ABOVE PAUSE
                 if self.pauseButton.containsPoint(CGPointMake(sprite.position.x, sprite.position.y)){
                     pauseBlocksShapeCounter += 1
