@@ -290,10 +290,10 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         delay(0.25) {
             self.animateBinsRestart()
         }
-        delay(3) {
-            self.rotateBins()
-            
-        }
+//        delay(3) {
+//            self.rotateBins()
+//            
+//        }
         pauseButton.zPosition = 5
         pauseButton.setScale(0.5)
         pauseButton.name = "pauseButton"
