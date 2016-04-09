@@ -708,8 +708,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         // change bin displays
         bin_1_shape.texture = SKTexture(imageNamed:"graphs")
         bin_2_shape.texture = SKTexture(imageNamed:"refreshArrow")
-        bin_3_shape.texture = SKTexture(imageNamed:"settingsPic")
-        bin_4_shape.texture = SKTexture(imageNamed:"house")
+        bin_3_shape.texture = SKTexture(imageNamed:"house")
+        bin_4_shape.texture = SKTexture(imageNamed:"settingsPic")
         bin_1.name = "highScore"
         bin_2.name = "restart"
         bin_3.name = "settings"
