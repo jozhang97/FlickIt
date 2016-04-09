@@ -82,17 +82,18 @@ class GameScene: SKScene {
         audioPlayer2.play()
     }
     
-    func createHomeScreen(){
-        
+    func trackHome() {
         // JEFFREY look into trackers
         let tracker = GAI.sharedInstance().defaultTracker
-        tracker.set(kGAIScreenName, value: name)
+        tracker.set(kGAIScreenName, value: "Home Screen")
         let builder = GAIDictionaryBuilder.createScreenView()
         tracker.send(builder.build() as [NSObject : AnyObject])
-        print("HELLO")
-        let event = GAIDictionaryBuilder.createEventWithCategory("Action", action: "Share", label: nil, value: nil)
+        let event = GAIDictionaryBuilder.createEventWithCategory("Action", action: "Open App", label: nil, value: nil)
         tracker.send(event.build() as [NSObject : AnyObject])
-        
+    }
+    
+    func createHomeScreen(){
+        trackHome()
         
         //create triangle SKShapeNode
         createTriangle()

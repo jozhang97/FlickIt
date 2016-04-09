@@ -75,6 +75,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     var line = SKShapeNode()
     var touchedNode=SKNode();
     
+    var timeBegan = NSDate()
+    
     // Actual dimensions of the screen
     var sceneHeight = CGFloat(0);
     var sceneWidth = CGFloat(0);
@@ -208,8 +210,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func createScene() {
+        timeBegan = NSDate()
         self.physicsWorld.contactDelegate = self
-        
         bgImage.size = CGSize(width: self.size.width, height: self.size.height);
         bgImage.position = CGPointMake(self.size.width/2, self.size.height/2);
         bgImage.zPosition = 1
@@ -310,7 +312,16 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         //            else {}
         //        }
         
-        
+        track()
+    }
+    
+    func track() {
+        let tracker = GAI.sharedInstance().defaultTracker
+        tracker.set(kGAIScreenName, value: "Game Screen")
+        let builder = GAIDictionaryBuilder.createScreenView()
+        tracker.send(builder.build() as [NSObject : AnyObject])
+        let event = GAIDictionaryBuilder.createEventWithCategory("Action", action: "Play Game", label: nil, value: nil)
+        tracker.send(event.build() as [NSObject : AnyObject])
     }
     
     func animateBinsAtStart() {
@@ -372,9 +383,10 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
                         lives -= 1
                     }
                     self.addChild(explosionEmitterNode!)
-                    scoreLabel.text="Score:"+String(score)
-                    livesLabel.text = "Lives:" + String(lives)
+                    scoreLabel.text="Score: "+String(score)
+                    livesLabel.text = "Lives: " + String(lives)
                     firstBody.node?.removeFromParent();
+
                 }
             }
         }
@@ -410,6 +422,12 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         /* Set the scale mode to scale to fit the window */
         scene.scaleMode = .AspectFill
         skView.presentScene(scene)
+        let tracker = GAI.sharedInstance().defaultTracker
+        tracker.set(kGAIScreenName, value: "Home Screen")
+        let builder = GAIDictionaryBuilder.createScreenView()
+        tracker.send(builder.build() as [NSObject : AnyObject])
+        let event = GAIDictionaryBuilder.createEventWithCategory("Action", action: "Go To Home", label: nil, value: nil)
+        tracker.send(event.build() as [NSObject : AnyObject])
     }
     
     var timeRequired = 2.0
@@ -555,6 +573,9 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
                 
                 self.addChild(explosionEmitterNode!)
                 touchedNode.removeFromParent()
+                let tracker = GAI.sharedInstance().defaultTracker
+                let event = GAIDictionaryBuilder.createEventWithCategory("Action", action: "Bombed", label: nil, value: nil)
+                tracker.send(event.build() as [NSObject : AnyObject])
             } else if (touchedNode.name == "pauseButton") {
                 openPause()
             }
@@ -644,10 +665,6 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     func createRestartBTN() {
         scoreLabel.text = ""
         livesLabel.text = ""
-//        restartBTN = SKSpriteNode(imageNamed: "restartBTN")
-//        restartBTN.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
-//        restartBTN.zPosition = 6
-//        self.addChild(restartBTN);
         gameOver = true
         playMusic("loser_goodbye", type: "mp3") // change to some lose song
         // change bin displays
@@ -663,9 +680,24 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         setupGameOverLabels()
         setUpGameOverStar()
         self.removeChildrenInArray([pauseButton])
-        // add collision actions 
-        // readd star node if flicked off screen
+        // add collision actions
+        
+        gameOverTrack()
     }
+    
+    func gameOverTrack() {
+        let tracker = GAI.sharedInstance().defaultTracker
+        tracker.set(kGAIScreenName, value: "Lose Screen")
+        let builder = GAIDictionaryBuilder.createScreenView()
+        tracker.send(builder.build() as [NSObject : AnyObject])
+        let event = GAIDictionaryBuilder.createEventWithCategory("Action", action: "Lost", label: nil, value: nil)
+        tracker.send(event.build() as [NSObject : AnyObject])
+        let metricValue = score
+        tracker.set(GAIFields.customMetricForIndex(1), value: String(metricValue))
+        let timeElapsed = NSDate().timeIntervalSinceDate(timeBegan)
+        tracker.set(GAIFields.customMetricForIndex(2), value: String(timeElapsed))
+    }
+
     let gameOverLabel = SKLabelNode(text: "GAMEOVER")
     var gameOverStar = SKSpriteNode(imageNamed: "blue_star-1")
     let gameOverScoreLabel = SKLabelNode(text: "")
@@ -782,6 +814,13 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(pauseBackground)
         stopShapes()
         self.removeChildrenInArray([pauseButton])
+        
+        let tracker = GAI.sharedInstance().defaultTracker
+        tracker.set(kGAIScreenName, value: "Pause Screen")
+        let builder = GAIDictionaryBuilder.createScreenView()
+        tracker.send(builder.build() as [NSObject : AnyObject])
+        let event = GAIDictionaryBuilder.createEventWithCategory("Action", action: "Pause", label: nil, value: nil)
+        tracker.send(event.build() as [NSObject : AnyObject])
     }
     
     func stopShapes() {

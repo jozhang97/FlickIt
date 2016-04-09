@@ -28,6 +28,16 @@ class AboutScene: SKScene {
 //        shapeScaleFactor = 0.14*self.size.width/bin_3_shape_width
 //        createScene()
         playMusic("jcena", type: "mp3")
+        trackAbout()
+    }
+    
+    func trackAbout() {
+        let tracker = GAI.sharedInstance().defaultTracker
+        tracker.set(kGAIScreenName, value: "About Screen")
+        let builder = GAIDictionaryBuilder.createScreenView()
+        tracker.send(builder.build() as [NSObject : AnyObject])
+        let event = GAIDictionaryBuilder.createEventWithCategory("Action", action: "Opened About", label: nil, value: nil)
+        tracker.send(event.build() as [NSObject : AnyObject])
     }
     
     func playMusic(path: String, type: String) {
