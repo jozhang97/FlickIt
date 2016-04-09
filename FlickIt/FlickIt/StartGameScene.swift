@@ -436,6 +436,12 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
                     shapeToAdd = self.shapeController.spawnShape();
                     shapeToAdd.position = CGPointMake(self.size.width/2, self.size.height/2);
                     self.addChild(shapeToAdd);
+                    if(score > 50 && Int(arc4random_uniform(3)) == 0){
+                        //change above value for difficulty purposes!!!!!!!!
+                        shapeToAdd = self.shapeController.spawnShape();
+                        shapeToAdd.position = CGPointMake(self.size.width/2, self.size.height/2);
+                        self.addChild(shapeToAdd);
+                    }
                     //shapeToAdd.physicsBody?.applyImpulse(CGVectorMake(shapeController.dx, shapeController.dy))
                     //self.addChild(self.shapeController.spawnShape());
                     time = currentTime;
