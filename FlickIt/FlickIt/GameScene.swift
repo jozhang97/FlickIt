@@ -32,7 +32,7 @@ class GameScene: SKScene {
     let topRight = SKShapeNode()
     let bottomLeft = SKShapeNode()
     let bottomRight = SKShapeNode()
-    let triangle = SKShapeNode()
+    let star = SKShapeNode()
     let muteButton = SKSpriteNode(imageNamed: "playNow.png")
     let aboutButton = SKLabelNode(text: "ABOUT")
     var audioPlayer = AVAudioPlayer()
@@ -96,10 +96,10 @@ class GameScene: SKScene {
         trackHome()
         
         //create triangle SKShapeNode
-        createTriangle()
+        createStar()
         
         //setup Physics stuff of triangle SKShapeNode
-        setupTrianglePhysics()
+        setupStarPhysics()
         
         // Create and add title to home screen
         setupTitleLabel()
@@ -141,12 +141,12 @@ class GameScene: SKScene {
         topRight.zPosition = 3
         bottomLeft.zPosition = 3
         bottomRight.zPosition = 3
-        triangle.zPosition = 4
+        star.zPosition = 4
         muteButton.zPosition = 5
         
         // Add all the elements to the screen
         self.addChild(bgImage)
-        self.addChild(triangle)
+        self.addChild(star)
         self.addChild(topRight)
         self.addChild(topLeft)
         self.addChild(bottomLeft)
@@ -186,34 +186,65 @@ class GameScene: SKScene {
         curve.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
     }
     
-    func triangleInRect(rect: CGRect) -> CGPathRef {
-        let offsetX: CGFloat = CGRectGetMidX(rect)
-        let offsetY: CGFloat = CGRectGetMidY(rect)
-        let bezierPath: UIBezierPath = UIBezierPath()
-        bezierPath.moveToPoint(CGPointMake(offsetX, 0))
-        bezierPath.addLineToPoint(CGPointMake(-offsetX, offsetY))
-        bezierPath.addLineToPoint(CGPointMake(-offsetX, -offsetY))
-        bezierPath.closePath()
-        return bezierPath.CGPath
+    private func pointFrom(angle: CGFloat, radius: CGFloat, offset: CGPoint) -> CGPoint {
+        return CGPoint(x: radius * cos(angle) + offset.x, y: radius * sin(angle) + offset.y)
     }
     
-    func createTriangle() {
+    func degree2radian(a:CGFloat)->CGFloat {
+        let b = CGFloat(M_PI) * a/180
+        return b
+    }
+    
+    func polygonPointArray(sides:Int,x:CGFloat,y:CGFloat,radius:CGFloat,adjustment:CGFloat=0)->[CGPoint] {
+        let angle = degree2radian(360/CGFloat(sides))
+        let cx = x // x origin
+        let cy = y // y origin
+        let r  = radius // radius of circle
+        var i = sides
+        var points = [CGPoint]()
+        while points.count <= sides {
+            let xpo = cx - r * cos(angle * CGFloat(i)+degree2radian(adjustment))
+            let ypo = cy - r * sin(angle * CGFloat(i)+degree2radian(adjustment))
+            points.append(CGPoint(x: xpo, y: ypo))
+            i--;
+        }
+        return points
+    }
+    
+    func starPath(x:CGFloat, y:CGFloat, radius:CGFloat, sides:Int, pointyness:CGFloat) -> CGPathRef {
+        let adjustment = 360/sides/2
+        let path = CGPathCreateMutable()
+        let points = polygonPointArray(sides,x: x,y: y,radius: radius)
+        var cpg = points[0]
+        let points2 = polygonPointArray(sides,x: x,y: y,radius: radius*pointyness,adjustment:CGFloat(adjustment))
+        var i = 0
+        CGPathMoveToPoint(path, nil, cpg.x, cpg.y)
+        for p in points {
+            CGPathAddLineToPoint(path, nil, points2[i].x, points2[i].y)
+            CGPathAddLineToPoint(path, nil, p.x, p.y)
+            i++
+        }
+        CGPathCloseSubpath(path)
+        return path
+    }
+    
+    func createStar() {
         let rect: CGRect = CGRectMake(0, 0, self.size.width/6, self.size.width/6)
-        triangle.path = self.triangleInRect(rect)
-        triangle.strokeColor = yellow
-        triangle.fillColor = yellow
-        triangle.position = CGPointMake(self.size.width/2 - triangle.frame.width/2, self.size.height/2);
+        star.path = self.starPath(0, y: 0, radius: rect.size.width/3, sides: 5, pointyness: 2)
+        star.strokeColor = yellow
+        star.fillColor = yellow
+        star.position = CGPointMake(self.size.width/2, self.size.height/2);
         // Set names for the launcher so that we can check what node is touched in the touchesEnded method
-        triangle.name = "launch triangle";
+        star.name = "launch star";
         //could randomize rotation here
-        triangle.runAction(SKAction.rotateByAngle(CGFloat(M_PI/2), duration: 1.5))
+        star.runAction(SKAction.rotateByAngle(CGFloat(M_PI/2), duration: 1.5))
     }
     
-    func setupTrianglePhysics() {
-        triangle.userInteractionEnabled = false
-        triangle.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: triangle.frame.width, height: triangle.frame.height))
-        triangle.physicsBody?.dynamic = true
-        triangle.physicsBody?.affectedByGravity=false
+    func setupStarPhysics() {
+        star.userInteractionEnabled = false
+        star.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: star.frame.width, height: star.frame.height))
+        star.physicsBody?.dynamic = true
+        star.physicsBody?.affectedByGravity=false
     }
     
     func setupTitleLabel() {
@@ -266,9 +297,9 @@ class GameScene: SKScene {
         } else if aboutButton.containsPoint(location) {//doesn't recognize AboutButton location need to fix!
             startAbout()
         } else if startLabel.containsPoint(location) {
-            //followSemicircleUp()
+            startGame()
         } else if rulesLabel.containsPoint(location) {
-            //followSemicircleDown()
+            goToRules()
         }   
     }
     
@@ -303,7 +334,7 @@ class GameScene: SKScene {
             //make it move
             touchedNode.physicsBody?.velocity=CGVectorMake(0.0, 0.0)
             
-            if (mute != 1 && touchedNode.name == "launch triangle") {
+            if (mute != 1 && touchedNode.name == "launch star") {
                 playMusic2("swoosh", type: "mp3")
             }
             
@@ -382,25 +413,25 @@ class GameScene: SKScene {
    
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
-        if (triangle.position.y >= startLabel.position.y - 20 && triangle.position.x <= startLabel.position.x){
+        if (star.position.y >= startLabel.position.y - 20 && star.position.x <= startLabel.position.x){
             // call method to start game
             // for now just remove all the elements to show something has happened
             self.removeAllChildren();
             self.startGame();
-            triangle.position.y = 0
+            star.position.y = 0
         }
-        else if ((triangle.position.y >= startLabel.position.y - 20) && (triangle.position.x >= aboutButton.position.x)){
+        else if ((star.position.y >= startLabel.position.y - 20) && (star.position.x >= aboutButton.position.x)){
                 // call method to start game
                 // for now just remove all the elements to show something has happened
             self.removeAllChildren();
             self.startAbout();
-            triangle.position.y = 0
-        } else if (triangle.position.y <= rulesLabel.position.y + rulesLabel.frame.height + 20){
+            star.position.y = 0
+        } else if (star.position.y <= rulesLabel.position.y + rulesLabel.frame.height + 20){
             // call method to show Rules
             // for now just remove all the elements to show something has happened
             self.removeAllChildren();
             self.goToRules();
-            triangle.position.y = 0
+            star.position.y = 0
         }
         removeOffScreenNodes()
     }
@@ -425,13 +456,13 @@ class GameScene: SKScene {
             dispatch_time( DISPATCH_TIME_NOW, Int64(delay * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), closure)
     }
     func removeOffScreenNodes() {
-        for shape in ["launch triangle"] {
+        for shape in ["launch star"] {
             self.enumerateChildNodesWithName(shape, usingBlock: {
                 node, stop in
-                let sprite = node as! SKNode
+                let sprite = node 
                 if (sprite.position.y < 0 || sprite.position.x < 0 || sprite.position.x > self.size.width || sprite.position.y > self.size.height) {
-                    self.triangle.position = CGPointMake(self.size.width/2 - self.triangle.frame.width/2, self.size.height/2);
-                    self.triangle.physicsBody?.velocity = CGVectorMake(0, 0)
+                    self.star.position = CGPointMake(self.size.width/2, self.size.height/2);
+                    self.star.physicsBody?.velocity = CGVectorMake(0, 0)
                 }
             })
         }

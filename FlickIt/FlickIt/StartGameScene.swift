@@ -25,11 +25,16 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     
     var bgImage = SKSpriteNode(imageNamed: "background.png");
 
+    var bin_1_pos = 1;
     
-    var bin_1 = SKSpriteNode(imageNamed: "blue_bin_t.png"); // all bins are facing bottom right corner
-    var bin_2 = SKSpriteNode(imageNamed: "red_bin_t.png");
-    var bin_3 = SKSpriteNode(imageNamed: "green_bin_t.png");
-    var bin_4 = SKSpriteNode(imageNamed: "purple_bin_t.png");
+    //var bin_1 = SKSpriteNode(imageNamed: "blue_bin_t.png"); // all bins are facing bottom right corner
+    //var bin_2 = SKSpriteNode(imageNamed: "red_bin_t.png");
+    //var bin_3 = SKSpriteNode(imageNamed: "green_bin_t.png");
+    //var bin_4 = SKSpriteNode(imageNamed: "purple_bin_t.png");
+    var bin_1 = SKShapeNode()
+    var bin_2 = SKShapeNode()
+    var bin_3 = SKShapeNode()
+    var bin_4 = SKShapeNode()
     
     var bin_1_shape = SKSpriteNode(imageNamed: "blue_star-1"); //change this to differently oriented triangles
     var bin_2_shape = SKSpriteNode(imageNamed: "blue_square-1");
@@ -46,7 +51,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     var score = 0;
     var lives = 3;
     
-    let shapes = ["pentagon", "square","circle","triangle", "gameOverStar", "bomb"]
+    let shapes = ["pentagon", "square","triangle","circle", "gameOverStar", "bomb"]
     let bins = ["bin_1", "bin_2", "bin_3", "bin_4"]
     
     var start=CGPoint();
@@ -80,28 +85,31 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     // Actual dimensions of the screen
     var sceneHeight = CGFloat(0);
     var sceneWidth = CGFloat(0);
+    
     override init(size: CGSize) {
         super.init(size: size)
         lives = NUMBEROFLIFES
-        bin_1_width = bin_1.size.width
-        bin_2_width = bin_2.size.width
-        bin_3_width = bin_3.size.width
-        bin_4_width = bin_4.size.width
-        bin_3_shape_width = bin_3_shape.size.width
-        binWidth = bin_1.size.width
         sceneHeight = sizeRect.size.height * UIScreen.mainScreen().scale;
         sceneWidth = sizeRect.size.width * UIScreen.mainScreen().scale;
         shapeScaleFactor = 0.14*self.size.width/bin_3_shape_width
-        createScene()
+        
         playMusic("spectre", type: "mp3")
         
-        bin_1.anchorPoint = CGPoint(x: 1, y: 0)
-        bin_1.setScale(0.264*self.size.width/bin_1_width) // see Ashwin's paper for scaling math
-        bin_1.position = CGPointMake(self.size.width / 2, self.size.height / 2)
-        bin_1.zRotation = CGFloat(-M_PI_2)
+        let radius = self.size.height/6
+        
+        addCurvedLines(bin_1, dub1: 0, dub2: M_PI/2, bol: true, arch: Double(self.size.height/2 + radius), radi: radius, color: red)
+        //curve down shape
+        addCurvedLines(bin_2, dub1: M_PI/2, dub2: M_PI, bol: true, arch: Double(self.size.height/2 - radius), radi: radius, color: blue)
+        addCurvedLines(bin_3, dub1: M_PI, dub2: M_PI*3/2, bol: true, arch: Double(self.size.height/2 - radius), radi: radius, color: green)
+        addCurvedLines(bin_4, dub1: M_PI*3/2, dub2: M_PI*2, bol: true, arch: Double(self.size.height/2 - radius), radi: radius, color: purple)
+        
+        //bin_1.anchorPoint = CGPoint(x: 1, y: 0)
+        //bin_1.setScale(0.264*self.size.width/bin_1_width) // see Ashwin's paper for scaling math
+        bin_1.position = CGPointMake(self.size.width, self.size.height)
+        //bin_1.zRotation = CGFloat(-M_PI_2)
         bin_1.zPosition = 3
         //bin_1.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(bin_1.size.width, bin_1.size.height))
-        bin_1.physicsBody = SKPhysicsBody(circleOfRadius: bin_1.size.width)
+        bin_1.physicsBody = SKPhysicsBody(circleOfRadius: bin_1.frame.size.width)
         bin_1.physicsBody?.dynamic=false
         bin_1.physicsBody?.affectedByGravity = false
         bin_1.physicsBody?.categoryBitMask=PhysicsCategory.Bin
@@ -113,14 +121,14 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         
         //bin_2.size = CGSize(width: 100, height: 100)
         // top left
-        bin_2.anchorPoint = CGPoint(x: 1, y: 0)
-        bin_2.zRotation = 0
-        bin_2.setScale(0.264*self.size.width/bin_2_width)
-        bin_2.position = CGPointMake(self.size.width / 2, self.size.height / 2)
+        //bin_2.anchorPoint = CGPoint(x: 1, y: 0)
+        //bin_2.zRotation = 0
+        //bin_2.setScale(0.264*self.size.width/bin_2_width)
+        bin_2.position = CGPointMake(0, self.size.height)
         // don't rotate this bin
         bin_2.zPosition = 3
         //bin_2.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(bin_2.size.width, bin_2.size.height))
-        bin_2.physicsBody = SKPhysicsBody(circleOfRadius: bin_2.size.width)
+        bin_2.physicsBody = SKPhysicsBody(circleOfRadius: bin_2.frame.size.width)
         bin_2.physicsBody?.dynamic=false
         bin_2.physicsBody?.affectedByGravity = false
         bin_2.physicsBody?.categoryBitMask=PhysicsCategory.Bin
@@ -131,16 +139,16 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         
         //bin_3.size = CGSize(width: 100, height: 100)
         // bottom right
-        bin_3.anchorPoint = CGPoint(x: 1, y: 0)
-        bin_3.position = CGPointMake(self.size.width / 2, self.size.height / 2)
-        bin_3.setScale(0.264*self.size.width/bin_3_width)
-        bin_3.zRotation = CGFloat(M_PI)
+        //bin_3.anchorPoint = CGPoint(x: 1, y: 0)
+        bin_3.position = CGPointMake(0, 0)
+        //bin_3.setScale(0.264*self.size.width/bin_3_width)
+        //bin_3.zRotation = CGFloat(M_PI)
         bin_3.zPosition = 3
         
         //let physics = CGPointMake(self.frame.width * 2 / 3 + bin_3.size.width/2, self.frame.height / 10 - bin_3.size.height/2)
         //bin_3.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(bin_3.size.width, bin_3.size.height))
         //bin_3.physicsBody = SKPhysicsBody(circleOfRadius: bin_3.size.width/4, center: physics)
-        bin_3.physicsBody = SKPhysicsBody(circleOfRadius: bin_3.size.width)
+        bin_3.physicsBody = SKPhysicsBody(circleOfRadius: bin_3.frame.size.width)
         bin_3.physicsBody?.dynamic=false
         bin_3.physicsBody?.affectedByGravity = false
         bin_3.physicsBody?.categoryBitMask=PhysicsCategory.Bin
@@ -151,13 +159,13 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         
         //bin_4.size = CGSize(width: 100, height: 100)
         //bottom left
-        bin_4.anchorPoint = CGPoint(x: 1, y: 0)
-        bin_4.setScale(0.264*self.size.width/bin_4_width)
-        bin_4.position = CGPointMake(self.size.width / 2, self.size.height / 2)
-        bin_4.zRotation = CGFloat(M_PI_2)
+        //bin_4.anchorPoint = CGPoint(x: 1, y: 0)
+        //bin_4.setScale(0.264*self.size.width/bin_4_width)
+        bin_4.position = CGPointMake(self.size.width, 0)
+        //bin_4.zRotation = CGFloat(M_PI_2)
         bin_4.zPosition = 3
         //bin_4.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(bin_4.size.width, bin_4.size.height))
-        bin_4.physicsBody = SKPhysicsBody(circleOfRadius: bin_4.size.width)
+        bin_4.physicsBody = SKPhysicsBody(circleOfRadius: bin_4.frame.size.width)
         bin_4.physicsBody?.dynamic=false
         bin_4.physicsBody?.affectedByGravity = false
         bin_4.physicsBody?.categoryBitMask=PhysicsCategory.Bin
@@ -172,6 +180,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(bin_2)
         self.addChild(bin_3)
         self.addChild(bin_4)
+        
+        createScene()
     }
     
     func playMusic(path: String, type: String) {
@@ -274,9 +284,13 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(livesLabel)
         
         gameOver = false
-        delay(0.5) {
-            self.animateBinsAtStart();
+        delay(0.25) {
+            self.animateBinsRestart()
         }
+//        delay(3) {
+//            self.rotateBins()
+//            
+//        }
         pauseButton.zPosition = 5
         pauseButton.setScale(0.5)
         pauseButton.name = "pauseButton"
@@ -324,6 +338,27 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         tracker.send(event.build() as [NSObject : AnyObject])
     }
     
+    // will randomly rotate the bins
+    func rotateBins() {
+        let randInt = 0
+        if ((randInt == 0 && bin_1_pos == 1) || (randInt == 3 && bin_1_pos == 3) || (randInt == 2 && bin_1_pos == 4)) { //3 to bottom right, 2 to bottom left, 1 to top left, 4 to top right
+            bin_1.runAction(SKAction.rotateToAngle(-(CGFloat(M_PI_2)), duration: 0.5, shortestUnitArc: true))
+            bin_1.runAction(SKAction.moveTo(CGPoint(x: 0, y: self.size.height), duration: 0.5))
+            
+            
+            bin_2.runAction(SKAction.moveTo(CGPoint(x: self.size.height, y: self.size.height), duration: 0.5))
+        }
+    }
+    
+    func addCurvedLines(curve: SKShapeNode, dub1: Double, dub2: Double, bol: Bool, arch: Double, radi: CGFloat, color: UIColor) {
+        let circlePath : UIBezierPath = UIBezierPath(arcCenter: CGPointMake(CGFloat(0), CGFloat(0)), radius: radi, startAngle: CGFloat(dub1), endAngle: CGFloat(dub2), clockwise: bol)
+        curve.path = circlePath.CGPath
+        curve.strokeColor = color
+        curve.lineWidth = 3
+        curve.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
+        curve.zRotation = CGFloat(M_PI)
+    }
+    
     func animateBinsAtStart() {
         let rotate = SKAction.rotateByAngle(CGFloat(M_PI), duration: 1.0);
         //bin_1.anchorPoint = CGPoint(x: 0, y: 1)
@@ -334,10 +369,10 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         bin_2.runAction(SKAction.moveTo(CGPoint(x: 0, y: self.size.height), duration: 1.0))
         
         bin_3.runAction(rotate)
-        bin_3.runAction(SKAction.moveTo(CGPoint(x: self.size.width, y: 0), duration: 1.0))
+        bin_3.runAction(SKAction.moveTo(CGPoint(x: 0, y: 0), duration: 1.0))
         
         bin_4.runAction(rotate)
-        bin_4.runAction(SKAction.moveTo(CGPoint(x: 0, y: 0), duration: 1.0))
+        bin_4.runAction(SKAction.moveTo(CGPoint(x: self.size.width, y: 0), duration: 1.0))
         //bin_2.runAction(SKAction.group([rotate, SKAction.moveTo(CGPoint(x: 0, y: self.size.height), duration: 1.0)]))
         //bin_3.runAction(SKAction.group([rotate, SKAction.moveTo(CGPoint(x: self.size.width, y: 0), duration: 1.0)]))
         //bin_4.runAction(SKAction.group([rotate, SKAction.moveTo(CGPoint(x: 0, y: 0), duration: 1.0)]))
@@ -358,6 +393,9 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         
         bin_4.runAction(rotate)
         bin_4.runAction(move)
+        delay(0.25) {
+            self.animateBinsAtStart();
+        }
     }
     
     func didBeginContact(contact: SKPhysicsContact) {
@@ -485,7 +523,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         for shape in shapes {
             self.enumerateChildNodesWithName(shape, usingBlock: {
                 node, stop in
-                let sprite = node as! SKNode
+                let sprite = node
                 // CHECKS TO SEE IF ANY SHAPE IS ABOVE PAUSE
                 if self.pauseButton.containsPoint(CGPointMake(sprite.position.x, sprite.position.y)){
                     pauseBlocksShapeCounter += 1
