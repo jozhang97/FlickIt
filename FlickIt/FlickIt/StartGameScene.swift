@@ -52,7 +52,9 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     var lives = 3;
     
     let shapes = ["pentagon", "square","triangle","circle", "gameOverStar", "bomb"]
+    var bin_shape_image_names = ["blue_star-1", "blue_square-1", "blue_circle-1", "blue_triangle-1"]
     let bins = ["bin_1", "bin_2", "bin_3", "bin_4"]
+    var disableBinsPhysicsBody = false;
     
     var start=CGPoint();
     var startTimeOfTouch=NSTimeInterval();
@@ -246,18 +248,18 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         bin_2_shape.texture = SKTexture(imageNamed: "blue_square-1")
 
         //
-        bin_3_shape.anchorPoint = CGPoint(x: 1, y: 0)
+        bin_3_shape.anchorPoint = CGPoint(x: 0, y: 0)
         bin_3_shape.setScale(shapeScaleFactor)
-        bin_3_shape.position = CGPointMake(self.size.width - binWidth/20, binWidth/20)
+        bin_3_shape.position = CGPointMake(0, 0)
         bin_3_shape.zPosition = 4;
         bin_3_shape.texture = SKTexture(imageNamed: "blue_circle-1")
 
        
         
         
-        bin_4_shape.anchorPoint = CGPoint(x: 0, y: 0)
+        bin_4_shape.anchorPoint = CGPoint(x: 1, y: 0)
         bin_4_shape.setScale(shapeScaleFactor)
-        bin_4_shape.position = CGPointMake(binWidth/20, binWidth/20)
+        bin_4_shape.position = CGPointMake(self.size.width, 0)
         bin_4_shape.zPosition = 4;
         bin_4_shape.texture = SKTexture(imageNamed: "blue_triangle-1")
 
@@ -287,7 +289,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         delay(0.25) {
             self.animateBinsRestart()
         }
-//        delay(3) {
+//        delay(5) {
 //            self.rotateBins()
 //            
 //        }
@@ -340,13 +342,107 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     
     // will randomly rotate the bins
     func rotateBins() {
-        let randInt = 0
-        if ((randInt == 0 && bin_1_pos == 1) || (randInt == 3 && bin_1_pos == 3) || (randInt == 2 && bin_1_pos == 4)) { //3 to bottom right, 2 to bottom left, 1 to top left, 4 to top right
-            bin_1.runAction(SKAction.rotateToAngle(-(CGFloat(M_PI_2)), duration: 0.5, shortestUnitArc: true))
-            bin_1.runAction(SKAction.moveTo(CGPoint(x: 0, y: self.size.height), duration: 0.5))
+        let randInt = Int(arc4random_uniform(2) + 1)
+        bin_shape_image_names = bin_shape_image_names.rotate(randInt)
+        bin_1_shape.texture = SKTexture(imageNamed: bin_shape_image_names[0])
+        bin_2_shape.texture = SKTexture(imageNamed: bin_shape_image_names[1])
+        bin_3_shape.texture = SKTexture(imageNamed: bin_shape_image_names[2])
+        bin_4_shape.texture = SKTexture(imageNamed: bin_shape_image_names[3])
+        
+        disableBinsPhysicsBody = true
+        if ((randInt == 1 && bin_1_pos == 1) || (randInt == 3 && bin_1_pos == 3) || (randInt == 2 && bin_1_pos == 4)) { // 3 to bottom right, 2 to bottom left, 1 to top left, 4 to top right
             
+            let rotate = SKAction.rotateToAngle(-(CGFloat(M_PI_2)), duration: 0.5, shortestUnitArc: true)
+            let action1 = SKAction.moveTo(CGPoint(x: 0, y: self.size.height), duration: 0.5)
+            let action2 = SKAction.moveTo(CGPoint(x: 0, y: 0), duration: 0.5)
+            let action3 = SKAction.moveTo(CGPoint(x: self.size.width, y: 0), duration: 0.5)
+            let action4 = SKAction.moveTo(CGPoint(x: self.size.width, y: self.size.height), duration: 0.5)
             
-            bin_2.runAction(SKAction.moveTo(CGPoint(x: self.size.height, y: self.size.height), duration: 0.5))
+            bin_1.runAction(rotate)
+            bin_1.runAction(action1)
+            
+            bin_2.runAction(rotate)
+            bin_2.runAction(action2)
+            
+            bin_3.runAction(rotate)
+            bin_3.runAction(action3)
+            
+            bin_4.runAction(rotate)
+            bin_4.runAction(action4)
+            
+            bin_1_pos = 2
+        }
+        
+        else if ((bin_1_pos == 1 && randInt == 2) || (bin_1_pos == 2 && randInt == 1) || (bin_1_pos == 4 && randInt == 3)) { // 1 to bottom left, 3 to top right, 2 to bottom right, 4 to top lef
+            
+            let rotate = SKAction.rotateToAngle(0, duration: 0.5, shortestUnitArc: true)
+            let action1 = SKAction.moveTo(CGPoint(x: 0, y: 0), duration: 0.5)
+            let action2 = SKAction.moveTo(CGPoint(x: self.size.width, y: 0), duration: 0.5)
+            let action3 = SKAction.moveTo(CGPoint(x: self.size.width, y: self.size.height), duration: 0.5)
+            let action4 = SKAction.moveTo(CGPoint(x: 0, y: self.size.height), duration: 0.5)
+            
+            bin_1.runAction(rotate)
+            bin_1.runAction(action1)
+            
+            bin_2.runAction(rotate)
+            bin_2.runAction(action2)
+            
+            bin_3.runAction(rotate)
+            bin_3.runAction(action3)
+            
+            bin_4.runAction(rotate)
+            bin_4.runAction(action4)
+            
+            bin_1_pos = 3
+        }
+        
+        else if ((bin_1_pos == 1 && randInt == 3) || (bin_1_pos == 2 && randInt == 2) || (bin_1_pos == 3 && randInt == 1)) { // 1 to bottom right, 2 to top right, 3 to top left, 4 to bottom lef
+            
+            let rotate = SKAction.rotateToAngle((CGFloat(M_PI_2)), duration: 0.5, shortestUnitArc: true)
+            let action1 = SKAction.moveTo(CGPoint(x: self.size.width, y: 0), duration: 0.5)
+            let action2 = SKAction.moveTo(CGPoint(x: self.size.width, y: self.size.height), duration: 0.5)
+            let action3 = SKAction.moveTo(CGPoint(x: 0, y: self.size.height), duration: 0.5)
+            let action4 = SKAction.moveTo(CGPoint(x: 0, y: 0), duration: 0.5)
+            
+            bin_1.runAction(rotate)
+            bin_1.runAction(action1)
+            
+            bin_2.runAction(rotate)
+            bin_2.runAction(action2)
+            
+            bin_3.runAction(rotate)
+            bin_3.runAction(action3)
+            
+            bin_4.runAction(rotate)
+            bin_4.runAction(action4)
+            
+            bin_1_pos = 4
+        }
+        else if ((bin_1_pos == 2 && randInt == 3) || (bin_1_pos == 3 && randInt == 2) || (bin_1_pos == 4 && randInt == 1)) { // 1 to top right, 2 to top left, 3 to bottom left, 4 to bottom righ
+            
+            let rotate = SKAction.rotateToAngle((CGFloat(M_PI)), duration: 0.5, shortestUnitArc: true)
+            let action1 = SKAction.moveTo(CGPoint(x: self.size.width, y: self.size.height), duration: 0.5)
+            let action2 = SKAction.moveTo(CGPoint(x: 0, y: self.size.height), duration: 0.5)
+            let action3 = SKAction.moveTo(CGPoint(x: 0, y: 0), duration: 0.5)
+            let action4 = SKAction.moveTo(CGPoint(x: self.size.width, y: 0), duration: 0.5)
+            
+            bin_1.runAction(rotate)
+            bin_1.runAction(action1)
+            
+            bin_2.runAction(rotate)
+            bin_2.runAction(action2)
+            
+            bin_3.runAction(rotate)
+            bin_3.runAction(action3)
+            
+            bin_4.runAction(rotate)
+            bin_4.runAction(action4)
+            
+            bin_1_pos = 1
+        }
+        
+        delay(0.5) {
+            self.disableBinsPhysicsBody = false;
         }
     }
     
@@ -406,7 +502,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
             secondBody=contact.bodyA
         }
         if !gameOver && !arePaused {
-            if (firstBody.categoryBitMask==PhysicsCategory.Shape && secondBody.categoryBitMask==PhysicsCategory.Bin){
+            if (firstBody.categoryBitMask==PhysicsCategory.Shape && secondBody.categoryBitMask==PhysicsCategory.Bin && !disableBinsPhysicsBody){
                 if(firstBody.node!.name=="bomb"){
                     firstBody.node?.removeFromParent()
                 }
@@ -475,6 +571,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     var multiplicativeSpeedUpFactor = 1.0
     
     override func update(currentTime: CFTimeInterval) {
+        
         let didRemoveGameover = removeOffScreenNodes()
         if arePaused {
             time = currentTime
@@ -489,6 +586,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
                     time = currentTime;
                     firstTimeCount -= 1
                 } else {
+                    //self.rotateBins();
                     shapeToAdd = self.shapeController.spawnShape();
                     shapeToAdd.position = CGPointMake(self.size.width/2, self.size.height/2);
                     self.addChild(shapeToAdd);
@@ -948,5 +1046,18 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         line.path = linePath(end)
         line.strokeColor = UIColor.whiteColor()
         line.zPosition=4
+    }
+}
+
+extension Array {
+    func rotate(shift:Int) -> Array {
+        var array = Array()
+        if (self.count > 0) {
+            array = self
+            for i in 1...abs(shift) {
+                array.insert(array.removeAtIndex(array.count-1),atIndex:0)
+            }
+        }
+        return array
     }
 }
