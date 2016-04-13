@@ -156,7 +156,7 @@ class GameScene: SKScene {
         self.addChild(startLabel)
         self.addChild(aboutButton)
         self.addChild(muteButton);
-        delay(1) {
+        delay(0.5) {
             self.animateBinsAtStart()
         }
         // Have triangle first shoot up quickly, then slower and slower.
@@ -215,7 +215,7 @@ class GameScene: SKScene {
         let adjustment = 360/sides/2
         let path = CGPathCreateMutable()
         let points = polygonPointArray(sides,x: x,y: y,radius: radius)
-        var cpg = points[0]
+        let cpg = points[0]
         let points2 = polygonPointArray(sides,x: x,y: y,radius: radius*pointyness,adjustment:CGFloat(adjustment))
         var i = 0
         CGPathMoveToPoint(path, nil, cpg.x, cpg.y)
@@ -237,7 +237,7 @@ class GameScene: SKScene {
         // Set names for the launcher so that we can check what node is touched in the touchesEnded method
         star.name = "launch star";
         //could randomize rotation here
-        star.runAction(SKAction.rotateByAngle(CGFloat(M_PI/2), duration: 1.5))
+        star.runAction(SKAction.rotateByAngle(CGFloat(2*M_PI), duration: 5))
     }
     
     func setupStarPhysics() {
@@ -317,8 +317,6 @@ class GameScene: SKScene {
     
     
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        
-        
         let touch: UITouch = touches.first!
         let location: CGPoint = touch.locationInNode(self)
         // Determine distance from the starting point
@@ -337,7 +335,6 @@ class GameScene: SKScene {
             if (mute != 1 && touchedNode.name == "launch star") {
                 playMusic2("swoosh", type: "mp3")
             }
-            
             touchedNode.physicsBody?.applyImpulse(CGVectorMake(100*dx, 100*dy))
         }
     }
@@ -413,25 +410,36 @@ class GameScene: SKScene {
    
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
-        if (star.position.y >= startLabel.position.y - 20 && star.position.x <= startLabel.position.x){
+        let bool1 = star.position.y + star.frame.height/2 >= startLabel.position.y - startLabel.frame.height/2
+        let bool2 = star.position.x - star.frame.width/2 <= startLabel.position.x + startLabel.frame.width/2
+        if (bool1 && bool2){
             // call method to start game
             // for now just remove all the elements to show something has happened
             self.removeAllChildren();
             self.startGame();
             star.position.y = 0
-        }
-        else if ((star.position.y >= startLabel.position.y - 20) && (star.position.x >= aboutButton.position.x)){
+        } else if ((star.position.y >= startLabel.position.y - 20) && (star.position.x >= aboutButton.position.x)){
                 // call method to start game
                 // for now just remove all the elements to show something has happened
             self.removeAllChildren();
             self.startAbout();
             star.position.y = 0
-        } else if (star.position.y <= rulesLabel.position.y + rulesLabel.frame.height + 20){
+        } else if (star.position.y - star.frame.height/2 <= rulesLabel.position.y && star.position.x - star.frame.width/2 <= self.size.width && star.position.x + star.frame.width/2 >= rulesLabel.position.x - rulesLabel.frame.width/2){
             // call method to show Rules
             // for now just remove all the elements to show something has happened
             self.removeAllChildren();
             self.goToRules();
             star.position.y = 0
+        } else if (star.position.y - star.frame.height/2 <= muteButton.position.y && star.position.x - star.frame.width/2 >= 0 && star.position.x + star.frame.width/2 <= muteButton.position.x + muteButton.frame.width){
+            print("HERE!!!")
+            //then mute
+            if mute == 0 {  //MUTE IT
+                muteIt()
+            }
+            else if mute == 1 { //UNMUTE IT
+                unmuteIt()
+            }
+            
         }
         removeOffScreenNodes()
     }
