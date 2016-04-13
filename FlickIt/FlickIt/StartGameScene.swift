@@ -52,9 +52,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     var lives = 3;
     
     let shapes = ["pentagon", "square","circle","triangle", "gameOverStar", "bomb"]
-    var bin_shape_image_names = ["blue_star-1", "blue_square-1","blue_triangle-1", "blue_circle-1",]
+    var bin_shape_image_names = ["blue_pentagon-1", "blue_square-1", "blue_circle-1","blue_triangle-1"]
     let bins = ["bin_1", "bin_2", "bin_3", "bin_4"]
-    var disableBinsPhysicsBody = false;
     
     var start=CGPoint();
     var startTimeOfTouch=NSTimeInterval();
@@ -349,7 +348,16 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         bin_3_shape.texture = SKTexture(imageNamed: bin_shape_image_names[2])
         bin_4_shape.texture = SKTexture(imageNamed: bin_shape_image_names[3])
         
-        disableBinsPhysicsBody = true
+        let body1 = bin_1.physicsBody
+        let body2 = bin_2.physicsBody
+        let body3 = bin_3.physicsBody
+        let body4 = bin_4.physicsBody
+        
+        bin_1.physicsBody = nil
+        bin_2.physicsBody = nil
+        bin_3.physicsBody = nil
+        bin_4.physicsBody = nil
+        
         if ((randInt == 1 && bin_1_pos == 1) || (randInt == 3 && bin_1_pos == 3) || (randInt == 2 && bin_1_pos == 4)) { // 3 to bottom right, 2 to bottom left, 1 to top left, 4 to top right
             
             let rotate = SKAction.rotateToAngle(-(CGFloat(M_PI_2)), duration: 0.5, shortestUnitArc: true)
@@ -442,7 +450,11 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         delay(0.5) {
-            self.disableBinsPhysicsBody = false;
+            //self.disableBinsPhysicsBody = false;
+            self.bin_1.physicsBody = body1
+            self.bin_2.physicsBody = body2
+            self.bin_3.physicsBody = body3
+            self.bin_4.physicsBody = body4
         }
     }
     
@@ -502,7 +514,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
             secondBody=contact.bodyA
         }
         if !gameOver && !arePaused {
-            if (firstBody.categoryBitMask==PhysicsCategory.Shape && secondBody.categoryBitMask==PhysicsCategory.Bin && !disableBinsPhysicsBody){
+            if (firstBody.categoryBitMask==PhysicsCategory.Shape && secondBody.categoryBitMask==PhysicsCategory.Bin){
                 if(firstBody.node!.name=="bomb"){
                     firstBody.node?.removeFromParent()
                 }
@@ -520,6 +532,9 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
                     scoreLabel.text="Score: "+String(score)
                     livesLabel.text = "Lives: " + String(lives)
                     firstBody.node?.removeFromParent();
+                    if(score % 3 == 0){
+                        self.rotateBins();
+                    }
 
                 }
             }
@@ -586,7 +601,6 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
                     time = currentTime;
                     firstTimeCount -= 1
                 } else {
-                    //self.rotateBins();
                     shapeToAdd = self.shapeController.spawnShape();
                     shapeToAdd.position = CGPointMake(self.size.width/2, self.size.height/2);
                     self.addChild(shapeToAdd);
