@@ -36,23 +36,25 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     var bin_3 = SKShapeNode()
     var bin_4 = SKShapeNode()
     
-    var bin_1_shape = SKSpriteNode(imageNamed: "blue_star-1"); //change this to differently oriented triangles
-    var bin_2_shape = SKSpriteNode(imageNamed: "blue_square-1");
-    var bin_3_shape = SKSpriteNode(imageNamed: "blue_circle-1");
-    var bin_4_shape = SKSpriteNode(imageNamed: "blue_triangle-1");
+    var bin_1_shape = SKSpriteNode(imageNamed: "pentagonOutline"); //change this to differently oriented triangles
+    var bin_2_shape = SKSpriteNode(imageNamed: "squareOutline");
+    var bin_3_shape = SKSpriteNode(imageNamed: "circleOutline");
+    var bin_4_shape = SKSpriteNode(imageNamed: "triangleOutline");
     
     var bin_3_shape_width = CGFloat(1024)
     var bin_1_width = CGFloat(85)
     var bin_2_width = CGFloat(85)
     var bin_3_width = CGFloat(85)
     var bin_4_width = CGFloat(85)
+    
+    var binShapeScaleFactor = CGFloat(0)
 
     var pauseButton = SKSpriteNode(imageNamed: "pauseButton")
     var score = 0;
     var lives = 3;
     
     let shapes = ["pentagon", "square","circle","triangle", "gameOverStar", "bomb"]
-    var bin_shape_image_names = ["blue_pentagon-1", "blue_square-1", "blue_circle-1","blue_triangle-1"]
+    var bin_shape_image_names = ["pentagonOutline", "squareOutline", "circleOutline","triangleOutline"]
     let bins = ["bin_1", "bin_2", "bin_3", "bin_4"]
     
     var start=CGPoint();
@@ -92,11 +94,13 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         lives = NUMBEROFLIFES
         sceneHeight = sizeRect.size.height * UIScreen.mainScreen().scale;
         sceneWidth = sizeRect.size.width * UIScreen.mainScreen().scale;
-        shapeScaleFactor = 0.14*self.size.width/bin_3_shape_width
+        let radius = self.size.height/6
+        shapeScaleFactor = 0.14 * self.size.width/bin_3_shape_width
+        binShapeScaleFactor = 0.29 * self.size.width/radius
         
         playMusic("spectre", type: "mp3")
         
-        let radius = self.size.height/6
+        print(shapeScaleFactor)
         
         addCurvedLines(bin_1, dub1: 0, dub2: M_PI/2, bol: true, arch: Double(self.size.height/2 + radius), radi: radius, color: red)
         //curve down shape
@@ -227,40 +231,41 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         bgImage.position = CGPointMake(self.size.width/2, self.size.height/2);
         bgImage.zPosition = 1
         self.addChild(bgImage);
+        let radius = self.size.height/6
         //adds bins on all 4 corners of screen with name, zposition and size
         //bin_1.size = CGSize(width: 100, height: 100)
         // top right
         
         bin_1_shape.anchorPoint = CGPoint(x: 1, y: 1)
-        //bin_1_shape.setScale(shapeScaleFactor)
-        bin_1_shape.setScale(0.05) //CHANGE THIS
-        bin_1_shape.position = CGPointMake(self.size.width - binWidth/20, self.size.height - binWidth/20)
+        bin_1_shape.setScale(binShapeScaleFactor)
+        //bin_1_shape.setScale(0.05) //CHANGE THIS
+        bin_1_shape.position = CGPointMake(self.size.width - radius / 16, self.size.height - radius/16)
         bin_1_shape.zPosition = 4;
-        bin_1_shape.texture = SKTexture(imageNamed: "blue_pentagon-1")
+        bin_1_shape.texture = SKTexture(imageNamed: "pentagonOutline")
         
         
         
         bin_2_shape.anchorPoint = CGPoint(x: 0, y: 1)
-        bin_2_shape.setScale(shapeScaleFactor)
-        bin_2_shape.position = CGPointMake(binWidth / 20, self.size.height - binWidth/20)
+        bin_2_shape.setScale(binShapeScaleFactor)
+        bin_2_shape.position = CGPointMake(radius / 16, self.size.height - radius / 16)
         bin_2_shape.zPosition = 4;
-        bin_2_shape.texture = SKTexture(imageNamed: "blue_square-1")
+        bin_2_shape.texture = SKTexture(imageNamed: "squareOutline")
 
         //
         bin_3_shape.anchorPoint = CGPoint(x: 0, y: 0)
-        bin_3_shape.setScale(shapeScaleFactor)
-        bin_3_shape.position = CGPointMake(0, 0)
+        bin_3_shape.setScale(binShapeScaleFactor)
+        bin_3_shape.position = CGPointMake(radius / 16, radius / 16)
         bin_3_shape.zPosition = 4;
-        bin_3_shape.texture = SKTexture(imageNamed: "blue_circle-1")
+        bin_3_shape.texture = SKTexture(imageNamed: "circleOutline")
 
        
         
         
         bin_4_shape.anchorPoint = CGPoint(x: 1, y: 0)
-        bin_4_shape.setScale(shapeScaleFactor)
-        bin_4_shape.position = CGPointMake(self.size.width, 0)
+        bin_4_shape.setScale(binShapeScaleFactor)
+        bin_4_shape.position = CGPointMake(self.size.width - radius / 16, radius / 16)
         bin_4_shape.zPosition = 4;
-        bin_4_shape.texture = SKTexture(imageNamed: "blue_triangle-1")
+        bin_4_shape.texture = SKTexture(imageNamed: "triangleOutline")
 
        
         self.addChild(bin_1_shape)
