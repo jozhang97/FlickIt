@@ -449,7 +449,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
             bin_1_pos = 1
         }
         
-        delay(0.5) {
+        delay(0.6) {
             //self.disableBinsPhysicsBody = false;
             self.bin_1.physicsBody = body1
             self.bin_2.physicsBody = body2
@@ -533,7 +533,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
                     livesLabel.text = "Lives: " + String(lives)
                     firstBody.node?.removeFromParent();
                     if(score % 3 == 0){
-                        self.rotateBins();
+                        self.rotateBins(Int(arc4random_uniform(2) + 1));
                     }
 
                 }
@@ -818,10 +818,6 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         gameOver = true
         playMusic("loser_goodbye", type: "mp3") // change to some lose song
         // change bin displays
-        bin_1_shape.texture = SKTexture(imageNamed:"graphs")
-        bin_2_shape.texture = SKTexture(imageNamed:"refreshArrow")
-        bin_3_shape.texture = SKTexture(imageNamed:"house")
-        bin_4_shape.texture = SKTexture(imageNamed:"settingsPic")
         
         if (bin_1_pos == 2) {
             rotateBins(3)
@@ -830,6 +826,11 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         } else if (bin_1_pos == 4) {
             rotateBins(1)
         }
+        
+        bin_1_shape.texture = SKTexture(imageNamed:"graphs")
+        bin_2_shape.texture = SKTexture(imageNamed:"refreshArrow")
+        bin_3_shape.texture = SKTexture(imageNamed:"house")
+        bin_4_shape.texture = SKTexture(imageNamed:"settingsPic")
         
         bin_1.name = "highScore"
         bin_2.name = "restart"
