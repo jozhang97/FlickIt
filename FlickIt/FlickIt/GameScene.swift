@@ -410,7 +410,9 @@ class GameScene: SKScene {
    
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
-        if (star.position.y + star.frame.height/2 >= startLabel.position.y - startLabel.frame.height/2 && star.position.x - star.frame.width/2 <= startLabel.position.x + startLabel.frame.width/2){
+        let bool1 = star.position.y + star.frame.height/2 >= startLabel.position.y - startLabel.frame.height/2
+        let bool2 = star.position.x - star.frame.width/2 <= startLabel.position.x + startLabel.frame.width/2
+        if (bool1 && bool2){
             // call method to start game
             // for now just remove all the elements to show something has happened
             self.removeAllChildren();

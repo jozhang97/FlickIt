@@ -51,8 +51,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     var score = 0;
     var lives = 3;
     
-    let shapes = ["pentagon", "square","triangle","circle", "gameOverStar", "bomb"]
-    var bin_shape_image_names = ["blue_star-1", "blue_square-1", "blue_circle-1", "blue_triangle-1"]
+    let shapes = ["pentagon", "square","circle","triangle", "gameOverStar", "bomb"]
+    var bin_shape_image_names = ["blue_star-1", "blue_square-1","blue_triangle-1", "blue_circle-1",]
     let bins = ["bin_1", "bin_2", "bin_3", "bin_4"]
     var disableBinsPhysicsBody = false;
     
