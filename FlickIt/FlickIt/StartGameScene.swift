@@ -471,7 +471,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     var timeRequired = 2.0
     var firstTimeCount = 1
     var timeSpeedUpFactor = 0.05
-    var minTimeRequired = 1.0
+    var minTimeRequired = 0.75
     var multiplicativeSpeedUpFactor = 1.0
     
     override func update(currentTime: CFTimeInterval) {
@@ -730,8 +730,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         tracker.send(builder.build() as [NSObject : AnyObject])
         let event = GAIDictionaryBuilder.createEventWithCategory("Action", action: "Lost", label: nil, value: nil)
         tracker.send(event.build() as [NSObject : AnyObject])
-        let metricValue = score
-        tracker.set(GAIFields.customMetricForIndex(1), value: String(metricValue))
+        tracker.set(GAIFields.customMetricForIndex(1), value: String(score))
         let timeElapsed = NSDate().timeIntervalSinceDate(timeBegan)
         tracker.set(GAIFields.customMetricForIndex(2), value: String(timeElapsed))
     }
@@ -839,13 +838,13 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         homeLabel.zPosition=5
         homeLabel.fontName = "Open Sans Cond Light"
         self.addChild(homeLabel)
-        themeSettingsLabel.text = "Pick a new theme"
+        themeSettingsLabel.text = "Pick a theme"
         themeSettingsLabel.fontColor=UIColor.whiteColor()
         themeSettingsLabel.position=CGPointMake(self.frame.width/2,self.frame.height/5)
         themeSettingsLabel.zPosition=5
         themeSettingsLabel.fontName = "Open Sans Cond Light"
         self.addChild(themeSettingsLabel)
-        pauseBackground = SKShapeNode(rectOfSize: CGSize(width: 11 * self.size.width/16, height: 11 * self.size.height/16))
+        pauseBackground = SKShapeNode(rectOfSize: CGSize(width: 11 * self.size.width/16, height: 12 * self.size.height/16))
         pauseBackground.fillColor = UIColor(red: 70/255, green: 80/255, blue: 160/255, alpha: 0.5)
         pauseBackground.position = CGPointMake(self.size.width/2, self.size.height/2);
         pauseBackground.zPosition = 4
