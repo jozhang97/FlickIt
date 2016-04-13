@@ -340,8 +340,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     // will randomly rotate the bins
-    func rotateBins() {
-        let randInt = Int(arc4random_uniform(2) + 1)
+    func rotateBins(randInt: Int) {
+        //let randInt = Int(arc4random_uniform(2) + 1)
         bin_shape_image_names = bin_shape_image_names.rotate(randInt)
         bin_1_shape.texture = SKTexture(imageNamed: bin_shape_image_names[0])
         bin_2_shape.texture = SKTexture(imageNamed: bin_shape_image_names[1])
@@ -822,6 +822,15 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         bin_2_shape.texture = SKTexture(imageNamed:"refreshArrow")
         bin_3_shape.texture = SKTexture(imageNamed:"house")
         bin_4_shape.texture = SKTexture(imageNamed:"settingsPic")
+        
+        if (bin_1_pos == 2) {
+            rotateBins(3)
+        } else if (bin_1_pos == 3) {
+            rotateBins(2)
+        } else if (bin_1_pos == 4) {
+            rotateBins(1)
+        }
+        
         bin_1.name = "highScore"
         bin_2.name = "restart"
         bin_3.name = "settings"
