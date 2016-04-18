@@ -8,6 +8,7 @@
 
 import SpriteKit
 import AVFoundation
+import GameKit
 
 struct PhysicsCategory {
     static let Bin : UInt32 = 0x1 << 1
@@ -22,6 +23,8 @@ class GameScene: SKScene {
     let kMinDuration = CGFloat(0)
     let kMinSpeed = CGFloat(100)
     let kMaxSpeed = CGFloat(500)
+    
+    var hand = SKSpriteNode(imageNamed: "hand_icon")
     
     //variables that construct the Home Game Scene
     let bgImage = SKSpriteNode(imageNamed: "flickitbg.png")
@@ -168,6 +171,7 @@ class GameScene: SKScene {
             ])
         )
         */
+        authPlayerGameCenter()
     }
     
     func setupAboutLabel() {
@@ -206,7 +210,7 @@ class GameScene: SKScene {
             let xpo = cx - r * cos(angle * CGFloat(i)+degree2radian(adjustment))
             let ypo = cy - r * sin(angle * CGFloat(i)+degree2radian(adjustment))
             points.append(CGPoint(x: xpo, y: ypo))
-            i--;
+            i -= 1;
         }
         return points
     }
@@ -222,7 +226,7 @@ class GameScene: SKScene {
         for p in points {
             CGPathAddLineToPoint(path, nil, points2[i].x, points2[i].y)
             CGPathAddLineToPoint(path, nil, p.x, p.y)
-            i++
+            i += 1
         }
         CGPathCloseSubpath(path)
         return path
@@ -407,7 +411,9 @@ class GameScene: SKScene {
         //bin_3.runAction(SKAction.group([rotate, SKAction.moveTo(CGPoint(x: self.size.width, y: 0), duration: 1.0)]))
         //bin_4.runAction(SKAction.group([rotate, SKAction.moveTo(CGPoint(x: 0, y: 0), duration: 1.0)]))
     }
-   
+    
+    let timeBeforeHandAppears = 5.0
+    var time = 0.0
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
         let bool1 = star.position.y + star.frame.height/2 >= startLabel.position.y - startLabel.frame.height/2
@@ -442,6 +448,10 @@ class GameScene: SKScene {
             
         }
         removeOffScreenNodes()
+        if (currentTime - time >= timeBeforeHandAppears) {
+            moveHand()
+            time = currentTime
+        }
     }
     
     func goToRules() {
@@ -474,5 +484,37 @@ class GameScene: SKScene {
                 }
             })
         }
+    }
+    
+    func authPlayerGameCenter() {
+        let localPlayer = GKLocalPlayer.localPlayer()
+        localPlayer.authenticateHandler = {
+            (view, error) in
+            if view != nil {
+                let vc = self.view!.window?.rootViewController
+                vc!.presentViewController(view!, animated: true, completion: nil)
+            }
+            else {
+                print(GKLocalPlayer.localPlayer().authenticated)
+                
+            }
+        }
+    }
+    
+    var firstCounter = 0
+    func moveHand() {
+        if firstCounter == 0 {
+            firstCounter += 1
+            return;
+        }
+        self.hand.removeFromParent()
+        self.hand.position = CGPoint(x: self.size.width / 2, y: self.size.height / 2)
+        self.hand.xScale = 0.30
+        self.hand.yScale = 0.30
+        self.hand.zPosition = 3
+        self.addChild(self.hand)
+        let move = SKAction.moveTo(CGPoint(x: self.size.width * 6 / 8, y: self.size.height * 2 / 8), duration: 1)
+        let remove = SKAction.removeFromParent()
+        self.hand.runAction(SKAction.sequence([move, remove]))
     }
 }

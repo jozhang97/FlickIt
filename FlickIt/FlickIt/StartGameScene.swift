@@ -8,8 +8,8 @@
 //
 import AVFoundation
 import SpriteKit
-
-class StartGameScene: SKScene, SKPhysicsContactDelegate {
+import GameKit
+class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerDelegate {
     var NUMBEROFLIFES = 3
 
     let red: UIColor = UIColor(red: 164/255, green: 84/255, blue: 80/255, alpha: 1)
@@ -343,9 +343,20 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         let event = GAIDictionaryBuilder.createEventWithCategory("Action", action: "Play Game", label: nil, value: nil)
         tracker.send(event.build() as [NSObject : AnyObject])
     }
+    var isRotating = false
+    
+    func setRotatingTrue() {
+        isRotating = true
+    }
+    func setRotatingFalse() {
+        isRotating = false
+    }
     
     // will randomly rotate the bins
     func rotateBins(randInt: Int) {
+        let animationDuration: Double = 0.75 // THIS NEEDS TO BE UPDATED to be accurate
+        let freezeSequence = SKAction.sequence([SKAction.runBlock(setRotatingTrue), SKAction.runBlock(freezeShapes), SKAction.waitForDuration(animationDuration), SKAction.runBlock(unfreezeShapes), SKAction.runBlock(setRotatingFalse)])
+        runAction(freezeSequence)
         //let randInt = Int(arc4random_uniform(2) + 1)
         bin_shape_image_names = bin_shape_image_names.rotate(randInt)
         bin_1_shape.texture = SKTexture(imageNamed: bin_shape_image_names[0])
@@ -558,6 +569,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
                     self.goToHome()
                 } else if (binName == "highScore") {
                     print("go to high")
+                    showLeaderboard()
                 } else if (binName == "settings") {
                     print("go to settings")
                 }
@@ -590,15 +602,25 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     var minTimeRequired = 0.75
     var multiplicativeSpeedUpFactor = 1.0
     
+    var jeffHandCounter = 0
+    
     override func update(currentTime: CFTimeInterval) {
         
         let didRemoveGameover = removeOffScreenNodes()
-        if arePaused {
+        if isRotating || arePaused {
             time = currentTime
         } else if gameOver {
             if didRemoveGameover {
                 gameOverStar.removeFromParent()
                 setUpGameOverStar()
+            }
+            if currentTime - time >= 5 {
+                if jeffHandCounter > 0 {
+                    moveHand()
+                } else {
+                    jeffHandCounter += 1
+                }
+                time = currentTime
             }
         } else {
             if currentTime - time >= timeRequired {
@@ -757,21 +779,25 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         delay(0.5) {
             if (self.gameOver && self.showHand > 2) {
                 self.showHand = 0
-                self.hand.position = CGPoint(x: self.size.width / 2, y: self.size.height / 2)
-                self.hand.xScale = 0.30
-                self.hand.yScale = 0.30
-                self.hand.zPosition = 3
-                self.addChild(self.hand)
-                let move = SKAction.moveTo(CGPoint(x: self.size.width * 3 / 8, y: self.size.height * 5 / 8), duration: 0.4)
-                let remove = SKAction.removeFromParent()
-                //self.hand.removeFromParent()
-                self.hand.runAction(SKAction.sequence([move, remove]))
-                print("entered this")
+                self.moveHand()
             }
         }
         showHand += 1;
-    
     }
+    
+    func moveHand() {
+        self.hand.removeFromParent()
+        self.hand.position = CGPoint(x: self.size.width / 2, y: self.size.height / 2)
+        self.hand.xScale = 0.30
+        self.hand.yScale = 0.30
+        self.hand.zPosition = 3
+        self.addChild(self.hand)
+        let move = SKAction.moveTo(CGPoint(x: self.size.width * 3 / 8, y: self.size.height * 5 / 8), duration: 1)
+        let remove = SKAction.removeFromParent()
+        //self.hand.removeFromParent()
+        self.hand.runAction(SKAction.sequence([move, remove]))
+    }
+    
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
         if ((!arePaused) && self.nodeAtPoint(start).name != nil && touching) {
             for touch in touches{
@@ -846,6 +872,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         setUpGameOverStar()
         self.removeChildrenInArray([pauseButton])
         // add collision actions
+        saveScore(score);
         
         gameOverTrack()
     }
@@ -922,10 +949,12 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         firstTimeCount = 1
         lives = NUMBEROFLIFES
         timeRequired = 2.0
+        jeffHandCounter = 0
         multiplicativeSpeedUpFactor = 1.0
         self.shapeController.resetVelocityBounds()
         createScene()
         self.shapeController.resetSpecialShapeProbability()
+        setRotatingFalse()
         self.shapeController.shapeCounter = [0,0,0,0,0]
         playMusic("spectre", type: "mp3")
     }
@@ -976,7 +1005,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         pauseBackground.position = CGPointMake(self.size.width/2, self.size.height/2);
         pauseBackground.zPosition = 4
         self.addChild(pauseBackground)
-        stopShapes()
+        freezeShapes()
         self.removeChildrenInArray([pauseButton])
         
         let tracker = GAI.sharedInstance().defaultTracker
@@ -987,13 +1016,20 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         tracker.send(event.build() as [NSObject : AnyObject])
     }
     
-    func stopShapes() {
+    func freezeShapes() {
         for node in self.children {
             if node.physicsBody?.categoryBitMask == PhysicsCategory.Shape {
                 pausedShapeVelocities[node] = node.physicsBody?.velocity
                 node.physicsBody?.velocity = CGVectorMake(0, 0)
             }
         }
+    }
+    
+    func unfreezeShapes() {
+        for node in pausedShapeVelocities.keys {
+            node.physicsBody?.velocity = pausedShapeVelocities[node]!
+        }
+        pausedShapeVelocities.removeAll()
     }
     
     func closePause() {
@@ -1011,10 +1047,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         themeSettingsLabel.fontName = "Open Sans Cond Light"
         unPausedLabel = SKLabelNode()
         unPausedLabel.fontName = "Open Sans Cond Light"
-        for node in pausedShapeVelocities.keys {
-            node.physicsBody?.velocity = pausedShapeVelocities[node]!
-        }
-        pausedShapeVelocities.removeAll()
+        unfreezeShapes()
         self.addChild(pauseButton)
     }
     
@@ -1075,6 +1108,29 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         line.strokeColor = UIColor.whiteColor()
         line.zPosition=4
     }
+    
+    func saveScore(score: Int) {
+        if GKLocalPlayer.localPlayer().authenticated {
+            let scoreReporter = GKScore(leaderboardIdentifier: "This")
+            scoreReporter.value = Int64(score)
+            let scoreArray : [GKScore] = [scoreReporter]
+            GKScore.reportScores(scoreArray, withCompletionHandler: nil)
+        }
+    }
+    
+    func showLeaderboard() {
+        let viewController = self.view!.window?.rootViewController
+        let gameCenterVC = GKGameCenterViewController()
+        gameCenterVC.gameCenterDelegate = self
+        viewController!.presentViewController(gameCenterVC, animated: true, completion: nil)
+    }
+    
+    func gameCenterViewControllerDidFinish(gameCenterViewController: GKGameCenterViewController) {
+        gameCenterViewController.dismissViewControllerAnimated(true, completion: nil)
+        
+    }
+    
+    
 }
 
 extension Array {
