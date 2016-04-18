@@ -171,7 +171,7 @@ class GameScene: SKScene {
             ])
         )
         */
-        authPlayerGameCenter()
+//        authPlayerGameCenter()
     }
     
     func setupAboutLabel() {
