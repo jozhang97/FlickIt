@@ -354,7 +354,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     
     // will randomly rotate the bins
     func rotateBins(randInt: Int) {
-        let animationDuration: Double = 0.75 // THIS NEEDS TO BE UPDATED to be accurate
+        let animationDuration: Double = 0.6 // THIS NEEDS TO BE UPDATED to be accurate
         let freezeSequence = SKAction.sequence([SKAction.runBlock(setRotatingTrue), SKAction.runBlock(freezeShapes), SKAction.waitForDuration(animationDuration), SKAction.runBlock(unfreezeShapes), SKAction.runBlock(setRotatingFalse)])
         runAction(freezeSequence)
         //let randInt = Int(arc4random_uniform(2) + 1)
@@ -717,7 +717,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         startTimeOfTouch = touch.timestamp
         
         
-        if !arePaused {
+        if !arePaused || !isRotating {
             touchedNode=self.nodeAtPoint(start)
             if(touchedNode.name != nil){
                 touching = true
@@ -873,8 +873,27 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         self.removeChildrenInArray([pauseButton])
         // add collision actions
         saveScore(score);
-        
+        setUpLocalHighScore()
         gameOverTrack()
+    }
+    
+    
+    func setUpLocalHighScore() {
+        var prevHighScore: Int = NSUserDefaults.standardUserDefaults().integerForKey("score")
+        if prevHighScore < score {
+            NSUserDefaults.standardUserDefaults().setInteger(score, forKey: "score")
+            NSUserDefaults.standardUserDefaults().synchronize()
+            prevHighScore = score
+        }
+        gameOverHighScoreLabel.position = CGPointMake(self.size.width/2, self.size.height/4);
+        gameOverHighScoreLabel.horizontalAlignmentMode = .Center
+        gameOverHighScoreLabel.fontColor = UIColor.whiteColor()
+        gameOverHighScoreLabel.fontName = "Open Sans Cond Light"
+        gameOverHighScoreLabel.fontSize = 16
+        gameOverHighScoreLabel.zPosition = 5
+        gameOverHighScoreLabel.text = "Your High Score: " + String(prevHighScore)
+        self.addChild(gameOverHighScoreLabel)
+        
     }
     
     func gameOverTrack() {
@@ -888,7 +907,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         let timeElapsed = NSDate().timeIntervalSinceDate(timeBegan)
         tracker.set(GAIFields.customMetricForIndex(2), value: String(timeElapsed))
     }
-
+    
+    let gameOverHighScoreLabel = SKLabelNode(text: "")
     let gameOverLabel = SKLabelNode(text: "GAMEOVER")
     var gameOverStar = SKSpriteNode(imageNamed: "blue_star-1")
     let gameOverScoreLabel = SKLabelNode(text: "")
@@ -994,12 +1014,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         homeLabel.zPosition=5
         homeLabel.fontName = "Open Sans Cond Light"
         self.addChild(homeLabel)
-        themeSettingsLabel.text = "Pick a theme"
-        themeSettingsLabel.fontColor=UIColor.whiteColor()
-        themeSettingsLabel.position=CGPointMake(self.frame.width/2,self.frame.height/5)
-        themeSettingsLabel.zPosition=5
-        themeSettingsLabel.fontName = "Open Sans Cond Light"
-        self.addChild(themeSettingsLabel)
+//        addThemeSettingLabel()
         pauseBackground = SKShapeNode(rectOfSize: CGSize(width: 11 * self.size.width/16, height: 12 * self.size.height/16))
         pauseBackground.fillColor = UIColor(red: 70/255, green: 80/255, blue: 160/255, alpha: 0.5)
         pauseBackground.position = CGPointMake(self.size.width/2, self.size.height/2);
@@ -1014,6 +1029,15 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         tracker.send(builder.build() as [NSObject : AnyObject])
         let event = GAIDictionaryBuilder.createEventWithCategory("Action", action: "Pause", label: nil, value: nil)
         tracker.send(event.build() as [NSObject : AnyObject])
+    }
+    
+    func addThemeSettingLabel() {
+        themeSettingsLabel.text = "Pick a theme"
+        themeSettingsLabel.fontColor=UIColor.whiteColor()
+        themeSettingsLabel.position=CGPointMake(self.frame.width/2,self.frame.height/5)
+        themeSettingsLabel.zPosition=5
+        themeSettingsLabel.fontName = "Open Sans Cond Light"
+        self.addChild(themeSettingsLabel)
     }
     
     func freezeShapes() {
