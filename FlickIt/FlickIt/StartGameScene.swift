@@ -1064,21 +1064,21 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     
     func muteThis() {
         if audioPlayer.playing {
-            audioPlayer.volume = 0.01
+            audioPlayer.volume = 0
         }
         if aud2exists {
             if audioPlayer2.playing {
-                
+                audioPlayer2.volume = 0
             }
         }
     }
     
     func unMuteThis() {
-        if audioPlayer.volume == 0.01 {
+        if audioPlayer.volume == 0 {
             audioPlayer.volume = 1
         }
         if aud2exists {
-            if audioPlayer2.volume == 0.01 {
+            if audioPlayer2.volume == 0 {
                 audioPlayer2.volume = 1
             }
         }
@@ -1099,12 +1099,18 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
                 path.addLineToPoint(end)
             }
         }
+        path.moveToPoint(end)
+        path.addLineToPoint(CGPointMake(end.x - 5, end.y))
+        path.addLineToPoint(CGPointMake(end.x, end.y + 7))
+        path.addLineToPoint(CGPointMake(end.x + 5, end.y))
         path.closePath()
         return path.CGPath
     }
+    
     func createLine(end: CGPoint){
         line.lineWidth=1.5
         line.path = linePath(end)
+        line.fillColor = UIColor.whiteColor()
         line.strokeColor = UIColor.whiteColor()
         line.zPosition=4
     }
