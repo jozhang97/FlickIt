@@ -53,7 +53,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     var score = 0;
     var lives = 3;
     
-    let shapes = ["pentagon", "square","circle","triangle", "gameOverStar", "bomb"]
+    let shapes = ["pentagon", "square","circle","triangle", "gameOverStar", "bomb", "heart"]
     var bin_shape_image_names = ["pentagonOutline", "squareOutline", "circleOutline","triangleOutline"]
     let bins = ["bin_1", "bin_2", "bin_3", "bin_4"]
     
@@ -550,7 +550,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         }
         if !gameOver && !arePaused {
             if (firstBody.categoryBitMask==PhysicsCategory.Shape && secondBody.categoryBitMask==PhysicsCategory.Bin){
-                if(firstBody.node!.name=="bomb"){
+                if(firstBody.node!.name=="bomb" || firstBody.node?.name=="heart"){
                     firstBody.node?.removeFromParent()
                 }
                 else{
@@ -690,7 +690,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
                     if (sprite.position.y < 0 || sprite.position.x < 0 || sprite.position.x > self.size.width || sprite.position.y > self.size.height) {
                         node.removeFromParent();
                         if !self.gameOver {
-                            if node.name == "bomb" {
+                            if(node.name == "bomb" || node.name == "heart"){
                                 return;
                             }
                             self.lives -= 1;
@@ -777,18 +777,36 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
                 playMusic2("bombSound", type: "mp3")
                 lives=0;
                 livesLabel.text="Lives:" + String(lives)
+                let currBrightness = UIScreen.mainScreen().brightness
+                UIScreen.mainScreen().brightness = CGFloat(1)
                 let explosionEmitterNode = SKEmitterNode(fileNamed: "ExplosionEffect.sks")
                 explosionEmitterNode?.position=touchedNode.position
                 explosionEmitterNode?.zPosition=100
-                explosionEmitterNode?.particleColorSequence=SKKeyframeSequence(keyframeValues: [UIColor.redColor()], times: [0])
-                explosionEmitterNode?.particleLifetime=5.0
-                explosionEmitterNode?.numParticlesToEmit=200
-                explosionEmitterNode?.particleSpeed=100
+                explosionEmitterNode?.particleColorSequence=SKKeyframeSequence(keyframeValues: [UIColor.redColor(), UIColor.yellowColor()], times: [0,1])
+                explosionEmitterNode?.particleLifetime=2.0
+                explosionEmitterNode?.numParticlesToEmit=50
+                explosionEmitterNode?.particleSpeed=200
+                delay(0.5){
+                    UIScreen.mainScreen().brightness = currBrightness
+                }
                 
                 self.addChild(explosionEmitterNode!)
+                
                 touchedNode.removeFromParent()
                 let tracker = GAI.sharedInstance().defaultTracker
                 let event = GAIDictionaryBuilder.createEventWithCategory("Action", action: "Bombed", label: nil, value: nil)
+                tracker.send(event.build() as [NSObject : AnyObject])
+            } else if(touchedNode.name == "heart"){
+                lives += 1;
+                livesLabel.text="Lives:" + String(lives)
+                let explosionEmitterNode = SKEmitterNode(fileNamed: "ExplosionEffect.sks")
+                explosionEmitterNode?.position=touchedNode.position
+                explosionEmitterNode?.zPosition=100
+                explosionEmitterNode?.particleColorSequence=SKKeyframeSequence(keyframeValues: [UIColor.yellowColor()], times: [0])
+                self.addChild(explosionEmitterNode!)
+                touchedNode.removeFromParent()
+                let tracker = GAI.sharedInstance().defaultTracker
+                let event = GAIDictionaryBuilder.createEventWithCategory("Action", action: "Hearted", label: nil, value: nil)
                 tracker.send(event.build() as [NSObject : AnyObject])
             } else if (touchedNode.name == "pauseButton") {
                 openPause()

@@ -7,19 +7,23 @@
 //
 
 import SpriteKit
+import MediaPlayer
+import AVFoundation
+import Foundation
 
 class RulesScene: SKScene {
-    
+    var moviePlayer: MPMoviePlayerController?
     //keep track of which way user swipes
     var numTouches = 0;
     //create caption for "how to play" screenshots
     var caption: SKLabelNode = SKLabelNode(fontNamed: "Open Sans Cond Light")
     var total = 6; //change this based on number of screens
     var rules: SKLabelNode = SKLabelNode(fontNamed: "Open Sans Cond Light")
-    var screenImage: SKSpriteNode = SKSpriteNode(imageNamed: "blue_triangle")
+//    var screenImage: SKSpriteNode = SKSpriteNode(imageNamed: "blue_triangle")
     var start = CGPoint();
     var swipe = UISwipeGestureRecognizer();
     var bgImage = SKSpriteNode(imageNamed: "flickitbg")
+    var video: SKVideoNode = SKVideoNode(fileNamed: "FlickItDemo3.mov")
     
     override init(size: CGSize) {
         super.init(size: size)
@@ -31,6 +35,8 @@ class RulesScene: SKScene {
     }
     
     func createScene () {
+        
+        numTouches = 0;
         
         rules.text = "How to Play"
         rules.color = UIColor.whiteColor()
@@ -45,21 +51,52 @@ class RulesScene: SKScene {
         caption.fontSize = 16
         self.addChild(caption)
         
-        screenImage.position = CGPoint(x: self.size.width * 1/2, y: self.size.height * 1/2)
-        screenImage.size = CGSize(width: self.size.width * 2/3, height: self.size.height * 1/2)
-        self.addChild(screenImage)
+//        screenImage.position = CGPoint(x: self.size.width * 1/2, y: self.size.height * 1/2)
+//        screenImage.size = CGSize(width: self.size.width * 2/3, height: self.size.height * 1/2)
+//        self.addChild(screenImage)
+//
+        video.position = CGPoint(x: self.size.width * 1/2, y: self.size.height * 1/2)
+        video.size = CGSize(width: self.size.width * 2/3, height: self.size.height * 1/2)
+        video.zPosition = 100
+        self.addChild(video)
+        print("playing video")
+        video.play()
+        print("VIDEOOOO")
+//        [video, play];
+//        video.paused = NO;
+        
         
         bgImage.size = CGSize(width: self.size.width, height: self.size.height);
         bgImage.position = CGPointMake(self.size.width/2, self.size.height/2);
         bgImage.zPosition = 0;
         
-        self.addChild(bgImage)
+//        self.addChild(bgImage)
         
         addSwipe()
         track()
         
     }
-    
+
+//    
+//    func playVideo() {
+//        let path = NSBundle.mainBundle().pathForResource("FlickItDemo3", ofType:"mov")
+//        let url = NSURL.fileURLWithPath(path!)
+//        moviePlayer = MPMoviePlayerController(contentURL: url)
+//        
+//        if let player = moviePlayer {
+//            
+//            player.view.frame = CGRect(x: self.size.width/2, y: self.size.height/2, width: self.size.width/2, height: self.size.height/2)
+//            
+//            player.prepareToPlay()
+//            player.scalingMode = .AspectFill
+//            player.controlStyle = .None
+//            player.shouldAutoplay = true
+//            player.repeatMode = MPMovieRepeatMode.One
+//            self.view!.addSubview(player.view)
+//            
+//        }    
+//    }
+//
     func track() {
         let tracker = GAI.sharedInstance().defaultTracker
         tracker.set(kGAIScreenName, value: "Rule Screen")
@@ -73,23 +110,23 @@ class RulesScene: SKScene {
         if (numTouches == 0) {
             caption.text = "There's 4 basic shapes that will enter the screen..."
 //            self.addChild(caption)
-            screenImage.texture = SKTexture(imageNamed: "blue_triangle")
+//            screenImage.texture = SKTexture(imageNamed: "blue_triangle")
         } else if (numTouches == 1) {
             caption.text = "Flick them into the proper bins they belong to!"
 //            self.addChild(caption)
-            screenImage.texture = SKTexture(imageNamed: "blue_circle")
+//            screenImage.texture = SKTexture(imageNamed: "blue_circle")
         } else if (numTouches == 2) {
             caption.text = "Earn as many points as you can with 3 lives!"
 //            self.addChild(caption)
-            screenImage.texture = SKTexture(imageNamed: "blue_star")
+//            screenImage.texture = SKTexture(imageNamed: "blue_star")
         } else if (numTouches == 3) {
             caption.text = "Avoid bombs and use stars to get extra points!"
 //            self.addChild(caption)
-            screenImage.texture = SKTexture(imageNamed: "blue_square")
+//            screenImage.texture = SKTexture(imageNamed: "blue_square")
         } else if (numTouches == 4) {
             caption.text = "Swipe to Play"
 //            self.addChild(caption)
-            screenImage.texture = SKTexture(imageNamed: "blue_triangle")
+//            screenImage.texture = SKTexture(imageNamed: "blue_triangle")
         } else {
             let scene: SKScene = StartGameScene(size: self.size)
             numTouches = 0
