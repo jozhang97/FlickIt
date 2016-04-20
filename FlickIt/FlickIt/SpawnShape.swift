@@ -11,8 +11,8 @@ import Foundation
 class SpawnShape
 {
 
-    let specialShapes = ["bomb"]
-    var shapeCounter = [0,0,0,0,0]
+    let specialShapes = ["bomb", "heart"]
+    var shapeCounter = [0,0,0,0,0,0]
     let delayTime = 2.0 // time between spawns
     var range = 100.0 //range of X velocities
     let UPPERRANGEBOUND = 300.0;
@@ -187,12 +187,22 @@ class SpawnShape
         X_VELOCITY_RANGE = CGFloat(range)
         Y_VELOCITY_RANGE = CGFloat(1.5*range)
         var shape = SKNode()
-        if((shapeCounter.reduce(0,combine: +) > 10) && Int(arc4random_uniform(UInt32(specialShapeProbability))) < 80){
-            shapePicker=Int(4)
-            shape=SKSpriteNode(imageNamed: specialShapes[0])
-            shape=shape as SKNode
-            setUpSpecialShape(shape, scale: 0.2*width/shape.frame.width)
-            shape.name="bomb"
+        if((shapeCounter.reduce(0,combine: +) > 0) &&
+            Int(arc4random_uniform(UInt32(specialShapeProbability))) < 500){
+            if(Int(arc4random_uniform(2)) == 0){
+                shapePicker=Int(4)
+                shape=SKSpriteNode(imageNamed: specialShapes[0])
+                shape=shape as SKNode
+                setUpSpecialShape(shape, scale: 0.2*width/shape.frame.width)
+                shape.name="bomb"
+            }
+            else{
+                shapePicker=Int(5)
+                shape=SKSpriteNode(imageNamed: specialShapes[1])
+                shape=shape as SKNode
+                setUpSpecialShape(shape, scale: 0.2*width/shape.frame.width)
+                shape.name="heart"
+            }
         }
         else{
             shapePicker = Int(arc4random_uniform(4))
@@ -214,7 +224,12 @@ class SpawnShape
             dy = CGFloat(Float(arc4random())/0xFFFFFFFF)
             dy = Y_VELOCITY_RANGE*dy - Y_VELOCITY_RANGE/2
         }
-        shape.physicsBody?.velocity = CGVectorMake(dx, dy)
+        if(shape.name == "heart"){
+            shape.physicsBody?.velocity = CGVectorMake(1.5*dx, 1.5*dy)
+        }
+        else{
+            shape.physicsBody?.velocity = CGVectorMake(dx, dy)
+        }
         return shape;
         
     }
