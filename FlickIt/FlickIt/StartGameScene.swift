@@ -317,7 +317,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
 //            
 //        }
         pauseButton.zPosition = 5
-        pauseButton.setScale(0.5)
+        pauseButton.setScale(0.075)
         pauseButton.name = "pauseButton"
         pauseButton.position = CGPointMake(self.size.width / 2, 15*self.size.height/16)
         self.addChild(pauseButton)
@@ -1036,7 +1036,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         
         self.shapeController.resetSpecialShapeProbability()
         setRotatingFalse()
-        self.shapeController.shapeCounter = [0,0,0,0,0]
+        self.shapeController.shapeCounter = [0,0,0,0,0,0]
         playMusic("spectre", type: "mp3")
     }
     
