@@ -869,9 +869,13 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     
     func putBackPhysicsBodyBin() {
         self.bin_1.physicsBody?.categoryBitMask = PhysicsCategory.Bin
+        self.bin_1.physicsBody?.collisionBitMask = PhysicsCategory.Shape
         self.bin_2.physicsBody?.categoryBitMask = PhysicsCategory.Bin
+        self.bin_2.physicsBody?.collisionBitMask = PhysicsCategory.Shape
         self.bin_3.physicsBody?.categoryBitMask = PhysicsCategory.Bin
+        self.bin_3.physicsBody?.collisionBitMask = PhysicsCategory.Shape
         self.bin_4.physicsBody?.categoryBitMask = PhysicsCategory.Bin
+        self.bin_4.physicsBody?.collisionBitMask = PhysicsCategory.Shape
     }
     func createRestartBTN() {
         scoreLabel.text = ""
