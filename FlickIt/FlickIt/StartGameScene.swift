@@ -738,9 +738,23 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         // Save start location and time
         start = location
         startTimeOfTouch = touch.timestamp
-        
-        
-        if !arePaused && !isRotating {
+        if arePaused {
+            let currNode = self.nodeAtPoint(start)
+            if currNode.name == "pauseButton" {
+                closePause()
+            } else if muteLabel.containsPoint(location) {
+                pressedMute()
+            } else if (restartLabel.containsPoint(location)) {
+                closePause()
+                restartScene()
+            } else if (homeLabel.containsPoint(location)) {
+                goToHome()
+                closePause()
+            } else if (themeSettingsLabel.containsPoint(location)) {
+                print("go to settings")
+                closePause()
+            }
+        } else if !isRotating {
             touchedNode=self.nodeAtPoint(start)
             if(touchedNode.name != nil){
                 touching = true
@@ -782,23 +796,6 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
             start=touchedNode.position;
             oldVelocities[touchedNode]=touchedNode.physicsBody?.velocity;
             touchedNode.physicsBody?.velocity=CGVectorMake(0, 0)
-        }
-        if arePaused {
-            if unPausedLabel.containsPoint(location) {
-                closePause()
-            } else if muteLabel.containsPoint(location) {
-                pressedMute()
-            } else if (restartLabel.containsPoint(location)) {
-                closePause()
-                restartScene()
-            } else if (homeLabel.containsPoint(location)) {
-                goToHome()
-                closePause()
-            } else if (themeSettingsLabel.containsPoint(location)) {
-                print("go to settings")
-                closePause()
-            }
-            
         }
         delay(0.5) {
             if (self.gameOver && self.showHand > 2) {
@@ -877,13 +874,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         self.bin_4.physicsBody?.categoryBitMask = PhysicsCategory.Bin
         self.bin_4.physicsBody?.collisionBitMask = PhysicsCategory.Shape
     }
-    func createRestartBTN() {
-        scoreLabel.text = ""
-        livesLabel.text = ""
-        gameOver = true
-        playMusic("loser_goodbye", type: "mp3") // change to some lose song
-        // change bin displays
-        
+    
+    func returnBinsToOriginal() {
         if (bin_1_pos == 2) {
             rotateBins(3)
         } else if (bin_1_pos == 3) {
@@ -891,6 +883,16 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         } else if (bin_1_pos == 4) {
             rotateBins(1)
         }
+    }
+    
+    func createRestartBTN() {
+        scoreLabel.text = ""
+        livesLabel.text = ""
+        gameOver = true
+        playMusic("loser_goodbye", type: "mp3") // change to some lose song
+        // change bin displays
+        
+        returnBinsToOriginal()
         
         bin_1_shape.texture = SKTexture(imageNamed:"graphs")
         bin_2_shape.texture = SKTexture(imageNamed:"refreshArrow")
@@ -996,8 +998,10 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         bin_4.position = CGPoint(x: 0, y: 0)
         bin_4.name = shapes[3]
         
+//        returnBinsToOriginal()
         animateBinsRestart()
         
+        arePaused = false
         showHand = 0;
         gameOver = false;
         score = 0
@@ -1008,28 +1012,25 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         multiplicativeSpeedUpFactor = 1.0
         self.shapeController.resetVelocityBounds()
         createScene()
+        
+//        returnBinsToOriginal()
+//        animateBinsRestart()
+        
         self.shapeController.resetSpecialShapeProbability()
         setRotatingFalse()
         self.shapeController.shapeCounter = [0,0,0,0,0]
         playMusic("spectre", type: "mp3")
     }
     
-    var unPausedLabel = SKLabelNode()
     var muteLabel = SKLabelNode()
     var restartLabel = SKLabelNode()
     var homeLabel = SKLabelNode()
     var themeSettingsLabel = SKLabelNode()
     var pauseBackground = SKShapeNode()
     
-    
     func openPause() {
+        pauseButton.texture = SKTexture(imageNamed: "playButton")
         bgImage.runAction(SKAction.fadeAlphaTo(0.2, duration: 0.5));
-        unPausedLabel.text = "Unpause"
-        unPausedLabel.fontColor=UIColor.whiteColor()
-        unPausedLabel.position=CGPointMake(self.frame.width/2, 9 * self.frame.height / 12)
-        unPausedLabel.zPosition=5
-        unPausedLabel.fontName = "Open Sans Cond Light"
-        self.addChild(unPausedLabel)
         arePaused = true
         if appDelegate.muted == true {
             muteLabel.text = "Unmute"
@@ -1038,30 +1039,29 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
             muteLabel.text = "Mute"
         }
         muteLabel.fontColor=UIColor.whiteColor()
-        muteLabel.position=CGPointMake(self.frame.width/2,3.5*self.frame.height/5)
+        muteLabel.position=CGPointMake(self.frame.width/2, 8*self.frame.height/12)
         muteLabel.zPosition=5
         muteLabel.fontName = "Open Sans Cond Light"
         self.addChild(muteLabel)
-        restartLabel.text = "Restart Game"
+        restartLabel.text = "Restart"
         restartLabel.fontColor=UIColor.whiteColor()
-        restartLabel.position=CGPointMake(self.frame.width/2, 3*self.frame.height/5)
+        restartLabel.position=CGPointMake(self.frame.width/2, 4*self.frame.height/12)
         restartLabel.zPosition=5
         restartLabel.fontName = "Open Sans Cond Light"
         self.addChild(restartLabel)
-        homeLabel.text = "Go Home"
+        homeLabel.text = "Home"
         homeLabel.fontColor=UIColor.whiteColor()
-        homeLabel.position=CGPointMake(self.frame.width/2, 2*self.frame.height/5)
+        homeLabel.position=CGPointMake(self.frame.width/2, 6*self.frame.height/12)
         homeLabel.zPosition=5
         homeLabel.fontName = "Open Sans Cond Light"
         self.addChild(homeLabel)
 //        addThemeSettingLabel()
-        pauseBackground = SKShapeNode(rectOfSize: CGSize(width: 11 * self.size.width/16, height: 12 * self.size.height/16))
+        pauseBackground = SKShapeNode(rectOfSize: CGSize(width: 11 * self.size.width/16, height: 8 * self.size.height/16))
         pauseBackground.fillColor = UIColor(red: 70/255, green: 80/255, blue: 160/255, alpha: 0.5)
         pauseBackground.position = CGPointMake(self.size.width/2, self.size.height/2);
         pauseBackground.zPosition = 4
         self.addChild(pauseBackground)
         freezeShapes()
-        self.removeChildrenInArray([pauseButton])
         
         let tracker = GAI.sharedInstance().defaultTracker
         tracker.set(kGAIScreenName, value: "Pause Screen")
@@ -1097,10 +1097,11 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     }
     
     func closePause() {
+        pauseButton.texture = SKTexture(imageNamed: "pauseButton")
         bgImage.runAction(SKAction.fadeAlphaTo(1.0, duration: 0.5));
         arePaused = false
         // manipulate touch end
-        self.removeChildrenInArray([muteLabel, restartLabel, homeLabel, themeSettingsLabel, unPausedLabel, pauseBackground])
+        self.removeChildrenInArray([muteLabel, restartLabel, homeLabel, themeSettingsLabel, pauseBackground])
         muteLabel = SKLabelNode()
         muteLabel.fontName = "Open Sans Cond Light"
         restartLabel = SKLabelNode()
@@ -1109,10 +1110,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         homeLabel.fontName = "Open Sans Cond Light"
         themeSettingsLabel = SKLabelNode()
         themeSettingsLabel.fontName = "Open Sans Cond Light"
-        unPausedLabel = SKLabelNode()
-        unPausedLabel.fontName = "Open Sans Cond Light"
         unfreezeShapes()
-        self.addChild(pauseButton)
     }
     
     func pressedMute() {
