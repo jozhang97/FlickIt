@@ -84,6 +84,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     var touchedNode=SKNode();
     
     var timeBegan = NSDate()
+    var appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     // Actual dimensions of the screen
     var sceneHeight = CGFloat(0);
@@ -1076,7 +1077,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     }
     
     func pressedMute() {
-        if muteLabel.text == "Unmute" {
+        if appDelegate.muted == true {
             muteLabel.text = "Mute"
             unMuteThis()
             
@@ -1168,7 +1169,7 @@ extension Array {
         var array = Array()
         if (self.count > 0) {
             array = self
-            for i in 1...abs(shift) {
+            for _ in 1...abs(shift) {
                 array.insert(array.removeAtIndex(array.count-1),atIndex:0)
             }
         }
