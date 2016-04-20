@@ -202,7 +202,26 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
             
         }
         audioPlayer.prepareToPlay()
+        checkMute()
         audioPlayer.play()
+    }
+    
+    func checkMute() {
+        if (appDelegate.muted == true) {
+            self.audioPlayer.volume = 0
+        }
+        else {
+            self.audioPlayer.volume = 1
+        }
+    }
+    
+    func checkMute2() {
+        if (appDelegate.muted == true) {
+            self.audioPlayer2.volume = 0
+        }
+        else {
+            self.audioPlayer2.volume = 1
+        }
     }
     
     func playMusic2(path: String, type: String) {
@@ -218,6 +237,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
             
         }
         audioPlayer2.prepareToPlay()
+        checkMute2()
         audioPlayer2.play()
     }
     
@@ -1003,7 +1023,12 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         unPausedLabel.fontName = "Open Sans Cond Light"
         self.addChild(unPausedLabel)
         arePaused = true
-        muteLabel.text = "Mute"
+        if appDelegate.muted == true {
+            muteLabel.text = "Unmute"
+        }
+        else {
+            muteLabel.text = "Mute"
+        }
         muteLabel.fontColor=UIColor.whiteColor()
         muteLabel.position=CGPointMake(self.frame.width/2,3.5*self.frame.height/5)
         muteLabel.zPosition=5
@@ -1094,6 +1119,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     }
     
     func muteThis() {
+        appDelegate.muted = true
         if audioPlayer.playing {
             audioPlayer.volume = 0
         }
@@ -1105,6 +1131,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     }
     
     func unMuteThis() {
+        appDelegate.muted = false
         if audioPlayer.volume == 0 {
             audioPlayer.volume = 1
         }

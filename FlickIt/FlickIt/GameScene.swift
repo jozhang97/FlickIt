@@ -36,20 +36,29 @@ class GameScene: SKScene {
     let bottomLeft = SKShapeNode()
     let bottomRight = SKShapeNode()
     let star = SKShapeNode()
-    let muteButton = SKSpriteNode(imageNamed: "playNow.png")
+    var muteButton = SKSpriteNode(imageNamed: "playNow.png")
     let aboutButton = SKLabelNode(text: "ABOUT")
     var audioPlayer = AVAudioPlayer()
-    var audioPlayer2 = AVAudioPlayer()
-    var mute = 0
     let red: UIColor = UIColor(red: 164/255, green: 84/255, blue: 80/255, alpha: 1)
     let blue: UIColor = UIColor(red: 85/255, green: 135/255, blue: 141/255, alpha: 1)
     let green: UIColor = UIColor(red: 147/255, green: 158/255, blue: 106/255, alpha: 1)
     let purple: UIColor = UIColor(red: 99/255, green: 103/255, blue: 211/255, alpha: 1)
     let yellow: UIColor = UIColor(red: 250/255, green: 235/255, blue: 83/255, alpha: 1)
+    var appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     override func didMoveToView(view: SKView) {
         createHomeScreen()
+        
         playMusic("intromusic", type: "mp3")
+    }
+    
+    func checkMute() {
+        if (appDelegate.muted == true) {
+            self.audioPlayer.volume = 0
+        }
+        else {
+            self.audioPlayer.volume = 1
+        }
     }
     
     func playMusic(path: String, type: String) {
@@ -66,23 +75,8 @@ class GameScene: SKScene {
         }
         audioPlayer.prepareToPlay()
         audioPlayer.numberOfLoops = -1
+        checkMute()
         audioPlayer.play()
-    }
-    
-    func playMusic2(path: String, type: String) {
-        let alertSound = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource(path, ofType: type)!)
-        print(alertSound)
-        
-        do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
-            try AVAudioSession.sharedInstance().setActive(true)
-            try audioPlayer2 = AVAudioPlayer(contentsOfURL: alertSound)
-        }
-        catch {
-            
-        }
-        audioPlayer2.prepareToPlay()
-        audioPlayer2.play()
     }
     
     func trackHome() {
@@ -96,6 +90,13 @@ class GameScene: SKScene {
     }
     
     func createHomeScreen(){
+        if (appDelegate.muted == true) {
+            muteButton = SKSpriteNode(imageNamed: "muteNow.png")
+        }
+        else {
+            muteButton = SKSpriteNode(imageNamed: "playNow.png")
+        }
+        
         trackHome()
         
         //create triangle SKShapeNode
@@ -111,11 +112,11 @@ class GameScene: SKScene {
         
         let radius = self.size.height/6
         
-        addCurvedLines(topRight, dub1: 0, dub2: M_PI/2, bol: true, arch: Double(self.size.height/2 + radius), radi: radius, color: red)
+        addCurvedLines(topRight, dub1: 0, dub2: M_PI/2, bol: true, arch: Double(self.view!.bounds.height/2 + radius), radi: radius, color: red)
         //curve down shape
-        addCurvedLines(topLeft, dub1: M_PI/2, dub2: M_PI, bol: true, arch: Double(self.size.height/2 - radius), radi: radius, color: blue)
-        addCurvedLines(bottomLeft, dub1: M_PI, dub2: M_PI*3/2, bol: true, arch: Double(self.size.height/2 - radius), radi: radius, color: green)
-        addCurvedLines(bottomRight, dub1: M_PI*3/2, dub2: M_PI*2, bol: true, arch: Double(self.size.height/2 - radius), radi: radius, color: purple)
+        addCurvedLines(topLeft, dub1: M_PI/2, dub2: M_PI, bol: true, arch: Double(self.view!.bounds.height/2 - radius), radi: radius, color: blue)
+        addCurvedLines(bottomLeft, dub1: M_PI, dub2: M_PI*3/2, bol: true, arch: Double(self.view!.bounds.height/2  - radius), radi: radius, color: green)
+        addCurvedLines(bottomRight, dub1: M_PI*3/2, dub2: M_PI*2, bol: true, arch: Double(self.view!.bounds.height/2  - radius), radi: radius, color: purple)
         
         
         // Sets bg image to fill the entire screen
@@ -162,16 +163,6 @@ class GameScene: SKScene {
         delay(0.5) {
             self.animateBinsAtStart()
         }
-        // Have triangle first shoot up quickly, then slower and slower.
-        /*
-        triangle.runAction(SKAction.sequence([
-            SKAction.moveBy(CGVectorMake(0, self.size.height / 15), duration: 1),
-            SKAction.moveBy(CGVectorMake(0, self.size.height / 15), duration: 15),
-            SKAction.moveBy(CGVectorMake(0, self.size.height / 20), duration: 50)
-            ])
-        )
-        */
-//        authPlayerGameCenter()
     }
     
     func setupAboutLabel() {
@@ -288,14 +279,11 @@ class GameScene: SKScene {
         start = location
         startTime = touch.timestamp
         
-        //let touchedNode = self.nodeAtPoint(start)
-        //oldVelocities[touchedNode]=touchedNode.physicsBody?.velocity;
-        //touchedNode.physicsBody?.velocity=CGVectorMake(0, 0)
         if muteButton.containsPoint(location) {
-            if mute == 0 {  //MUTE IT
+            if appDelegate.muted == false {  //MUTE IT
                 muteIt()
             }
-            else if mute == 1 { //UNMUTE IT
+            else if appDelegate.muted == true { //UNMUTE IT
                 unmuteIt()
             }
         } else if aboutButton.containsPoint(location) {//doesn't recognize AboutButton location need to fix!
@@ -308,15 +296,17 @@ class GameScene: SKScene {
     }
     
     func muteIt() {
-        audioPlayer.volume = 0.0
+        appDelegate.muted = true
         muteButton.texture = SKTexture(imageNamed: "muteNow.png")
-        mute = 1
+        checkMute()
+        //mute = 1
     }
     
     func unmuteIt() {
-        audioPlayer.volume = 1
+        appDelegate.muted = false
         muteButton.texture = SKTexture(imageNamed: "playNow.png")
-        mute = 0
+        checkMute()
+        //mute = 0
     }
     
     
@@ -335,10 +325,6 @@ class GameScene: SKScene {
             let touchedNode=self.nodeAtPoint(start)
             //make it move
             touchedNode.physicsBody?.velocity=CGVectorMake(0.0, 0.0)
-            
-            if (mute != 1 && touchedNode.name == "launch star") {
-                playMusic2("swoosh", type: "mp3")
-            }
             touchedNode.physicsBody?.applyImpulse(CGVectorMake(100*dx, 100*dy))
         }
     }
@@ -437,12 +423,11 @@ class GameScene: SKScene {
             self.goToRules();
             star.position.y = 0
         } else if (star.position.y - star.frame.height/2 <= muteButton.position.y && star.position.x - star.frame.width/2 >= 0 && star.position.x + star.frame.width/2 <= muteButton.position.x + muteButton.frame.width){
-            print("HERE!!!")
             //then mute
-            if mute == 0 {  //MUTE IT
+            if appDelegate.muted == false {  //MUTE IT
                 muteIt()
             }
-            else if mute == 1 { //UNMUTE IT
+            else if appDelegate.muted == true { //UNMUTE IT
                 unmuteIt()
             }
             
