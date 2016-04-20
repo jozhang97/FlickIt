@@ -53,7 +53,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     var score = 0;
     var lives = 3;
     
-    let shapes = ["pentagon", "square","circle","triangle", "gameOverStar", "bomb"]
+    let shapes = ["pentagon", "square","circle","triangle", "gameOverStar", "bomb", "heart"]
     var bin_shape_image_names = ["pentagonOutline", "squareOutline", "circleOutline","triangleOutline"]
     let bins = ["bin_1", "bin_2", "bin_3", "bin_4"]
     
@@ -84,6 +84,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     var touchedNode=SKNode();
     
     var timeBegan = NSDate()
+    var appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     // Actual dimensions of the screen
     var sceneHeight = CGFloat(0);
@@ -99,8 +100,6 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         binShapeScaleFactor = 0.29 * self.size.width/radius
         
         playMusic("spectre", type: "mp3")
-        
-        print(shapeScaleFactor)
         
         addCurvedLines(bin_1, dub1: 0, dub2: M_PI/2, bol: true, arch: Double(self.size.height/2 + radius), radi: radius, color: red)
         //curve down shape
@@ -201,7 +200,26 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
             
         }
         audioPlayer.prepareToPlay()
+        checkMute()
         audioPlayer.play()
+    }
+    
+    func checkMute() {
+        if (appDelegate.muted == true) {
+            self.audioPlayer.volume = 0
+        }
+        else {
+            self.audioPlayer.volume = 1
+        }
+    }
+    
+    func checkMute2() {
+        if (appDelegate.muted == true) {
+            self.audioPlayer2.volume = 0
+        }
+        else {
+            self.audioPlayer2.volume = 1
+        }
     }
     
     func playMusic2(path: String, type: String) {
@@ -217,6 +235,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
             
         }
         audioPlayer2.prepareToPlay()
+        checkMute2()
         audioPlayer2.play()
     }
     
@@ -354,7 +373,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     
     // will randomly rotate the bins
     func rotateBins(randInt: Int) {
-        let animationDuration: Double = 0.6 // THIS NEEDS TO BE UPDATED to be accurate
+        let animationDuration: Double = 0.5 // THIS NEEDS TO BE UPDATED to be accurate
         let freezeSequence = SKAction.sequence([SKAction.runBlock(setRotatingTrue), SKAction.runBlock(freezeShapes), SKAction.waitForDuration(animationDuration), SKAction.runBlock(unfreezeShapes), SKAction.runBlock(setRotatingFalse)])
         runAction(freezeSequence)
         //let randInt = Int(arc4random_uniform(2) + 1)
@@ -464,8 +483,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
             
             bin_1_pos = 1
         }
-        
-        delay(0.6) {
+
+        delay(0.5) {
             //self.disableBinsPhysicsBody = false;
             self.bin_1.physicsBody = body1
             self.bin_2.physicsBody = body2
@@ -531,7 +550,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         }
         if !gameOver && !arePaused {
             if (firstBody.categoryBitMask==PhysicsCategory.Shape && secondBody.categoryBitMask==PhysicsCategory.Bin){
-                if(firstBody.node!.name=="bomb"){
+                if(firstBody.node!.name=="bomb" || firstBody.node?.name=="heart"){
                     firstBody.node?.removeFromParent()
                 }
                 else{
@@ -540,6 +559,9 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
                     explosionEmitterNode?.zPosition=100
                     if (firstBody.node?.name == secondBody.node?.name) {
                         score += 1
+                        if(score % 3 == 0){
+                            self.rotateBins(Int(arc4random_uniform(2) + 1));
+                        }
                     } else {
                         explosionEmitterNode?.particleColorSequence=SKKeyframeSequence(keyframeValues: [UIColor.redColor()], times: [0])
                         lives -= 1
@@ -548,9 +570,6 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
                     scoreLabel.text="Score: "+String(score)
                     livesLabel.text = "Lives: " + String(lives)
                     firstBody.node?.removeFromParent();
-                    if(score % 3 == 0){
-                        self.rotateBins(Int(arc4random_uniform(2) + 1));
-                    }
 
                 }
             }
@@ -648,7 +667,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
                     multiplicativeSpeedUpFactor -= 0.005
                 }
             }
-            if lives == 0 {
+            if lives <= 0 {
                 createRestartBTN()
             }
         }
@@ -663,29 +682,33 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
             self.enumerateChildNodesWithName(shape, usingBlock: {
                 node, stop in
                 let sprite = node
-                // CHECKS TO SEE IF ANY SHAPE IS ABOVE PAUSE
-                if self.pauseButton.containsPoint(CGPointMake(sprite.position.x, sprite.position.y)){
-                    pauseBlocksShapeCounter += 1
-                }
-                if (sprite.position.y < 0 || sprite.position.x < 0 || sprite.position.x > self.size.width || sprite.position.y > self.size.height) {
-                    node.removeFromParent();
-                    if !self.gameOver {
-                        if node.name == "bomb" {
-                            return;
-                        }
-                        self.lives -= 1;
-                        let explosionEmitterNode = SKEmitterNode(fileNamed: "ExplosionEffect.sks")
-                        explosionEmitterNode?.position=sprite.position
-                        explosionEmitterNode?.zPosition=100
-                        explosionEmitterNode?.particleColorSequence=SKKeyframeSequence(keyframeValues: [UIColor.redColor()], times: [0])
-                        explosionEmitterNode?.particleLifetime=0.3
-                        self.addChild(explosionEmitterNode!)
-                        self.livesLabel.text = "Lives: " + String(self.lives)
-                    } else {
-                        if (node.name == "gameOverStar") {
-                            didRemoveGameOver = true
+                if sprite.physicsBody != nil && sprite.physicsBody?.categoryBitMask != PhysicsCategory.Bin {
+                    // CHECKS TO SEE IF ANY SHAPE IS ABOVE PAUSE
+                    if self.pauseButton.containsPoint(CGPointMake(sprite.position.x, sprite.position.y)){
+                        pauseBlocksShapeCounter += 1
+                    }
+                    if (sprite.position.y < 0 || sprite.position.x < 0 || sprite.position.x > self.size.width || sprite.position.y > self.size.height) {
+                        node.removeFromParent();
+                        if !self.gameOver {
+                            if(node.name == "bomb" || node.name == "heart"){
+                                return;
+                            }
+                            self.lives -= 1;
+                            let explosionEmitterNode = SKEmitterNode(fileNamed: "ExplosionEffect.sks")
+                            explosionEmitterNode?.position=sprite.position
+                            explosionEmitterNode?.zPosition=100
+                            explosionEmitterNode?.particleColorSequence=SKKeyframeSequence(keyframeValues: [UIColor.redColor()], times: [0])
+                            explosionEmitterNode?.particleLifetime=0.3
+                            self.addChild(explosionEmitterNode!)
+                            self.livesLabel.text = "Lives: " + String(self.lives)
+                        } else {
+                            if (node.name == "gameOverStar") {
+                                didRemoveGameOver = true
+                            }
                         }
                     }
+                } else {
+                    
                 }
             })
         }
@@ -717,7 +740,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         startTimeOfTouch = touch.timestamp
         
         
-        if !arePaused || !isRotating {
+        if !arePaused && !isRotating {
             touchedNode=self.nodeAtPoint(start)
             if(touchedNode.name != nil){
                 touching = true
@@ -740,18 +763,36 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
                 playMusic2("bombSound", type: "mp3")
                 lives=0;
                 livesLabel.text="Lives:" + String(lives)
+                let currBrightness = UIScreen.mainScreen().brightness
+                UIScreen.mainScreen().brightness = CGFloat(1)
                 let explosionEmitterNode = SKEmitterNode(fileNamed: "ExplosionEffect.sks")
                 explosionEmitterNode?.position=touchedNode.position
                 explosionEmitterNode?.zPosition=100
-                explosionEmitterNode?.particleColorSequence=SKKeyframeSequence(keyframeValues: [UIColor.redColor()], times: [0])
-                explosionEmitterNode?.particleLifetime=5.0
-                explosionEmitterNode?.numParticlesToEmit=200
-                explosionEmitterNode?.particleSpeed=100
+                explosionEmitterNode?.particleColorSequence=SKKeyframeSequence(keyframeValues: [UIColor.redColor(), UIColor.yellowColor()], times: [0,1])
+                explosionEmitterNode?.particleLifetime=2.0
+                explosionEmitterNode?.numParticlesToEmit=50
+                explosionEmitterNode?.particleSpeed=200
+                delay(0.5){
+                    UIScreen.mainScreen().brightness = currBrightness
+                }
                 
                 self.addChild(explosionEmitterNode!)
+                
                 touchedNode.removeFromParent()
                 let tracker = GAI.sharedInstance().defaultTracker
                 let event = GAIDictionaryBuilder.createEventWithCategory("Action", action: "Bombed", label: nil, value: nil)
+                tracker.send(event.build() as [NSObject : AnyObject])
+            } else if(touchedNode.name == "heart"){
+                lives += 1;
+                livesLabel.text="Lives:" + String(lives)
+                let explosionEmitterNode = SKEmitterNode(fileNamed: "ExplosionEffect.sks")
+                explosionEmitterNode?.position=touchedNode.position
+                explosionEmitterNode?.zPosition=100
+                explosionEmitterNode?.particleColorSequence=SKKeyframeSequence(keyframeValues: [UIColor.yellowColor()], times: [0])
+                self.addChild(explosionEmitterNode!)
+                touchedNode.removeFromParent()
+                let tracker = GAI.sharedInstance().defaultTracker
+                let event = GAIDictionaryBuilder.createEventWithCategory("Action", action: "Hearted", label: nil, value: nil)
                 tracker.send(event.build() as [NSObject : AnyObject])
             } else if (touchedNode.name == "pauseButton") {
                 openPause()
@@ -759,7 +800,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
             start=touchedNode.position;
             oldVelocities[touchedNode]=touchedNode.physicsBody?.velocity;
             touchedNode.physicsBody?.velocity=CGVectorMake(0, 0)
-        } else {
+        }
+        if arePaused {
             if unPausedLabel.containsPoint(location) {
                 closePause()
             } else if muteLabel.containsPoint(location) {
@@ -843,6 +885,16 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         
     }
     
+    func putBackPhysicsBodyBin() {
+        self.bin_1.physicsBody?.categoryBitMask = PhysicsCategory.Bin
+        self.bin_1.physicsBody?.collisionBitMask = PhysicsCategory.Shape
+        self.bin_2.physicsBody?.categoryBitMask = PhysicsCategory.Bin
+        self.bin_2.physicsBody?.collisionBitMask = PhysicsCategory.Shape
+        self.bin_3.physicsBody?.categoryBitMask = PhysicsCategory.Bin
+        self.bin_3.physicsBody?.collisionBitMask = PhysicsCategory.Shape
+        self.bin_4.physicsBody?.categoryBitMask = PhysicsCategory.Bin
+        self.bin_4.physicsBody?.collisionBitMask = PhysicsCategory.Shape
+    }
     func createRestartBTN() {
         scoreLabel.text = ""
         livesLabel.text = ""
@@ -865,8 +917,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         
         bin_1.name = "highScore"
         bin_2.name = "restart"
-        bin_3.name = "settings"
-        bin_4.name = "home"
+        bin_3.name = "home"
+        bin_4.name = "settings"
         // Add gameover label and star node
         setupGameOverLabels()
         setUpGameOverStar()
@@ -875,6 +927,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         saveScore(score);
         setUpLocalHighScore()
         gameOverTrack()
+        putBackPhysicsBodyBin()
     }
     
     
@@ -996,7 +1049,12 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         unPausedLabel.fontName = "Open Sans Cond Light"
         self.addChild(unPausedLabel)
         arePaused = true
-        muteLabel.text = "Mute"
+        if appDelegate.muted == true {
+            muteLabel.text = "Unmute"
+        }
+        else {
+            muteLabel.text = "Mute"
+        }
         muteLabel.fontColor=UIColor.whiteColor()
         muteLabel.position=CGPointMake(self.frame.width/2,3.5*self.frame.height/5)
         muteLabel.zPosition=5
@@ -1076,7 +1134,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     }
     
     func pressedMute() {
-        if muteLabel.text == "Unmute" {
+        if appDelegate.muted == true {
             muteLabel.text = "Mute"
             unMuteThis()
             
@@ -1087,22 +1145,24 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     }
     
     func muteThis() {
+        appDelegate.muted = true
         if audioPlayer.playing {
-            audioPlayer.volume = 0.01
+            audioPlayer.volume = 0
         }
         if aud2exists {
             if audioPlayer2.playing {
-                
+                audioPlayer2.volume = 0
             }
         }
     }
     
     func unMuteThis() {
-        if audioPlayer.volume == 0.01 {
+        appDelegate.muted = false
+        if audioPlayer.volume == 0 {
             audioPlayer.volume = 1
         }
         if aud2exists {
-            if audioPlayer2.volume == 0.01 {
+            if audioPlayer2.volume == 0 {
                 audioPlayer2.volume = 1
             }
         }
@@ -1123,12 +1183,18 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
                 path.addLineToPoint(end)
             }
         }
+        path.moveToPoint(end)
+        path.addLineToPoint(CGPointMake(end.x - 5, end.y))
+        path.addLineToPoint(CGPointMake(end.x, end.y + 7))
+        path.addLineToPoint(CGPointMake(end.x + 5, end.y))
         path.closePath()
         return path.CGPath
     }
+    
     func createLine(end: CGPoint){
         line.lineWidth=1.5
         line.path = linePath(end)
+        line.fillColor = UIColor.whiteColor()
         line.strokeColor = UIColor.whiteColor()
         line.zPosition=4
     }
@@ -1162,7 +1228,7 @@ extension Array {
         var array = Array()
         if (self.count > 0) {
             array = self
-            for i in 1...abs(shift) {
+            for _ in 1...abs(shift) {
                 array.insert(array.removeAtIndex(array.count-1),atIndex:0)
             }
         }
