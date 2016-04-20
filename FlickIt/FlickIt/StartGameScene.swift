@@ -100,8 +100,6 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         
         playMusic("spectre", type: "mp3")
         
-        print(shapeScaleFactor)
-        
         addCurvedLines(bin_1, dub1: 0, dub2: M_PI/2, bol: true, arch: Double(self.size.height/2 + radius), radi: radius, color: red)
         //curve down shape
         addCurvedLines(bin_2, dub1: M_PI/2, dub2: M_PI, bol: true, arch: Double(self.size.height/2 - radius), radi: radius, color: blue)
@@ -464,9 +462,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
             
             bin_1_pos = 1
         }
-        print(bin_1_pos)
 
-        delay(0.6) {
+        delay(0.5) {
             //self.disableBinsPhysicsBody = false;
             self.bin_1.physicsBody = body1
             self.bin_2.physicsBody = body2
@@ -541,6 +538,9 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
                     explosionEmitterNode?.zPosition=100
                     if (firstBody.node?.name == secondBody.node?.name) {
                         score += 1
+                        if(score % 3 == 0){
+                            self.rotateBins(Int(arc4random_uniform(2) + 1));
+                        }
                     } else {
                         explosionEmitterNode?.particleColorSequence=SKKeyframeSequence(keyframeValues: [UIColor.redColor()], times: [0])
                         lives -= 1
@@ -549,9 +549,6 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
                     scoreLabel.text="Score: "+String(score)
                     livesLabel.text = "Lives: " + String(lives)
                     firstBody.node?.removeFromParent();
-                    if(score % 3 == 0){
-                        self.rotateBins(Int(arc4random_uniform(2) + 1));
-                    }
 
                 }
             }
@@ -649,7 +646,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
                     multiplicativeSpeedUpFactor -= 0.005
                 }
             }
-            if lives == 0 {
+            if lives <= 0 {
                 createRestartBTN()
             }
         }
@@ -664,7 +661,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
             self.enumerateChildNodesWithName(shape, usingBlock: {
                 node, stop in
                 let sprite = node
-                if sprite.physicsBody?.categoryBitMask != PhysicsCategory.Bin {
+                if sprite.physicsBody != nil && sprite.physicsBody?.categoryBitMask != PhysicsCategory.Bin {
                     // CHECKS TO SEE IF ANY SHAPE IS ABOVE PAUSE
                     if self.pauseButton.containsPoint(CGPointMake(sprite.position.x, sprite.position.y)){
                         pauseBlocksShapeCounter += 1
@@ -849,6 +846,12 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         
     }
     
+    func putBackPhysicsBodyBin() {
+        self.bin_1.physicsBody?.categoryBitMask = PhysicsCategory.Bin
+        self.bin_2.physicsBody?.categoryBitMask = PhysicsCategory.Bin
+        self.bin_3.physicsBody?.categoryBitMask = PhysicsCategory.Bin
+        self.bin_4.physicsBody?.categoryBitMask = PhysicsCategory.Bin
+    }
     func createRestartBTN() {
         scoreLabel.text = ""
         livesLabel.text = ""
@@ -871,8 +874,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         
         bin_1.name = "highScore"
         bin_2.name = "restart"
-        bin_3.name = "settings"
-        bin_4.name = "home"
+        bin_3.name = "home"
+        bin_4.name = "settings"
         // Add gameover label and star node
         setupGameOverLabels()
         setUpGameOverStar()
@@ -881,6 +884,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         saveScore(score);
         setUpLocalHighScore()
         gameOverTrack()
+        putBackPhysicsBodyBin()
     }
     
     
