@@ -1,17 +1,21 @@
-
 //
-//  startGame.swift
+//  StartGameSceneAllCode.swift
 //  FlickIt
 //
-//  Created by Apple on 2/20/16.
+//  Created by Ashwin Vaidyanathan on 4/20/16.
 //  Copyright © 2016 Abhi_Shaili_Jeffrey_Rohan_Ashwin. All rights reserved.
 //
+
+// This file has all the code as of 9:38 PM on 4/20/16
+
+import Foundation
+
 import AVFoundation
 import SpriteKit
 import GameKit
-class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerDelegate {
+class StartGameSceneAllCode: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerDelegate {
     var NUMBEROFLIFES = 3
-
+    
     let red: UIColor = UIColor(red: 164/255, green: 84/255, blue: 80/255, alpha: 1)
     let blue: UIColor = UIColor(red: 85/255, green: 135/255, blue: 141/255, alpha: 1)
     let green: UIColor = UIColor(red: 147/255, green: 158/255, blue: 106/255, alpha: 1)
@@ -24,7 +28,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     var touching = false;
     
     var bgImage = SKSpriteNode(imageNamed: "background.png");
-
+    
     var bin_1_pos = 1;
     
     //var bin_1 = SKSpriteNode(imageNamed: "blue_bin_t.png"); // all bins are facing bottom right corner
@@ -48,7 +52,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     var bin_4_width = CGFloat(85)
     
     var binShapeScaleFactor = CGFloat(0)
-
+    
     var pauseButton = SKSpriteNode(imageNamed: "pauseButton")
     var score = 0;
     var lives = 3;
@@ -109,40 +113,78 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         addCurvedLines(bin_3, dub1: M_PI, dub2: M_PI*3/2, bol: true, arch: Double(self.size.height/2 - radius), radi: radius, color: green)
         addCurvedLines(bin_4, dub1: M_PI*3/2, dub2: M_PI*2, bol: true, arch: Double(self.size.height/2 - radius), radi: radius, color: purple)
         
-        func setUpBinsPhysicsBody(bin: SKShapeNode) {
-            bin.physicsBody?.dynamic=false
-            bin.physicsBody?.affectedByGravity = false
-            bin.physicsBody?.categoryBitMask=PhysicsCategory.Bin
-            bin.physicsBody?.collisionBitMask=PhysicsCategory.Shape
-            bin.physicsBody?.contactTestBitMask=PhysicsCategory.Shape
-        }
-        
+        //bin_1.anchorPoint = CGPoint(x: 1, y: 0)
+        //bin_1.setScale(0.264*self.size.width/bin_1_width) // see Ashwin's paper for scaling math
         bin_1.position = CGPointMake(self.size.width, self.size.height)
+        //bin_1.zRotation = CGFloat(-M_PI_2)
         bin_1.zPosition = 3
+        //bin_1.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(bin_1.size.width, bin_1.size.height))
         bin_1.physicsBody = SKPhysicsBody(circleOfRadius: bin_1.frame.size.width)
-        setUpBinsPhysicsBody(bin_1)
+        bin_1.physicsBody?.dynamic=false
+        bin_1.physicsBody?.affectedByGravity = false
+        bin_1.physicsBody?.categoryBitMask=PhysicsCategory.Bin
+        bin_1.physicsBody?.collisionBitMask=PhysicsCategory.Shape
+        bin_1.physicsBody?.contactTestBitMask=PhysicsCategory.Shape
+        //        bin_1.name = "bin_1"
         bin_1.name = shapes[0] //set bin names to name of shapes they take
-
+        
+        
+        //bin_2.size = CGSize(width: 100, height: 100)
+        // top left
+        //bin_2.anchorPoint = CGPoint(x: 1, y: 0)
+        //bin_2.zRotation = 0
+        //bin_2.setScale(0.264*self.size.width/bin_2_width)
         bin_2.position = CGPointMake(0, self.size.height)
+        // don't rotate this bin
         bin_2.zPosition = 3
+        //bin_2.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(bin_2.size.width, bin_2.size.height))
         bin_2.physicsBody = SKPhysicsBody(circleOfRadius: bin_2.frame.size.width)
-        setUpBinsPhysicsBody(bin_2)
-
+        bin_2.physicsBody?.dynamic=false
+        bin_2.physicsBody?.affectedByGravity = false
+        bin_2.physicsBody?.categoryBitMask=PhysicsCategory.Bin
+        bin_2.physicsBody?.collisionBitMask=PhysicsCategory.Shape
+        bin_2.physicsBody?.contactTestBitMask=PhysicsCategory.Shape
+        //        bin_2.name = "bin_2"
         bin_2.name = shapes[1] //set bin names to name of shapes they take
         
+        //bin_3.size = CGSize(width: 100, height: 100)
+        // bottom right
+        //bin_3.anchorPoint = CGPoint(x: 1, y: 0)
         bin_3.position = CGPointMake(0, 0)
+        //bin_3.setScale(0.264*self.size.width/bin_3_width)
+        //bin_3.zRotation = CGFloat(M_PI)
         bin_3.zPosition = 3
-        bin_3.physicsBody = SKPhysicsBody(circleOfRadius: bin_3.frame.size.width)
-        setUpBinsPhysicsBody(bin_3)
         
+        //let physics = CGPointMake(self.frame.width * 2 / 3 + bin_3.size.width/2, self.frame.height / 10 - bin_3.size.height/2)
+        //bin_3.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(bin_3.size.width, bin_3.size.height))
+        //bin_3.physicsBody = SKPhysicsBody(circleOfRadius: bin_3.size.width/4, center: physics)
+        bin_3.physicsBody = SKPhysicsBody(circleOfRadius: bin_3.frame.size.width)
+        bin_3.physicsBody?.dynamic=false
+        bin_3.physicsBody?.affectedByGravity = false
+        bin_3.physicsBody?.categoryBitMask=PhysicsCategory.Bin
+        bin_3.physicsBody?.collisionBitMask=PhysicsCategory.Shape
+        bin_3.physicsBody?.contactTestBitMask=PhysicsCategory.Shape
+        //        bin_3.name = "bin_3"
         bin_3.name = shapes[2] //set bin names to name of shapes they take
         
+        //bin_4.size = CGSize(width: 100, height: 100)
+        //bottom left
+        //bin_4.anchorPoint = CGPoint(x: 1, y: 0)
+        //bin_4.setScale(0.264*self.size.width/bin_4_width)
         bin_4.position = CGPointMake(self.size.width, 0)
+        //bin_4.zRotation = CGFloat(M_PI_2)
         bin_4.zPosition = 3
+        //bin_4.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(bin_4.size.width, bin_4.size.height))
         bin_4.physicsBody = SKPhysicsBody(circleOfRadius: bin_4.frame.size.width)
-        setUpBinsPhysicsBody(bin_4)
-        
+        bin_4.physicsBody?.dynamic=false
+        bin_4.physicsBody?.affectedByGravity = false
+        bin_4.physicsBody?.categoryBitMask=PhysicsCategory.Bin
+        bin_4.physicsBody?.collisionBitMask=PhysicsCategory.Shape
+        bin_4.physicsBody?.contactTestBitMask=PhysicsCategory.Shape
+        //        bin_4.name = "bin_4"
         bin_4.name = shapes[3] //set bin names to name of shapes they take
+        
+        
         
         self.addChild(bin_1)
         self.addChild(bin_2)
@@ -221,28 +263,36 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         
         bin_1_shape.anchorPoint = CGPoint(x: 1, y: 1)
         bin_1_shape.setScale(binShapeScaleFactor)
+        //bin_1_shape.setScale(0.05) //CHANGE THIS
         bin_1_shape.position = CGPointMake(self.size.width - radius / 16, self.size.height - radius/16)
         bin_1_shape.zPosition = 4;
         bin_1_shape.texture = SKTexture(imageNamed: "pentagonOutline")
+        
+        
         
         bin_2_shape.anchorPoint = CGPoint(x: 0, y: 1)
         bin_2_shape.setScale(binShapeScaleFactor)
         bin_2_shape.position = CGPointMake(radius / 16, self.size.height - radius / 16)
         bin_2_shape.zPosition = 4;
         bin_2_shape.texture = SKTexture(imageNamed: "squareOutline")
-
+        
+        //
         bin_3_shape.anchorPoint = CGPoint(x: 0, y: 0)
         bin_3_shape.setScale(binShapeScaleFactor)
         bin_3_shape.position = CGPointMake(radius / 16, radius / 16)
         bin_3_shape.zPosition = 4;
         bin_3_shape.texture = SKTexture(imageNamed: "circleOutline")
-
+        
+        
+        
+        
         bin_4_shape.anchorPoint = CGPoint(x: 1, y: 0)
         bin_4_shape.setScale(binShapeScaleFactor)
         bin_4_shape.position = CGPointMake(self.size.width - radius / 16, radius / 16)
         bin_4_shape.zPosition = 4;
         bin_4_shape.texture = SKTexture(imageNamed: "triangleOutline")
-
+        
+        
         self.addChild(bin_1_shape)
         self.addChild(bin_2_shape)
         self.addChild(bin_3_shape)
@@ -272,12 +322,41 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
                 self.animateBinsRestart()
             }
         }
-
+        
         pauseButton.zPosition = 5
         pauseButton.setScale(0.075)
         pauseButton.name = "pauseButton"
         pauseButton.position = CGPointMake(self.size.width / 2, 15*self.size.height/16)
         self.addChild(pauseButton)
+        
+        
+        //self.view?.backgroundColor = UIColor.blackColor();
+        
+        
+        //RANDOMIZED SHAPE SELECTING CODE --> FIX THIS LATER
+        //        var binList = [bin_1, bin_2, bin_3, bin_4] //list of bins
+        //        var i = 0;
+        //        var shapePickedlist = [Int] () //list of random numbers already chosen
+        //
+        //        while (i < 4) {
+        //            let shapePicker = Int(arc4random_uniform(4))
+        //            var j = 0;
+        //            while (j < shapePickedlist.count) {
+        //                if (shapePickedlist[j] == shapePicker) {
+        //                    j = j+5
+        //                }
+        //                j = j+1
+        //            }
+        //            if (j == shapePickedlist.count){
+        //                shapePickedlist.append(shapePicker)
+        //                let binShape = SKSpriteNode(imageNamed: shapes[shapePicker])
+        //                binList[shapePicker].name = shapes[shapePicker]
+        //                binShape.position = binList[i].position
+        //                self.addChild(binShape)
+        //                i = i+1
+        //            }
+        //            else {}
+        //        }
         
         track()
     }
@@ -343,7 +422,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
             
             bin_1_pos = 2
         }
-        
+            
         else if ((bin_1_pos == 1 && randInt == 2) || (bin_1_pos == 2 && randInt == 1) || (bin_1_pos == 4 && randInt == 3)) { // 1 to bottom left, 3 to top right, 2 to bottom right, 4 to top lef
             
             let rotate = SKAction.rotateToAngle(0, duration: 0.5, shortestUnitArc: true)
@@ -366,7 +445,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
             
             bin_1_pos = 3
         }
-        
+            
         else if ((bin_1_pos == 1 && randInt == 3) || (bin_1_pos == 2 && randInt == 2) || (bin_1_pos == 3 && randInt == 1)) { // 1 to bottom right, 2 to top right, 3 to top left, 4 to bottom lef
             
             let rotate = SKAction.rotateToAngle((CGFloat(M_PI_2)), duration: 0.5, shortestUnitArc: true)
@@ -411,7 +490,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
             
             bin_1_pos = 1
         }
-
+        
         delay(0.5) {
             //self.disableBinsPhysicsBody = false;
             self.bin_1.physicsBody = body1
@@ -444,6 +523,9 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         
         bin_4.runAction(rotate)
         bin_4.runAction(SKAction.moveTo(CGPoint(x: self.size.width, y: 0), duration: 1.0))
+        //bin_2.runAction(SKAction.group([rotate, SKAction.moveTo(CGPoint(x: 0, y: self.size.height), duration: 1.0)]))
+        //bin_3.runAction(SKAction.group([rotate, SKAction.moveTo(CGPoint(x: self.size.width, y: 0), duration: 1.0)]))
+        //bin_4.runAction(SKAction.group([rotate, SKAction.moveTo(CGPoint(x: 0, y: 0), duration: 1.0)]))
     }
     
     func animateBinsRestart() {
@@ -495,6 +577,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
                     scoreLabel.text="Score: "+String(score)
                     livesLabel.text = "Lives: " + String(lives)
                     firstBody.node?.removeFromParent();
+                    
                 }
             }
         }
@@ -596,7 +679,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
             }
         }
     }
-
+    
     // increment when shape goes off screen or when flicked into wrong bin
     // also kills pause button when theres another shape there
     func removeOffScreenNodes() -> Bool {
@@ -644,6 +727,17 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         return didRemoveGameOver
     }
     
+    
+    
+    //        let spawn = SKAction.runBlock({
+    //            () in
+    //            self.addChild(self.shapeController.spawnShape())
+    //        })
+    //        let delay = SKAction.waitForDuration(2)
+    //        let spawnDelay = SKAction.sequence([spawn,delay])
+    //        let spawnDelayForever = SKAction.repeatActionForever(spawnDelay)
+    //        self.runAction(spawnDelayForever)
+    
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         /* Called when a touch begins */
         let touch: UITouch = touches.first!
@@ -677,15 +771,15 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
             var i=CGFloat(0)
             var j=CGFloat(0)
             while(touchedNode != SKNode() && i < 5){
-                touchedNode=self.nodeAtPoint(CGPoint(x: start.x+i,y: start.y))
-                j=0
-                while(touchedNode != SKNode() && j < 5){
-                    touchedNode=self.nodeAtPoint(CGPoint(x: start.x,y: start.y+j))
-                    j+=1
-                }
-                i+=1
+            touchedNode=self.nodeAtPoint(CGPoint(x: start.x+i,y: start.y))
+            j=0
+            while(touchedNode != SKNode() && j < 5){
+            touchedNode=self.nodeAtPoint(CGPoint(x: start.x,y: start.y+j))
+            j+=1
             }
- */
+            i+=1
+            }
+            */
             if(touchedNode.name=="bomb"){
                 aud2exists = true
                 playMusic2("bombSound", type: "mp3")
@@ -779,7 +873,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
             if(speed > kMaxSpeed){
                 speed = kMaxSpeed
             }
-           
+            
             //make it move
             //touchedNode.physicsBody?.velocity=CGVectorMake(0.0, 0.0)
             //change these values to make the flick go faster/slower
@@ -881,7 +975,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     let gameOverLabel = SKLabelNode(text: "GAMEOVER")
     var gameOverStar = SKSpriteNode(imageNamed: "blue_star-1")
     let gameOverScoreLabel = SKLabelNode(text: "")
-
+    
     func setupGameOverLabels() {
         gameOverLabel.position = CGPointMake(self.size.width/2, self.size.height/2);
         gameOverLabel.horizontalAlignmentMode = .Center
@@ -907,6 +1001,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         self.addChild(gameOverStar)
     }
     
+    
     func restartScene() {
         // makes bins smaller
         restartBTN = SKSpriteNode() // stopped being able to click when not there
@@ -915,18 +1010,23 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         self.removeAllChildren()
         
         self.addChild(bin_1)
+        //bin_1.position = CGPoint(x: self.size.width, y: self.size.height)
         bin_1.name = shapes[0]
         
         self.addChild(bin_2)
+        //bin_2.position = CGPoint(x: 0, y: self.size.height)
         bin_2.name = shapes[1]
         
         self.addChild(bin_3)
+        //bin_3.position = CGPoint(x: self.size.width, y: 0)
         bin_3.name = shapes[2]
         
         self.addChild(bin_4)
+        //bin_4.position = CGPoint(x: 0, y: 0)
         bin_4.name = shapes[3]
         
         returnBinsToOriginal()
+        //animateBinsRestart()
         
         arePaused = false
         showHand = 0;
@@ -939,6 +1039,9 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         multiplicativeSpeedUpFactor = 1.0
         self.shapeController.resetVelocityBounds()
         createScene()
+        
+        //        returnBinsToOriginal()
+        //        animateBinsRestart()
         
         self.shapeController.resetSpecialShapeProbability()
         setRotatingFalse()
@@ -979,7 +1082,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         homeLabel.zPosition=5
         homeLabel.fontName = "Open Sans Cond Light"
         self.addChild(homeLabel)
-//        addThemeSettingLabel()
+        //        addThemeSettingLabel()
         pauseBackground = SKShapeNode(rectOfSize: CGSize(width: 11 * self.size.width/16, height: 8 * self.size.height/16))
         pauseBackground.fillColor = UIColor(red: 70/255, green: 80/255, blue: 160/255, alpha: 0.5)
         pauseBackground.position = CGPointMake(self.size.width/2, self.size.height/2);
