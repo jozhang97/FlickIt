@@ -53,6 +53,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     var score = 0;
     var lives = 3;
     
+    var pauseRestart = false
+    
     let shapes = ["pentagon", "square","circle","triangle", "gameOverStar", "bomb", "heart"]
     var bin_shape_image_names = ["pentagonOutline", "squareOutline", "circleOutline","triangleOutline"]
     let bins = ["bin_1", "bin_2", "bin_3", "bin_4"]
@@ -309,13 +311,14 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         self.addChild(livesLabel)
         
         gameOver = false
-        delay(0.25) {
-            self.animateBinsRestart()
+        if (pauseRestart) {
+            pauseRestart = false
+        } else {
+            delay(0.25) {
+                self.animateBinsRestart()
+            }
         }
-//        delay(5) {
-//            self.rotateBins()
-//            
-//        }
+
         pauseButton.zPosition = 5
         pauseButton.setScale(0.075)
         pauseButton.name = "pauseButton"
@@ -746,6 +749,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
                 pressedMute()
             } else if (restartLabel.containsPoint(location)) {
                 closePause()
+                pauseRestart = true
                 restartScene()
             } else if (homeLabel.containsPoint(location)) {
                 goToHome()
@@ -997,27 +1001,28 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     func restartScene() {
         // makes bins smaller
         restartBTN = SKSpriteNode() // stopped being able to click when not there
+        
         self.removeAllActions()
         self.removeAllChildren()
         
         self.addChild(bin_1)
-        bin_1.position = CGPoint(x: self.size.width, y: self.size.height)
+        //bin_1.position = CGPoint(x: self.size.width, y: self.size.height)
         bin_1.name = shapes[0]
         
         self.addChild(bin_2)
-        bin_2.position = CGPoint(x: 0, y: self.size.height)
+        //bin_2.position = CGPoint(x: 0, y: self.size.height)
         bin_2.name = shapes[1]
         
         self.addChild(bin_3)
-        bin_3.position = CGPoint(x: self.size.width, y: 0)
+        //bin_3.position = CGPoint(x: self.size.width, y: 0)
         bin_3.name = shapes[2]
         
         self.addChild(bin_4)
-        bin_4.position = CGPoint(x: 0, y: 0)
+        //bin_4.position = CGPoint(x: 0, y: 0)
         bin_4.name = shapes[3]
         
-//        returnBinsToOriginal()
-        animateBinsRestart()
+        returnBinsToOriginal()
+        //animateBinsRestart()
         
         arePaused = false
         showHand = 0;
