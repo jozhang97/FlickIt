@@ -1,4 +1,3 @@
-//
 //  GameScene.swift
 //  FlickIt
 //
@@ -27,9 +26,6 @@ class GameScene: SKScene {
     var hand = SKSpriteNode(imageNamed: "hand_icon")
     
     //variables that construct the Home Game Scene
-    let bgImage = SKSpriteNode(imageNamed: "flickitbg.png")
-    //let startLabel = SKLabelNode(text: "START")
-    //let rulesLabel = SKLabelNode(text: "RULES")
     let titleLabel = SKLabelNode(text: "FLICK IT")
     let startIcon = SKSpriteNode(imageNamed: "playIcon.png")
     let aboutIcon = SKSpriteNode(imageNamed: "aboutIcon.png")
@@ -39,15 +35,18 @@ class GameScene: SKScene {
     let bottomLeft = SKShapeNode()
     let bottomRight = SKShapeNode()
     let star = SKShapeNode()
-    var muteButton = SKSpriteNode(imageNamed: "playNow.png")
-    //let aboutButton = SKLabelNode(text: "ABOUT")
-    var audioPlayer = AVAudioPlayer()
+    
+    //colors
     let red: UIColor = UIColor(red: 164/255, green: 84/255, blue: 80/255, alpha: 1)
     let blue: UIColor = UIColor(red: 85/255, green: 135/255, blue: 141/255, alpha: 1)
     let green: UIColor = UIColor(red: 147/255, green: 158/255, blue: 106/255, alpha: 1)
     let purple: UIColor = UIColor(red: 99/255, green: 103/255, blue: 211/255, alpha: 1)
     let yellow: UIColor = UIColor(red: 250/255, green: 235/255, blue: 83/255, alpha: 1)
+    
     var appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    var muteButton = SKSpriteNode(imageNamed: "playNow.png")
+    var audioPlayer = AVAudioPlayer()
+    var firstCounter = 0
     
     override func didMoveToView(view: SKView) {
         createHomeScreen()
@@ -139,20 +138,17 @@ class GameScene: SKScene {
         createMuteButton()
         
         //set Z-positions
-        bgImage.zPosition = 1
-        startIcon.zPosition = 2
-        //rulesLabel.zPosition = 2
-        titleLabel.zPosition = 2
-        //aboutButton.zPosition = 2
+        startIcon.zPosition = 3
+        titleLabel.zPosition = 3
         topLeft.zPosition = 3
         topRight.zPosition = 3
         bottomLeft.zPosition = 3
         bottomRight.zPosition = 3
+        aboutIcon.zPosition = 3
+        muteButton.zPosition = 3
         star.zPosition = 4
-        muteButton.zPosition = 5
         
         // Add all the elements to the screen
-        //self.addChild(bgImage)
         self.addChild(star)
         self.addChild(topRight)
         self.addChild(topLeft)
@@ -161,11 +157,20 @@ class GameScene: SKScene {
         self.addChild(titleLabel)
         self.addChild(rulesIcon)
         self.addChild(startIcon)
-        //self.addChild(aboutButton)
         self.addChild(muteButton)
         self.addChild(aboutIcon)
         delay(0.1) {
             self.animateBinsAtStart()
+            self.delay(3) {
+                let fadeAction = SKAction.fadeAlphaTo(1, duration: 2)
+                let growAction = SKAction.scaleBy(1.5, duration: 1)
+                let shrinkAction = SKAction.scaleBy(0.8333, duration: 1)
+                let growAndShrink = SKAction.sequence([growAction, shrinkAction])
+                var moveLabel: SKAction = SKAction.moveByX(0.0, y: -1*self.size.width*2.5/4, duration: 1.2)
+                self.titleLabel.runAction(growAndShrink)
+                self.titleLabel.runAction(fadeAction)
+                self.titleLabel.runAction(moveLabel)
+            }
         }
     }
     
@@ -173,7 +178,6 @@ class GameScene: SKScene {
         aboutIcon.position = CGPointMake(self.size.width*9/10, self.size.height*18.5/20)
         aboutIcon.xScale = 0.10
         aboutIcon.yScale = 0.10
-        aboutIcon.zPosition = 3
     }
     
     func addCurvedLines(curve: SKShapeNode, dub1: Double, dub2: Double, bol: Bool, arch: Double, radi: CGFloat, color: UIColor) {
@@ -251,20 +255,20 @@ class GameScene: SKScene {
         titleLabel.fontColor = UIColor.whiteColor()
         titleLabel.fontName = "Open Sans Cond Light"
         titleLabel.fontSize = 30
+        let fadeAction = SKAction.fadeAlphaTo(0, duration: 0.1)
+        titleLabel.runAction(fadeAction)
     }
     
     func setupStartLabel(rad: CGFloat) {
         startIcon.position = CGPointMake(self.size.width/8, self.size.height*18.5/20)
         startIcon.xScale = 0.30
         startIcon.yScale = 0.30
-        startIcon.zPosition = 3
     }
     
     func setupRulesLabel(rad: CGFloat) {
         rulesIcon.position = CGPointMake(self.size.width*9/10, self.size.height*1/12)
         rulesIcon.xScale = 0.10
         rulesIcon.yScale = 0.10
-        rulesIcon.zPosition = 3
     }
     
     func createMuteButton() {
@@ -287,7 +291,7 @@ class GameScene: SKScene {
             else if appDelegate.muted == true { //UNMUTE IT
                 unmuteIt()
             }
-        } else if aboutIcon.containsPoint(location) {//doesn't recognize AboutButton location need to fix!
+        } else if aboutIcon.containsPoint(location) {
             startAbout()
         } else if startIcon.containsPoint(location) {
             startGame()
@@ -300,14 +304,12 @@ class GameScene: SKScene {
         appDelegate.muted = true
         muteButton.texture = SKTexture(imageNamed: "muteNow.png")
         checkMute()
-        //mute = 1
     }
     
     func unmuteIt() {
         appDelegate.muted = false
         muteButton.texture = SKTexture(imageNamed: "playNow.png")
         checkMute()
-        //mute = 0
     }
     
     
@@ -329,26 +331,6 @@ class GameScene: SKScene {
             touchedNode.physicsBody?.applyImpulse(CGVectorMake(100*dx, 100*dy))
         }
     }
-    
-    /*
-    
-    func followSemicircleUp() {
-        let radiu = self.size.height/6
-        //move on the curve up path
-        let circle = UIBezierPath(arcCenter: CGPointMake(0, radiu), radius: radiu, startAngle: CGFloat(1.5*M_PI), endAngle: CGFloat(M_PI), clockwise: false)
-        let test = SKAction.followPath(circle.CGPath, asOffset: true, orientToPath: true, duration: 1.5)
-        triangle.runAction(test)
-    }
-    
-    func followSemicircleDown() {
-        let radiu = self.size.height/6
-        //move on the curve down path
-        let circle = UIBezierPath(arcCenter: CGPointMake(0, -1*radiu), radius: radiu, startAngle: CGFloat(M_PI/2), endAngle: CGFloat(M_PI), clockwise: true)
-        let test = SKAction.followPath(circle.CGPath, asOffset: true, orientToPath: true, duration: 1.5)
-        triangle.runAction(test)
-    }
-
-    */
     
     func startAbout() {
         let scene: SKScene = AboutScene(size: self.size)
@@ -394,9 +376,6 @@ class GameScene: SKScene {
         
         bottomRight.runAction(rotate)
         bottomRight.runAction(SKAction.moveTo(CGPoint(x: self.size.width, y: 0), duration: 0.3))
-        //bin_2.runAction(SKAction.group([rotate, SKAction.moveTo(CGPoint(x: 0, y: self.size.height), duration: 1.0)]))
-        //bin_3.runAction(SKAction.group([rotate, SKAction.moveTo(CGPoint(x: self.size.width, y: 0), duration: 1.0)]))
-        //bin_4.runAction(SKAction.group([rotate, SKAction.moveTo(CGPoint(x: 0, y: 0), duration: 1.0)]))
     }
     
     let timeBeforeHandAppears = 5.0
@@ -459,6 +438,7 @@ class GameScene: SKScene {
         dispatch_after(
             dispatch_time( DISPATCH_TIME_NOW, Int64(delay * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), closure)
     }
+    
     func removeOffScreenNodes() {
         for shape in ["launch star"] {
             self.enumerateChildNodesWithName(shape, usingBlock: {
@@ -487,7 +467,6 @@ class GameScene: SKScene {
         }
     }
     
-    var firstCounter = 0
     func moveHand() {
         if firstCounter == 0 {
             firstCounter += 1
