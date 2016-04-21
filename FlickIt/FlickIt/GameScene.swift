@@ -28,16 +28,19 @@ class GameScene: SKScene {
     
     //variables that construct the Home Game Scene
     let bgImage = SKSpriteNode(imageNamed: "flickitbg.png")
-    let startLabel = SKLabelNode(text: "START")
-    let rulesLabel = SKLabelNode(text: "RULES")
+    //let startLabel = SKLabelNode(text: "START")
+    //let rulesLabel = SKLabelNode(text: "RULES")
     let titleLabel = SKLabelNode(text: "FLICK IT")
+    let startIcon = SKSpriteNode(imageNamed: "playIcon.png")
+    let aboutIcon = SKSpriteNode(imageNamed: "aboutIcon.png")
+    let rulesIcon = SKSpriteNode(imageNamed: "rulesIcon.png")
     let topLeft = SKShapeNode()
     let topRight = SKShapeNode()
     let bottomLeft = SKShapeNode()
     let bottomRight = SKShapeNode()
     let star = SKShapeNode()
     var muteButton = SKSpriteNode(imageNamed: "playNow.png")
-    let aboutButton = SKLabelNode(text: "ABOUT")
+    //let aboutButton = SKLabelNode(text: "ABOUT")
     var audioPlayer = AVAudioPlayer()
     let red: UIColor = UIColor(red: 164/255, green: 84/255, blue: 80/255, alpha: 1)
     let blue: UIColor = UIColor(red: 85/255, green: 135/255, blue: 141/255, alpha: 1)
@@ -48,7 +51,6 @@ class GameScene: SKScene {
     
     override func didMoveToView(view: SKView) {
         createHomeScreen()
-        
         playMusic("intromusic", type: "mp3")
     }
     
@@ -137,10 +139,10 @@ class GameScene: SKScene {
         
         //set Z-positions
         bgImage.zPosition = 1
-        startLabel.zPosition = 2
-        rulesLabel.zPosition = 2
+        startIcon.zPosition = 2
+        //rulesLabel.zPosition = 2
         titleLabel.zPosition = 2
-        aboutButton.zPosition = 2
+        //aboutButton.zPosition = 2
         topLeft.zPosition = 3
         topRight.zPosition = 3
         bottomLeft.zPosition = 3
@@ -156,21 +158,21 @@ class GameScene: SKScene {
         self.addChild(bottomLeft)
         self.addChild(bottomRight)
         self.addChild(titleLabel)
-        self.addChild(rulesLabel)
-        self.addChild(startLabel)
-        self.addChild(aboutButton)
-        self.addChild(muteButton);
-        delay(0.5) {
+        self.addChild(rulesIcon)
+        self.addChild(startIcon)
+        //self.addChild(aboutButton)
+        self.addChild(muteButton)
+        self.addChild(aboutIcon)
+        delay(0.1) {
             self.animateBinsAtStart()
         }
     }
     
     func setupAboutLabel() {
-        aboutButton.position = CGPointMake(self.size.width - rulesLabel.frame.width/2, self.size.height - 2 * startLabel.frame.height)
-        aboutButton.horizontalAlignmentMode = .Center
-        aboutButton.fontColor = UIColor.whiteColor()
-        aboutButton.fontName = "Open Sans Cond Light"
-        aboutButton.fontSize = 20
+        aboutIcon.position = CGPointMake(self.size.width*9/10, self.size.height*18.5/20)
+        aboutIcon.xScale = 0.10
+        aboutIcon.yScale = 0.10
+        aboutIcon.zPosition = 3
     }
     
     func addCurvedLines(curve: SKShapeNode, dub1: Double, dub2: Double, bol: Bool, arch: Double, radi: CGFloat, color: UIColor) {
@@ -251,19 +253,17 @@ class GameScene: SKScene {
     }
     
     func setupStartLabel(rad: CGFloat) {
-        startLabel.position = CGPointMake(startLabel.frame.width/2, self.size.height - 2 * startLabel.frame.height);
-        startLabel.horizontalAlignmentMode = .Center
-        startLabel.fontColor = UIColor.whiteColor()
-        startLabel.fontName = "Open Sans Cond Light"
-        startLabel.fontSize = 20
+        startIcon.position = CGPointMake(self.size.width/8, self.size.height*18.5/20)
+        startIcon.xScale = 0.30
+        startIcon.yScale = 0.30
+        startIcon.zPosition = 3
     }
     
     func setupRulesLabel(rad: CGFloat) {
-        rulesLabel.position = CGPointMake(self.size.width - rulesLabel.frame.width/2, rulesLabel.frame.height);
-        rulesLabel.horizontalAlignmentMode = .Center
-        rulesLabel.fontColor = UIColor.whiteColor()
-        rulesLabel.fontName = "Open Sans Cond Light"
-        rulesLabel.fontSize = 20
+        rulesIcon.position = CGPointMake(self.size.width*9/10, self.frame.height*1/12)
+        rulesIcon.xScale = 0.10
+        rulesIcon.yScale = 0.10
+        rulesIcon.zPosition = 3
     }
     
     func createMuteButton() {
@@ -286,11 +286,11 @@ class GameScene: SKScene {
             else if appDelegate.muted == true { //UNMUTE IT
                 unmuteIt()
             }
-        } else if aboutButton.containsPoint(location) {//doesn't recognize AboutButton location need to fix!
+        } else if aboutIcon.containsPoint(location) {//doesn't recognize AboutButton location need to fix!
             startAbout()
-        } else if startLabel.containsPoint(location) {
+        } else if startIcon.containsPoint(location) {
             startGame()
-        } else if rulesLabel.containsPoint(location) {
+        } else if rulesIcon.containsPoint(location) {
             goToRules()
         }   
     }
@@ -380,19 +380,19 @@ class GameScene: SKScene {
     }
     
     func animateBinsAtStart() {
-        let rotate = SKAction.rotateByAngle(CGFloat(M_PI), duration: 1.0);
+        let rotate = SKAction.rotateByAngle(CGFloat(M_PI), duration: 0.3);
         //bin_1.anchorPoint = CGPoint(x: 0, y: 1)
         topRight.runAction(rotate)
-        topRight.runAction(SKAction.moveTo(CGPoint(x: self.size.width, y: self.size.height), duration: 1.0))
+        topRight.runAction(SKAction.moveTo(CGPoint(x: self.size.width, y: self.size.height), duration: 0.3))
         
         topLeft.runAction(rotate)
-        topLeft.runAction(SKAction.moveTo(CGPoint(x: 0, y: self.size.height), duration: 1.0))
+        topLeft.runAction(SKAction.moveTo(CGPoint(x: 0, y: self.size.height), duration: 0.3))
         
         bottomLeft.runAction(rotate)
-        bottomLeft.runAction(SKAction.moveTo(CGPoint(x: 0, y: 0), duration: 1.0))
+        bottomLeft.runAction(SKAction.moveTo(CGPoint(x: 0, y: 0), duration: 0.3))
         
         bottomRight.runAction(rotate)
-        bottomRight.runAction(SKAction.moveTo(CGPoint(x: self.size.width, y: 0), duration: 1.0))
+        bottomRight.runAction(SKAction.moveTo(CGPoint(x: self.size.width, y: 0), duration: 0.3))
         //bin_2.runAction(SKAction.group([rotate, SKAction.moveTo(CGPoint(x: 0, y: self.size.height), duration: 1.0)]))
         //bin_3.runAction(SKAction.group([rotate, SKAction.moveTo(CGPoint(x: self.size.width, y: 0), duration: 1.0)]))
         //bin_4.runAction(SKAction.group([rotate, SKAction.moveTo(CGPoint(x: 0, y: 0), duration: 1.0)]))
@@ -402,21 +402,21 @@ class GameScene: SKScene {
     var time = 0.0
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
-        let bool1 = star.position.y + star.frame.height/2 >= startLabel.position.y - startLabel.frame.height/2
-        let bool2 = star.position.x - star.frame.width/2 <= startLabel.position.x + startLabel.frame.width/2
+        let bool1 = star.position.y + star.frame.height/2 >= startIcon.position.y - startIcon.frame.height/2
+        let bool2 = star.position.x - star.frame.width/2 <= startIcon.position.x + startIcon.frame.width/2
         if (bool1 && bool2){
             // call method to start game
             // for now just remove all the elements to show something has happened
             self.removeAllChildren();
             self.startGame();
             star.position.y = 0
-        } else if ((star.position.y >= startLabel.position.y - 20) && (star.position.x >= aboutButton.position.x)){
+        } else if ((star.position.y >= startIcon.position.y - 20) && (star.position.x >= aboutIcon.position.x)){
                 // call method to start game
                 // for now just remove all the elements to show something has happened
             self.removeAllChildren();
             self.startAbout();
             star.position.y = 0
-        } else if (star.position.y - star.frame.height/2 <= rulesLabel.position.y && star.position.x - star.frame.width/2 <= self.size.width && star.position.x + star.frame.width/2 >= rulesLabel.position.x - rulesLabel.frame.width/2){
+        } else if (star.position.y - star.frame.height/2 <= rulesIcon.position.y && star.position.x - star.frame.width/2 <= self.size.width && star.position.x + star.frame.width/2 >= rulesIcon.position.x - rulesIcon.frame.width/2){
             // call method to show Rules
             // for now just remove all the elements to show something has happened
             self.removeAllChildren();
