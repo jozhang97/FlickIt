@@ -122,8 +122,9 @@ class GameScene: SKScene {
         
         
         // Sets bg image to fill the entire screen
-        bgImage.size = CGSize(width: self.size.width, height: self.size.height);
-        bgImage.position = CGPointMake(self.size.width/2, self.size.height/2);
+        self.view!.backgroundColor = UIColor.blackColor()
+//        bgImage.size = CGSize(width: self.size.width, height: self.size.height);
+//        bgImage.position = CGPointMake(self.size.width/2, self.size.height/2);
         
         // Set up start Label
         setupStartLabel(radius)
@@ -151,7 +152,7 @@ class GameScene: SKScene {
         muteButton.zPosition = 5
         
         // Add all the elements to the screen
-        self.addChild(bgImage)
+        //self.addChild(bgImage)
         self.addChild(star)
         self.addChild(topRight)
         self.addChild(topLeft)
@@ -260,14 +261,14 @@ class GameScene: SKScene {
     }
     
     func setupRulesLabel(rad: CGFloat) {
-        rulesIcon.position = CGPointMake(self.size.width*9/10, self.frame.height*1/12)
+        rulesIcon.position = CGPointMake(self.size.width*9/10, self.size.height*1/12)
         rulesIcon.xScale = 0.10
         rulesIcon.yScale = 0.10
         rulesIcon.zPosition = 3
     }
     
     func createMuteButton() {
-        muteButton.position = CGPoint(x: self.size.width/10, y: self.size.height/10)
+        muteButton.position = CGPoint(x: self.size.width/10, y: self.size.height/12)
         muteButton.size = CGSize(width: self.size.width/5, height: self.size.height/10);
     }
     
