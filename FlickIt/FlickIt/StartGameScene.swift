@@ -105,8 +105,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         
         addCurvedLines(bin_1, dub1: 0, dub2: M_PI/2, bol: true, arch: Double(self.size.height/2 + radius), radi: radius, color: red)
         //curve down shape
-        addCurvedLines(bin_2, dub1: M_PI/2, dub2: M_PI, bol: true, arch: Double(self.size.height/2 - radius), radi: radius, color: blue)
-        addCurvedLines(bin_3, dub1: M_PI, dub2: M_PI*3/2, bol: true, arch: Double(self.size.height/2 - radius), radi: radius, color: green)
+        addCurvedLines(bin_2, dub1: M_PI/2, dub2: M_PI, bol: true, arch: Double(self.size.height/2 - radius), radi: radius, color: green)
+        addCurvedLines(bin_3, dub1: M_PI, dub2: M_PI*3/2, bol: true, arch: Double(self.size.height/2 - radius), radi: radius, color: blue)
         addCurvedLines(bin_4, dub1: M_PI*3/2, dub2: M_PI*2, bol: true, arch: Double(self.size.height/2 - radius), radi: radius, color: purple)
         
         func setUpBinsPhysicsBody(bin: SKShapeNode) {
@@ -484,7 +484,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
                     explosionEmitterNode?.zPosition=100
                     if (firstBody.node?.name == secondBody.node?.name) {
                         score += 1
-                        if(score % 3 == 0){
+                        if(score % 5 == 0){ // rotate bins every 5 points
                             self.rotateBins(Int(arc4random_uniform(2) + 1));
                         }
                     } else {
@@ -539,10 +539,10 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         tracker.send(event.build() as [NSObject : AnyObject])
     }
     
-    var timeRequired = 2.0
+    var timeRequired = 1.6
     var firstTimeCount = 1
-    var timeSpeedUpFactor = 0.05
-    var minTimeRequired = 0.75
+    var timeSpeedUpFactor = 0.15
+    var minTimeRequired = 0.99
     var multiplicativeSpeedUpFactor = 1.0
     
     var jeffHandCounter = 0
@@ -574,11 +574,13 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
                     shapeToAdd = self.shapeController.spawnShape();
                     shapeToAdd.position = CGPointMake(self.size.width/2, self.size.height/2);
                     self.addChild(shapeToAdd);
-                    if(score > 50 && Int(arc4random_uniform(3)) == 0){
+                    if(score > 30 && Int(arc4random_uniform(3)) == 0){
                         //change above value for difficulty purposes!!!!!!!!
-                        shapeToAdd = self.shapeController.spawnShape();
-                        shapeToAdd.position = CGPointMake(self.size.width/2, self.size.height/2);
-                        self.addChild(shapeToAdd);
+                        delay(0.2) { // spawning at exactly the same time was too hard
+                            self.shapeToAdd = self.shapeController.spawnShape();
+                            self.shapeToAdd.position = CGPointMake(self.size.width/2, self.size.height/2);
+                            self.addChild(self.shapeToAdd);
+                        }
                     }
                     //shapeToAdd.physicsBody?.applyImpulse(CGVectorMake(shapeController.dx, shapeController.dy))
                     //self.addChild(self.shapeController.spawnShape());
