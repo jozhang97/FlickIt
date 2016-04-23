@@ -253,8 +253,8 @@ class GameScene: SKScene {
         titleLabel.position = CGPointMake(self.size.width/2, self.size.height - titleLabel.frame.height - 20);
         titleLabel.horizontalAlignmentMode = .Center
         titleLabel.fontColor = UIColor.whiteColor()
-        titleLabel.fontName = "Open Sans Cond Light"
-        titleLabel.fontSize = 30
+        titleLabel.fontName = "BigNoodleTitling"
+        titleLabel.fontSize = 50
         let fadeAction = SKAction.fadeAlphaTo(0, duration: 0.1)
         titleLabel.runAction(fadeAction)
     }

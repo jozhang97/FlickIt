@@ -62,31 +62,31 @@ class AboutScene: SKScene {
         titleLabel.position = CGPointMake(self.frame.width/2, self.frame.height * 4.25/5)
         titleLabel.horizontalAlignmentMode = .Center
         titleLabel.fontColor = UIColor.whiteColor()
-        titleLabel.fontName = "Open Sans Cond Light"
-        titleLabel.fontSize = 17
+        titleLabel.fontName = "BigNoodleTitling"
+        titleLabel.fontSize = 20
         titleLabel.zPosition = 3
         
         titleLabel1.text = "Abhi Mangla, Rohan Narayan, Shaili"
         titleLabel1.position = CGPointMake(self.frame.width/2, self.frame.height * 4.25/5 - 20)
         titleLabel1.horizontalAlignmentMode = .Center
         titleLabel1.fontColor = UIColor.whiteColor()
-        titleLabel1.fontName = "Open Sans Cond Light"
-        titleLabel1.fontSize = 17
+        titleLabel1.fontName = "BigNoodleTitling"
+        titleLabel1.fontSize = 20
         titleLabel1.zPosition = 3
         
         titleLabel2.text = "Patel, and Jeffrey Zhang."
         titleLabel2.position = CGPointMake(self.frame.width/2, self.frame.height * 4.25/5 - 40)
         titleLabel2.horizontalAlignmentMode = .Center
         titleLabel2.fontColor = UIColor.whiteColor()
-        titleLabel2.fontName = "Open Sans Cond Light"
-        titleLabel2.fontSize = 17
+        titleLabel2.fontName = "BigNoodleTitling"
+        titleLabel2.fontSize = 20
         titleLabel2.zPosition = 3
         
         backButton.text = "BACK"
         backButton.position = CGPointMake(self.frame.width/8, self.frame.height * 7.5/8)
         backButton.horizontalAlignmentMode = .Center
         backButton.fontColor = UIColor.whiteColor()
-        backButton.fontName = "Open Sans Cond Light"
+        backButton.fontName = "BigNoodleTitling"
         backButton.fontSize = 20
         backButton.zPosition = 3
         

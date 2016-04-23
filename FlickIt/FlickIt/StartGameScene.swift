@@ -253,7 +253,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         scoreLabel.fontColor=UIColor.whiteColor()
         scoreLabel.position=CGPointMake(self.frame.width/2,self.frame.height * 7.5/9)
         scoreLabel.zPosition=2
-        scoreLabel.fontName = "Open Sans Cond Light"
+        scoreLabel.fontName = "BigNoodleTitling"
         self.addChild(scoreLabel)
         
         livesLabel = SKLabelNode()
@@ -261,7 +261,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         livesLabel.fontColor = UIColor.redColor()
         livesLabel.position = CGPointMake(self.frame.width/2, self.frame.height * 0.5/9)
         livesLabel.zPosition = 2
-        livesLabel.fontName = "Open Sans Cond Light"
+        livesLabel.fontName = "BigNoodleTitling"
         self.addChild(livesLabel)
         
         gameOver = false
@@ -857,7 +857,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         gameOverHighScoreLabel.position = CGPointMake(self.size.width/2, self.size.height/4);
         gameOverHighScoreLabel.horizontalAlignmentMode = .Center
         gameOverHighScoreLabel.fontColor = UIColor.whiteColor()
-        gameOverHighScoreLabel.fontName = "Open Sans Cond Light"
+        gameOverHighScoreLabel.fontName = "BigNoodleTitling"
         gameOverHighScoreLabel.fontSize = 16
         gameOverHighScoreLabel.zPosition = 5
         gameOverHighScoreLabel.text = "Your High Score: " + String(prevHighScore)
@@ -886,14 +886,14 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         gameOverLabel.position = CGPointMake(self.size.width/2, self.size.height/2);
         gameOverLabel.horizontalAlignmentMode = .Center
         gameOverLabel.fontColor = UIColor.whiteColor()
-        gameOverLabel.fontName = "Open Sans Cond Light"
+        gameOverLabel.fontName = "BigNoodleTitling"
         gameOverLabel.fontSize = 22
         gameOverLabel.zPosition = 5
         self.addChild(gameOverLabel)
         gameOverScoreLabel.position = CGPointMake(self.size.width/2, self.size.height/2 + gameOverLabel.frame.height);
         gameOverScoreLabel.horizontalAlignmentMode = .Center
         gameOverScoreLabel.fontColor = UIColor.whiteColor()
-        gameOverScoreLabel.fontName = "Open Sans Cond Light"
+        gameOverScoreLabel.fontName = "BigNoodleTitling"
         gameOverScoreLabel.fontSize = 25
         gameOverScoreLabel.zPosition = 5
         gameOverScoreLabel.text = "Score " + String(score)
@@ -965,19 +965,19 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         muteLabel.fontColor=UIColor.whiteColor()
         muteLabel.position=CGPointMake(self.frame.width/2, 8*self.frame.height/12)
         muteLabel.zPosition=5
-        muteLabel.fontName = "Open Sans Cond Light"
+        muteLabel.fontName = "BigNoodleTitling"
         self.addChild(muteLabel)
         restartLabel.text = "Restart"
         restartLabel.fontColor=UIColor.whiteColor()
         restartLabel.position=CGPointMake(self.frame.width/2, 4*self.frame.height/12)
         restartLabel.zPosition=5
-        restartLabel.fontName = "Open Sans Cond Light"
+        restartLabel.fontName = "BigNoodleTitling"
         self.addChild(restartLabel)
         homeLabel.text = "Home"
         homeLabel.fontColor=UIColor.whiteColor()
         homeLabel.position=CGPointMake(self.frame.width/2, 6*self.frame.height/12)
         homeLabel.zPosition=5
-        homeLabel.fontName = "Open Sans Cond Light"
+        homeLabel.fontName = "BigNoodleTitling"
         self.addChild(homeLabel)
 //        addThemeSettingLabel()
         pauseBackground = SKShapeNode(rectOfSize: CGSize(width: 11 * self.size.width/16, height: 8 * self.size.height/16))
@@ -1000,7 +1000,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         themeSettingsLabel.fontColor=UIColor.whiteColor()
         themeSettingsLabel.position=CGPointMake(self.frame.width/2,self.frame.height/5)
         themeSettingsLabel.zPosition=5
-        themeSettingsLabel.fontName = "Open Sans Cond Light"
+        themeSettingsLabel.fontName = "BigNoodleTitling"
         self.addChild(themeSettingsLabel)
     }
     
@@ -1027,13 +1027,13 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         // manipulate touch end
         self.removeChildrenInArray([muteLabel, restartLabel, homeLabel, themeSettingsLabel, pauseBackground])
         muteLabel = SKLabelNode()
-        muteLabel.fontName = "Open Sans Cond Light"
+        muteLabel.fontName = "BigNoodleTitling"
         restartLabel = SKLabelNode()
-        restartLabel.fontName = "Open Sans Cond Light"
+        restartLabel.fontName = "BigNoodleTitling"
         homeLabel = SKLabelNode()
-        homeLabel.fontName = "Open Sans Cond Light"
+        homeLabel.fontName = "BigNoodleTitling"
         themeSettingsLabel = SKLabelNode()
-        themeSettingsLabel.fontName = "Open Sans Cond Light"
+        themeSettingsLabel.fontName = "BigNoodleTitling"
         unfreezeShapes()
     }
     

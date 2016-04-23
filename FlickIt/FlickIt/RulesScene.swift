@@ -16,9 +16,9 @@ class RulesScene: SKScene {
     //keep track of which way user swipes
     var numTouches = 0;
     //create caption for "how to play" screenshots
-    var caption: SKLabelNode = SKLabelNode(fontNamed: "Open Sans Cond Light")
+    var caption: SKLabelNode = SKLabelNode(fontNamed: "BigNoodleTitling")
     var total = 6; //change this based on number of screens
-    var rules: SKLabelNode = SKLabelNode(fontNamed: "Open Sans Cond Light")
+    var rules: SKLabelNode = SKLabelNode(fontNamed: "BigNoodleTitling")
 //    var screenImage: SKSpriteNode = SKSpriteNode(imageNamed: "blue_triangle")
     var start = CGPoint();
     var swipe = UISwipeGestureRecognizer();
@@ -45,21 +45,15 @@ class RulesScene: SKScene {
         rules.text = "How to Play"
         rules.color = UIColor.whiteColor()
         rules.position = CGPoint(x: self.frame.width/2, y: self.frame.height*1/4)
-        rules.fontSize = 30
+        rules.fontSize = 40
         rules.zPosition = 3
         self.addChild(rules)
         
-        caption.text = "There's 4 basic shapes that will enter the screen..."
-        caption.color = UIColor.whiteColor()
+        caption.text = strings[0]
+        caption.color = UIColor.yellowColor()
         caption.position = CGPoint(x: self.frame.width/2, y: self.frame.height*3/4)
-        caption.fontSize = 16
+        caption.fontSize = 20
         self.addChild(caption)
-        
-//        screenImage.position = CGPoint(x: self.size.width * 1/2, y: self.size.height * 1/2)
-//        screenImage.size = CGSize(width: self.size.width * 2/3, height: self.size.height * 1/2)
-//        self.addChild(screenImage)
-//
-
         
         playVideo()
         
@@ -67,19 +61,8 @@ class RulesScene: SKScene {
         bgImage.position = CGPointMake(self.size.width/2, self.size.height/2);
         bgImage.zPosition = 0;
         
-//        self.addChild(bgImage)
-        /*
-        var i = 0;
-        var strings = [“askjll”, “aksdh”, “akfldj;”, “askfjal”]
-        var timer: NSTimer
-        
-    
-        textLabel.text = strings[0]
-        timer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: Selector(“changeTextMethod"), userInfo: nil, repeats: true)
-            //should put a pause of 10 seconds here for flicking period
-        
-        
-        */
+        self.addChild(bgImage)
+
         timer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: Selector("changeTextMethod"), userInfo: nil, repeats: true)
         //should put a pause of 10 seconds here for flicking period
         
@@ -115,45 +98,13 @@ class RulesScene: SKScene {
         video2.play()
     }
     
-    /*
-    func changeTextMethod () {
-        i++
-        textLabel.text = strings[i % strings.size]
-    }
-     */
+
     func playerItemDidReachEnd(notification: NSNotification) {
         if let playerItem: AVPlayerItem = notification.object as? AVPlayerItem {
             playerItem.seekToTime(kCMTimeZero)
         }
     }
-    
-    func toNextScreen () {
-        //if thing flicked in the screen
-        //stop timer
-        //go to next screen and remove all objects
-    }
-    
 
-//
-//    func playVideo() {
-//        let path = NSBundle.mainBundle().pathForResource("FlickItDemo3", ofType:"mov")
-//        let url = NSURL.fileURLWithPath(path!)
-//        moviePlayer = MPMoviePlayerController(contentURL: url)
-//        
-//        if let player = moviePlayer {
-//            
-//            player.view.frame = CGRect(x: self.size.width/2, y: self.size.height/2, width: self.size.width/2, height: self.size.height/2)
-//            
-//            player.prepareToPlay()
-//            player.scalingMode = .AspectFill
-//            player.controlStyle = .None
-//            player.shouldAutoplay = true
-//            player.repeatMode = MPMovieRepeatMode.One
-//            self.view!.addSubview(player.view)
-//            
-//        }    
-//    }
-//
     func track() {
         let tracker = GAI.sharedInstance().defaultTracker
         tracker.set(kGAIScreenName, value: "Rule Screen")
@@ -164,27 +115,29 @@ class RulesScene: SKScene {
     }
     
     func setCaptionText () {
-        if (numTouches == 0) {
-            caption.text = "There's 4 basic shapes that will enter the screen..."
-//            self.addChild(caption)
-//            screenImage.texture = SKTexture(imageNamed: "blue_triangle")
-        } else if (numTouches == 1) {
-            caption.text = "Flick them into the proper bins they belong to!"
-//            self.addChild(caption)
-//            screenImage.texture = SKTexture(imageNamed: "blue_circle")
-        } else if (numTouches == 2) {
-            caption.text = "Earn as many points as you can with 3 lives!"
-//            self.addChild(caption)
-//            screenImage.texture = SKTexture(imageNamed: "blue_star")
-        } else if (numTouches == 3) {
-            caption.text = "Avoid bombs and use stars to get extra points!"
-//            self.addChild(caption)
-//            screenImage.texture = SKTexture(imageNamed: "blue_square")
-        } else if (numTouches == 4) {
-            caption.text = "Swipe to Play"
-//            self.addChild(caption)
-//            screenImage.texture = SKTexture(imageNamed: "blue_triangle")
-        } else {
+//        if (numTouches == 0) {
+//            caption.text = "There's 4 basic shapes that will enter the screen..."
+////            self.addChild(caption)
+////            screenImage.texture = SKTexture(imageNamed: "blue_triangle")
+//        } else if (numTouches == 1) {
+//            caption.text = "Flick them into the proper bins they belong to!"
+////            self.addChild(caption)
+////            screenImage.texture = SKTexture(imageNamed: "blue_circle")
+//        } else if (numTouches == 2) {
+//            caption.text = "Earn as many points as you can with 3 lives!"
+////            self.addChild(caption)
+////            screenImage.texture = SKTexture(imageNamed: "blue_star")
+//        } else if (numTouches == 3) {
+//            caption.text = "Avoid bombs and use stars to get extra points!"
+////            self.addChild(caption)
+////            screenImage.texture = SKTexture(imageNamed: "blue_square")
+//        } else if (numTouches == 4) {
+//            caption.text = "Swipe to Play"
+////            self.addChild(caption)
+////            screenImage.texture = SKTexture(imageNamed: "blue_triangle")
+//        } else {
+
+        if (numTouches != 0) {
             let scene: SKScene = StartGameScene(size: self.size)
             numTouches = 0
             
