@@ -9,7 +9,7 @@
 import AVFoundation
 import SpriteKit
 import GameKit
-class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerDelegate {
+class StartGameScene: SKScene, SKPhysicsContactDelegate {
     var NUMBEROFLIFES = 3
 
     let red: UIColor = UIColor(red: 164/255, green: 84/255, blue: 80/255, alpha: 1)
@@ -22,6 +22,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     var hand = SKSpriteNode(imageNamed: "hand_icon")
     var showHand = 0;
     var touching = false;
+    var playingGame = false
     
     var bgImage = SKSpriteNode(imageNamed: "background.png");
 
@@ -92,6 +93,9 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     var sceneHeight = CGFloat(0);
     var sceneWidth = CGFloat(0);
     
+    override init() {
+        super.init()
+    }
     override init(size: CGSize) {
         super.init(size: size)
         lives = NUMBEROFLIFES
@@ -208,6 +212,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     }
     
     func createScene() {
+        playingGame = true
         timeBegan = NSDate()
         self.physicsWorld.contactDelegate = self
         bgImage.size = CGSize(width: self.size.width, height: self.size.height);
@@ -512,7 +517,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
                     self.goToHome()
                 } else if (binName == "highScore") {
                     print("go to high")
-                    showLeaderboard()
+//                    showLeaderboard()
                 } else if (binName == "settings") {
                     print("go to settings")
                 }
@@ -729,6 +734,18 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
             oldVelocities[touchedNode]=touchedNode.physicsBody?.velocity;
             touchedNode.physicsBody?.velocity=CGVectorMake(0, 0)
         }
+        if gameOver {
+            if bin_1_shape.containsPoint(location) {
+            } else if bin_2_shape.containsPoint(location) {
+                restartScene()
+            } else if bin_3_shape.containsPoint(location) {
+                self.removeAllChildren()
+                self.goToHome()
+            } else if bin_4_shape.containsPoint(location) {
+                
+            }
+            
+        }
         delay(0.5) {
             if (self.gameOver && self.showHand > 2) {
                 self.showHand = 0
@@ -844,6 +861,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         setUpLocalHighScore()
         gameOverTrack()
         putBackPhysicsBodyBin()
+        playingGame = false
     }
     
     
@@ -953,6 +971,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     var pauseBackground = SKShapeNode()
     
     func openPause() {
+        playingGame = false
         pauseButton.texture = SKTexture(imageNamed: "playButton")
         bgImage.runAction(SKAction.fadeAlphaTo(0.2, duration: 0.5));
         arePaused = true
@@ -964,19 +983,19 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         }
         muteLabel.fontColor=UIColor.whiteColor()
         muteLabel.position=CGPointMake(self.frame.width/2, 8*self.frame.height/12)
-        muteLabel.zPosition=5
+        muteLabel.zPosition = 6
         muteLabel.fontName = "Open Sans Cond Light"
         self.addChild(muteLabel)
         restartLabel.text = "Restart"
         restartLabel.fontColor=UIColor.whiteColor()
         restartLabel.position=CGPointMake(self.frame.width/2, 4*self.frame.height/12)
-        restartLabel.zPosition=5
+        restartLabel.zPosition = 6
         restartLabel.fontName = "Open Sans Cond Light"
         self.addChild(restartLabel)
         homeLabel.text = "Home"
         homeLabel.fontColor=UIColor.whiteColor()
         homeLabel.position=CGPointMake(self.frame.width/2, 6*self.frame.height/12)
-        homeLabel.zPosition=5
+        homeLabel.zPosition = 6
         homeLabel.fontName = "Open Sans Cond Light"
         self.addChild(homeLabel)
 //        addThemeSettingLabel()
@@ -1035,6 +1054,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         themeSettingsLabel = SKLabelNode()
         themeSettingsLabel.fontName = "Open Sans Cond Light"
         unfreezeShapes()
+        playingGame = true
     }
     
     func pressedMute() {
@@ -1112,17 +1132,17 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         }
     }
     
-    func showLeaderboard() {
-        let viewController = self.view!.window?.rootViewController
-        let gameCenterVC = GKGameCenterViewController()
-        gameCenterVC.gameCenterDelegate = self
-        viewController!.presentViewController(gameCenterVC, animated: true, completion: nil)
-    }
+//    func showLeaderboard() {
+//        let viewController = self.view!.window?.rootViewController
+//        let gameCenterVC = GKGameCenterViewController()
+//        gameCenterVC.gameCenterDelegate = self
+//        viewController!.presentViewController(gameCenterVC, animated: true, completion: nil)
+//    }
     
-    func gameCenterViewControllerDidFinish(gameCenterViewController: GKGameCenterViewController) {
-        gameCenterViewController.dismissViewControllerAnimated(true, completion: nil)
-        
-    }
+//    func gameCenterViewControllerDidFinish(gameCenterViewController: GKGameCenterViewController) {
+//        gameCenterViewController.dismissViewControllerAnimated(true, completion: nil)
+//    
+//    }
     
     
 }
