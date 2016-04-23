@@ -28,8 +28,8 @@ class GameScene: SKScene {
     //variables that construct the Home Game Scene
     let titleLabel = SKLabelNode(text: "FLICK IT")
     let startIcon = SKSpriteNode(imageNamed: "playIcon.png")
-    let aboutIcon = SKSpriteNode(imageNamed: "aboutIcon.png")
-    let rulesIcon = SKSpriteNode(imageNamed: "rulesIcon.png")
+    let aboutIcon = SKSpriteNode(imageNamed: "about1.png")
+    let rulesIcon = SKSpriteNode(imageNamed: "rules1.png")
     let topLeft = SKShapeNode()
     let topRight = SKShapeNode()
     let bottomLeft = SKShapeNode()
@@ -133,7 +133,7 @@ class GameScene: SKScene {
         
         // Set up about Button
         setupAboutLabel()
-        
+
         //set up mute button features
         createMuteButton()
         
@@ -166,7 +166,7 @@ class GameScene: SKScene {
                 let growAction = SKAction.scaleBy(1.5, duration: 1)
                 let shrinkAction = SKAction.scaleBy(0.8333, duration: 1)
                 let growAndShrink = SKAction.sequence([growAction, shrinkAction])
-                var moveLabel: SKAction = SKAction.moveByX(0.0, y: -1*self.size.width*2.5/4, duration: 1.2)
+                var moveLabel: SKAction = SKAction.moveByX(0.0, y: -1*self.size.width*2.5/4, duration: 0.5)
                 self.titleLabel.runAction(growAndShrink)
                 self.titleLabel.runAction(fadeAction)
                 self.titleLabel.runAction(moveLabel)
@@ -176,8 +176,8 @@ class GameScene: SKScene {
     
     func setupAboutLabel() {
         aboutIcon.position = CGPointMake(self.size.width*9/10, self.size.height*18.5/20)
-        aboutIcon.xScale = 0.10
-        aboutIcon.yScale = 0.10
+        aboutIcon.xScale = 1.5
+        aboutIcon.yScale = 1.5
     }
     
     func addCurvedLines(curve: SKShapeNode, dub1: Double, dub2: Double, bol: Bool, arch: Double, radi: CGFloat, color: UIColor) {
@@ -267,8 +267,8 @@ class GameScene: SKScene {
     
     func setupRulesLabel(rad: CGFloat) {
         rulesIcon.position = CGPointMake(self.size.width*9/10, self.size.height*1/12)
-        rulesIcon.xScale = 0.10
-        rulesIcon.yScale = 0.10
+        rulesIcon.xScale = 1.25
+        rulesIcon.yScale = 1.25
     }
     
     func createMuteButton() {
