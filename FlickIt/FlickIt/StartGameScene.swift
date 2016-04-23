@@ -255,7 +255,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         
         scoreLabel=SKLabelNode()
         scoreLabel.text="Score: "+String(score)
-        scoreLabel.fontColor=UIColor.whiteColor()
+        scoreLabel.fontColor=UIColor.yellowColor()
         scoreLabel.position=CGPointMake(self.frame.width/2,self.frame.height * 7.5/9)
         scoreLabel.zPosition=2
         scoreLabel.fontName = "BigNoodleTitling"
@@ -874,11 +874,11 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
             NSUserDefaults.standardUserDefaults().synchronize()
             prevHighScore = score
         }
-        gameOverHighScoreLabel.position = CGPointMake(self.size.width/2, self.size.height/4);
+        gameOverHighScoreLabel.position = CGPointMake(self.size.width/2, self.size.height/3.9);
         gameOverHighScoreLabel.horizontalAlignmentMode = .Center
         gameOverHighScoreLabel.fontColor = UIColor.whiteColor()
         gameOverHighScoreLabel.fontName = "BigNoodleTitling"
-        gameOverHighScoreLabel.fontSize = 16
+        gameOverHighScoreLabel.fontSize = 20
         gameOverHighScoreLabel.zPosition = 5
         gameOverHighScoreLabel.text = "Your High Score: " + String(prevHighScore)
         self.addChild(gameOverHighScoreLabel)
@@ -903,14 +903,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     let gameOverScoreLabel = SKLabelNode(text: "")
 
     func setupGameOverLabels() {
-        gameOverLabel.position = CGPointMake(self.size.width/2, self.size.height/2);
-        gameOverLabel.horizontalAlignmentMode = .Center
-        gameOverLabel.fontColor = UIColor.whiteColor()
-        gameOverLabel.fontName = "BigNoodleTitling"
-        gameOverLabel.fontSize = 22
-        gameOverLabel.zPosition = 5
-        self.addChild(gameOverLabel)
-        gameOverScoreLabel.position = CGPointMake(self.size.width/2, self.size.height/2 + gameOverLabel.frame.height);
+        gameOverScoreLabel.position = CGPointMake(self.size.width/2, self.size.height/2);
         gameOverScoreLabel.horizontalAlignmentMode = .Center
         gameOverScoreLabel.fontColor = UIColor.whiteColor()
         gameOverScoreLabel.fontName = "BigNoodleTitling"
@@ -918,11 +911,19 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         gameOverScoreLabel.zPosition = 5
         gameOverScoreLabel.text = "Score " + String(score)
         self.addChild(gameOverScoreLabel)
+        
+        gameOverLabel.position = CGPointMake(self.size.width/2, self.size.height/2 + gameOverScoreLabel.frame.height + 5);
+        gameOverLabel.horizontalAlignmentMode = .Center
+        gameOverLabel.fontColor = UIColor.yellowColor()
+        gameOverLabel.fontName = "BigNoodleTitling"
+        gameOverLabel.fontSize = 30
+        gameOverLabel.zPosition = 5
+        self.addChild(gameOverLabel)
     }
     
     func setUpGameOverStar() {
         self.shapeController.setUpSpecialShape(gameOverStar, scale: shapeScaleFactor)
-        gameOverStar.position = CGPointMake(self.size.width/2, self.size.height/2 - self.gameOverLabel.frame.height);
+        gameOverStar.position = CGPointMake(self.size.width/2, self.size.height/2 - self.gameOverLabel.frame.height - 5);
         gameOverStar.name = "gameOverStar"
         self.addChild(gameOverStar)
     }

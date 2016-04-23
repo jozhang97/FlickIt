@@ -53,6 +53,7 @@ class RulesScene: SKScene {
         caption.color = UIColor.yellowColor()
         caption.position = CGPoint(x: self.frame.width/2, y: self.frame.height*3/4)
         caption.fontSize = 20
+        caption.zPosition = 1
         self.addChild(caption)
         
         playVideo()
@@ -72,7 +73,7 @@ class RulesScene: SKScene {
     }
     
     func changeTextMethod () {
-        i++
+        i += 1
         //        if strings[0] == strings[i % strings.count] {
         //            timer.invalidate()
         //            i = 0
@@ -92,7 +93,7 @@ class RulesScene: SKScene {
                                                          object: player.currentItem)
         let video2 = SKVideoNode(AVPlayer: player)
         video2.position = CGPoint(x: self.size.width * 1/2, y: self.size.height * 1/2)
-        //        video2.zPosition = 1
+        video2.zPosition = 1
         video2.setScale(0.64)
         self.addChild(video2)
         video2.play()
