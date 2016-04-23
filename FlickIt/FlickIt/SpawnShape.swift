@@ -13,7 +13,7 @@ class SpawnShape
 
     let specialShapes = ["bomb", "heart"]
     var shapeCounter = [0,0,0,0,0,0]
-    let delayTime = 2.0 // time between spawns
+    let delayTime = 1.7 // time between spawns
     var range = 100.0 //range of X velocities
     let UPPERRANGEBOUND = 300.0;
     let LOWESTBOUND = CGFloat(100.0)
@@ -187,9 +187,9 @@ class SpawnShape
         X_VELOCITY_RANGE = CGFloat(range)
         Y_VELOCITY_RANGE = CGFloat(1.5*range)
         var shape = SKNode()
-        if((shapeCounter.reduce(0,combine: +) > 0) &&
-            Int(arc4random_uniform(UInt32(specialShapeProbability))) < 500){
-            if(Int(arc4random_uniform(2)) == 0){
+        if((shapeCounter.reduce(0,combine: +) > 10) &&
+            Int(arc4random_uniform(UInt32(specialShapeProbability))) < 200){ // special shape 20% of time initially, at end of game, this value is 33%
+            if(Int(arc4random_uniform(5)) != 0){ // 80% chance for bomb, 20% for heart
                 shapePicker=Int(4)
                 shape=SKSpriteNode(imageNamed: specialShapes[0])
                 shape=shape as SKNode
@@ -225,7 +225,7 @@ class SpawnShape
             dy = Y_VELOCITY_RANGE*dy - Y_VELOCITY_RANGE/2
         }
         if(shape.name == "heart"){
-            shape.physicsBody?.velocity = CGVectorMake(1.5*dx, 1.5*dy)
+            shape.physicsBody?.velocity = CGVectorMake(2*dx, 2*dy)
         }
         else{
             shape.physicsBody?.velocity = CGVectorMake(dx, dy)
