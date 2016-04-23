@@ -23,12 +23,17 @@ class RulesScene: SKScene {
     var start = CGPoint();
     var swipe = UISwipeGestureRecognizer();
     var bgImage = SKSpriteNode(imageNamed: "flickitbg")
-    //var video: SKVideoNode = SKVideoNode(fileNamed: "FlickItDemo3")
+    var i = 0;
+    var timer: NSTimer = NSTimer()
+    var strings = ["There's 4 basic shapes that will enter the screen...", "Flick them into the proper bins they belong to!", "Earn as many points as you can with 3 lives!", "Avoid bombs and use hearts to get extra lives!", "Swipe to Play"]
+    
     
     override init(size: CGSize) {
         super.init(size: size)
         createScene()
     }
+
+    
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -36,12 +41,10 @@ class RulesScene: SKScene {
     
 
     func createScene () {
-        
         numTouches = 0;
-        
         rules.text = "How to Play"
         rules.color = UIColor.whiteColor()
-        rules.position = CGPoint(x: self.frame.width/2, y: self.frame.height*3.5/4)
+        rules.position = CGPoint(x: self.frame.width/2, y: self.frame.height*1/4)
         rules.fontSize = 30
         rules.zPosition = 3
         self.addChild(rules)
@@ -56,30 +59,16 @@ class RulesScene: SKScene {
 //        screenImage.size = CGSize(width: self.size.width * 2/3, height: self.size.height * 1/2)
 //        self.addChild(screenImage)
 //
-        let fileURL: NSURL = NSURL.fileURLWithPath(NSBundle.mainBundle().pathForResource("FlickItDemo3", ofType: "mp4")!)
-        player = AVPlayer(URL: fileURL)
+
         
-        
-        player.actionAtItemEnd =
-        
-        
-        let action1 = SKAction.runBlock(restartVideo)
-        let action = SKAction.sequence([action1, SKAction.waitForDuration(15)])
-        self.addChild(video)
-        SKAction.repeatActionForever(action)
-    
-        
-        print("playing video")
-        print("VIDEOOOO")
-//        [video, play];
-//        video.paused = NO;
-        
+        playVideo()
         
         bgImage.size = CGSize(width: self.size.width, height: self.size.height);
         bgImage.position = CGPointMake(self.size.width/2, self.size.height/2);
         bgImage.zPosition = 0;
         
 //        self.addChild(bgImage)
+        /*
         var i = 0;
         var strings = [“askjll”, “aksdh”, “akfldj;”, “askfjal”]
         var timer: NSTimer
@@ -90,19 +79,53 @@ class RulesScene: SKScene {
             //should put a pause of 10 seconds here for flicking period
         
         
+        */
+        timer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: Selector("changeTextMethod"), userInfo: nil, repeats: true)
+        //should put a pause of 10 seconds here for flicking period
         
         addSwipe()
         track()
         
     }
-    var player: AVPlayer = AVPlayer()
-    var video: SKVideoNode = SKVideoNode()
-
+    
+    func changeTextMethod () {
+        i++
+        //        if strings[0] == strings[i % strings.count] {
+        //            timer.invalidate()
+        //            i = 0
+        //            self.timer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: Selector("changeTextMethod"), userInfo: nil, repeats: true)
+        //        }
+        caption.text = strings[i % strings.count]
+    }
+    
+    
+    func playVideo() {
+        let fileURL: NSURL = NSURL.fileURLWithPath(NSBundle.mainBundle().pathForResource("FlickItDemo", ofType: "mp4")!)
+        let player = AVPlayer(URL: fileURL)
+        player.actionAtItemEnd = AVPlayerActionAtItemEnd.None
+        NSNotificationCenter.defaultCenter().addObserver(self,
+                                                         selector: "playerItemDidReachEnd:",
+                                                         name: AVPlayerItemDidPlayToEndTimeNotification,
+                                                         object: player.currentItem)
+        let video2 = SKVideoNode(AVPlayer: player)
+        video2.position = CGPoint(x: self.size.width * 1/2, y: self.size.height * 1/2)
+        //        video2.zPosition = 1
+        video2.setScale(0.64)
+        self.addChild(video2)
+        video2.play()
+    }
+    
+    /*
     func changeTextMethod () {
         i++
         textLabel.text = strings[i % strings.size]
     }
-    
+     */
+    func playerItemDidReachEnd(notification: NSNotification) {
+        if let playerItem: AVPlayerItem = notification.object as? AVPlayerItem {
+            playerItem.seekToTime(kCMTimeZero)
+        }
+    }
     
     func toNextScreen () {
         //if thing flicked in the screen
@@ -110,15 +133,7 @@ class RulesScene: SKScene {
         //go to next screen and remove all objects
     }
     
-    func restartVideo() {
-        video.removeFromParent()
-        video = SKVideoNode(AVPlayer: player)
-        video.position = CGPointMake(self.size.width * 1/2, self.size.height * 1/2)
-        video.size = CGSizeMake(self.size.width * 2/3, self.size.height * 1/2)
-        video.zPosition = 100
-        self.addChild(video)
-        video.play()
-    }
+
 //
 //    func playVideo() {
 //        let path = NSBundle.mainBundle().pathForResource("FlickItDemo3", ofType:"mov")
