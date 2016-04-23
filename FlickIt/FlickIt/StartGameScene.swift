@@ -20,12 +20,12 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     
     var bomb = SKSpriteNode(imageNamed: "bomb.png")
     var hand = SKSpriteNode(imageNamed: "hand_icon")
-    var showHand = 0;
-    var touching = false;
+    var showHand = 0
+    var touching = false
     
-    var bgImage = SKSpriteNode(imageNamed: "background.png");
+    var bgImage = SKSpriteNode(imageNamed: "background.png")
 
-    var bin_1_pos = 1;
+    var bin_1_pos = 1
     
     //var bin_1 = SKSpriteNode(imageNamed: "blue_bin_t.png"); // all bins are facing bottom right corner
     //var bin_2 = SKSpriteNode(imageNamed: "red_bin_t.png");
@@ -36,10 +36,10 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     var bin_3 = SKShapeNode()
     var bin_4 = SKShapeNode()
     
-    var bin_1_shape = SKSpriteNode(imageNamed: "pentagonOutline"); //change this to differently oriented triangles
-    var bin_2_shape = SKSpriteNode(imageNamed: "squareOutline");
-    var bin_3_shape = SKSpriteNode(imageNamed: "circleOutline");
-    var bin_4_shape = SKSpriteNode(imageNamed: "triangleOutline");
+    var bin_1_shape = SKSpriteNode(imageNamed: "pentagonOutline") //change this to differently oriented triangles
+    var bin_2_shape = SKSpriteNode(imageNamed: "squareOutline")
+    var bin_3_shape = SKSpriteNode(imageNamed: "circleOutline")
+    var bin_4_shape = SKSpriteNode(imageNamed: "triangleOutline")
     
     var bin_3_shape_width = CGFloat(1024)
     var bin_1_width = CGFloat(85)
@@ -60,22 +60,22 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     let bins = ["bin_1", "bin_2", "bin_3", "bin_4"]
     
     var start=CGPoint();
-    var startTimeOfTouch=NSTimeInterval();
+    var startTimeOfTouch=NSTimeInterval()
     let kMinDistance=CGFloat(20)
     let kMinDuration=CGFloat(0)
     let kMaxSpeed=CGFloat(200)
     var scoreLabel=SKLabelNode()
     var livesLabel = SKLabelNode()
-    var time : CFTimeInterval = 2;
-    var shapeToAdd = SKNode();
-    var touched:Bool = false;
-    var shapeController = SpawnShape();
-    var gameSceneController = GameScene();
-    var restartBTN = SKSpriteNode();
+    var time : CFTimeInterval = 2
+    var shapeToAdd = SKNode()
+    var touched:Bool = false
+    var shapeController = SpawnShape()
+    var gameSceneController = GameScene()
+    var restartBTN = SKSpriteNode()
     var gameOver = false; // SET THESE
     var oldVelocities = [SKNode: CGVector]()
-    var binWidth = CGFloat(0);
-    var shapeScaleFactor = CGFloat(0);
+    var binWidth = CGFloat(0)
+    var shapeScaleFactor = CGFloat(0)
     var audioPlayer = AVAudioPlayer()
     var audioPlayer2 = AVAudioPlayer()
     var arePaused = false
@@ -83,14 +83,16 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     var aud2exists: Bool = false
     let sizeRect = UIScreen.mainScreen().applicationFrame;
     var line = SKShapeNode()
-    var touchedNode=SKNode();
+    var touchedNode=SKNode()
+    
+    var doubleShapeProbability = 300
     
     var timeBegan = NSDate()
     var appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     // Actual dimensions of the screen
-    var sceneHeight = CGFloat(0);
-    var sceneWidth = CGFloat(0);
+    var sceneHeight = CGFloat(0)
+    var sceneWidth = CGFloat(0)
     
     override init(size: CGSize) {
         super.init(size: size)
@@ -574,7 +576,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
                     shapeToAdd = self.shapeController.spawnShape();
                     shapeToAdd.position = CGPointMake(self.size.width/2, self.size.height/2);
                     self.addChild(shapeToAdd);
-                    if(score > 30 && Int(arc4random_uniform(3)) == 0){
+                    if(score > 30 && Int(arc4random_uniform(UInt32(doubleShapeProbability))) <= 100){
                         //change above value for difficulty purposes!!!!!!!!
                         delay(0.2) { // spawning at exactly the same time was too hard
                             self.shapeToAdd = self.shapeController.spawnShape();
@@ -589,6 +591,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
                     //            timeRequired = max(timeRequired - timeSpeedUpFactor, minTimeRequired)
                     timeRequired = max(timeRequired * multiplicativeSpeedUpFactor, minTimeRequired)
                     //                self.shapeController.specialShapeProbability = max(Int(multiplicativeSpeedUpFactor * Double( self.shapeController.specialShapeProbability)), self.shapeController.sShapeProbabilityBound)
+                    doubleShapeProbability = max(doubleShapeProbability - 4, 200)
+                    
                     self.shapeController.specialShapeProbability = max(self.shapeController.specialShapeProbability - 4, self.shapeController.sShapeProbabilityBound)
                     multiplicativeSpeedUpFactor -= 0.005
                 }

@@ -89,7 +89,7 @@ class SpawnShape
     }
     
     func createSquare() -> SKShapeNode {
-        let rect: CGRect = CGRectMake(-sizeRect.size.width/12, -sizeRect.size.width/12, sizeRect.size.width/6, sizeRect.size.width/6)
+        let rect: CGRect = CGRectMake(-sizeRect.size.width/12, -sizeRect.size.width/12, sizeRect.size.width/6.5, sizeRect.size.width/6.5)
         let square = SKShapeNode()
         square.path = squarePath(rect)
         square.strokeColor = green
@@ -102,8 +102,6 @@ class SpawnShape
     
     
     func createCircle() -> SKShapeNode {
-        let sceneHeight = sizeRect.size.height * UIScreen.mainScreen().scale;
-        let sceneWidth = sizeRect.size.width * UIScreen.mainScreen().scale;
         let circle = SKShapeNode()
         circle.path = self.circlePath()
         circle.strokeColor = blue
@@ -126,7 +124,7 @@ class SpawnShape
     }
     
     func createTriangle () -> SKShapeNode {
-        let rect: CGRect = CGRectMake(0, 0, sizeRect.size.width/6, sizeRect.size.width/6)
+        let rect: CGRect = CGRectMake(0, 0, sizeRect.size.width/5.5, sizeRect.size.width/5.5)
         let triangle = SKShapeNode()
         triangle.path = self.triangleInRect(rect)
         triangle.strokeColor = purple
