@@ -23,7 +23,7 @@ class RulesScene: SKScene {
     var start = CGPoint();
     var swipe = UISwipeGestureRecognizer();
     var bgImage = SKSpriteNode(imageNamed: "flickitbg")
-    var video: SKVideoNode = SKVideoNode(fileNamed: "FlickItDemo3.mov")
+    //var video: SKVideoNode = SKVideoNode(fileNamed: "FlickItDemo3")
     
     override init(size: CGSize) {
         super.init(size: size)
@@ -34,6 +34,7 @@ class RulesScene: SKScene {
         fatalError("init(coder:) has not been implemented")
     }
     
+
     func createScene () {
         
         numTouches = 0;
@@ -55,12 +56,20 @@ class RulesScene: SKScene {
 //        screenImage.size = CGSize(width: self.size.width * 2/3, height: self.size.height * 1/2)
 //        self.addChild(screenImage)
 //
-        video.position = CGPoint(x: self.size.width * 1/2, y: self.size.height * 1/2)
-        video.size = CGSize(width: self.size.width * 2/3, height: self.size.height * 1/2)
-        video.zPosition = 100
+        let fileURL: NSURL = NSURL.fileURLWithPath(NSBundle.mainBundle().pathForResource("FlickItDemo3", ofType: "mp4")!)
+        player = AVPlayer(URL: fileURL)
+        
+        
+        player.actionAtItemEnd =
+        
+        
+        let action1 = SKAction.runBlock(restartVideo)
+        let action = SKAction.sequence([action1, SKAction.waitForDuration(15)])
         self.addChild(video)
+        SKAction.repeatActionForever(action)
+    
+        
         print("playing video")
-        video.play()
         print("VIDEOOOO")
 //        [video, play];
 //        video.paused = NO;
@@ -71,13 +80,46 @@ class RulesScene: SKScene {
         bgImage.zPosition = 0;
         
 //        self.addChild(bgImage)
+        var i = 0;
+        var strings = [“askjll”, “aksdh”, “akfldj;”, “askfjal”]
+        var timer: NSTimer
+        
+    
+        textLabel.text = strings[0]
+        timer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: Selector(“changeTextMethod"), userInfo: nil, repeats: true)
+            //should put a pause of 10 seconds here for flicking period
+        
+        
         
         addSwipe()
         track()
         
     }
+    var player: AVPlayer = AVPlayer()
+    var video: SKVideoNode = SKVideoNode()
 
-//    
+    func changeTextMethod () {
+        i++
+        textLabel.text = strings[i % strings.size]
+    }
+    
+    
+    func toNextScreen () {
+        //if thing flicked in the screen
+        //stop timer
+        //go to next screen and remove all objects
+    }
+    
+    func restartVideo() {
+        video.removeFromParent()
+        video = SKVideoNode(AVPlayer: player)
+        video.position = CGPointMake(self.size.width * 1/2, self.size.height * 1/2)
+        video.size = CGSizeMake(self.size.width * 2/3, self.size.height * 1/2)
+        video.zPosition = 100
+        self.addChild(video)
+        video.play()
+    }
+//
 //    func playVideo() {
 //        let path = NSBundle.mainBundle().pathForResource("FlickItDemo3", ofType:"mov")
 //        let url = NSURL.fileURLWithPath(path!)
@@ -187,6 +229,11 @@ class RulesScene: SKScene {
             handleSwipe(swipe)
         }
         start = CGPoint(x: self.size.width/2, y: self.size.height/2)
+    }
+    
+    func delay(delay:Double, closure:()->()) {
+        dispatch_after(
+            dispatch_time( DISPATCH_TIME_NOW, Int64(delay * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), closure)
     }
     
 }

@@ -225,7 +225,7 @@ class SpawnShape
             dy = Y_VELOCITY_RANGE*dy - Y_VELOCITY_RANGE/2
         }
         if(shape.name == "heart"){
-            shape.physicsBody?.velocity = CGVectorMake(1.5*dx, 1.5*dy)
+            shape.physicsBody?.velocity = CGVectorMake(2*dx, 2*dy)
         }
         else{
             shape.physicsBody?.velocity = CGVectorMake(dx, dy)
