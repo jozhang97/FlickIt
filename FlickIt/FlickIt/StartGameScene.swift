@@ -519,13 +519,33 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
                     self.removeAllChildren()
                     self.goToHome()
                 } else if (binName == "highScore") {
-                    print("go to high")
+                    pressedHighScore()
 //                    showLeaderboard()
                 } else if (binName == "settings") {
-                    print("go to settings")
+                    pressedSettings()
                 }
             }
         }
+    }
+    func pressedHighScore() {
+        let alert = UIAlertController(title: "Global High Scores", message: "Coming out soon!", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.Default, handler: nil))
+        let vc = self.view!.window?.rootViewController
+        vc!.presentViewController(alert, animated: true, completion: nil)
+        self.restart_star.removeFromParent()
+        self.restart_star.physicsBody?.velocity = CGVectorMake(0, 0)
+        self.restart_star.position = CGPointMake(self.size.width/2, self.size.height/2 - self.gameOverLabel.frame.height*2);
+        self.addChild(restart_star)
+    }
+    func pressedSettings() {
+        let alert = UIAlertController(title: "Settings", message: "Coming out soon!", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.Default, handler: nil))
+        let vc = self.view!.window?.rootViewController
+        vc!.presentViewController(alert, animated: true, completion: nil)
+        self.restart_star.removeFromParent()
+        self.restart_star.physicsBody?.velocity = CGVectorMake(0, 0)
+        self.restart_star.position = CGPointMake(self.size.width/2, self.size.height/2 - self.gameOverLabel.frame.height*2);
+        self.addChild(restart_star)
     }
     
     func goToHome() {
@@ -745,15 +765,15 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         }
         if gameOver {
             if bin_1_shape.containsPoint(location) {
+                pressedHighScore()
             } else if bin_2_shape.containsPoint(location) {
                 restartScene()
             } else if bin_3_shape.containsPoint(location) {
                 self.removeAllChildren()
                 self.goToHome()
             } else if bin_4_shape.containsPoint(location) {
-                
+                pressedSettings()
             }
-            
         }
         delay(0.5) {
             if (self.gameOver && self.showHand > 2) {
@@ -778,7 +798,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        if ((!arePaused) && self.nodeAtPoint(start).name != nil && touching) {
+        if ((!arePaused) && self.nodeAtPoint(start).name != nil && touching && self.nodeAtPoint(start).physicsBody?.categoryBitMask != PhysicsCategory.Bin) {
             for touch in touches{
                 self.removeChildrenInArray([line])
                 let currentLocation=touch.locationInNode(self)
@@ -1057,25 +1077,25 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         muteLabel.fontColor=UIColor.whiteColor()
         muteLabel.position=CGPointMake(self.frame.width/2, 8*self.frame.height/12)
         muteLabel.fontName = "BigNoodleTitling"
-        muteLabel.zPosition = 6
+        muteLabel.zPosition = 7
         self.addChild(muteLabel)
         restartLabel.text = "Restart"
         restartLabel.fontColor=UIColor.whiteColor()
         restartLabel.position=CGPointMake(self.frame.width/2, 4*self.frame.height/12)
         restartLabel.fontName = "BigNoodleTitling"
-        restartLabel.zPosition = 6
+        restartLabel.zPosition = 7
         self.addChild(restartLabel)
         homeLabel.text = "Home"
         homeLabel.fontColor=UIColor.whiteColor()
         homeLabel.position=CGPointMake(self.frame.width/2, 6*self.frame.height/12)
         homeLabel.fontName = "BigNoodleTitling"
-        homeLabel.zPosition = 6
+        homeLabel.zPosition = 7
         self.addChild(homeLabel)
 //        addThemeSettingLabel()
         pauseBackground = SKShapeNode(rectOfSize: CGSize(width: 11 * self.size.width/16, height: 8 * self.size.height/16))
         pauseBackground.fillColor = UIColor(red: 82/255, green: 167/255, blue: 178/255, alpha: 0.5)
         pauseBackground.position = CGPointMake(self.size.width/2, self.size.height/2);
-        pauseBackground.zPosition = 4
+        pauseBackground.zPosition = 6
         self.addChild(pauseBackground)
         freezeShapes()
         
