@@ -178,7 +178,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 //        self.addChild(startIcon)
         self.addChild(muteButton)
         self.addChild(aboutIcon)
-        delay(0.1) {
+        delay(0.5) {
             self.animateBinsAtStart()
             self.delay(0.5) {
                 let fadeAction = SKAction.fadeAlphaTo(1, duration: 2)
@@ -266,7 +266,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         // Set names for the launcher so that we can check what node is touched in the touchesEnded method
         star.name = "launch star";
         //could randomize rotation here
-        star.runAction(SKAction.rotateByAngle(CGFloat(2*M_PI), duration: 5))
+        star.runAction(SKAction.rotateByAngle(CGFloat(4*M_PI), duration: 70))
     }
     
     func setupStarPhysics() {
