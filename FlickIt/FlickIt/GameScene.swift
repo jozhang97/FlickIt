@@ -28,6 +28,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     //variables that construct the Home Game Scene
     let titleLabel = SKLabelNode(text: "FLICK IT")
     let startIcon = SKSpriteNode(imageNamed: "playIcon.png")
+    let startLabel = SKLabelNode(text: "START")
     let aboutIcon = SKSpriteNode(imageNamed: "about1.png")
     let rulesIcon = SKSpriteNode(imageNamed: "rules1.png")
     let topLeft = SKShapeNode()
@@ -162,7 +163,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         bottomRight.zPosition = 3
         aboutIcon.zPosition = 3
         muteButton.zPosition = 3
+//        startLabel.zposition = 3
         star.zPosition = 4
+        self.addChild(startLabel)
         
         // Add all the elements to the screen
         self.addChild(star)
@@ -172,7 +175,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         self.addChild(bottomRight)
         self.addChild(titleLabel)
         self.addChild(rulesIcon)
-        self.addChild(startIcon)
+//        self.addChild(startIcon)
         self.addChild(muteButton)
         self.addChild(aboutIcon)
         delay(0.1) {
@@ -288,9 +291,12 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     }
     
     func setupStartLabel(rad: CGFloat) {
-        startIcon.position = CGPointMake(self.size.width/8, self.size.height*18.5/20)
-        startIcon.xScale = 0.30
-        startIcon.yScale = 0.30
+        startLabel.position = CGPointMake(self.size.width/8, self.size.height*18/20)
+        startLabel.fontName = "BigNoodleTitling"
+        startLabel.fontSize = 30
+        
+//        startIcon.xScale = 0.30
+//        startIcon.yScale = 0.30
     }
     
     func setupRulesLabel(rad: CGFloat) {
@@ -526,8 +532,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         }
         self.hand.removeFromParent()
         self.hand.position = CGPoint(x: self.size.width / 2, y: self.size.height / 2)
-        self.hand.xScale = 1
-        self.hand.yScale = 1
+        self.hand.xScale = 0.25
+        self.hand.yScale = 0.25
         self.hand.zPosition = 3
         self.addChild(self.hand)
         let move = SKAction.moveTo(CGPoint(x: self.size.width * 7 / 8, y: self.size.height * 1 / 8), duration: 1.5)
