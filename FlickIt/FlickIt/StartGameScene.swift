@@ -1008,7 +1008,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(homeLabel)
 //        addThemeSettingLabel()
         pauseBackground = SKShapeNode(rectOfSize: CGSize(width: 11 * self.size.width/16, height: 8 * self.size.height/16))
-        pauseBackground.fillColor = UIColor(red: 70/255, green: 80/255, blue: 160/255, alpha: 0.5)
+        pauseBackground.fillColor = UIColor(red: 82/255, green: 167/255, blue: 178/255, alpha: 0.5)
         pauseBackground.position = CGPointMake(self.size.width/2, self.size.height/2);
         pauseBackground.zPosition = 4
         self.addChild(pauseBackground)

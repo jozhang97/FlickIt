@@ -43,7 +43,7 @@ class RulesScene: SKScene {
     func createScene () {
         numTouches = 0;
         rules.text = "How to Play"
-        rules.color = UIColor.whiteColor()
+        rules.color = UIColor.yellowColor()
         rules.position = CGPoint(x: self.frame.width/2, y: self.frame.height*1/4)
         rules.fontSize = 40
         rules.zPosition = 3
