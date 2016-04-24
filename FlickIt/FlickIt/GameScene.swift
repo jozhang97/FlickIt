@@ -14,7 +14,7 @@ struct PhysicsCategory {
     static let Shape : UInt32 = 0x1 << 2
 }
 
-class GameScene: SKScene {
+class GameScene: SKScene , SKPhysicsContactDelegate {
     //variables needed for flicking
     var start = CGPoint()
     var startTime = NSTimeInterval()
@@ -47,12 +47,12 @@ class GameScene: SKScene {
     var muteButton = SKSpriteNode(imageNamed: "playNow.png")
     var audioPlayer = AVAudioPlayer()
     var firstCounter = 0
+    var collisionBool = false
     
     override func didMoveToView(view: SKView) {
         createHomeScreen()
         playMusic("intromusic", type: "mp3")
     }
-    
     func checkMute() {
         if (appDelegate.muted == true) {
             self.audioPlayer.volume = 0
@@ -98,13 +98,14 @@ class GameScene: SKScene {
             muteButton = SKSpriteNode(imageNamed: "playNow.png")
         }
         
+        self.physicsWorld.contactDelegate = self
+        
         trackHome()
         
         //create triangle SKShapeNode
         createStar()
         
         //setup Physics stuff of triangle SKShapeNode
-        setupStarPhysics()
         
         // Create and add title to home screen
         setupTitleLabel()
@@ -119,6 +120,21 @@ class GameScene: SKScene {
         addCurvedLines(bottomLeft, dub1: M_PI, dub2: M_PI*3/2, bol: true, arch: Double(self.view!.bounds.height/2  - radius), radi: radius, color: green)
         addCurvedLines(bottomRight, dub1: M_PI*3/2, dub2: M_PI*2, bol: true, arch: Double(self.view!.bounds.height/2  - radius), radi: radius, color: purple)
         
+        topRight.physicsBody = SKPhysicsBody(circleOfRadius: radius)
+        topLeft.physicsBody = SKPhysicsBody(circleOfRadius: radius)
+        bottomLeft.physicsBody = SKPhysicsBody(circleOfRadius: radius)
+        bottomRight.physicsBody = SKPhysicsBody(circleOfRadius: radius)
+        
+        topRight.physicsBody?.affectedByGravity = false
+        topLeft.physicsBody?.affectedByGravity = false
+        bottomLeft.physicsBody?.affectedByGravity = false
+        bottomRight.physicsBody?.affectedByGravity = false
+
+        
+        topRight.name = "topRight"
+        topLeft.name = "topLeft"
+        bottomRight.name = "bottomRight"
+        bottomLeft.name = "bottomLeft"
         
         // Sets bg image to fill the entire screen
         self.view!.backgroundColor = UIColor.blackColor()
@@ -172,6 +188,14 @@ class GameScene: SKScene {
                 self.titleLabel.runAction(moveLabel)
             }
         }
+    }
+    
+    func setUpBinsPhysicsBody(bin: SKShapeNode) {
+        bin.physicsBody?.dynamic=false
+        bin.physicsBody?.affectedByGravity = false
+        bin.physicsBody?.categoryBitMask=PhysicsCategory.Bin
+        bin.physicsBody?.collisionBitMask=PhysicsCategory.Shape
+        bin.physicsBody?.contactTestBitMask=PhysicsCategory.Shape
     }
     
     func setupAboutLabel() {
@@ -247,6 +271,10 @@ class GameScene: SKScene {
         star.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: star.frame.width, height: star.frame.height))
         star.physicsBody?.dynamic = true
         star.physicsBody?.affectedByGravity=false
+        star.physicsBody?.categoryBitMask = PhysicsCategory.Shape
+        star.physicsBody?.collisionBitMask=PhysicsCategory.Bin
+        star.physicsBody?.contactTestBitMask=PhysicsCategory.Bin
+
     }
     
     func setupTitleLabel() {
@@ -276,6 +304,47 @@ class GameScene: SKScene {
         muteButton.size = CGSize(width: self.size.width/5, height: self.size.height/10);
     }
     
+    func didBeginContact(contact: SKPhysicsContact){
+        if(collisionBool) {
+            var firstBody=contact.bodyA
+            var secondBody=contact.bodyB
+            if(firstBody.categoryBitMask==PhysicsCategory.Bin && secondBody.categoryBitMask==PhysicsCategory.Shape){
+                firstBody=contact.bodyB
+                secondBody=contact.bodyA
+            }
+            if (firstBody.categoryBitMask==PhysicsCategory.Shape && secondBody.categoryBitMask==PhysicsCategory.Bin){
+                if(secondBody.node!.name == "topLeft"){
+                    self.removeAllChildren();
+                    self.startGame();
+                    self.star.position.y = 0
+                }
+                else if(secondBody.node!.name == "topRight"){
+                    self.removeAllChildren();
+                    self.startAbout();
+                    self.star.position.y = 0
+                }
+                else if(secondBody.node!.name == "bottomLeft"){
+                    if self.appDelegate.muted == false {  //MUTE IT
+                        self.muteIt()
+                    }
+                    else if self.appDelegate.muted == true { //UNMUTE IT
+                        self.unmuteIt()
+                    }
+                    self.star.removeFromParent()
+                    self.star.physicsBody?.velocity = CGVectorMake(0, 0)
+                    self.star.position = CGPointMake(self.size.width/2, self.size.height/2)
+                    self.addChild(star)
+                }
+                else if(secondBody.node!.name == "bottomRight"){
+                    self.removeAllChildren();
+                    self.goToRules();
+                    self.star.position.y = 0
+                }
+            }
+        }
+        
+    }
+    
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
        /* Called when a touch begins */
         let touch: UITouch = touches.first!
@@ -291,6 +360,9 @@ class GameScene: SKScene {
             else if appDelegate.muted == true { //UNMUTE IT
                 unmuteIt()
             }
+            self.star.position = CGPointMake(self.size.width/2, self.size.height/2)
+            self.star.physicsBody?.velocity = CGVectorMake(0, 0)
+
         } else if aboutIcon.containsPoint(location) {
             startAbout()
         } else if startIcon.containsPoint(location) {
@@ -328,7 +400,7 @@ class GameScene: SKScene {
             let touchedNode=self.nodeAtPoint(start)
             //make it move
             touchedNode.physicsBody?.velocity=CGVectorMake(0.0, 0.0)
-            touchedNode.physicsBody?.applyImpulse(CGVectorMake(100*dx, 100*dy))
+            touchedNode.physicsBody?.applyImpulse(CGVectorMake(400*dx, 400*dy))
         }
     }
     
@@ -363,54 +435,34 @@ class GameScene: SKScene {
     }
     
     func animateBinsAtStart() {
-        let rotate = SKAction.rotateByAngle(CGFloat(M_PI), duration: 0.3);
+        let rotate = SKAction.rotateByAngle(CGFloat(M_PI), duration: 0.5);
         //bin_1.anchorPoint = CGPoint(x: 0, y: 1)
         topRight.runAction(rotate)
-        topRight.runAction(SKAction.moveTo(CGPoint(x: self.size.width, y: self.size.height), duration: 0.3))
+        topRight.runAction(SKAction.moveTo(CGPoint(x: self.size.width, y: self.size.height), duration: 0.5))
         
         topLeft.runAction(rotate)
-        topLeft.runAction(SKAction.moveTo(CGPoint(x: 0, y: self.size.height), duration: 0.3))
+        topLeft.runAction(SKAction.moveTo(CGPoint(x: 0, y: self.size.height), duration: 0.5))
         
         bottomLeft.runAction(rotate)
-        bottomLeft.runAction(SKAction.moveTo(CGPoint(x: 0, y: 0), duration: 0.3))
+        bottomLeft.runAction(SKAction.moveTo(CGPoint(x: 0, y: 0), duration: 0.5))
         
         bottomRight.runAction(rotate)
-        bottomRight.runAction(SKAction.moveTo(CGPoint(x: self.size.width, y: 0), duration: 0.3))
+        bottomRight.runAction(SKAction.moveTo(CGPoint(x: self.size.width, y: 0), duration: 0.5))
     }
     
     let timeBeforeHandAppears = 5.0
     var time = 0.0
+    var secondTime = true
+    
     override func update(currentTime: CFTimeInterval) {
-        /* Called before each frame is rendered */
-        let bool1 = star.position.y + star.frame.height/2 >= startIcon.position.y - startIcon.frame.width/5
-        let bool2 = star.position.x - star.frame.width/2 <= startIcon.position.x + startIcon.frame.height/5
-        if (bool1 && bool2){
-            // call method to start game
-            // for now just remove all the elements to show something has happened
-            self.removeAllChildren();
-            self.startGame();
-            star.position.y = 0
-        } else if ((star.position.y >= aboutIcon.position.y - aboutIcon.frame.height/3) && (star.position.x >= aboutIcon.position.x - aboutIcon.frame.width/3)){
-                // call method to about screen
-                // for now just remove all the elements to show something has happened
-            self.removeAllChildren();
-            self.startAbout();
-            star.position.y = 0
-        } else if (star.position.y - star.frame.height/2 <= rulesIcon.position.y && star.position.x - star.frame.width/2 <= self.size.width && star.position.x + star.frame.width/2 >= rulesIcon.position.x - rulesIcon.frame.width/2){
-            // call method to show Rules
-            // for now just remove all the elements to show something has happened
-            self.removeAllChildren();
-            self.goToRules();
-            star.position.y = 0
-        } else if (star.position.y - star.frame.height/2 <= muteButton.position.y && star.position.x - star.frame.width/2 >= 0 && star.position.x + star.frame.width/2 <= muteButton.position.x + muteButton.frame.width){
-            //then mute
-            if appDelegate.muted == false {  //MUTE IT
-                muteIt()
-            }
-            else if appDelegate.muted == true { //UNMUTE IT
-                unmuteIt()
-            }
-            
+        if (secondTime && bottomRight.position == CGPoint(x: self.size.width, y: 0))  {
+            collisionBool = true
+            setupStarPhysics()
+            setUpBinsPhysicsBody(topRight)
+            setUpBinsPhysicsBody(topLeft)
+            setUpBinsPhysicsBody(bottomLeft)
+            setUpBinsPhysicsBody(bottomRight)
+            secondTime = false
         }
         removeOffScreenNodes()
         if (currentTime - time >= timeBeforeHandAppears) {
@@ -478,7 +530,7 @@ class GameScene: SKScene {
         self.hand.yScale = 0.30
         self.hand.zPosition = 3
         self.addChild(self.hand)
-        let move = SKAction.moveTo(CGPoint(x: self.size.width * 6 / 8, y: self.size.height * 2 / 8), duration: 1)
+        let move = SKAction.moveTo(CGPoint(x: self.size.width * 7 / 8, y: self.size.height * 1 / 8), duration: 1.5)
         let remove = SKAction.removeFromParent()
         self.hand.runAction(SKAction.sequence([move, remove]))
     }
