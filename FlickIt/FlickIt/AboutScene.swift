@@ -17,6 +17,7 @@ class AboutScene: SKScene {
     let titleLabel2 = SKLabelNode()
     var audioPlayer = AVAudioPlayer()
     let backButton = SKLabelNode()
+    var groupPic = SKSpriteNode(imageNamed: "FlickItGroup.png")
     var start = 0
     let bgImage = SKSpriteNode(imageNamed: "flickitbg.png")
     
@@ -81,6 +82,11 @@ class AboutScene: SKScene {
         titleLabel2.fontName = "BigNoodleTitling"
         titleLabel2.fontSize = 20
         titleLabel2.zPosition = 3
+        
+        groupPic.position = CGPointMake(self.frame.width/2, self.frame.height/2)
+        groupPic.xScale = 0.3
+        groupPic.yScale = 0.3
+        self.addChild(groupPic)
         
         backButton.text = "BACK"
         backButton.position = CGPointMake(self.frame.width/8, self.frame.height * 7.5/8)

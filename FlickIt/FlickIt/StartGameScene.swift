@@ -787,8 +787,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     func moveHand() {
         self.hand.removeFromParent()
         self.hand.position = CGPoint(x: self.size.width / 2, y: self.size.height / 2)
-        self.hand.xScale = 0.30
-        self.hand.yScale = 0.30
+        self.hand.xScale = 0.25
+        self.hand.yScale = 0.25
         self.hand.zPosition = 3
         self.addChild(self.hand)
         let move = SKAction.moveTo(CGPoint(x: self.size.width * 1 / 8, y: self.size.height * 7 / 8), duration: 1.5)
@@ -872,10 +872,10 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         
         returnBinsToOriginal()
         
-        bin_1_shape.texture = SKTexture(imageNamed:"graphs")
+        bin_1_shape.texture = SKTexture(imageNamed:"highScore")
         bin_2_shape.texture = SKTexture(imageNamed:"refreshArrow")
         bin_3_shape.texture = SKTexture(imageNamed:"house")
-        bin_4_shape.texture = SKTexture(imageNamed:"settingsPic")
+        bin_4_shape.texture = SKTexture(imageNamed:"settings")
         
         bin_1.name = "highScore"
         bin_2.name = "restart"
