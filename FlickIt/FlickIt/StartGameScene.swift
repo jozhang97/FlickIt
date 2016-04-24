@@ -25,6 +25,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     var playingGame = false
     let restart_star = SKShapeNode()
     
+    var justSpawnedDouble = false
+    
     var bgImage = SKSpriteNode(imageNamed: "background.png")
 
     var bin_1_pos = 1
@@ -492,7 +494,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
                     explosionEmitterNode?.zPosition=100
                     if (firstBody.node?.name == secondBody.node?.name) {
                         score += 1
-                        if(score % 5 == 0){ // rotate bins every 5 points
+                        if(score % 10 == 0){ // rotate bins every 10 points
                             self.rotateBins(Int(arc4random_uniform(2) + 1));
                         }
                     } else {
@@ -604,13 +606,20 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
                     shapeToAdd = self.shapeController.spawnShape();
                     shapeToAdd.position = CGPointMake(self.size.width/2, self.size.height/2);
                     self.addChild(shapeToAdd);
-                    if(score > 30 && Int(arc4random_uniform(UInt32(doubleShapeProbability))) <= 100){
-                        //change above value for difficulty purposes!!!!!!!!
-                        delay(0.2) { // spawning at exactly the same time was too hard
-                            self.shapeToAdd = self.shapeController.spawnShape();
-                            self.shapeToAdd.position = CGPointMake(self.size.width/2, self.size.height/2);
-                            self.addChild(self.shapeToAdd);
+                    if (!justSpawnedDouble && score > 25) {
+                        doubleShapeProbability = max(doubleShapeProbability - 4, 200)
+                        
+                        if(Int(arc4random_uniform(UInt32(doubleShapeProbability))) <= 100){
+                            //change above value for difficulty purposes!!!!!!!!
+                            delay(0.2) { // spawning at exactly the same time was too hard
+                                self.shapeToAdd = self.shapeController.spawnShape();
+                                self.shapeToAdd.position = CGPointMake(self.size.width/2, self.size.height/2);
+                                self.addChild(self.shapeToAdd);
+                            }
+                            justSpawnedDouble = true;
                         }
+                    } else {
+                        justSpawnedDouble = false;
                     }
                     //shapeToAdd.physicsBody?.applyImpulse(CGVectorMake(shapeController.dx, shapeController.dy))
                     //self.addChild(self.shapeController.spawnShape());
@@ -619,7 +628,6 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
                     //            timeRequired = max(timeRequired - timeSpeedUpFactor, minTimeRequired)
                     timeRequired = max(timeRequired * multiplicativeSpeedUpFactor, minTimeRequired)
                     //                self.shapeController.specialShapeProbability = max(Int(multiplicativeSpeedUpFactor * Double( self.shapeController.specialShapeProbability)), self.shapeController.sShapeProbabilityBound)
-                    doubleShapeProbability = max(doubleShapeProbability - 4, 200)
                     
                     self.shapeController.specialShapeProbability = max(self.shapeController.specialShapeProbability - 4, self.shapeController.sShapeProbabilityBound)
                     multiplicativeSpeedUpFactor -= 0.005
