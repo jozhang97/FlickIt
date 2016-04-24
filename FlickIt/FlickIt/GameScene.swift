@@ -161,7 +161,7 @@ class GameScene: SKScene {
         self.addChild(aboutIcon)
         delay(0.1) {
             self.animateBinsAtStart()
-            self.delay(3) {
+            self.delay(0.5) {
                 let fadeAction = SKAction.fadeAlphaTo(1, duration: 2)
                 let growAction = SKAction.scaleBy(1.5, duration: 1)
                 let shrinkAction = SKAction.scaleBy(0.8333, duration: 1)
@@ -382,16 +382,16 @@ class GameScene: SKScene {
     var time = 0.0
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
-        let bool1 = star.position.y + star.frame.height/2 >= startIcon.position.y - startIcon.frame.height/2
-        let bool2 = star.position.x - star.frame.width/2 <= startIcon.position.x + startIcon.frame.width/2
+        let bool1 = star.position.y + star.frame.height/2 >= startIcon.position.y - startIcon.frame.width/5
+        let bool2 = star.position.x - star.frame.width/2 <= startIcon.position.x + startIcon.frame.height/5
         if (bool1 && bool2){
             // call method to start game
             // for now just remove all the elements to show something has happened
             self.removeAllChildren();
             self.startGame();
             star.position.y = 0
-        } else if ((star.position.y >= startIcon.position.y - 20) && (star.position.x >= aboutIcon.position.x)){
-                // call method to start game
+        } else if ((star.position.y >= aboutIcon.position.y - aboutIcon.frame.height/3) && (star.position.x >= aboutIcon.position.x - aboutIcon.frame.width/3)){
+                // call method to about screen
                 // for now just remove all the elements to show something has happened
             self.removeAllChildren();
             self.startAbout();
