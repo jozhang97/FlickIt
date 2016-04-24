@@ -64,7 +64,7 @@ class RulesScene: SKScene {
         
         self.addChild(bgImage)
 
-        timer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: Selector("changeTextMethod"), userInfo: nil, repeats: true)
+        timer = NSTimer.scheduledTimerWithTimeInterval(6.7, target: self, selector: Selector("changeTextMethod"), userInfo: nil, repeats: true)
         //should put a pause of 10 seconds here for flicking period
         
         addSwipe()
@@ -84,7 +84,7 @@ class RulesScene: SKScene {
     
     
     func playVideo() {
-        let fileURL: NSURL = NSURL.fileURLWithPath(NSBundle.mainBundle().pathForResource("FlickItDemo", ofType: "mp4")!)
+        let fileURL: NSURL = NSURL.fileURLWithPath(NSBundle.mainBundle().pathForResource("FlickItDemoDone2", ofType: "mov")!)
         let player = AVPlayer(URL: fileURL)
         player.actionAtItemEnd = AVPlayerActionAtItemEnd.None
         NSNotificationCenter.defaultCenter().addObserver(self,

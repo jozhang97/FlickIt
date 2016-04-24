@@ -282,7 +282,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         }
 
         pauseButton.zPosition = 5
-        pauseButton.setScale(0.075)
+        pauseButton.setScale(1)
         pauseButton.name = "pauseButton"
         pauseButton.position = CGPointMake(self.size.width / 2, 15*self.size.height/16)
         self.addChild(pauseButton)
@@ -767,8 +767,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     func moveHand() {
         self.hand.removeFromParent()
         self.hand.position = CGPoint(x: self.size.width / 2, y: self.size.height / 2)
-        self.hand.xScale = 0.30
-        self.hand.yScale = 0.30
+        self.hand.xScale = 1
+        self.hand.yScale = 1
         self.hand.zPosition = 3
         self.addChild(self.hand)
         let move = SKAction.moveTo(CGPoint(x: self.size.width * 1 / 8, y: self.size.height * 7 / 8), duration: 1.5)
