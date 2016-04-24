@@ -795,8 +795,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     func moveHand() {
         self.hand.removeFromParent()
         self.hand.position = CGPoint(x: self.size.width / 2, y: self.size.height / 2)
-        self.hand.xScale = 0.25
-        self.hand.yScale = 0.25
+        self.hand.xScale = self.size.width / 5770
+        self.hand.yScale = self.size.width / 5770
         self.hand.zPosition = 3
         self.addChild(self.hand)
         let move = SKAction.moveTo(CGPoint(x: self.size.width * 1 / 8, y: self.size.height * 7 / 8), duration: 1.5)
