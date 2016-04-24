@@ -91,10 +91,12 @@ class RulesScene: SKScene {
                                                          selector: "playerItemDidReachEnd:",
                                                          name: AVPlayerItemDidPlayToEndTimeNotification,
                                                          object: player.currentItem)
+        player.muted = true
         let video2 = SKVideoNode(AVPlayer: player)
         video2.position = CGPoint(x: self.size.width * 1/2, y: self.size.height * 1/2)
         video2.zPosition = 1
-        video2.setScale(0.64)
+        video2.setScale(self.size.width/610)
+        
         self.addChild(video2)
         video2.play()
     }
@@ -190,13 +192,14 @@ class RulesScene: SKScene {
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         let touch: UITouch = touches.first!
         let location: CGPoint = touch.locationInNode(self)
-        if (start.x - location.x < 0) {
-            swipe.direction = .Right;
-            handleSwipe(swipe)
-        } else if (start.x - location.x > 0) {
+        let dx: CGFloat = location.x - start.x
+        let dy: CGFloat = location.y - start.y
+        let magnitude: CGFloat = sqrt(dx * dx + dy * dy)
+        if (magnitude >= 50){
             swipe.direction = .Left
             handleSwipe(swipe)
         }
+        
         start = CGPoint(x: self.size.width/2, y: self.size.height/2)
     }
     

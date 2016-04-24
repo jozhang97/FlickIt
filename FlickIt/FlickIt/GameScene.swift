@@ -461,7 +461,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     var secondTime = true
     
     override func update(currentTime: CFTimeInterval) {
-        if (secondTime && bottomRight.position == CGPoint(x: self.size.width, y: 0))  {
+        if (secondTime && bottomLeft.position == CGPoint(x: 0, y: 0))  {
             collisionBool = true
             setupStarPhysics()
             setUpBinsPhysicsBody(topRight)

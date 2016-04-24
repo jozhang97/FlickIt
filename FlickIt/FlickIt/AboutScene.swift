@@ -17,18 +17,19 @@ class AboutScene: SKScene {
     let titleLabel2 = SKLabelNode()
     var audioPlayer = AVAudioPlayer()
     let backButton = SKLabelNode()
-    var groupPic = SKSpriteNode(imageNamed: "FlickItGroup.png")
+    let groupPic = SKSpriteNode(imageNamed: "FlickItGroup.png")
     var start = 0
     let bgImage = SKSpriteNode(imageNamed: "flickitbg.png")
-    
+    var selfSizeWidth = CGFloat(0)
+    var selfSizeHeight = CGFloat(0)
     override init(size: CGSize) {
         super.init(size: size)
+        selfSizeWidth = sizeRect.size.height * UIScreen.mainScreen().scale;
+        selfSizeHeight = sizeRect.size.width * UIScreen.mainScreen().scale;
         createDetailsLabel()
-//        sceneHeight = sizeRect.size.height * UIScreen.mainScreen().scale;
-//        sceneWidth = sizeRect.size.width * UIScreen.mainScreen().scale;
 //        shapeScaleFactor = 0.14*self.size.width/bin_3_shape_width
 //        createScene()
-        playMusic("jcena", type: "mp3")
+//       playMusic("jcena", type: "mp3")
         trackAbout()
     }
     
@@ -83,9 +84,10 @@ class AboutScene: SKScene {
         titleLabel2.fontSize = 20
         titleLabel2.zPosition = 3
         
-        groupPic.position = CGPointMake(self.frame.width/2, self.frame.height/2)
+        groupPic.position = CGPointMake(self.size.width/2, self.size.height/2)
         groupPic.xScale = 0.3
         groupPic.yScale = 0.3
+        groupPic.zPosition = 3
         self.addChild(groupPic)
         
         backButton.text = "BACK"
@@ -93,7 +95,7 @@ class AboutScene: SKScene {
         backButton.horizontalAlignmentMode = .Center
         backButton.fontColor = UIColor.whiteColor()
         backButton.fontName = "BigNoodleTitling"
-        backButton.fontSize = 20
+        backButton.fontSize = 30
         backButton.zPosition = 3
         
         bgImage.size = CGSize(width: self.size.width, height: self.size.height);
