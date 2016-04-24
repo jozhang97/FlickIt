@@ -448,24 +448,20 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         
         bottomRight.runAction(rotate)
         bottomRight.runAction(SKAction.moveTo(CGPoint(x: self.size.width, y: 0), duration: 0.5))
-        
-        
     }
     
     let timeBeforeHandAppears = 5.0
     var time = 0.0
-    var secondTime = false
+    var secondTime = true
     
     override func update(currentTime: CFTimeInterval) {
         if (secondTime && bottomRight.position == CGPoint(x: self.size.width, y: 0))  {
             collisionBool = true
             setupStarPhysics()
-            
             setUpBinsPhysicsBody(topRight)
             setUpBinsPhysicsBody(topLeft)
             setUpBinsPhysicsBody(bottomLeft)
             setUpBinsPhysicsBody(bottomRight)
-            
             secondTime = false
         }
         removeOffScreenNodes()
@@ -534,7 +530,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         self.hand.yScale = 0.30
         self.hand.zPosition = 3
         self.addChild(self.hand)
-        let move = SKAction.moveTo(CGPoint(x: self.size.width * 6 / 8, y: self.size.height * 2 / 8), duration: 1)
+        let move = SKAction.moveTo(CGPoint(x: self.size.width * 7 / 8, y: self.size.height * 1 / 8), duration: 1.5)
         let remove = SKAction.removeFromParent()
         self.hand.runAction(SKAction.sequence([move, remove]))
     }

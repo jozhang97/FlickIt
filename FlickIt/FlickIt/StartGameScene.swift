@@ -23,7 +23,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     var showHand = 0;
     var touching = false;
     var playingGame = false
-
+    let restart_star = SKShapeNode()
     
     var bgImage = SKSpriteNode(imageNamed: "background.png")
 
@@ -562,8 +562,10 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
             time = currentTime
         } else if gameOver {
             if didRemoveGameover {
-                gameOverStar.removeFromParent()
-                setUpGameOverStar()
+                restart_star.removeFromParent()
+                createStar()
+                setupStarPhysics()
+                self.addChild(restart_star)
             }
             if currentTime - time >= 5 {
                 if jeffHandCounter > 0 {
@@ -769,7 +771,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         self.hand.yScale = 0.30
         self.hand.zPosition = 3
         self.addChild(self.hand)
-        let move = SKAction.moveTo(CGPoint(x: self.size.width * 3 / 8, y: self.size.height * 5 / 8), duration: 1)
+        let move = SKAction.moveTo(CGPoint(x: self.size.width * 1 / 8, y: self.size.height * 7 / 8), duration: 1.5)
         let remove = SKAction.removeFromParent()
         //self.hand.removeFromParent()
         self.hand.runAction(SKAction.sequence([move, remove]))
@@ -861,7 +863,13 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         bin_4.name = "settings"
         // Add gameover label and star node
         setupGameOverLabels()
-        setUpGameOverStar()
+        
+        createStar()
+        setupStarPhysics()
+        
+        self.addChild(restart_star)
+        
+        //setUpGameOverStar()
         self.removeChildrenInArray([pauseButton])
         // add collision actions
         saveScore(score);
@@ -902,9 +910,72 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         tracker.set(GAIFields.customMetricForIndex(2), value: String(timeElapsed))
     }
     
+    func createStar() {
+        let rect: CGRect = CGRectMake(0, 0, self.size.width/6, self.size.width/6)
+        restart_star.path = self.starPath(0, y: 0, radius: rect.size.width/3, sides: 5, pointyness: 2)
+        restart_star.strokeColor = yellow
+        restart_star.fillColor = yellow
+        restart_star.zPosition = 7
+        restart_star.position = CGPointMake(self.size.width/2, self.size.height/2 - self.gameOverLabel.frame.height*2);
+        // Set names for the launcher so that we can check what node is touched in the touchesEnded method
+        restart_star.name = "gameOverStar";
+        //could randomize rotation here
+        restart_star.runAction(SKAction.rotateByAngle(CGFloat(2*M_PI), duration: 5))
+    }
+    
+    func degree2radian(a:CGFloat)->CGFloat {
+        let b = CGFloat(M_PI) * a/180
+        return b
+    }
+    
+    func polygonPointArray(sides:Int,x:CGFloat,y:CGFloat,radius:CGFloat,adjustment:CGFloat=0)->[CGPoint] {
+        let angle = degree2radian(360/CGFloat(sides))
+        let cx = x // x origin
+        let cy = y // y origin
+        let r  = radius // radius of circle
+        var i = sides
+        var points = [CGPoint]()
+        while points.count <= sides {
+            let xpo = cx - r * cos(angle * CGFloat(i)+degree2radian(adjustment))
+            let ypo = cy - r * sin(angle * CGFloat(i)+degree2radian(adjustment))
+            points.append(CGPoint(x: xpo, y: ypo))
+            i -= 1;
+        }
+        return points
+    }
+    
+    func starPath(x:CGFloat, y:CGFloat, radius:CGFloat, sides:Int, pointyness:CGFloat) -> CGPathRef {
+        let adjustment = 360/sides/2
+        let path = CGPathCreateMutable()
+        let points = polygonPointArray(sides,x: x,y: y,radius: radius)
+        let cpg = points[0]
+        let points2 = polygonPointArray(sides,x: x,y: y,radius: radius*pointyness,adjustment:CGFloat(adjustment))
+        var i = 0
+        CGPathMoveToPoint(path, nil, cpg.x, cpg.y)
+        for p in points {
+            CGPathAddLineToPoint(path, nil, points2[i].x, points2[i].y)
+            CGPathAddLineToPoint(path, nil, p.x, p.y)
+            i += 1
+        }
+        CGPathCloseSubpath(path)
+        return path
+    }
+    
+    func setupStarPhysics() {
+        restart_star.userInteractionEnabled = false
+        restart_star.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: restart_star.frame.width, height: restart_star.frame.height))
+        restart_star.physicsBody?.dynamic = true
+        restart_star.physicsBody?.affectedByGravity=false
+        restart_star.physicsBody?.categoryBitMask = PhysicsCategory.Shape
+        restart_star.physicsBody?.collisionBitMask=PhysicsCategory.Bin
+        restart_star.physicsBody?.contactTestBitMask=PhysicsCategory.Bin
+        
+    }
+    
     let gameOverHighScoreLabel = SKLabelNode(text: "")
     let gameOverLabel = SKLabelNode(text: "GAMEOVER")
-    var gameOverStar = SKSpriteNode(imageNamed: "blue_star-1")
+    
+    
     let gameOverScoreLabel = SKLabelNode(text: "")
 
     func setupGameOverLabels() {
@@ -925,13 +996,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         gameOverLabel.zPosition = 5
         self.addChild(gameOverLabel)
     }
-    
-    func setUpGameOverStar() {
-        self.shapeController.setUpSpecialShape(gameOverStar, scale: shapeScaleFactor)
-        gameOverStar.position = CGPointMake(self.size.width/2, self.size.height/2 - self.gameOverLabel.frame.height - 5);
-        gameOverStar.name = "gameOverStar"
-        self.addChild(gameOverStar)
-    }
+
     
     func restartScene() {
         // makes bins smaller
