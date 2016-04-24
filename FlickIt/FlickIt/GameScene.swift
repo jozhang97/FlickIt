@@ -371,7 +371,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
         } else if aboutIcon.containsPoint(location) {
             startAbout()
-        } else if startIcon.containsPoint(location) {
+        } else if startLabel.containsPoint(location) {
             startGame()
         } else if rulesIcon.containsPoint(location) {
             goToRules()
