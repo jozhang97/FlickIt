@@ -99,7 +99,33 @@ class AboutScene: SKScene {
         self.addChild(titleLabel2)
         self.addChild(backButton)
         self.addChild(bgImage)
+        setUpsuggestionLabel()
+        setUpContactTitle()
         
+    }
+    
+    let suggestionLabel = SKLabelNode()
+    func setUpsuggestionLabel() {
+        suggestionLabel.text = "ANY SUGGESTIONS OR CONCERNS?"
+        suggestionLabel.position = CGPointMake(self.frame.width/2, self.frame.height * 2.5/8)
+        suggestionLabel.horizontalAlignmentMode = .Center
+        suggestionLabel.fontColor = UIColor.whiteColor()
+        suggestionLabel.fontName = "BigNoodleTitling"
+        suggestionLabel.fontSize = 20
+        suggestionLabel.zPosition = 3
+        self.addChild(suggestionLabel)
+    }
+    
+    let contactTitle = SKLabelNode()
+    func setUpContactTitle() {
+        contactTitle.text = "CONTACT US AT FlickItTeam@GMAIL.COM"
+        contactTitle.position = CGPointMake(self.frame.width/2, self.frame.height * 2/8)
+        contactTitle.horizontalAlignmentMode = .Center
+        contactTitle.fontColor = UIColor.whiteColor()
+        contactTitle.fontName = "BigNoodleTitling"
+        contactTitle.fontSize = 20
+        contactTitle.zPosition = 3
+        self.addChild(contactTitle)
     }
     
     func returnMain() {

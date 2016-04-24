@@ -125,6 +125,12 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         bottomLeft.physicsBody = SKPhysicsBody(circleOfRadius: radius)
         bottomRight.physicsBody = SKPhysicsBody(circleOfRadius: radius)
         
+        topRight.physicsBody?.affectedByGravity = false
+        topLeft.physicsBody?.affectedByGravity = false
+        bottomLeft.physicsBody?.affectedByGravity = false
+        bottomRight.physicsBody?.affectedByGravity = false
+
+        
         topRight.name = "topRight"
         topLeft.name = "topLeft"
         bottomRight.name = "bottomRight"
@@ -429,75 +435,39 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     }
     
     func animateBinsAtStart() {
-        let rotate = SKAction.rotateByAngle(CGFloat(M_PI), duration: 0.3);
+        let rotate = SKAction.rotateByAngle(CGFloat(M_PI), duration: 0.5);
         //bin_1.anchorPoint = CGPoint(x: 0, y: 1)
         topRight.runAction(rotate)
-        topRight.runAction(SKAction.moveTo(CGPoint(x: self.size.width, y: self.size.height), duration: 0.3))
+        topRight.runAction(SKAction.moveTo(CGPoint(x: self.size.width, y: self.size.height), duration: 0.5))
         
         topLeft.runAction(rotate)
-        topLeft.runAction(SKAction.moveTo(CGPoint(x: 0, y: self.size.height), duration: 0.3))
+        topLeft.runAction(SKAction.moveTo(CGPoint(x: 0, y: self.size.height), duration: 0.5))
         
         bottomLeft.runAction(rotate)
-        bottomLeft.runAction(SKAction.moveTo(CGPoint(x: 0, y: 0), duration: 0.3))
+        bottomLeft.runAction(SKAction.moveTo(CGPoint(x: 0, y: 0), duration: 0.5))
         
         bottomRight.runAction(rotate)
-        bottomRight.runAction(SKAction.moveTo(CGPoint(x: self.size.width, y: 0), duration: 0.3))
+        bottomRight.runAction(SKAction.moveTo(CGPoint(x: self.size.width, y: 0), duration: 0.5))
+        
+        
     }
     
     let timeBeforeHandAppears = 5.0
     var time = 0.0
-    var firstTime = true
     var secondTime = false
+    
     override func update(currentTime: CFTimeInterval) {
-        if(firstTime){
-            time = currentTime
-            firstTime = false
-            secondTime = true
-        }
-        else if(currentTime - time > 0.35 && secondTime){
+        if (secondTime && bottomRight.position == CGPoint(x: self.size.width, y: 0))  {
             collisionBool = true
             setupStarPhysics()
-    
+            
             setUpBinsPhysicsBody(topRight)
             setUpBinsPhysicsBody(topLeft)
             setUpBinsPhysicsBody(bottomLeft)
             setUpBinsPhysicsBody(bottomRight)
-
+            
             secondTime = false
         }
-        /*
-        /* Called before each frame is rendered */
-        let bool1 = star.position.y + star.frame.height/2 >= startIcon.position.y - startIcon.frame.width/5
-        let bool2 = star.position.x - star.frame.width/2 <= startIcon.position.x + startIcon.frame.height/5
-        if (bool1 && bool2){
-            // call method to start game
-            // for now just remove all the elements to show something has happened
-            self.removeAllChildren();
-            self.startGame();
-            star.position.y = 0
-        } else if ((star.position.y >= aboutIcon.position.y - aboutIcon.frame.height/3) && (star.position.x >= aboutIcon.position.x - aboutIcon.frame.width/3)){
-                // call method to about screen
-                // for now just remove all the elements to show something has happened
-            self.removeAllChildren();
-            self.startAbout();
-            star.position.y = 0
-        } else if (star.position.y - star.frame.height/2 <= rulesIcon.position.y && star.position.x - star.frame.width/2 <= self.size.width && star.position.x + star.frame.width/2 >= rulesIcon.position.x - rulesIcon.frame.width/2){
-            // call method to show Rules
-            // for now just remove all the elements to show something has happened
-            self.removeAllChildren();
-            self.goToRules();
-            star.position.y = 0
-        } else if (star.position.y - star.frame.height/2 <= muteButton.position.y && star.position.x - star.frame.width/2 >= 0 && star.position.x + star.frame.width/2 <= muteButton.position.x + muteButton.frame.width){
-            //then mute
-            if appDelegate.muted == false {  //MUTE IT
-                muteIt()
-            }
-            else if appDelegate.muted == true { //UNMUTE IT
-                unmuteIt()
-            }
- 
-        }
-         */
         removeOffScreenNodes()
         if (currentTime - time >= timeBeforeHandAppears) {
             moveHand()
