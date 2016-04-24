@@ -454,7 +454,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
             firstTime = false
             secondTime = true
         }
-        else if(currentTime - time > 0.35 && secondTime){
+        else if(currentTime - time > 0.38 && secondTime){
             collisionBool = true
             setupStarPhysics()
     
