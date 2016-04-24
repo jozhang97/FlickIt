@@ -68,7 +68,7 @@ class AboutScene: SKScene {
         titleLabel.zPosition = 3
         
         titleLabel1.text = "Abhi Mangla, Rohan Narayan, Shaili"
-        titleLabel1.position = CGPointMake(self.frame.width/2, self.frame.height * 4.25/5 - 20)
+        titleLabel1.position = CGPointMake(self.frame.width/2, self.frame.height * 4/5)
         titleLabel1.horizontalAlignmentMode = .Center
         titleLabel1.fontColor = UIColor.whiteColor()
         titleLabel1.fontName = "BigNoodleTitling"
@@ -76,7 +76,7 @@ class AboutScene: SKScene {
         titleLabel1.zPosition = 3
         
         titleLabel2.text = "Patel, and Jeffrey Zhang."
-        titleLabel2.position = CGPointMake(self.frame.width/2, self.frame.height * 4.25/5 - 40)
+        titleLabel2.position = CGPointMake(self.frame.width/2, self.frame.height * 3.75/5)
         titleLabel2.horizontalAlignmentMode = .Center
         titleLabel2.fontColor = UIColor.whiteColor()
         titleLabel2.fontName = "BigNoodleTitling"
@@ -113,7 +113,7 @@ class AboutScene: SKScene {
     let suggestionLabel = SKLabelNode()
     func setUpsuggestionLabel() {
         suggestionLabel.text = "ANY SUGGESTIONS OR CONCERNS?"
-        suggestionLabel.position = CGPointMake(self.frame.width/2, self.frame.height * 2.5/8)
+        suggestionLabel.position = CGPointMake(self.frame.width/2, self.frame.height * 2/8)
         suggestionLabel.horizontalAlignmentMode = .Center
         suggestionLabel.fontColor = UIColor.whiteColor()
         suggestionLabel.fontName = "BigNoodleTitling"
@@ -125,7 +125,7 @@ class AboutScene: SKScene {
     let contactTitle = SKLabelNode()
     func setUpContactTitle() {
         contactTitle.text = "CONTACT US AT FlickItTeam@GMAIL.COM"
-        contactTitle.position = CGPointMake(self.frame.width/2, self.frame.height * 2/8)
+        contactTitle.position = CGPointMake(self.frame.width/2, self.frame.height * 1.5/8)
         contactTitle.horizontalAlignmentMode = .Center
         contactTitle.fontColor = UIColor.whiteColor()
         contactTitle.fontName = "BigNoodleTitling"

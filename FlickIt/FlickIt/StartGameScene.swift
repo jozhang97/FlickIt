@@ -528,7 +528,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     func pressedHighScore() {
-        let alert = UIAlertController(title: "Global High Scores", message: "Coming out soon!", preferredStyle: UIAlertControllerStyle.Alert)
+        let alert = UIAlertController(title: "Global High Scores", message: "Coming soon!", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.Default, handler: nil))
         let vc = self.view!.window?.rootViewController
         vc!.presentViewController(alert, animated: true, completion: nil)
@@ -538,7 +538,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(restart_star)
     }
     func pressedSettings() {
-        let alert = UIAlertController(title: "Settings", message: "Coming out soon!", preferredStyle: UIAlertControllerStyle.Alert)
+        let alert = UIAlertController(title: "Settings", message: "Coming soon!", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.Default, handler: nil))
         let vc = self.view!.window?.rootViewController
         vc!.presentViewController(alert, animated: true, completion: nil)
