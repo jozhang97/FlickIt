@@ -948,7 +948,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         // Set names for the launcher so that we can check what node is touched in the touchesEnded method
         restart_star.name = "gameOverStar";
         //could randomize rotation here
-        restart_star.runAction(SKAction.rotateByAngle(CGFloat(2*M_PI), duration: 5))
+        let rotation = SKAction.rotateByAngle(CGFloat(2 * M_PI), duration: 10)
+        restart_star.runAction(SKAction.repeatActionForever(rotation))
     }
     
     func degree2radian(a:CGFloat)->CGFloat {

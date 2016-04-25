@@ -203,8 +203,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     
     func setupAboutLabel() {
         aboutIcon.position = CGPointMake(self.size.width*9/10, self.size.height*18.5/20)
-        aboutIcon.xScale = 1.5
-        aboutIcon.yScale = 1.5
+        aboutIcon.xScale = 0.17
+        aboutIcon.yScale = 0.17
     }
     
     func addCurvedLines(curve: SKShapeNode, dub1: Double, dub2: Double, bol: Bool, arch: Double, radi: CGFloat, color: UIColor) {
@@ -266,7 +266,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         // Set names for the launcher so that we can check what node is touched in the touchesEnded method
         star.name = "launch star";
         //could randomize rotation here
-        star.runAction(SKAction.rotateByAngle(CGFloat(4*M_PI), duration: 70))
+        let rotation = SKAction.rotateByAngle(CGFloat(2 * M_PI), duration: 10)
+        star.runAction(SKAction.repeatActionForever(rotation))
     }
     
     func setupStarPhysics() {
@@ -301,8 +302,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     
     func setupRulesLabel(rad: CGFloat) {
         rulesIcon.position = CGPointMake(self.size.width*9/10, self.size.height*1/12)
-        rulesIcon.xScale = 1.25
-        rulesIcon.yScale = 1.25
+        rulesIcon.xScale = 0.17
+        rulesIcon.yScale = 0.17
     }
     
     func createMuteButton() {
