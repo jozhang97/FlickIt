@@ -110,7 +110,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         shapeScaleFactor = 0.14 * self.size.width/bin_3_shape_width
         binShapeScaleFactor = 0.29 * self.size.width/radius
         
-        playMusic("spectre", type: "mp3")
+        playMusic("bensound-cute", type: "mp3")
         
         addCurvedLines(bin_1, dub1: 0, dub2: M_PI/2, bol: true, arch: Double(self.size.height/2 + radius), radi: radius, color: red)
         //curve down shape
@@ -875,7 +875,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         scoreLabel.text = ""
         livesLabel.text = ""
         gameOver = true
-        playMusic("loser_goodbye", type: "mp3") // change to some lose song
+        playMusic("bensound-sadday", type: "mp3") // change to some lose song
         // change bin displays
         
         returnBinsToOriginal()
@@ -1063,7 +1063,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         self.shapeController.resetSpecialShapeProbability()
         setRotatingFalse()
         self.shapeController.shapeCounter = [0,0,0,0,0,0]
-        playMusic("spectre", type: "mp3")
+        playMusic("bensound-cute", type: "mp3")
     }
     
     var muteLabel = SKLabelNode()

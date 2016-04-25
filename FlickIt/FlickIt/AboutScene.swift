@@ -10,7 +10,7 @@ import AVFoundation
 import SpriteKit
 
 class AboutScene: SKScene {
-
+    
     let sizeRect = UIScreen.mainScreen().applicationFrame;
     let titleLabel = SKLabelNode()
     let titleLabel1 = SKLabelNode()
@@ -27,9 +27,9 @@ class AboutScene: SKScene {
         selfSizeWidth = sizeRect.size.height * UIScreen.mainScreen().scale;
         selfSizeHeight = sizeRect.size.width * UIScreen.mainScreen().scale;
         createDetailsLabel()
-//        shapeScaleFactor = 0.14*self.size.width/bin_3_shape_width
-//        createScene()
-//       playMusic("jcena", type: "mp3")
+        //        shapeScaleFactor = 0.14*self.size.width/bin_3_shape_width
+        //        createScene()
+        //       playMusic("jcena", type: "mp3")
         trackAbout()
     }
     
@@ -109,6 +109,7 @@ class AboutScene: SKScene {
         self.addChild(bgImage)
         setUpsuggestionLabel()
         setUpContactTitle()
+        setUpMusicLabel()
         
     }
     
@@ -134,6 +135,28 @@ class AboutScene: SKScene {
         contactTitle.fontSize = 20
         contactTitle.zPosition = 3
         self.addChild(contactTitle)
+    }
+    
+    let musicLabel = SKLabelNode()
+    let musicLabel2 = SKLabelNode()
+    func setUpMusicLabel() {
+        musicLabel.text = "Music: http://www.bensound.com"
+        musicLabel.position = CGPointMake(self.frame.width/2, self.frame.height * 1/8)
+        musicLabel.horizontalAlignmentMode = .Center
+        musicLabel.fontColor = UIColor.whiteColor()
+        musicLabel.fontName = "BigNoodleTitling"
+        musicLabel.fontSize = 20
+        musicLabel.zPosition = 3
+        self.addChild(musicLabel)
+        
+        musicLabel2.text = "Licensed under Creative Commons"
+        musicLabel2.position = CGPointMake(self.frame.width/2, self.frame.height * 0.5/8)
+        musicLabel2.horizontalAlignmentMode = .Center
+        musicLabel2.fontColor = UIColor.whiteColor()
+        musicLabel2.fontName = "BigNoodleTitling"
+        musicLabel2.fontSize = 20
+        musicLabel2.zPosition = 3
+        self.addChild(musicLabel2)
     }
     
     func returnMain() {
@@ -167,7 +190,7 @@ class AboutScene: SKScene {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-
-
+    
+    
+    
 }

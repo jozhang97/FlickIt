@@ -52,7 +52,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     
     override func didMoveToView(view: SKView) {
         createHomeScreen()
-        playMusic("intromusic", type: "mp3")
+        playMusic("bensound-straight", type: "mp3")
     }
     func checkMute() {
         if (appDelegate.muted == true) {
