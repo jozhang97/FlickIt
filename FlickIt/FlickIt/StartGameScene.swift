@@ -690,6 +690,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         /* Called when a touch begins */
         let touch: UITouch = touches.first!
         let location: CGPoint = touch.locationInNode(self)
+        
         // Save start location and time
         start = location
         startTimeOfTouch = touch.timestamp
@@ -712,6 +713,21 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
             }
         } else if !isRotating {
             touchedNode=self.nodeAtPoint(start)
+            print(touchedNode)
+            if(touchedNode.name == nil){
+                var i=CGFloat(0)
+                var j=CGFloat(0)
+                while(touchedNode.name == nil && i < 5){
+                    touchedNode=self.nodeAtPoint(CGPoint(x: start.x+i,y: start.y))
+                    j=0
+                    while(touchedNode.name == nil && j < 5){
+                        touchedNode=self.nodeAtPoint(CGPoint(x: start.x,y: start.y+j))
+                        j+=1
+                    }
+                    i+=1
+                }
+            }
+
             if(touchedNode.name != nil){
                 touching = true
             }
