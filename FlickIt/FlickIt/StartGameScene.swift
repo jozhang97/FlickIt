@@ -530,23 +530,23 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     func pressedHighScore() {
+        self.restart_star.removeFromParent()
+        self.restart_star.physicsBody?.velocity = CGVectorMake(0, 0)
+        self.restart_star.position = CGPointMake(self.size.width/2, self.size.height/2 - self.gameOverLabel.frame.height*2);
         let alert = UIAlertController(title: "Global High Scores", message: "Coming soon!", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.Default, handler: nil))
         let vc = self.view!.window?.rootViewController
         vc!.presentViewController(alert, animated: true, completion: nil)
+         self.addChild(restart_star)
+    }
+    func pressedSettings() {
         self.restart_star.removeFromParent()
         self.restart_star.physicsBody?.velocity = CGVectorMake(0, 0)
         self.restart_star.position = CGPointMake(self.size.width/2, self.size.height/2 - self.gameOverLabel.frame.height*2);
-        self.addChild(restart_star)
-    }
-    func pressedSettings() {
         let alert = UIAlertController(title: "Settings", message: "Coming soon!", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.Default, handler: nil))
         let vc = self.view!.window?.rootViewController
         vc!.presentViewController(alert, animated: true, completion: nil)
-        self.restart_star.removeFromParent()
-        self.restart_star.physicsBody?.velocity = CGVectorMake(0, 0)
-        self.restart_star.position = CGPointMake(self.size.width/2, self.size.height/2 - self.gameOverLabel.frame.height*2);
         self.addChild(restart_star)
     }
     
