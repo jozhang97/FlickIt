@@ -23,6 +23,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     let kMinSpeed = CGFloat(100)
     let kMaxSpeed = CGFloat(500)
     
+    
     var hand = SKSpriteNode(imageNamed: "hand_icon")
     
     //variables that construct the Home Game Scene
@@ -36,6 +37,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     let bottomLeft = SKShapeNode()
     let bottomRight = SKShapeNode()
     let star = SKShapeNode()
+    var line = SKShapeNode()
+    var touching = false
     
     //colors
     let red: UIColor = UIColor(red: 164/255, green: 84/255, blue: 80/255, alpha: 1)
@@ -103,7 +106,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         
         trackHome()
         
-        //create triangle SKShapeNode
+        //create star SKShapeNode
         createStar()
         
         //setup Physics stuff of triangle SKShapeNode
@@ -164,7 +167,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         aboutIcon.zPosition = 3
         muteButton.zPosition = 3
 //        startLabel.zposition = 3
-        star.zPosition = 4
+        star.zPosition = 5
         self.addChild(startLabel)
         
         // Add all the elements to the screen
@@ -264,7 +267,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         star.fillColor = yellow
         star.position = CGPointMake(self.size.width/2, self.size.height/2);
         // Set names for the launcher so that we can check what node is touched in the touchesEnded method
-        star.name = "launch star";
+        star.name = "launchStar";
         //could randomize rotation here
         let rotation = SKAction.rotateByAngle(CGFloat(2 * M_PI), duration: 10)
         star.runAction(SKAction.repeatActionForever(rotation))
@@ -359,7 +362,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         // Save start location and time
         start = location
         startTime = touch.timestamp
-        
+        if(star.containsPoint(location)){
+            touching = true
+        }
         if muteButton.containsPoint(location) {
             if appDelegate.muted == false {  //MUTE IT
                 muteIt()
@@ -379,6 +384,44 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         }   
     }
     
+    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        if (self.nodeAtPoint(start).name != nil && touching && self.nodeAtPoint(start).physicsBody?.categoryBitMask == PhysicsCategory.Shape) {
+            for touch in touches{
+                self.removeChildrenInArray([line])
+                let currentLocation=touch.locationInNode(self)
+                createLine(currentLocation)
+                self.addChild(line)
+                
+            }
+        }
+    }
+    
+    func createLine(end: CGPoint){
+        line.lineWidth=1.5
+        line.path = linePath(end)
+        line.fillColor = UIColor.whiteColor()
+        line.strokeColor = UIColor.whiteColor()
+        line.zPosition=4
+    }
+    
+    func linePath(end: CGPoint) -> CGPath {
+        let path = UIBezierPath()
+        for i in 0...1 {
+            if i == 0 {
+                path.moveToPoint(start)
+            } else {
+                path.addLineToPoint(end)
+            }
+        }
+    
+        path.moveToPoint(end)
+        path.addLineToPoint(CGPointMake(end.x - 5, end.y))
+        path.addLineToPoint(CGPointMake(end.x, end.y + 7))
+        path.addLineToPoint(CGPointMake(end.x + 5, end.y))
+        path.closePath()
+        return path.CGPath
+    }
+    
     func muteIt() {
         appDelegate.muted = true
         muteButton.texture = SKTexture(imageNamed: "muteNow.png")
@@ -393,6 +436,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     
     
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        self.removeChildrenInArray([line])
         let touch: UITouch = touches.first!
         let location: CGPoint = touch.locationInNode(self)
         // Determine distance from the starting point
@@ -409,6 +453,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
             touchedNode.physicsBody?.velocity=CGVectorMake(0.0, 0.0)
             touchedNode.physicsBody?.applyImpulse(CGVectorMake(400*dx, 400*dy))
         }
+        touching = false
     }
     
     func startAbout() {
@@ -499,7 +544,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     }
     
     func removeOffScreenNodes() {
-        for shape in ["launch star"] {
+        for shape in ["launchStar"] {
             self.enumerateChildNodesWithName(shape, usingBlock: {
                 node, stop in
                 let sprite = node 

@@ -21,7 +21,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     var bomb = SKSpriteNode(imageNamed: "bomb.png")
     var hand = SKSpriteNode(imageNamed: "hand_icon")
     var showHand = 0;
-    var touching = false;
+    var touching = false
     var playingGame = false
     let restart_star = SKShapeNode()
     
@@ -609,9 +609,10 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
                     if (!justSpawnedDouble && score > 25) {
                         doubleShapeProbability = max(doubleShapeProbability - 4, 200)
                         
+                        //spawn two shapes 33% -> 50% of the time
                         if(Int(arc4random_uniform(UInt32(doubleShapeProbability))) <= 100){
                             //change above value for difficulty purposes!!!!!!!!
-                            delay(0.2) { // spawning at exactly the same time was too hard
+                            delay(0.2) {
                                 self.shapeToAdd = self.shapeController.spawnShape();
                                 self.shapeToAdd.position = CGPointMake(self.size.width/2, self.size.height/2);
                                 self.addChild(self.shapeToAdd);
@@ -687,125 +688,127 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        /* Called when a touch begins */
-        let touch: UITouch = touches.first!
-        let location: CGPoint = touch.locationInNode(self)
-        
-        // Save start location and time
-        start = location
-        startTimeOfTouch = touch.timestamp
-        if arePaused {
-            let currNode = self.nodeAtPoint(start)
-            if currNode.name == "pauseButton" {
-                closePause()
-            } else if muteLabel.containsPoint(location) {
-                pressedMute()
-            } else if (restartLabel.containsPoint(location)) {
-                closePause()
-                pauseRestart = true
-                restartScene()
-            } else if (homeLabel.containsPoint(location)) {
-                goToHome()
-                closePause()
-            } else if (themeSettingsLabel.containsPoint(location)) {
-                print("go to settings")
-                closePause()
-            }
-        } else if !isRotating {
-            touchedNode=self.nodeAtPoint(start)
-            print(touchedNode)
-            if(touchedNode.name == nil){
+        if(!touching){
+            /* Called when a touch begins */
+            let touch: UITouch = touches.first!
+            let location: CGPoint = touch.locationInNode(self)
+            
+            // Save start location and time
+            start = location
+            startTimeOfTouch = touch.timestamp
+            if arePaused {
+                let currNode = self.nodeAtPoint(start)
+                if currNode.name == "pauseButton" {
+                    closePause()
+                } else if muteLabel.containsPoint(location) {
+                    pressedMute()
+                } else if (restartLabel.containsPoint(location)) {
+                    closePause()
+                    pauseRestart = true
+                    restartScene()
+                } else if (homeLabel.containsPoint(location)) {
+                    goToHome()
+                    closePause()
+                } else if (themeSettingsLabel.containsPoint(location)) {
+                    print("go to settings")
+                    closePause()
+                }
+            } else if !isRotating {
+                touchedNode=self.nodeAtPoint(start)
+                print(touchedNode)
+                if(touchedNode.name == nil){
+                    var i=CGFloat(0)
+                    var j=CGFloat(0)
+                    while(touchedNode.name == nil && i < 5){
+                        touchedNode=self.nodeAtPoint(CGPoint(x: start.x+i,y: start.y))
+                        j=0
+                        while(touchedNode.name == nil && j < 5){
+                            touchedNode=self.nodeAtPoint(CGPoint(x: start.x,y: start.y+j))
+                            j+=1
+                        }
+                        i+=1
+                    }
+                }
+
+                if(touchedNode.name != nil){
+                    touching = true
+                }
+                /* This is for touching nodes within a range of 5 of your touch
                 var i=CGFloat(0)
                 var j=CGFloat(0)
-                while(touchedNode.name == nil && i < 5){
+                while(touchedNode != SKNode() && i < 5){
                     touchedNode=self.nodeAtPoint(CGPoint(x: start.x+i,y: start.y))
                     j=0
-                    while(touchedNode.name == nil && j < 5){
+                    while(touchedNode != SKNode() && j < 5){
                         touchedNode=self.nodeAtPoint(CGPoint(x: start.x,y: start.y+j))
                         j+=1
                     }
                     i+=1
                 }
-            }
-
-            if(touchedNode.name != nil){
-                touching = true
-            }
-            /* This is for touching nodes within a range of 5 of your touch
-            var i=CGFloat(0)
-            var j=CGFloat(0)
-            while(touchedNode != SKNode() && i < 5){
-                touchedNode=self.nodeAtPoint(CGPoint(x: start.x+i,y: start.y))
-                j=0
-                while(touchedNode != SKNode() && j < 5){
-                    touchedNode=self.nodeAtPoint(CGPoint(x: start.x,y: start.y+j))
-                    j+=1
+     */
+                if(touchedNode.name=="bomb"){
+                    aud2exists = true
+                    playMusic2("bombSound", type: "mp3")
+                    lives=0;
+                    livesLabel.text="Lives:" + String(lives)
+                    let currBrightness = UIScreen.mainScreen().brightness
+                    UIScreen.mainScreen().brightness = CGFloat(1)
+                    let explosionEmitterNode = SKEmitterNode(fileNamed: "ExplosionEffect.sks")
+                    explosionEmitterNode?.position=touchedNode.position
+                    explosionEmitterNode?.zPosition=100
+                    explosionEmitterNode?.particleColorSequence=SKKeyframeSequence(keyframeValues: [UIColor.redColor(), UIColor.yellowColor()], times: [0,1])
+                    explosionEmitterNode?.particleLifetime=2.0
+                    explosionEmitterNode?.numParticlesToEmit=50
+                    explosionEmitterNode?.particleSpeed=200
+                    delay(0.5){
+                        UIScreen.mainScreen().brightness = currBrightness
+                    }
+                    
+                    self.addChild(explosionEmitterNode!)
+                    
+                    touchedNode.removeFromParent()
+                    let tracker = GAI.sharedInstance().defaultTracker
+                    let event = GAIDictionaryBuilder.createEventWithCategory("Action", action: "Bombed", label: nil, value: nil)
+                    tracker.send(event.build() as [NSObject : AnyObject])
+                } else if(touchedNode.name == "heart"){
+                    lives += 1;
+                    livesLabel.text="Lives:" + String(lives)
+                    let explosionEmitterNode = SKEmitterNode(fileNamed: "ExplosionEffect.sks")
+                    explosionEmitterNode?.position=touchedNode.position
+                    explosionEmitterNode?.zPosition=100
+                    explosionEmitterNode?.particleColorSequence=SKKeyframeSequence(keyframeValues: [UIColor.yellowColor()], times: [0])
+                    self.addChild(explosionEmitterNode!)
+                    touchedNode.removeFromParent()
+                    let tracker = GAI.sharedInstance().defaultTracker
+                    let event = GAIDictionaryBuilder.createEventWithCategory("Action", action: "Hearted", label: nil, value: nil)
+                    tracker.send(event.build() as [NSObject : AnyObject])
+                } else if (touchedNode.name == "pauseButton") {
+                    openPause()
                 }
-                i+=1
+                start=touchedNode.position;
+                oldVelocities[touchedNode]=touchedNode.physicsBody?.velocity;
+                touchedNode.physicsBody?.velocity=CGVectorMake(0, 0)
             }
- */
-            if(touchedNode.name=="bomb"){
-                aud2exists = true
-                playMusic2("bombSound", type: "mp3")
-                lives=0;
-                livesLabel.text="Lives:" + String(lives)
-                let currBrightness = UIScreen.mainScreen().brightness
-                UIScreen.mainScreen().brightness = CGFloat(1)
-                let explosionEmitterNode = SKEmitterNode(fileNamed: "ExplosionEffect.sks")
-                explosionEmitterNode?.position=touchedNode.position
-                explosionEmitterNode?.zPosition=100
-                explosionEmitterNode?.particleColorSequence=SKKeyframeSequence(keyframeValues: [UIColor.redColor(), UIColor.yellowColor()], times: [0,1])
-                explosionEmitterNode?.particleLifetime=2.0
-                explosionEmitterNode?.numParticlesToEmit=50
-                explosionEmitterNode?.particleSpeed=200
-                delay(0.5){
-                    UIScreen.mainScreen().brightness = currBrightness
+            if gameOver {
+                if bin_1_shape.containsPoint(location) {
+                    pressedHighScore()
+                } else if bin_2_shape.containsPoint(location) {
+                    restartScene()
+                } else if bin_3_shape.containsPoint(location) {
+                    self.removeAllChildren()
+                    self.goToHome()
+                } else if bin_4_shape.containsPoint(location) {
+                    pressedSettings()
                 }
-                
-                self.addChild(explosionEmitterNode!)
-                
-                touchedNode.removeFromParent()
-                let tracker = GAI.sharedInstance().defaultTracker
-                let event = GAIDictionaryBuilder.createEventWithCategory("Action", action: "Bombed", label: nil, value: nil)
-                tracker.send(event.build() as [NSObject : AnyObject])
-            } else if(touchedNode.name == "heart"){
-                lives += 1;
-                livesLabel.text="Lives:" + String(lives)
-                let explosionEmitterNode = SKEmitterNode(fileNamed: "ExplosionEffect.sks")
-                explosionEmitterNode?.position=touchedNode.position
-                explosionEmitterNode?.zPosition=100
-                explosionEmitterNode?.particleColorSequence=SKKeyframeSequence(keyframeValues: [UIColor.yellowColor()], times: [0])
-                self.addChild(explosionEmitterNode!)
-                touchedNode.removeFromParent()
-                let tracker = GAI.sharedInstance().defaultTracker
-                let event = GAIDictionaryBuilder.createEventWithCategory("Action", action: "Hearted", label: nil, value: nil)
-                tracker.send(event.build() as [NSObject : AnyObject])
-            } else if (touchedNode.name == "pauseButton") {
-                openPause()
             }
-            start=touchedNode.position;
-            oldVelocities[touchedNode]=touchedNode.physicsBody?.velocity;
-            touchedNode.physicsBody?.velocity=CGVectorMake(0, 0)
-        }
-        if gameOver {
-            if bin_1_shape.containsPoint(location) {
-                pressedHighScore()
-            } else if bin_2_shape.containsPoint(location) {
-                restartScene()
-            } else if bin_3_shape.containsPoint(location) {
-                self.removeAllChildren()
-                self.goToHome()
-            } else if bin_4_shape.containsPoint(location) {
-                pressedSettings()
+            delay(0.5) {
+                if (self.gameOver && self.showHand > 2) {
+                    self.showHand = 0
+                    self.moveHand()
+                }
             }
+            showHand += 1;
         }
-        delay(0.5) {
-            if (self.gameOver && self.showHand > 2) {
-                self.showHand = 0
-                self.moveHand()
-            }
-        }
-        showHand += 1;
     }
     
     func moveHand() {
@@ -822,8 +825,9 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        if ((!arePaused) && self.nodeAtPoint(start).name != nil && touching && self.nodeAtPoint(start).physicsBody?.categoryBitMask != PhysicsCategory.Bin) {
+        if ((!arePaused) && self.nodeAtPoint(start).name != nil && touching && self.nodeAtPoint(start).physicsBody?.categoryBitMask == PhysicsCategory.Shape) {
             for touch in touches{
+                print("ASDASD")
                 self.removeChildrenInArray([line])
                 let currentLocation=touch.locationInNode(self)
                 createLine(currentLocation)
@@ -857,12 +861,13 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
             touchedNode.physicsBody?.applyImpulse(CGVectorMake(speed*dx, speed*dy))
         }
         else{
-            let touchedNode=self.nodeAtPoint(start)
+            touchedNode=self.nodeAtPoint(start)
             if(oldVelocities[touchedNode] != nil){
                 touchedNode.physicsBody?.velocity=oldVelocities[touchedNode]!
             }
         }
         touching = false
+        touchedNode = SKNode()
         
     }
     
