@@ -494,7 +494,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
                     explosionEmitterNode?.zPosition=100
                     if (firstBody.node?.name == secondBody.node?.name) {
                         score += 1
-                        if(score % 10 == 0){ // rotate bins every 10 points
+                        if(score % 5 == 0){ // rotate bins every 5 points
                             self.rotateBins(Int(arc4random_uniform(2) + 1));
                         }
                     } else {
