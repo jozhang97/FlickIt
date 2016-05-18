@@ -603,7 +603,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
                     time = currentTime;
                     firstTimeCount -= 1
                 } else {
-                    shapeToAdd = self.shapeController.spawnShape();
+                    shapeToAdd = self.shapeController.spawnShape(score);
                     shapeToAdd.position = CGPointMake(self.size.width/2, self.size.height/2);
                     self.addChild(shapeToAdd);
                     if (!justSpawnedDouble && score > 25) {
@@ -613,7 +613,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
                         if(Int(arc4random_uniform(UInt32(doubleShapeProbability))) <= 100){
                             //change above value for difficulty purposes!!!!!!!!
                             delay(0.2) {
-                                self.shapeToAdd = self.shapeController.spawnShape();
+                                self.shapeToAdd = self.shapeController.spawnShape(self.score);
                                 self.shapeToAdd.position = CGPointMake(self.size.width/2, self.size.height/2);
                                 self.addChild(self.shapeToAdd);
                             }

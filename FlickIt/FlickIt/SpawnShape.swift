@@ -24,11 +24,19 @@ class SpawnShape
     var specialShapeProbability = 1000
     var dx = CGFloat(0)
     var dy = CGFloat(0)
-    let red: UIColor = UIColor(red: 164/255, green: 84/255, blue: 80/255, alpha: 1)
-    let blue: UIColor = UIColor(red: 85/255, green: 135/255, blue: 141/255, alpha: 1)
-    let green: UIColor = UIColor(red: 147/255, green: 158/255, blue: 106/255, alpha: 1)
-    let purple: UIColor = UIColor(red: 99/255, green: 103/255, blue: 211/255, alpha: 1)
+    //let red: UIColor = UIColor(red: 164/255, green: 84/255, blue: 80/255, alpha: 1)
+    //let blue: UIColor = UIColor(red: 85/255, green: 135/255, blue: 141/255, alpha: 1)
+    //let green: UIColor = UIColor(red: 147/255, green: 158/255, blue: 106/255, alpha: 1)
+    //let purple: UIColor = UIColor(red: 99/255, green: 103/255, blue: 211/255, alpha: 1)
     let yellow: UIColor = UIColor(red: 250/255, green: 235/255, blue: 83/255, alpha: 1)
+    
+    // [red, green, blue purple]
+    var colors = [UIColor(red: 164/255, green: 84/255, blue: 80/255, alpha: 1),
+                  UIColor(red: 147/255, green: 158/255, blue: 106/255, alpha: 1),
+                  UIColor(red: 85/255, green: 135/255, blue: 141/255, alpha: 1),
+                  UIColor(red: 99/255, green: 103/255, blue: 211/255, alpha: 1)]
+    
+    var colorScoreLimit = 15
     
     let sizeRect = UIScreen.mainScreen().applicationFrame;
     
@@ -55,12 +63,16 @@ class SpawnShape
         return path.CGPath
     }
     
-    func createPentagon() -> SKShapeNode {
+    func createPentagon(score: Int) -> SKShapeNode {
         let rect: CGRect = CGRectMake(0, 0, sizeRect.size.width/6, sizeRect.size.width/6)
         let pentagon = SKShapeNode()
         pentagon.path = pentagonPath(rect)
-        pentagon.strokeColor = red
-        pentagon.fillColor = red
+        var c = colors[0] // red is default
+        if (score >= colorScoreLimit) {
+            c = colors[Int(arc4random_uniform(4))]
+        }
+        pentagon.strokeColor = c
+        pentagon.fillColor = c
         //circle.position = CGPointMake(sceneWidth/2, sceneHeight/2);
         pentagon.name = "pentagon";
         pentagon.zPosition=5
@@ -88,12 +100,16 @@ class SpawnShape
         return path.CGPath
     }
     
-    func createSquare() -> SKShapeNode {
+    func createSquare(score: Int) -> SKShapeNode {
         let rect: CGRect = CGRectMake(-sizeRect.size.width/12, -sizeRect.size.width/12, sizeRect.size.width/6.5, sizeRect.size.width/6.5)
         let square = SKShapeNode()
+        var c = colors[1] // green is default
+        if (score >= colorScoreLimit) {
+            c = colors[Int(arc4random_uniform(4))]
+        }
         square.path = squarePath(rect)
-        square.strokeColor = green
-        square.fillColor = green
+        square.strokeColor = c
+        square.fillColor = c
         square.name = "square";
         square.zPosition=5
         setupTrianglePhysics(square)
@@ -101,11 +117,15 @@ class SpawnShape
     }
     
     
-    func createCircle() -> SKShapeNode {
+    func createCircle(score: Int) -> SKShapeNode {
         let circle = SKShapeNode()
+        var c = colors[2] // blue is default
+        if (score >= colorScoreLimit) {
+            c = colors[Int(arc4random_uniform(4))]
+        }
         circle.path = self.circlePath()
-        circle.strokeColor = blue
-        circle.fillColor = blue
+        circle.strokeColor = c
+        circle.fillColor = c
         //circle.position = CGPointMake(sceneWidth/2, sceneHeight/2);
         circle.name = "circle";
         circle.zPosition=5
@@ -123,12 +143,16 @@ class SpawnShape
         circle.physicsBody?.contactTestBitMask=PhysicsCategory.Bin
     }
     
-    func createTriangle () -> SKShapeNode {
+    func createTriangle (score: Int) -> SKShapeNode {
         let rect: CGRect = CGRectMake(0, 0, sizeRect.size.width/5.5, sizeRect.size.width/5.5)
         let triangle = SKShapeNode()
+        var c = colors[3] // purple is default
+        if (score >= colorScoreLimit) {
+            c = colors[Int(arc4random_uniform(4))]
+        }
         triangle.path = self.triangleInRect(rect)
-        triangle.strokeColor = purple
-        triangle.fillColor = purple
+        triangle.strokeColor = c
+        triangle.fillColor = c
         triangle.position = CGPointMake(sizeRect.size.width/2 - triangle.frame.width/2, sizeRect.size.height/2);
         // Set names for the launcher so that we can check what node is touched in the touchesEnded method
         triangle.name = "triangle";
@@ -176,12 +200,12 @@ class SpawnShape
         
     }
     
-    func spawnShape() -> SKNode {
+    func spawnShape(score: Int) -> SKNode {
         
         let width = sizeRect.size.width * UIScreen.mainScreen().scale / 2; //screen width in points
         let height = sizeRect.size.height * UIScreen.mainScreen().scale / 2; //screen height in points
         var shapePicker=100
-        let shapes = [createTriangle(),createSquare(),createPentagon(),createCircle()]
+        let shapes = [createTriangle(score),createSquare(score),createPentagon(score),createCircle(score)]
         X_VELOCITY_RANGE = CGFloat(range)
         Y_VELOCITY_RANGE = CGFloat(1.5*range)
         var shape = SKNode()
