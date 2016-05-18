@@ -209,7 +209,7 @@ class SpawnShape
         X_VELOCITY_RANGE = CGFloat(range)
         Y_VELOCITY_RANGE = CGFloat(1.5*range)
         var shape = SKNode()
-        if((shapeCounter.reduce(0,combine: +) >= 10) &&
+        if((shapeCounter.reduce(0,combine: +) >= 5) &&
             Int(arc4random_uniform(UInt32(specialShapeProbability))) < 100){ // special shape 10% of time initially, at end of game, this value is 16%
             if(Int(arc4random_uniform(5000 / UInt32(specialShapeProbability))) != 0){ // Initially: 80% chance for bomb, 20% for heart; at end, 87.5% chance of bomb
                 shapePicker=Int(4)

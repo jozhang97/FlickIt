@@ -606,7 +606,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
                     shapeToAdd = self.shapeController.spawnShape(score, lives: lives);
                     shapeToAdd.position = CGPointMake(self.size.width/2, self.size.height/2);
                     self.addChild(shapeToAdd);
-                    if (!justSpawnedDouble && score > 25) {
+                    if (!justSpawnedDouble && score > 10) { // double spawns start at score 10
                         doubleShapeProbability = max(doubleShapeProbability - 4, 200)
                         
                         //spawn two shapes 33% -> 50% of the time
