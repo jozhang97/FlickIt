@@ -200,7 +200,7 @@ class SpawnShape
         
     }
     
-    func spawnShape(score: Int) -> SKNode {
+    func spawnShape(score: Int, lives: Int) -> SKNode {
         
         let width = sizeRect.size.width * UIScreen.mainScreen().scale / 2; //screen width in points
         let height = sizeRect.size.height * UIScreen.mainScreen().scale / 2; //screen height in points
@@ -209,9 +209,9 @@ class SpawnShape
         X_VELOCITY_RANGE = CGFloat(range)
         Y_VELOCITY_RANGE = CGFloat(1.5*range)
         var shape = SKNode()
-        if((shapeCounter.reduce(0,combine: +) > 10) &&
-            Int(arc4random_uniform(UInt32(specialShapeProbability))) < 200){ // special shape 20% of time initially, at end of game, this value is 33%
-            if(Int(arc4random_uniform(5)) != 0){ // 80% chance for bomb, 20% for heart
+        if((shapeCounter.reduce(0,combine: +) >= 10) &&
+            Int(arc4random_uniform(UInt32(specialShapeProbability))) < 100){ // special shape 10% of time initially, at end of game, this value is 16%
+            if(Int(arc4random_uniform(5000 / UInt32(specialShapeProbability))) != 0){ // Initially: 80% chance for bomb, 20% for heart; at end, 87.5% chance of bomb
                 shapePicker=Int(4)
                 shape=SKSpriteNode(imageNamed: specialShapes[0])
                 shape=shape as SKNode
@@ -219,11 +219,13 @@ class SpawnShape
                 shape.name="bomb"
             }
             else{
-                shapePicker=Int(5)
-                shape=SKSpriteNode(imageNamed: specialShapes[1])
-                shape=shape as SKNode
-                setUpSpecialShape(shape, scale: 0.2*width/shape.frame.width)
-                shape.name="heart"
+                if (lives < 5) { // ensures user never has more than 5 lives
+                    shapePicker=Int(5)
+                    shape=SKSpriteNode(imageNamed: specialShapes[1])
+                    shape=shape as SKNode
+                    setUpSpecialShape(shape, scale: 0.2*width/shape.frame.width)
+                    shape.name="heart"
+                }
             }
         }
         else{
