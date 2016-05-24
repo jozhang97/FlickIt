@@ -31,7 +31,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     let startIcon = SKSpriteNode(imageNamed: "playIcon.png")
     let startLabel = SKLabelNode(text: "START")
     let aboutIcon = SKSpriteNode(imageNamed: "about1.png")
-    let rulesIcon = SKSpriteNode(imageNamed: "rules1.png")
+    let settingIcon = SKSpriteNode(imageNamed: "settings.png")
     let topLeft = SKShapeNode()
     let topRight = SKShapeNode()
     let bottomLeft = SKShapeNode()
@@ -149,7 +149,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         setupStartLabel(radius)
         
         // Set up rules Label
-        setupRulesLabel(radius)
+        setupSettingIcon(radius)
         
         // Set up about Button
         setupAboutLabel()
@@ -177,7 +177,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         self.addChild(bottomLeft)
         self.addChild(bottomRight)
         self.addChild(titleLabel)
-        self.addChild(rulesIcon)
+        self.addChild(settingIcon)
 //        self.addChild(startIcon)
         self.addChild(muteButton)
         self.addChild(aboutIcon)
@@ -303,10 +303,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 //        startIcon.yScale = 0.30
     }
     
-    func setupRulesLabel(rad: CGFloat) {
-        rulesIcon.position = CGPointMake(self.size.width*9/10, self.size.height*1/12)
-        rulesIcon.xScale = 0.17
-        rulesIcon.yScale = 0.17
+    func setupSettingIcon(rad: CGFloat) {
+        settingIcon.position = CGPointMake(self.size.width*9/10, self.size.height*1/12)
+        settingIcon.xScale = 0.8
+        settingIcon.yScale = 0.8
     }
     
     func createMuteButton() {
@@ -347,7 +347,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
                 }
                 else if(secondBody.node!.name == "bottomRight"){
                     self.removeAllChildren();
-                    self.goToRules();
+                    self.openSettings();
                     self.star.position.y = 0
                 }
             }
@@ -379,8 +379,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
             startAbout()
         } else if startLabel.containsPoint(location) {
             startGame()
-        } else if rulesIcon.containsPoint(location) {
-            goToRules()
+        } else if settingIcon.containsPoint(location) {
+            openSettings()
         }   
     }
     
@@ -523,18 +523,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         }
     }
     
-    func goToRules() {
-        let scene: SKScene = RulesScene(size: self.size)
-        let skView = self.view as SKView!
-        skView.showsFPS = false
-        skView.showsNodeCount = false
-        
-        /* Sprite Kit applies additional optimizations to improve rendering performance */
-        skView.ignoresSiblingOrder = true
-        
-        /* Set the scale mode to scale to fit the window */
-        scene.scaleMode = .AspectFill
-        skView.presentScene(scene)
+    func openSettings() {
+        let newController = SettingsViewController()
+        view?.addSubview(newController.getView())
+        view?.removeFromSuperview()
         
     }
     
