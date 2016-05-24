@@ -64,7 +64,7 @@ class RulesScene: SKScene {
         
         self.addChild(bgImage)
 
-        timer = NSTimer.scheduledTimerWithTimeInterval(6.7, target: self, selector: Selector("changeTextMethod"), userInfo: nil, repeats: true)
+        timer = NSTimer.scheduledTimerWithTimeInterval(6.7, target: self, selector: #selector(RulesScene.changeTextMethod), userInfo: nil, repeats: true)
         //should put a pause of 10 seconds here for flicking period
         
         addSwipe()
@@ -88,7 +88,7 @@ class RulesScene: SKScene {
         let player = AVPlayer(URL: fileURL)
         player.actionAtItemEnd = AVPlayerActionAtItemEnd.None
         NSNotificationCenter.defaultCenter().addObserver(self,
-                                                         selector: "playerItemDidReachEnd:",
+                                                         selector: #selector(RulesScene.playerItemDidReachEnd(_:)),
                                                          name: AVPlayerItemDidPlayToEndTimeNotification,
                                                          object: player.currentItem)
         player.muted = true
@@ -162,10 +162,10 @@ class RulesScene: SKScene {
     
     
     func addSwipe() {
-        swipe =  UISwipeGestureRecognizer(target: self, action: "handleSwipe:")
+        swipe =  UISwipeGestureRecognizer(target: self, action: #selector(RulesScene.handleSwipe(_:)))
         let directions: [UISwipeGestureRecognizerDirection] = [.Right, .Left]
         for direction in directions {
-            let gesture = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipe:"))
+            let gesture = UISwipeGestureRecognizer(target: self, action: #selector(RulesScene.handleSwipe(_:)))
             gesture.direction = direction
             self.view?.addGestureRecognizer(gesture)
         }

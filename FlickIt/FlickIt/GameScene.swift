@@ -28,7 +28,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     
     //variables that construct the Home Game Scene
     let titleLabel = SKLabelNode(text: "FLICK IT")
-    let startIcon = SKSpriteNode(imageNamed: "playIcon.png")
     let startLabel = SKLabelNode(text: "START")
     let aboutIcon = SKSpriteNode(imageNamed: "about1.png")
     let settingIcon = SKSpriteNode(imageNamed: "settings.png")
@@ -68,7 +67,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     
     func playMusic(path: String, type: String) {
         let alertSound = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource(path, ofType: type)!)
-        print(alertSound)
+        //print(alertSound)
         
         do {
             try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
@@ -158,7 +157,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         createMuteButton()
         
         //set Z-positions
-        startIcon.zPosition = 3
         titleLabel.zPosition = 3
         topLeft.zPosition = 3
         topRight.zPosition = 3
@@ -166,7 +164,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         bottomRight.zPosition = 3
         aboutIcon.zPosition = 3
         muteButton.zPosition = 3
-//        startLabel.zposition = 3
+        startLabel.zPosition = 3
         star.zPosition = 5
         self.addChild(startLabel)
         
@@ -178,7 +176,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         self.addChild(bottomRight)
         self.addChild(titleLabel)
         self.addChild(settingIcon)
-//        self.addChild(startIcon)
         self.addChild(muteButton)
         self.addChild(aboutIcon)
         delay(0.5) {
@@ -188,7 +185,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
                 let growAction = SKAction.scaleBy(1.5, duration: 1)
                 let shrinkAction = SKAction.scaleBy(0.8333, duration: 1)
                 let growAndShrink = SKAction.sequence([growAction, shrinkAction])
-                var moveLabel: SKAction = SKAction.moveByX(0.0, y: -1*self.size.width*2.5/4, duration: 0.5)
+                let moveLabel: SKAction = SKAction.moveByX(0.0, y: -1*self.size.width*2.5/4, duration: 0.5)
                 self.titleLabel.runAction(growAndShrink)
                 self.titleLabel.runAction(fadeAction)
                 self.titleLabel.runAction(moveLabel)
@@ -524,9 +521,20 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     }
     
     func openSettings() {
-        let newController = SettingsViewController()
-        view?.addSubview(newController.getView())
-        view?.removeFromSuperview()
+        let scene = SettingScene(size: self.size)
+        scene.setOriginalScener(GameScene())
+        // Configure the view.
+        let skView = self.view as SKView!
+        skView.showsFPS = false
+        skView.showsNodeCount = false
+        
+        /* Sprite Kit applies additional optimizations to improve rendering performance */
+        skView.ignoresSiblingOrder = true
+        
+        /* Set the scale mode to scale to fit the window */
+        scene.scaleMode = .AspectFill
+        skView.presentScene(scene)
+        
         
     }
     
@@ -557,7 +565,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
                 vc!.presentViewController(view!, animated: true, completion: nil)
             }
             else {
-                print(GKLocalPlayer.localPlayer().authenticated)
+                //print(GKLocalPlayer.localPlayer().authenticated)
                 
             }
         }

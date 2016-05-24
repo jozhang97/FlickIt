@@ -82,9 +82,11 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     var shapeScaleFactor = CGFloat(0)
     var audioPlayer = AVAudioPlayer()
     var audioPlayer2 = AVAudioPlayer()
+    var audioPlayer3 = AVAudioPlayer()
     var arePaused = false
     var pausedShapeVelocities = [SKNode: CGVector]()
     var aud2exists: Bool = false
+    var aud3exists: Bool = false
     let sizeRect = UIScreen.mainScreen().applicationFrame;
     var line = SKShapeNode()
     var touchedNode=SKNode()
@@ -163,7 +165,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     
     func playMusic(path: String, type: String) {
         let alertSound = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource(path, ofType: type)!)
-        print(alertSound)
+        //print(alertSound)
         do {
             try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
             try AVAudioSession.sharedInstance().setActive(true)
@@ -175,6 +177,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         audioPlayer.prepareToPlay()
         checkMute()
         audioPlayer.play()
+        audioPlayer.numberOfLoops = -1
     }
     
     func checkMute() {
@@ -195,9 +198,18 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    func checkMute3() {
+        if (appDelegate.muted == true) {
+            self.audioPlayer3.volume = 0
+        }
+        else {
+            self.audioPlayer3.volume = 1
+        }
+    }
+    
     func playMusic2(path: String, type: String) {
         let alertSound = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource(path, ofType: type)!)
-        print(alertSound)
+        //print(alertSound)
         
         do {
             try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
@@ -210,6 +222,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         audioPlayer2.prepareToPlay()
         checkMute2()
         audioPlayer2.play()
+        audioPlayer2.numberOfLoops = -1
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -476,6 +489,22 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    func playSwoosh(which: String) {
+        let alertSound = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource(which, ofType: "mp3")!)
+        //print(alertSound)
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            try AVAudioSession.sharedInstance().setActive(true)
+            try audioPlayer3 = AVAudioPlayer(contentsOfURL: alertSound)
+        }
+        catch {
+            
+        }
+        audioPlayer3.prepareToPlay()
+        checkMute3()
+        audioPlayer3.play()
+    }
+    
     func didBeginContact(contact: SKPhysicsContact) {
         var firstBody=contact.bodyA
         var secondBody=contact.bodyB
@@ -494,11 +523,17 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
                     explosionEmitterNode?.zPosition=100
                     if (firstBody.node?.name == secondBody.node?.name) {
                         score += 1
+                        aud3exists = true
+                        playSwoosh("swoosh")
+                        aud3exists = false
                         if(score % 10 == 0){ // rotate bins every 10 points
                             self.rotateBins(Int(arc4random_uniform(2) + 1));
                         }
                     } else {
                         explosionEmitterNode?.particleColorSequence=SKKeyframeSequence(keyframeValues: [UIColor.redColor()], times: [0])
+                        aud3exists = true
+                        playSwoosh("incorrectSound")
+                        aud3exists = false
                         lives -= 1
                     }
                     self.addChild(explosionEmitterNode!)
@@ -539,14 +574,25 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         vc!.presentViewController(alert, animated: true, completion: nil)
          self.addChild(restart_star)
     }
+    
     func pressedSettings() {
         self.restart_star.removeFromParent()
         self.restart_star.physicsBody?.velocity = CGVectorMake(0, 0)
         self.restart_star.position = CGPointMake(self.size.width/2, self.size.height/2 - self.gameOverLabel.frame.height*2);
-        let alert = UIAlertController(title: "Settings", message: "Coming soon!", preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.Default, handler: nil))
-        let vc = self.view!.window?.rootViewController
-        vc!.presentViewController(alert, animated: true, completion: nil)
+        let scene = SettingScene(size: self.size)
+        let origScene = self
+        scene.setOriginalScener(origScene)
+        // Configure the view.
+        let skView = self.view as SKView!
+        skView.showsFPS = false
+        skView.showsNodeCount = false
+        
+        /* Sprite Kit applies additional optimizations to improve rendering performance */
+        skView.ignoresSiblingOrder = true
+        
+        /* Set the scale mode to scale to fit the window */
+        scene.scaleMode = .AspectFill
+        skView.presentScene(scene)
         self.addChild(restart_star)
     }
     
@@ -661,6 +707,9 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
                                 return;
                             }
                             self.lives -= 1;
+                            self.aud3exists = true
+                            self.playSwoosh("incorrectSound")
+                            self.aud3exists = false
                             let explosionEmitterNode = SKEmitterNode(fileNamed: "ExplosionEffect.sks")
                             explosionEmitterNode?.position=sprite.position
                             explosionEmitterNode?.zPosition=100
@@ -715,7 +764,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
                 }
             } else if !isRotating {
                 touchedNode=self.nodeAtPoint(start)
-                print(touchedNode)
+                //print(touchedNode)
                 if(touchedNode.name == nil){
                     var i=CGFloat(0)
                     var j=CGFloat(0)
@@ -827,7 +876,6 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
         if ((!arePaused) && self.nodeAtPoint(start).name != nil && touching && self.nodeAtPoint(start).physicsBody?.categoryBitMask == PhysicsCategory.Shape) {
             for touch in touches{
-                print("ASDASD")
                 self.removeChildrenInArray([line])
                 let currentLocation=touch.locationInNode(self)
                 createLine(currentLocation)
@@ -1201,6 +1249,11 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
                 audioPlayer2.volume = 0
             }
         }
+        if aud3exists {
+            if audioPlayer3.playing {
+                audioPlayer3.volume = 0
+            }
+        }
     }
     
     func unMuteThis() {
@@ -1211,6 +1264,11 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         if aud2exists {
             if audioPlayer2.volume == 0 {
                 audioPlayer2.volume = 1
+            }
+        }
+        if aud3exists {
+            if audioPlayer3.volume == 0 {
+                audioPlayer3.volume = 1
             }
         }
     }

@@ -203,7 +203,6 @@ class SpawnShape
     func spawnShape(score: Int, lives: Int) -> SKNode {
         
         let width = sizeRect.size.width * UIScreen.mainScreen().scale / 2; //screen width in points
-        let height = sizeRect.size.height * UIScreen.mainScreen().scale / 2; //screen height in points
         var shapePicker=100
         let shapes = [createTriangle(score),createSquare(score),createPentagon(score),createCircle(score)]
         X_VELOCITY_RANGE = CGFloat(range)

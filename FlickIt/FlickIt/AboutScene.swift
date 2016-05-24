@@ -27,9 +27,6 @@ class AboutScene: SKScene {
         selfSizeWidth = sizeRect.size.height * UIScreen.mainScreen().scale;
         selfSizeHeight = sizeRect.size.width * UIScreen.mainScreen().scale;
         createDetailsLabel()
-        //        shapeScaleFactor = 0.14*self.size.width/bin_3_shape_width
-        //        createScene()
-        //       playMusic("jcena", type: "mp3")
         trackAbout()
     }
     
@@ -40,23 +37,6 @@ class AboutScene: SKScene {
         tracker.send(builder.build() as [NSObject : AnyObject])
         let event = GAIDictionaryBuilder.createEventWithCategory("Action", action: "Opened About", label: nil, value: nil)
         tracker.send(event.build() as [NSObject : AnyObject])
-    }
-    
-    func playMusic(path: String, type: String) {
-        let alertSound = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource(path, ofType: type)!)
-        print(alertSound)
-        
-        do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
-            try AVAudioSession.sharedInstance().setActive(true)
-            try audioPlayer = AVAudioPlayer(contentsOfURL: alertSound)
-        }
-        catch {
-            
-        }
-        audioPlayer.prepareToPlay()
-        audioPlayer.numberOfLoops = -1
-        audioPlayer.play()
     }
     
     func createDetailsLabel() {
