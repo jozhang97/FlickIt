@@ -761,6 +761,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
                 } else if (themeSettingsLabel.containsPoint(location)) {
                     print("go to settings")
                     closePause()
+                } else if (newUnPauseLabel.containsPoint(location)) {
+                    closePause()
                 }
             } else if !isRotating {
                 touchedNode=self.nodeAtPoint(start)
@@ -1140,6 +1142,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     var homeLabel = SKLabelNode()
     var themeSettingsLabel = SKLabelNode()
     var pauseBackground = SKShapeNode()
+    var newUnPauseLabel = SKLabelNode()
     
     func openPause() {
         playingGame = false
@@ -1157,15 +1160,23 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         muteLabel.fontName = "BigNoodleTitling"
         muteLabel.zPosition = 7
         self.addChild(muteLabel)
+        
+        newUnPauseLabel.text = "Unpause"
+        newUnPauseLabel.fontColor=UIColor.whiteColor()
+        newUnPauseLabel.position=CGPointMake(self.frame.width/2, 6*self.frame.height/12)
+        newUnPauseLabel.fontName = "BigNoodleTitling"
+        newUnPauseLabel.zPosition = 7
+        self.addChild(newUnPauseLabel)
+        
         restartLabel.text = "Restart"
         restartLabel.fontColor=UIColor.whiteColor()
-        restartLabel.position=CGPointMake(self.frame.width/2, 4*self.frame.height/12)
+        restartLabel.position=CGPointMake(self.frame.width/2, 5*self.frame.height/12)
         restartLabel.fontName = "BigNoodleTitling"
         restartLabel.zPosition = 7
         self.addChild(restartLabel)
         homeLabel.text = "Home"
         homeLabel.fontColor=UIColor.whiteColor()
-        homeLabel.position=CGPointMake(self.frame.width/2, 6*self.frame.height/12)
+        homeLabel.position=CGPointMake(self.frame.width/2, 4*self.frame.height/12)
         homeLabel.fontName = "BigNoodleTitling"
         homeLabel.zPosition = 7
         self.addChild(homeLabel)
@@ -1215,7 +1226,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         bgImage.runAction(SKAction.fadeAlphaTo(1.0, duration: 0.5));
         arePaused = false
         // manipulate touch end
-        self.removeChildrenInArray([muteLabel, restartLabel, homeLabel, themeSettingsLabel, pauseBackground])
+        self.removeChildrenInArray([muteLabel, restartLabel, homeLabel, themeSettingsLabel, pauseBackground, newUnPauseLabel])
         muteLabel = SKLabelNode()
         muteLabel.fontName = "BigNoodleTitling"
         restartLabel = SKLabelNode()
@@ -1224,6 +1235,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         homeLabel.fontName = "BigNoodleTitling"
         themeSettingsLabel = SKLabelNode()
         themeSettingsLabel.fontName = "BigNoodleTitling"
+        newUnPauseLabel = SKLabelNode()
+        newUnPauseLabel.fontName = "BigNoodleTitling"
         unfreezeShapes()
         playingGame = true
     }
