@@ -9,7 +9,7 @@
 import AVFoundation
 import SpriteKit
 import GameKit
-class StartGameScene: SKScene, SKPhysicsContactDelegate {
+class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerDelegate {
     var NUMBEROFLIFES = 3
 
     let red: UIColor = UIColor(red: 164/255, green: 84/255, blue: 80/255, alpha: 1)
@@ -73,8 +73,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     var time : CFTimeInterval = 2
     var shapeToAdd = SKNode()
     var touched:Bool = false
-    var shapeController = SpawnShape()
-    var gameSceneController = GameScene()
+    var shapeController: SpawnShape!
+    var gameSceneController: GameScene!
     var restartBTN = SKSpriteNode()
     var gameOver = false; // SET THESE
     var oldVelocities = [SKNode: CGVector]()
@@ -105,6 +105,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
     }
     override init(size: CGSize) {
         super.init(size: size)
+        shapeController = SpawnShape()
+        gameSceneController = GameScene()
         lives = NUMBEROFLIFES
         sceneHeight = sizeRect.size.height * UIScreen.mainScreen().scale;
         sceneWidth = sizeRect.size.width * UIScreen.mainScreen().scale;
@@ -556,8 +558,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
                     self.removeAllChildren()
                     self.goToHome()
                 } else if (binName == "highScore") {
+                    resetGameOverStar()
                     pressedHighScore()
-//                    showLeaderboard()
                 } else if (binName == "settings") {
                     pressedSettings()
                 }
@@ -565,20 +567,20 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     func pressedHighScore() {
+        authPlayer()
+        saveScore(score)
+        showLeaderboard()
+    }
+    
+    func resetGameOverStar() {
         self.restart_star.removeFromParent()
         self.restart_star.physicsBody?.velocity = CGVectorMake(0, 0)
         self.restart_star.position = CGPointMake(self.size.width/2, self.size.height/2 - self.gameOverLabel.frame.height*2);
-        let alert = UIAlertController(title: "Global High Scores", message: "Coming soon!", preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.Default, handler: nil))
-        let vc = self.view!.window?.rootViewController
-        vc!.presentViewController(alert, animated: true, completion: nil)
-         self.addChild(restart_star)
+        self.addChild(restart_star)
     }
     
     func pressedSettings() {
-        self.restart_star.removeFromParent()
-        self.restart_star.physicsBody?.velocity = CGVectorMake(0, 0)
-        self.restart_star.position = CGPointMake(self.size.width/2, self.size.height/2 - self.gameOverLabel.frame.height*2);
+        resetGameOverStar()
         let scene = SettingScene(size: self.size)
         let origScene = self
         scene.setOriginalScener(origScene)
@@ -593,7 +595,6 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         /* Set the scale mode to scale to fit the window */
         scene.scaleMode = .AspectFill
         skView.presentScene(scene)
-        self.addChild(restart_star)
     }
     
     func goToHome() {
@@ -678,6 +679,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
                     
                     self.shapeController.specialShapeProbability = max(self.shapeController.specialShapeProbability - 4, self.shapeController.sShapeProbabilityBound)
                     multiplicativeSpeedUpFactor -= 0.005
+                    applyFirstShapeLabel()
                 }
             }
             if lives <= 0 {
@@ -971,7 +973,6 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         //setUpGameOverStar()
         self.removeChildrenInArray([pauseButton])
         // add collision actions
-        saveScore(score);
         setUpLocalHighScore()
         gameOverTrack()
         putBackPhysicsBodyBin()
@@ -1317,27 +1318,140 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate {
         line.zPosition=4
     }
     
-    func saveScore(score: Int) {
-        if GKLocalPlayer.localPlayer().authenticated {
-            let scoreReporter = GKScore(leaderboardIdentifier: "This")
-            scoreReporter.value = Int64(score)
-            let scoreArray : [GKScore] = [scoreReporter]
-            GKScore.reportScores(scoreArray, withCompletionHandler: nil)
+    func authPlayer() {
+        let localPlayer = GKLocalPlayer.localPlayer()
+        localPlayer.authenticateHandler = {
+            (view, error) in
+            if view != nil && !localPlayer.authenticated {
+//                let viewController = self.view!.window?.rootViewController
+//                viewController?.presentViewController(view!, animated: true, completion: nil)
+//                viewController?.removeFromParentViewController()
+//                self.view?.removeFromSuperview() //idk about this
+            }
+            else {
+                print("Authenticated status: " + String(GKLocalPlayer.localPlayer().authenticated))
+            }
         }
     }
     
-//    func showLeaderboard() {
-//        let viewController = self.view!.window?.rootViewController
-//        let gameCenterVC = GKGameCenterViewController()
-//        gameCenterVC.gameCenterDelegate = self
-//        viewController!.presentViewController(gameCenterVC, animated: true, completion: nil)
-//    }
+    func saveScore(score: Int) {
+//        if GKLocalPlayer.localPlayer().authenticated {
+            let scoreReporter = GKScore(leaderboardIdentifier: "scoreLeaderboard")
+            scoreReporter.value = Int64(score)
+            let scoreArray : [GKScore] = [scoreReporter]
+            GKScore.reportScores(scoreArray, withCompletionHandler: {
+                (NSError) in
+                print(NSError)
+                return
+            })
+            print("Score is")
+            print(score)
+//        }
+    }
     
-//    func gameCenterViewControllerDidFinish(gameCenterViewController: GKGameCenterViewController) {
-//        gameCenterViewController.dismissViewControllerAnimated(true, completion: nil)
-//    
-//    }
+    func showLeaderboard() {
+        let viewController = self.view!.window?.rootViewController
+        let gameCenterVC: GKGameCenterViewController! = GKGameCenterViewController()
+
+//        let gameCenterVC: GKGameCenterViewController! = GKGameCenterViewController(rootViewController: viewController!)
+        gameCenterVC.gameCenterDelegate = self
+        viewController?.dismissViewControllerAnimated(true, completion: nil)
+        print("HERO")
+        print(viewController?.presentedViewController) // thought this wasn't nil then can't put one vc on top of another
+        viewController?.removeFromParentViewController()
+        
+        viewController!.presentViewController(gameCenterVC, animated: true, completion: nil)
+        print(viewController?.presentedViewController)
+
+        print("da subviews")
+        print(self.view?.subviews)
+    }
     
+    func gameCenterViewControllerDidFinish(gameCenterViewController: GKGameCenterViewController) {
+        gameCenterViewController.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    deinit{
+        let vc = self.view!.window?.rootViewController
+        vc!.view.removeFromSuperview()
+//        if let superView = vc!.view.superview
+//        {
+//            superView.removeFromSuperview()
+//        }
+    }
+    
+    func applyFirstShapeLabel() {
+        let shapeCounter = shapeController.getShapeCounter()
+        // checks if the shape that appears is the first of its kind; if so, create a label
+        let regShapeCounter = shapeCounter[0] + shapeCounter[1] + shapeCounter[2] + shapeCounter[3]
+        if regShapeCounter == 1 {
+            showShapeLabel()
+        }
+        if shapeCounter[4] == 1 {
+            showBombLabel()
+        }
+        if shapeCounter[5] == 1 {
+            showHeartLabel()
+        }
+    }
+    
+    let delayTime = 5.0;
+
+    func showShapeLabel() {
+        let firstShapeLabel=SKLabelNode()
+        firstShapeLabel.text = "Flick shape to its bin!"
+        firstShapeLabel.fontColor=UIColor.yellowColor()
+        firstShapeLabel.position=CGPointMake(self.size.width/2,self.size.height * 3/9)
+        firstShapeLabel.zPosition=20
+        firstShapeLabel.fontName = "BigNoodleTitling"
+        
+        let firstShapeLabelAddAction = SKAction.runBlock({
+            self.addChild(firstShapeLabel)
+        })
+        let delay = SKAction.waitForDuration(delayTime)
+        let firstShapeLabelRemoveAction = SKAction.runBlock({
+            self.removeChildrenInArray([firstShapeLabel])
+        })
+        let showAction = SKAction.sequence([firstShapeLabelAddAction, delay, firstShapeLabelRemoveAction])
+        runAction(showAction)
+    }
+    
+    func showBombLabel() {
+        let firstBombLabel=SKLabelNode()
+        firstBombLabel.text = "Don't touch the bombs"
+        firstBombLabel.fontColor=UIColor.yellowColor()
+        firstBombLabel.position=CGPointMake(self.size.width/2,self.size.height * 2/9)
+        firstBombLabel.zPosition=20
+        firstBombLabel.fontName = "BigNoodleTitling"
+        
+        let firstBombLabelAddAction = SKAction.runBlock({
+            self.addChild(firstBombLabel)
+        })
+        let delay = SKAction.waitForDuration(delayTime)
+        let firstBombLabelRemoveAction = SKAction.runBlock({
+            self.removeChildrenInArray([firstBombLabel])
+        })
+        let showAction = SKAction.sequence([firstBombLabelAddAction, delay, firstBombLabelRemoveAction])
+        runAction(showAction)
+    }
+    
+    func showHeartLabel() {
+        let firstHeartLabel=SKLabelNode()
+        firstHeartLabel.text = "Touch hearts for extra lives"
+        firstHeartLabel.fontColor=UIColor.yellowColor()
+        firstHeartLabel.position=CGPointMake(self.size.width/2,self.size.height * 3/9)
+        firstHeartLabel.zPosition=20
+        firstHeartLabel.fontName = "BigNoodleTitling"
+        let firstHeartLabelAddAction = SKAction.runBlock({
+            self.addChild(firstHeartLabel)
+        })
+        let delay = SKAction.waitForDuration(delayTime)
+        let firstHeartLabelRemoveAction = SKAction.runBlock({
+            self.removeChildrenInArray([firstHeartLabel])
+        })
+        let showAction = SKAction.sequence([firstHeartLabelAddAction, delay, firstHeartLabelRemoveAction])
+        runAction(showAction)
+    }
     
 }
 

@@ -256,7 +256,11 @@ class SpawnShape
         return shape;
         
     }
-
+    
+    func getShapeCounter() -> [Int] {
+        return shapeCounter
+    }    
+    
 //    func startSpawning()
 //    {
 //        print("in here")

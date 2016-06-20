@@ -19,6 +19,7 @@ class GameViewController: UIViewController {
         skView.showsNodeCount = false
         skView.showsPhysics = false
         skView.showsDrawCount = false
+        definesPresentationContext = true
         
         /* Sprite Kit applies additional optimizations to improve rendering performance */
         skView.ignoresSiblingOrder = true

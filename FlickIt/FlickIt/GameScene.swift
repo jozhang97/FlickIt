@@ -514,10 +514,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
             secondTime = false
         }
         removeOffScreenNodes()
-        if (currentTime - time >= timeBeforeHandAppears) {
-            moveHand()
-            time = currentTime
-        }
+//        if (currentTime - time >= timeBeforeHandAppears) {
+//            moveHand()
+//            time = currentTime
+//        }
     }
     
     func openSettings() {
