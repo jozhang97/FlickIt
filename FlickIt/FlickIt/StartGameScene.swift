@@ -232,6 +232,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     }
     
     func createScene() {
+        doneCounter = [0,0,0]
         playingGame = true
         timeBegan = NSDate()
         self.physicsWorld.contactDelegate = self
@@ -978,6 +979,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         gameOverTrack()
         putBackPhysicsBodyBin()
         playingGame = false
+        self.removeChildrenInArray([firstShapeLabel, firstBombLabel, firstHeartLabel])
     }
     
     
@@ -1382,45 +1384,52 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
 ////            superView.removeFromSuperview()
 ////        }
 //    }
+    var doneCounter = [0,0,0]
     
     func applyFirstShapeLabel() {
         let shapeCounter = shapeController.getShapeCounter()
         // checks if the shape that appears is the first of its kind; if so, create a label
         let regShapeCounter = shapeCounter[0] + shapeCounter[1] + shapeCounter[2] + shapeCounter[3]
-        if regShapeCounter == 1 {
+        if regShapeCounter == 1 && doneCounter[0] == 0 {
+            self.removeChildrenInArray([firstShapeLabel, firstBombLabel, firstHeartLabel])
             showShapeLabel()
+            doneCounter[0] = 1
         }
-        if shapeCounter[4] == 1 {
+        if shapeCounter[4] == 1 && doneCounter[1] == 0 {
+            self.removeChildrenInArray([firstShapeLabel, firstBombLabel, firstHeartLabel])
             showBombLabel()
+            doneCounter[1] = 1
         }
-        if shapeCounter[5] == 1 {
+        if shapeCounter[5] == 1 && doneCounter[2] == 0 {
+            self.removeChildrenInArray([firstShapeLabel, firstBombLabel, firstHeartLabel])
             showHeartLabel()
+            doneCounter[2] = 1
         }
     }
     
-    let delayTime = 3.0;
+    let delayTime = 1.5
+    let firstShapeLabel=SKLabelNode()
+    let firstBombLabel=SKLabelNode()
+    let firstHeartLabel=SKLabelNode()
 
     func showShapeLabel() {
-        let firstShapeLabel=SKLabelNode()
         firstShapeLabel.text = "Flick shape to its bin!"
         firstShapeLabel.fontColor=UIColor.yellowColor()
         firstShapeLabel.position=CGPointMake(self.size.width/2,self.size.height * 1.5/9)
         firstShapeLabel.zPosition=5
         firstShapeLabel.fontName = "BigNoodleTitling"
-        
         let firstShapeLabelAddAction = SKAction.runBlock({
-            self.addChild(firstShapeLabel)
+            self.addChild(self.firstShapeLabel)
         })
         let delay = SKAction.waitForDuration(delayTime)
         let firstShapeLabelRemoveAction = SKAction.runBlock({
-            self.removeChildrenInArray([firstShapeLabel])
+            self.removeChildrenInArray([self.firstShapeLabel])
         })
         let showAction = SKAction.sequence([firstShapeLabelAddAction, delay, firstShapeLabelRemoveAction])
         runAction(showAction)
     }
     
     func showBombLabel() {
-        let firstBombLabel=SKLabelNode()
         firstBombLabel.text = "Don't touch the bombs"
         firstBombLabel.fontColor=UIColor.yellowColor()
         firstBombLabel.position=CGPointMake(self.size.width/2,self.size.height * 1.5/9)
@@ -1428,29 +1437,28 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         firstBombLabel.fontName = "BigNoodleTitling"
         
         let firstBombLabelAddAction = SKAction.runBlock({
-            self.addChild(firstBombLabel)
+            self.addChild(self.firstBombLabel)
         })
         let delay = SKAction.waitForDuration(delayTime)
         let firstBombLabelRemoveAction = SKAction.runBlock({
-            self.removeChildrenInArray([firstBombLabel])
+            self.removeChildrenInArray([self.firstBombLabel])
         })
         let showAction = SKAction.sequence([firstBombLabelAddAction, delay, firstBombLabelRemoveAction])
         runAction(showAction)
     }
     
     func showHeartLabel() {
-        let firstHeartLabel=SKLabelNode()
-        firstHeartLabel.text = "Touch hearts for extra lives"
+        firstHeartLabel.text = "Touch hearts for extra live"
         firstHeartLabel.fontColor=UIColor.yellowColor()
         firstHeartLabel.position=CGPointMake(self.size.width/2,self.size.height * 1.5/9)
         firstHeartLabel.zPosition=5
         firstHeartLabel.fontName = "BigNoodleTitling"
         let firstHeartLabelAddAction = SKAction.runBlock({
-            self.addChild(firstHeartLabel)
+            self.addChild(self.firstHeartLabel)
         })
         let delay = SKAction.waitForDuration(delayTime)
         let firstHeartLabelRemoveAction = SKAction.runBlock({
-            self.removeChildrenInArray([firstHeartLabel])
+            self.removeChildrenInArray([self.firstHeartLabel])
         })
         let showAction = SKAction.sequence([firstHeartLabelAddAction, delay, firstHeartLabelRemoveAction])
         runAction(showAction)

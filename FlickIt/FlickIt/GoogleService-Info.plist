@@ -7,7 +7,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>MDB-FlickIt</string>
+	<string>com.mdb.flickit</string>
 	<key>PROJECT_ID</key>
 	<string>flickit-1e8bb</string>
 	<key>IS_ADS_ENABLED</key>
