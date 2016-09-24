@@ -974,6 +974,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         self.removeChildrenInArray([pauseButton])
         // add collision actions
         setUpLocalHighScore()
+        GCHelper.sharedInstance.reportLeaderboardIdentifier("scoreLeaderboard", score:NSUserDefaults.standardUserDefaults().integerForKey("score"))
         gameOverTrack()
         putBackPhysicsBodyBin()
         playingGame = false
