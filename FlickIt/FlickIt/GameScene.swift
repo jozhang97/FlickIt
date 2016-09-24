@@ -514,10 +514,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
             secondTime = false
         }
         removeOffScreenNodes()
-//        if (currentTime - time >= timeBeforeHandAppears) {
-//            moveHand()
-//            time = currentTime
-//        }
+        if (currentTime - time >= timeBeforeHandAppears) {
+            moveHand()
+            time = currentTime
+        }
     }
     
     func openSettings() {
@@ -582,7 +582,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         self.hand.yScale = self.size.width / 5770
         self.hand.zPosition = 3
         self.addChild(self.hand)
-        let move = SKAction.moveTo(CGPoint(x: self.size.width * 7 / 8, y: self.size.height * 1 / 8), duration: 1.5)
+        let move = SKAction.moveTo(CGPoint(x: self.size.width * 1 / 8, y: self.size.height * 7 / 8), duration: 1.5)
         let remove = SKAction.removeFromParent()
         self.hand.runAction(SKAction.sequence([move, remove]))
     }

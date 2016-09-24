@@ -1157,27 +1157,28 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
             muteLabel.text = "Mute"
         }
         muteLabel.fontColor=UIColor.whiteColor()
-        muteLabel.position=CGPointMake(self.frame.width/2, 8*self.frame.height/12)
+        muteLabel.position=CGPointMake(self.frame.width/2, 3.5*self.frame.height/12)
         muteLabel.fontName = "BigNoodleTitling"
         muteLabel.zPosition = 7
         self.addChild(muteLabel)
         
-        newUnPauseLabel.text = "Unpause"
+        newUnPauseLabel.text = "Resume"
         newUnPauseLabel.fontColor=UIColor.whiteColor()
-        newUnPauseLabel.position=CGPointMake(self.frame.width/2, 6*self.frame.height/12)
+        newUnPauseLabel.position=CGPointMake(self.frame.width/2, 8*self.frame.height/12)
         newUnPauseLabel.fontName = "BigNoodleTitling"
         newUnPauseLabel.zPosition = 7
         self.addChild(newUnPauseLabel)
         
         restartLabel.text = "Restart"
         restartLabel.fontColor=UIColor.whiteColor()
-        restartLabel.position=CGPointMake(self.frame.width/2, 5*self.frame.height/12)
+        restartLabel.position=CGPointMake(self.frame.width/2, 6.5*self.frame.height/12)
         restartLabel.fontName = "BigNoodleTitling"
         restartLabel.zPosition = 7
         self.addChild(restartLabel)
+        
         homeLabel.text = "Home"
         homeLabel.fontColor=UIColor.whiteColor()
-        homeLabel.position=CGPointMake(self.frame.width/2, 4*self.frame.height/12)
+        homeLabel.position=CGPointMake(self.frame.width/2, 5*self.frame.height/12)
         homeLabel.fontName = "BigNoodleTitling"
         homeLabel.zPosition = 7
         self.addChild(homeLabel)
@@ -1371,14 +1372,14 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         gameCenterViewController.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    deinit{
-        let vc = self.view!.window?.rootViewController
-        vc!.view.removeFromSuperview()
-//        if let superView = vc!.view.superview
-//        {
-//            superView.removeFromSuperview()
-//        }
-    }
+//    deinit{
+//        let vc = self.view!.window?.rootViewController
+//        vc!.view.removeFromSuperview()
+////        if let superView = vc!.view.superview
+////        {
+////            superView.removeFromSuperview()
+////        }
+//    }
     
     func applyFirstShapeLabel() {
         let shapeCounter = shapeController.getShapeCounter()
@@ -1395,14 +1396,14 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         }
     }
     
-    let delayTime = 5.0;
+    let delayTime = 3.0;
 
     func showShapeLabel() {
         let firstShapeLabel=SKLabelNode()
         firstShapeLabel.text = "Flick shape to its bin!"
         firstShapeLabel.fontColor=UIColor.yellowColor()
-        firstShapeLabel.position=CGPointMake(self.size.width/2,self.size.height * 3/9)
-        firstShapeLabel.zPosition=20
+        firstShapeLabel.position=CGPointMake(self.size.width/2,self.size.height * 1.5/9)
+        firstShapeLabel.zPosition=5
         firstShapeLabel.fontName = "BigNoodleTitling"
         
         let firstShapeLabelAddAction = SKAction.runBlock({
@@ -1420,8 +1421,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         let firstBombLabel=SKLabelNode()
         firstBombLabel.text = "Don't touch the bombs"
         firstBombLabel.fontColor=UIColor.yellowColor()
-        firstBombLabel.position=CGPointMake(self.size.width/2,self.size.height * 2/9)
-        firstBombLabel.zPosition=20
+        firstBombLabel.position=CGPointMake(self.size.width/2,self.size.height * 1.5/9)
+        firstBombLabel.zPosition=5
         firstBombLabel.fontName = "BigNoodleTitling"
         
         let firstBombLabelAddAction = SKAction.runBlock({
@@ -1439,8 +1440,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         let firstHeartLabel=SKLabelNode()
         firstHeartLabel.text = "Touch hearts for extra lives"
         firstHeartLabel.fontColor=UIColor.yellowColor()
-        firstHeartLabel.position=CGPointMake(self.size.width/2,self.size.height * 3/9)
-        firstHeartLabel.zPosition=20
+        firstHeartLabel.position=CGPointMake(self.size.width/2,self.size.height * 1.5/9)
+        firstHeartLabel.zPosition=5
         firstHeartLabel.fontName = "BigNoodleTitling"
         let firstHeartLabelAddAction = SKAction.runBlock({
             self.addChild(firstHeartLabel)
