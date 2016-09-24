@@ -1242,6 +1242,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         newUnPauseLabel.fontName = "BigNoodleTitling"
         unfreezeShapes()
         playingGame = true
+        track()
     }
     
     func pressedMute() {
