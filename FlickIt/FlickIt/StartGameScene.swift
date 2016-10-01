@@ -9,6 +9,8 @@
 import AVFoundation
 import SpriteKit
 import GameKit
+import FBSDKShareKit
+
 class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerDelegate {
     var NUMBEROFLIFES = 3
 
@@ -90,7 +92,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     let sizeRect = UIScreen.mainScreen().applicationFrame;
     var line = SKShapeNode()
     var touchedNode=SKNode()
-    
+    let fbbutton = FBSDKShareButton()
+    let content = FBSDKShareLinkContent()
     var doubleShapeProbability = 300
     
     var timeBegan = NSDate()
@@ -161,6 +164,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         self.addChild(bin_2)
         self.addChild(bin_3)
         self.addChild(bin_4)
+        
+        fbbutton.frame = CGRectMake(UIScreen.mainScreen().bounds.width/4, UIScreen.mainScreen().bounds.height*6/8, UIScreen.mainScreen().bounds.width/3, UIScreen.mainScreen().bounds.height/12)
         
         createScene()
     }
@@ -548,6 +553,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         }
         else {
             if (firstBody.categoryBitMask==PhysicsCategory.Shape && secondBody.categoryBitMask==PhysicsCategory.Bin){
+
                 let shapeName = firstBody.node?.name
                 if (shapeName != "gameOverStar") {
                     return;
@@ -600,6 +606,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     
     func goToHome() {
         let scene: SKScene = GameScene(size: self.size)
+        fbbutton.removeFromSuperview()
         // Configure the view.
         let skView = self.view as SKView!
         skView.showsFPS = false
@@ -972,10 +979,17 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         self.addChild(restart_star)
         
         //setUpGameOverStar()
+        
         self.removeChildrenInArray([pauseButton])
         // add collision actions
         setUpLocalHighScore()
-        GCHelper.sharedInstance.reportLeaderboardIdentifier("scoreLeaderboard", score:NSUserDefaults.standardUserDefaults().integerForKey("score"))
+        GCHelper.sharedInstance.reportLeaderboardIdentifier("scoreLeaderboard", score:score)
+        content.contentURL = NSURL(string: "https://itunes.apple.com/us/app/flick-it-xtreme/id1103070396?mt=8")!
+        content.contentTitle = "Download FlickIt! (or else)"
+        let prevHighScore: Int = NSUserDefaults.standardUserDefaults().integerForKey("score")
+        content.contentDescription = "My high score is "+String(prevHighScore)
+        fbbutton.shareContent = content
+        self.view?.addSubview(fbbutton)
         gameOverTrack()
         putBackPhysicsBodyBin()
         playingGame = false
@@ -1105,7 +1119,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     func restartScene() {
         // makes bins smaller
         restartBTN = SKSpriteNode() // stopped being able to click when not there
-        
+        fbbutton.removeFromSuperview()
         self.removeAllActions()
         self.removeAllChildren()
         
@@ -1333,7 +1347,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
 //                viewController?.removeFromParentViewController()
 //                self.view?.removeFromSuperview() //idk about this
             }
-            else {
+            else { 
                 print("Authenticated status: " + String(GKLocalPlayer.localPlayer().authenticated))
             }
         }

@@ -13,6 +13,10 @@
 		1C171BE11D8DC7130031AFC9 /* SettingScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C171BE01D8DC7130031AFC9 /* SettingScene.swift */; };
 		1CD5BCA31D96FA8B009F46B6 /* GCHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD5BCA21D96FA8B009F46B6 /* GCHelper.swift */; };
 		1CD5BCA51D970EB0009F46B6 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CD5BCA41D970EB0009F46B6 /* GameKit.framework */; };
+		1CDEAD601D984CBF00D27214 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CDEAD5D1D984CBF00D27214 /* FBSDKCoreKit.framework */; };
+		1CDEAD611D984CBF00D27214 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CDEAD5E1D984CBF00D27214 /* FBSDKLoginKit.framework */; };
+		1CDEAD621D984CBF00D27214 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CDEAD5F1D984CBF00D27214 /* FBSDKShareKit.framework */; };
+		1CDEAD641D98516000D27214 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CDEAD631D98516000D27214 /* Bolts.framework */; };
 		1F19BEE31CB784B80030B930 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F19BEE21CB784B80030B930 /* GoogleService-Info.plist */; };
 		1F19BEE41CB784B80030B930 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F19BEE21CB784B80030B930 /* GoogleService-Info.plist */; };
 		1F19BEE51CB784B80030B930 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F19BEE21CB784B80030B930 /* GoogleService-Info.plist */; };
@@ -53,6 +57,10 @@
 		1C171BE01D8DC7130031AFC9 /* SettingScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingScene.swift; sourceTree = "<group>"; };
 		1CD5BCA21D96FA8B009F46B6 /* GCHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCHelper.swift; sourceTree = "<group>"; };
 		1CD5BCA41D970EB0009F46B6 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
+		1CDEAD5D1D984CBF00D27214 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		1CDEAD5E1D984CBF00D27214 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		1CDEAD5F1D984CBF00D27214 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
+		1CDEAD631D98516000D27214 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		1F19BEE11CB781BA0030B930 /* FlickIt-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FlickIt-Bridging-Header.h"; sourceTree = "<group>"; };
 		1F19BEE21CB784B80030B930 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1F693A4E1C7910DE00C6B20E /* SpawnShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpawnShape.swift; sourceTree = "<group>"; };
@@ -82,6 +90,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				68F666C702121242D64B3C39 /* libPods.a in Frameworks */,
+				1CDEAD601D984CBF00D27214 /* FBSDKCoreKit.framework in Frameworks */,
+				1CDEAD621D984CBF00D27214 /* FBSDKShareKit.framework in Frameworks */,
+				1CDEAD641D98516000D27214 /* Bolts.framework in Frameworks */,
+				1CDEAD611D984CBF00D27214 /* FBSDKLoginKit.framework in Frameworks */,
 				1CD5BCA51D970EB0009F46B6 /* GameKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -169,6 +181,10 @@
 		5211FE1CBA31AF3965B71E66 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1CDEAD631D98516000D27214 /* Bolts.framework */,
+				1CDEAD5D1D984CBF00D27214 /* FBSDKCoreKit.framework */,
+				1CDEAD5E1D984CBF00D27214 /* FBSDKLoginKit.framework */,
+				1CDEAD5F1D984CBF00D27214 /* FBSDKShareKit.framework */,
 				1CD5BCA41D970EB0009F46B6 /* GameKit.framework */,
 				2143432F0F4947862F575E02 /* libPods.a */,
 			);
@@ -523,8 +539,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = FlickIt/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mdb.flickit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -540,8 +560,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = FlickIt/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mdb.flickit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
