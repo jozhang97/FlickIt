@@ -276,7 +276,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         return path
     }
     
-    //Jeff 
+
     func createStar() {
         let rect: CGRect = CGRect(x: 0, y: 0, width: self.size.width/6, height: self.size.width/6)
         star.path = self.starPath(0, y: 0, radius: rect.size.width/3, sides: 5, pointyness: 2)

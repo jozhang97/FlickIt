@@ -46,8 +46,6 @@ class HomeScene: SKScene , SKPhysicsContactDelegate {
         createStar(star: star, name: star.name!)
         createStar(star: starBin, name: starBin.name!)
         createStar(star: starLargerBin, name: starLargerBin.name!)
-        
-        //playMusic("bensound-straight", type: "mp3")
         titleLabel.zPosition = 3
         setupTitleLabel()
         self.addChild(starLargerBin)
@@ -66,6 +64,8 @@ class HomeScene: SKScene , SKPhysicsContactDelegate {
                 self.titleLabel.run(moveLabel)
             }
         }
+        //playMusic("bensound-straight", type: "mp3")
+        startFlashingArrow()
     }
     
     func delay(_ delay:Double, closure:@escaping ()->()) {
@@ -181,9 +181,6 @@ class HomeScene: SKScene , SKPhysicsContactDelegate {
         scene.scaleMode = .aspectFill
         skView?.presentScene(scene)
     }
-
-
-
 
     func createBackground(){
         let size = CGSize(width: screenWidth, height: screenHeight)
@@ -326,5 +323,80 @@ class HomeScene: SKScene , SKPhysicsContactDelegate {
     }
 
 
-
+    let arrowShape1 = SKShapeNode()
+    let arrowShape2 = SKShapeNode()
+    let arrowShape3 = SKShapeNode()
+    let arrowShape4 = SKShapeNode()
+    let arrowShape5 = SKShapeNode()
+    func startFlashingArrow() {
+        createFlashingArrow()
+        animateFlashingArrow()
+    }
+    
+    func createFlashingArrow() {
+        let width = self.size.width
+        let height = self.size.height
+        var i: CGFloat = CGFloat(1)
+        var colorVal:CGFloat = CGFloat(1)
+        for arrowShapeRect in [arrowShape1, arrowShape2, arrowShape3, arrowShape4, arrowShape5] {
+            let rect = CGRect(x: 7, y: 7, width: 7, height: height * 0.021 * i)
+            var bPath = UIBezierPath(roundedRect: rect, cornerRadius: 2)
+            let pos = CGPoint(x: width * (3/8 + i/32), y: height * (4/8 - 0.01 * i))
+            let color = UIColor(red: colorVal, green: colorVal, blue: colorVal, alpha: 1)
+            if (i == 5) {
+                bPath = triangleInRect(rect)
+            }
+            createShape(shape: arrowShapeRect, path: bPath, position: pos, color: color)
+            colorVal = 40 * i
+            i += 1
+        }
+        // TODO: not sure how to get the triangle in the right spot
+    }
+    
+    func triangleInRect(_ rect: CGRect) -> UIBezierPath {
+        let offsetX: CGFloat = rect.midX
+        let offsetY: CGFloat = rect.midY
+        let bezierPath: UIBezierPath = UIBezierPath()
+        bezierPath.move(to: CGPoint(x: 2 * offsetX, y: 0))
+        bezierPath.addLine(to: CGPoint(x: 0, y: -offsetY))
+        bezierPath.addLine(to: CGPoint(x: 0, y: offsetY))
+        bezierPath.close()
+        return bezierPath
+    }
+    
+    func createShape(shape: SKShapeNode, path: UIBezierPath, position: CGPoint, color: UIColor) {
+        shape.name = "foo"
+        shape.path = path.cgPath
+        shape.position = position
+        shape.fillColor = color
+        shape.strokeColor = UIColor.black
+        shape.lineWidth = 1
+        shape.zPosition = 55
+        addChild(shape)
+    }
+    
+    func animateFlashingArrow() {
+        // TODO: can't figure out how to alter color (not sure if alpha is right) in time IN ORDER
+        let fadeHighAction = SKAction.fadeAlpha(to: 1, duration: 5)
+        let fadeLowAction = SKAction.fadeAlpha(to: 0.2, duration: 5)
+        let growAction = SKAction.scale(by: 1.5, duration: 4)
+        let shrinkAction = SKAction.scale(by: 2.0/3, duration: 4)
+        
+        let bigSequence = SKAction.sequence([fadeHighAction, growAction, SKAction.wait(forDuration: 4)])
+        let smallSequence = SKAction.sequence([fadeLowAction, shrinkAction, SKAction.wait(forDuration: 4)])
+        
+        SKAction.repeatForever(SKAction.sequence([
+            SKAction.run({
+                for arrowShapeRect in [self.arrowShape1, self.arrowShape2, self.arrowShape3, self.arrowShape4, self.arrowShape5] {
+                    arrowShapeRect.run(bigSequence)
+                }
+                for arrowShapeRect in [self.arrowShape1, self.arrowShape2, self.arrowShape3, self.arrowShape4, self.arrowShape5] {
+                    arrowShapeRect.run(smallSequence)
+                    
+                }
+                
+            }),
+            SKAction.wait(forDuration: 2.0)
+        ]))
+    }
 }
