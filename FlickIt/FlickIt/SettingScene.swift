@@ -11,12 +11,18 @@ import SpriteKit
 
 class SettingScene: SKScene {
     let backButton = SKLabelNode(text: "BACK")
+    let resetHighScoreButton = SKLabelNode(text: "Clear my highscore")
+    let muteButton = SKLabelNode()    
+    var appDelegate = UIApplication.shared.delegate as! AppDelegate
+
+    /*
     let highScoreButton = SKLabelNode(text: "See My HighScore")
     let shareButton = SKLabelNode(text: "Share with Friends")
     let storeButton = SKLabelNode(text: "Items Inventory")
     let inventoryButton = SKLabelNode(text: "Your Inventory")
     var highScoreSubview = UIView()
     var highScoreScene = SKScene()
+    */
     var originalScene = SKScene()
     
     func returnMain()
@@ -47,6 +53,7 @@ class SettingScene: SKScene {
             backButton.fontColor = UIColor.gray
             
         }
+        /*
         else if highScoreButton.contains(location) {
             highScoreButton.fontColor = UIColor.gray
         }
@@ -58,6 +65,12 @@ class SettingScene: SKScene {
         }
         else if inventoryButton.contains(location) {
             inventoryButton.fontColor = UIColor.gray
+        } 
+        */
+        else if resetHighScoreButton.contains(location) {
+            resetHighScoreButton.fontColor = UIColor.gray
+        } else if muteButton.contains(location) {
+            muteButton.fontColor = UIColor.gray
         }
     }
     
@@ -67,10 +80,17 @@ class SettingScene: SKScene {
         let location: CGPoint = touch.location(in: self)
         // Save end location and time
         if backButton.contains(location) {
-            highScoreSubview.removeFromSuperview()
+            // highScoreSubview.removeFromSuperview()
             returnMain()
             
+        } else if muteButton.contains(location) {
+            // TODO: set appdelegate.muted and make music start or end
+            updateMuteButtonText()
+        } else if resetHighScoreButton.contains(location) {
+            resetLocalHighScore()
         }
+        
+        /*
         else if highScoreButton.contains(location) {
             
             openHighScoreSubview()
@@ -87,11 +107,15 @@ class SettingScene: SKScene {
             
             openInventorySubview()
         }
+         highScoreButton.fontColor = UIColor.white
+         shareButton.fontColor = UIColor.white
+         storeButton.fontColor = UIColor.white
+         inventoryButton.fontColor = UIColor.white
+        */
+        resetHighScoreButton.fontColor = UIColor.white
+        muteButton.fontColor = UIColor.white
         backButton.fontColor = UIColor.white
-        highScoreButton.fontColor = UIColor.white
-        shareButton.fontColor = UIColor.white
-        storeButton.fontColor = UIColor.white
-        inventoryButton.fontColor = UIColor.white
+ 
 //        if (!highScoreSubview.frame.containsPoint(location)) {
 //            
 //        }
@@ -101,6 +125,7 @@ class SettingScene: SKScene {
         originalScene = scene
     }
     
+    /*
     func openStoreSubview() {
         print("show the store to purchase powerups")
     }
@@ -128,6 +153,7 @@ class SettingScene: SKScene {
     func openShareSubview() {
         print("show subview that gives user options to share on FB, google, or whatever")
     }
+    */
     
     override init(size: CGSize) {
         super.init(size: size)
@@ -138,6 +164,7 @@ class SettingScene: SKScene {
         backButton.fontSize = 50
         self.addChild(backButton)
         
+        /*
         highScoreButton.position = CGPoint(x: self.frame.size.width/2, y: self.frame.size.height*6/10);
         highScoreButton.horizontalAlignmentMode = .center
         highScoreButton.fontColor = UIColor.white
@@ -158,18 +185,42 @@ class SettingScene: SKScene {
         storeButton.fontName = "BigNoodleTitling"
         storeButton.fontSize = 50
         self.addChild(storeButton)
-        
-        inventoryButton.position = CGPoint(x: self.frame.size.width/2, y: self.frame.size.height*3/10);
-        inventoryButton.horizontalAlignmentMode = .center
-        inventoryButton.fontColor = UIColor.white
-        inventoryButton.fontName = "BigNoodleTitling"
-        inventoryButton.fontSize = 50
-        self.addChild(inventoryButton)
+        */
+ 
+        resetHighScoreButton.position = CGPoint(x: self.frame.size.width/2, y: self.frame.size.height*5/10);
+        resetHighScoreButton.horizontalAlignmentMode = .center
+        resetHighScoreButton.fontColor = UIColor.white
+        resetHighScoreButton.fontName = "BigNoodleTitling"
+        resetHighScoreButton.fontSize = 50
+        self.addChild(resetHighScoreButton)
+
+        muteButton.position = CGPoint(x: self.frame.size.width/2, y: self.frame.size.height*6/10);
+        muteButton.horizontalAlignmentMode = .center
+        muteButton.fontColor = UIColor.white
+        muteButton.fontName = "BigNoodleTitling"
+        muteButton.fontSize = 50
+        updateMuteButtonText()
+        self.addChild(muteButton)
         
     }
     
+    func updateMuteButtonText() {
+        if appDelegate.muted {
+            muteButton.text = "Unmute"
+        }
+        else {
+            muteButton.text = "Mute"
+        }
+    }
+
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func resetLocalHighScore() {
+        UserDefaults.standard.set(0, forKey: "score")
+        UserDefaults.standard.synchronize()
     }
 
 
