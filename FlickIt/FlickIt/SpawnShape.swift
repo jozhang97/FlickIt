@@ -38,33 +38,33 @@ class SpawnShape
     
     var colorScoreLimit = 15
     
-    let sizeRect = UIScreen.mainScreen().applicationFrame;
+    let sizeRect = UIScreen.main.applicationFrame;
     
-    func speedUpVelocity(speedFactor: Double) {
+    func speedUpVelocity(_ speedFactor: Double) {
         range += speedFactor
         range = min(range, UPPERRANGEBOUND);
         LOWERBOUND += CGFloat(speedFactor);
         LOWERBOUND = min(LOWERBOUND, LOWESTBOUND)
     }
     
-    func pentagonPath(rect: CGRect) -> CGPath {
+    func pentagonPath(_ rect: CGRect) -> CGPath {
         let dw = M_PI / 2.5
         let path = UIBezierPath()
         for i in 0...4 {
             let x = rect.size.width/2 * CGFloat(cos(Double(i) * dw))
             let y = rect.size.width/2 * CGFloat(sin(Double(i) * dw))
             if i == 0 {
-                path.moveToPoint(CGPoint(x: x, y: y))
+                path.move(to: CGPoint(x: x, y: y))
             } else {
-                path.addLineToPoint(CGPoint(x: x, y: y))
+                path.addLine(to: CGPoint(x: x, y: y))
             }
         }
-        path.closePath()
-        return path.CGPath
+        path.close()
+        return path.cgPath
     }
     
-    func createPentagon(score: Int) -> SKShapeNode {
-        let rect: CGRect = CGRectMake(0, 0, sizeRect.size.width/6, sizeRect.size.width/6)
+    func createPentagon(_ score: Int) -> SKShapeNode {
+        let rect: CGRect = CGRect(x: 0, y: 0, width: sizeRect.size.width/6, height: sizeRect.size.width/6)
         let pentagon = SKShapeNode()
         pentagon.path = pentagonPath(rect)
         var c = colors[0] // red is default
@@ -79,29 +79,29 @@ class SpawnShape
         setupTrianglePhysics(pentagon)
         return pentagon
     }
-    func triangleInRect(rect: CGRect) -> CGPathRef {
-        let offsetX: CGFloat = CGRectGetMidX(rect)
-        let offsetY: CGFloat = CGRectGetMidY(rect)
+    func triangleInRect(_ rect: CGRect) -> CGPath {
+        let offsetX: CGFloat = rect.midX
+        let offsetY: CGFloat = rect.midY
         let bezierPath: UIBezierPath = UIBezierPath()
-        bezierPath.moveToPoint(CGPointMake(offsetX, 0))
-        bezierPath.addLineToPoint(CGPointMake(-offsetX, offsetY))
-        bezierPath.addLineToPoint(CGPointMake(-offsetX, -offsetY))
-        bezierPath.closePath()
-        return bezierPath.CGPath
+        bezierPath.move(to: CGPoint(x: offsetX, y: 0))
+        bezierPath.addLine(to: CGPoint(x: -offsetX, y: offsetY))
+        bezierPath.addLine(to: CGPoint(x: -offsetX, y: -offsetY))
+        bezierPath.close()
+        return bezierPath.cgPath
     }
     
-    func circlePath() -> CGPathRef {
-        let circlePath : UIBezierPath = UIBezierPath(arcCenter: CGPointMake(CGFloat(0), CGFloat(0)), radius: sizeRect.width/13, startAngle: CGFloat(0), endAngle: CGFloat(2*M_PI), clockwise: true)
-        return circlePath.CGPath
+    func circlePath() -> CGPath {
+        let circlePath : UIBezierPath = UIBezierPath(arcCenter: CGPoint(x: CGFloat(0), y: CGFloat(0)), radius: sizeRect.width/13, startAngle: CGFloat(0), endAngle: CGFloat(2*M_PI), clockwise: true)
+        return circlePath.cgPath
     }
     
-    func squarePath(rect:CGRect) -> CGPathRef {
+    func squarePath(_ rect:CGRect) -> CGPath {
         let path = UIBezierPath(roundedRect: rect, cornerRadius: 2)
-        return path.CGPath
+        return path.cgPath
     }
     
-    func createSquare(score: Int) -> SKShapeNode {
-        let rect: CGRect = CGRectMake(-sizeRect.size.width/12, -sizeRect.size.width/12, sizeRect.size.width/6.5, sizeRect.size.width/6.5)
+    func createSquare(_ score: Int) -> SKShapeNode {
+        let rect: CGRect = CGRect(x: -sizeRect.size.width/12, y: -sizeRect.size.width/12, width: sizeRect.size.width/6.5, height: sizeRect.size.width/6.5)
         let square = SKShapeNode()
         var c = colors[1] // green is default
         if (score >= colorScoreLimit) {
@@ -117,7 +117,7 @@ class SpawnShape
     }
     
     
-    func createCircle(score: Int) -> SKShapeNode {
+    func createCircle(_ score: Int) -> SKShapeNode {
         let circle = SKShapeNode()
         var c = colors[2] // blue is default
         if (score >= colorScoreLimit) {
@@ -133,18 +133,18 @@ class SpawnShape
         return circle
     }
     
-    func setupCirclePhysics(circle: SKShapeNode) {
-        circle.userInteractionEnabled = false
+    func setupCirclePhysics(_ circle: SKShapeNode) {
+        circle.isUserInteractionEnabled = false
         circle.physicsBody = SKPhysicsBody(circleOfRadius: circle.frame.width/2)
-        circle.physicsBody?.dynamic = true
+        circle.physicsBody?.isDynamic = true
         circle.physicsBody?.affectedByGravity=false
         circle.physicsBody?.categoryBitMask=PhysicsCategory.Shape;
         circle.physicsBody?.collisionBitMask=PhysicsCategory.Bin
         circle.physicsBody?.contactTestBitMask=PhysicsCategory.Bin
     }
     
-    func createTriangle (score: Int) -> SKShapeNode {
-        let rect: CGRect = CGRectMake(0, 0, sizeRect.size.width/5.5, sizeRect.size.width/5.5)
+    func createTriangle (_ score: Int) -> SKShapeNode {
+        let rect: CGRect = CGRect(x: 0, y: 0, width: sizeRect.size.width/5.5, height: sizeRect.size.width/5.5)
         let triangle = SKShapeNode()
         var c = colors[3] // purple is default
         if (score >= colorScoreLimit) {
@@ -153,20 +153,20 @@ class SpawnShape
         triangle.path = self.triangleInRect(rect)
         triangle.strokeColor = c
         triangle.fillColor = c
-        triangle.position = CGPointMake(sizeRect.size.width/2 - triangle.frame.width/2, sizeRect.size.height/2);
+        triangle.position = CGPoint(x: sizeRect.size.width/2 - triangle.frame.width/2, y: sizeRect.size.height/2);
         // Set names for the launcher so that we can check what node is touched in the touchesEnded method
         triangle.name = "triangle";
         //could randomize rotation here
-        triangle.runAction(SKAction.rotateByAngle(CGFloat(M_PI/2), duration: 3))
+        triangle.run(SKAction.rotate(byAngle: CGFloat(M_PI/2), duration: 3))
         triangle.zPosition=5
         setupTrianglePhysics(triangle)
         return triangle
     }
     
-    func setupTrianglePhysics(triangle: SKShapeNode) {
-        triangle.userInteractionEnabled = false
-        triangle.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: triangle.frame.width, height: triangle.frame.height))
-        triangle.physicsBody?.dynamic = true
+    func setupTrianglePhysics(_ triangle: SKShapeNode) {
+        triangle.isUserInteractionEnabled = false
+        triangle.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: triangle.frame.width, height: triangle.frame.height))
+        triangle.physicsBody?.isDynamic = true
         triangle.physicsBody?.affectedByGravity=false
         triangle.physicsBody?.categoryBitMask=PhysicsCategory.Shape;
         triangle.physicsBody?.collisionBitMask=PhysicsCategory.Bin
@@ -183,16 +183,16 @@ class SpawnShape
         specialShapeProbability = 1000
     }
     
-    func setUpSpecialShape(shape: SKNode, scale: CGFloat) {
+    func setUpSpecialShape(_ shape: SKNode, scale: CGFloat) {
         shape.setScale(scale) // see Ashwin's paper for description of how these numbers were computed
                //shape.physicsBody?.categoryBitMask = PhysicsCategory.Shape
         //shape.position = CGPointMake(scene.frame.width/2, scene.frame.height/2)
         shape.zPosition = 5 // assures shape shows up over other stuff
-        shape.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(shape.frame.width, shape.frame.height)) //can generalize later
+        shape.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: shape.frame.width, height: shape.frame.height)) //can generalize later
         shape.physicsBody?.affectedByGravity = false
         shape.physicsBody?.categoryBitMask=PhysicsCategory.Shape;
         /** ASHWIN, sets up collision masks for the shapes*/
-        shape.physicsBody!.dynamic = true
+        shape.physicsBody!.isDynamic = true
         //shape.physicsBody?.collisionBitMask  // want to track all collisions, which is the default
         //shape.physicsBody?.contactTestBitMask = shape.physicsBody!.collisionBitMask // which collisions do you want to know about (in this case all of them)
         shape.physicsBody?.collisionBitMask=PhysicsCategory.Bin
@@ -200,15 +200,15 @@ class SpawnShape
         
     }
     
-    func spawnShape(score: Int, lives: Int) -> SKNode {
+    func spawnShape(_ score: Int, lives: Int) -> SKNode {
         
-        let width = sizeRect.size.width * UIScreen.mainScreen().scale / 2; //screen width in points
+        let width = sizeRect.size.width * UIScreen.main.scale / 2; //screen width in points
         var shapePicker=100
         let shapes = [createTriangle(score),createSquare(score),createPentagon(score),createCircle(score)]
         X_VELOCITY_RANGE = CGFloat(range)
         Y_VELOCITY_RANGE = CGFloat(1.5*range)
         var shape = SKNode()
-        if((shapeCounter.reduce(0,combine: +) >= 5) &&
+        if((shapeCounter.reduce(0,+) >= 5) &&
             Int(arc4random_uniform(UInt32(specialShapeProbability))) < 100){ // special shape 10% of time initially, at end of game, this value is 16%
             if(Int(arc4random_uniform(5000 / UInt32(specialShapeProbability))) != 0){ // Initially: 80% chance for bomb, 20% for heart; at end, 87.5% chance of bomb
                 shapePicker=Int(4)
@@ -248,10 +248,10 @@ class SpawnShape
             dy = Y_VELOCITY_RANGE*dy - Y_VELOCITY_RANGE/2
         }
         if(shape.name == "heart"){
-            shape.physicsBody?.velocity = CGVectorMake(2*dx, 2*dy)
+            shape.physicsBody?.velocity = CGVector(dx: 2*dx, dy: 2*dy)
         }
         else{
-            shape.physicsBody?.velocity = CGVectorMake(dx, dy)
+            shape.physicsBody?.velocity = CGVector(dx: dx, dy: dy)
         }
         return shape;
         

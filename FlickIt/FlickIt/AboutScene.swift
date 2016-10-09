@@ -11,7 +11,7 @@ import SpriteKit
 
 class AboutScene: SKScene {
     
-    let sizeRect = UIScreen.mainScreen().applicationFrame;
+    let sizeRect = UIScreen.main.applicationFrame;
     let titleLabel = SKLabelNode()
     let titleLabel1 = SKLabelNode()
     let titleLabel2 = SKLabelNode()
@@ -24,62 +24,61 @@ class AboutScene: SKScene {
     var selfSizeHeight = CGFloat(0)
     override init(size: CGSize) {
         super.init(size: size)
-        selfSizeWidth = sizeRect.size.height * UIScreen.mainScreen().scale;
-        selfSizeHeight = sizeRect.size.width * UIScreen.mainScreen().scale;
+        selfSizeWidth = sizeRect.size.height * UIScreen.main.scale;
+        selfSizeHeight = sizeRect.size.width * UIScreen.main.scale;
         createDetailsLabel()
         trackAbout()
     }
     
     func trackAbout() {
         let tracker = GAI.sharedInstance().defaultTracker
-        tracker.set(kGAIScreenName, value: "About Screen")
+        tracker?.set(kGAIScreenName, value: "About Screen")
         let builder = GAIDictionaryBuilder.createScreenView()
-        tracker.send(builder.build() as [NSObject : AnyObject])
-        let event = GAIDictionaryBuilder.createEventWithCategory("Action", action: "Opened About", label: nil, value: nil)
-        tracker.send(event.build() as [NSObject : AnyObject])
-    }
+        tracker?.send(builder?.build() as? [AnyHashable: Any] ?? [:])
+        let event = GAIDictionaryBuilder.createEvent(withCategory: "Action", action: "Opened About", label: nil, value: nil)
+        tracker?.send(event?.build() as? [AnyHashable: Any] ?? [:])    }
     
     func createDetailsLabel() {
         titleLabel.text = "This app was made by Ashwin Vaidyanathan,"
-        titleLabel.position = CGPointMake(self.frame.width/2, self.frame.height * 4.25/5)
-        titleLabel.horizontalAlignmentMode = .Center
-        titleLabel.fontColor = UIColor.whiteColor()
+        titleLabel.position = CGPoint(x: self.frame.width/2, y: self.frame.height * 4.25/5)
+        titleLabel.horizontalAlignmentMode = .center
+        titleLabel.fontColor = UIColor.white
         titleLabel.fontName = "BigNoodleTitling"
         titleLabel.fontSize = 20
         titleLabel.zPosition = 3
         
         titleLabel1.text = "Abhi Mangla, Rohan Narayan, Shaili"
-        titleLabel1.position = CGPointMake(self.frame.width/2, self.frame.height * 4/5)
-        titleLabel1.horizontalAlignmentMode = .Center
-        titleLabel1.fontColor = UIColor.whiteColor()
+        titleLabel1.position = CGPoint(x: self.frame.width/2, y: self.frame.height * 4/5)
+        titleLabel1.horizontalAlignmentMode = .center
+        titleLabel1.fontColor = UIColor.white
         titleLabel1.fontName = "BigNoodleTitling"
         titleLabel1.fontSize = 20
         titleLabel1.zPosition = 3
         
         titleLabel2.text = "Patel, and Jeffrey Zhang."
-        titleLabel2.position = CGPointMake(self.frame.width/2, self.frame.height * 3.75/5)
-        titleLabel2.horizontalAlignmentMode = .Center
-        titleLabel2.fontColor = UIColor.whiteColor()
+        titleLabel2.position = CGPoint(x: self.frame.width/2, y: self.frame.height * 3.75/5)
+        titleLabel2.horizontalAlignmentMode = .center
+        titleLabel2.fontColor = UIColor.white
         titleLabel2.fontName = "BigNoodleTitling"
         titleLabel2.fontSize = 20
         titleLabel2.zPosition = 3
         
-        groupPic.position = CGPointMake(self.size.width/2, self.size.height/2)
+        groupPic.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
         groupPic.xScale = 0.3
         groupPic.yScale = 0.3
         groupPic.zPosition = 3
         self.addChild(groupPic)
         
         backButton.text = "BACK"
-        backButton.position = CGPointMake(self.frame.width/8, self.frame.height * 7.5/8)
-        backButton.horizontalAlignmentMode = .Center
-        backButton.fontColor = UIColor.whiteColor()
+        backButton.position = CGPoint(x: self.frame.width/8, y: self.frame.height * 7.5/8)
+        backButton.horizontalAlignmentMode = .center
+        backButton.fontColor = UIColor.white
         backButton.fontName = "BigNoodleTitling"
         backButton.fontSize = 30
         backButton.zPosition = 3
         
         bgImage.size = CGSize(width: self.size.width, height: self.size.height);
-        bgImage.position = CGPointMake(self.size.width/2, self.size.height/2);
+        bgImage.position = CGPoint(x: self.size.width/2, y: self.size.height/2);
         bgImage.zPosition = 0;
         
         self.addChild(titleLabel)
@@ -96,9 +95,9 @@ class AboutScene: SKScene {
     let suggestionLabel = SKLabelNode()
     func setUpsuggestionLabel() {
         suggestionLabel.text = "ANY SUGGESTIONS OR CONCERNS?"
-        suggestionLabel.position = CGPointMake(self.frame.width/2, self.frame.height * 2/8)
-        suggestionLabel.horizontalAlignmentMode = .Center
-        suggestionLabel.fontColor = UIColor.whiteColor()
+        suggestionLabel.position = CGPoint(x: self.frame.width/2, y: self.frame.height * 2/8)
+        suggestionLabel.horizontalAlignmentMode = .center
+        suggestionLabel.fontColor = UIColor.white
         suggestionLabel.fontName = "BigNoodleTitling"
         suggestionLabel.fontSize = 20
         suggestionLabel.zPosition = 3
@@ -108,9 +107,9 @@ class AboutScene: SKScene {
     let contactTitle = SKLabelNode()
     func setUpContactTitle() {
         contactTitle.text = "CONTACT US AT FlickItTeam@GMAIL.COM"
-        contactTitle.position = CGPointMake(self.frame.width/2, self.frame.height * 1.5/8)
-        contactTitle.horizontalAlignmentMode = .Center
-        contactTitle.fontColor = UIColor.whiteColor()
+        contactTitle.position = CGPoint(x: self.frame.width/2, y: self.frame.height * 1.5/8)
+        contactTitle.horizontalAlignmentMode = .center
+        contactTitle.fontColor = UIColor.white
         contactTitle.fontName = "BigNoodleTitling"
         contactTitle.fontSize = 20
         contactTitle.zPosition = 3
@@ -121,18 +120,18 @@ class AboutScene: SKScene {
     let musicLabel2 = SKLabelNode()
     func setUpMusicLabel() {
         musicLabel.text = "Music: http://www.bensound.com"
-        musicLabel.position = CGPointMake(self.frame.width/2, self.frame.height * 1/8)
-        musicLabel.horizontalAlignmentMode = .Center
-        musicLabel.fontColor = UIColor.whiteColor()
+        musicLabel.position = CGPoint(x: self.frame.width/2, y: self.frame.height * 1/8)
+        musicLabel.horizontalAlignmentMode = .center
+        musicLabel.fontColor = UIColor.white
         musicLabel.fontName = "BigNoodleTitling"
         musicLabel.fontSize = 20
         musicLabel.zPosition = 3
         self.addChild(musicLabel)
         
         musicLabel2.text = "Licensed under Creative Commons"
-        musicLabel2.position = CGPointMake(self.frame.width/2, self.frame.height * 0.5/8)
-        musicLabel2.horizontalAlignmentMode = .Center
-        musicLabel2.fontColor = UIColor.whiteColor()
+        musicLabel2.position = CGPoint(x: self.frame.width/2, y: self.frame.height * 0.5/8)
+        musicLabel2.horizontalAlignmentMode = .center
+        musicLabel2.fontColor = UIColor.white
         musicLabel2.fontName = "BigNoodleTitling"
         musicLabel2.fontSize = 20
         musicLabel2.zPosition = 3
@@ -144,24 +143,24 @@ class AboutScene: SKScene {
         
         // Configure the view.
         let skView = self.view as SKView!
-        skView.showsFPS = false
-        skView.showsNodeCount = false
+        skView?.showsFPS = false
+        skView?.showsNodeCount = false
         
         /* Sprite Kit applies additional optimizations to improve rendering performance */
-        skView.ignoresSiblingOrder = true
+        skView?.ignoresSiblingOrder = true
         
         /* Set the scale mode to scale to fit the window */
-        scene.scaleMode = .AspectFill
-        skView.presentScene(scene)
+        scene.scaleMode = .aspectFill
+        skView?.presentScene(scene)
         
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         /* Called when a touch begins */
         let touch: UITouch = touches.first!
-        let location: CGPoint = touch.locationInNode(self)
+        let location: CGPoint = touch.location(in: self)
         // Save start location and time
-        if backButton.containsPoint(location) {
+        if backButton.contains(location) {
             returnMain()
         }
     }

@@ -17,7 +17,7 @@ struct PhysicsCategory {
 class GameScene: SKScene , SKPhysicsContactDelegate {
     //variables needed for flicking
     var start = CGPoint()
-    var startTime = NSTimeInterval()
+    var startTime = TimeInterval()
     let kMinDistance = CGFloat(50)
     let kMinDuration = CGFloat(0)
     let kMinSpeed = CGFloat(100)
@@ -46,13 +46,13 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     let purple: UIColor = UIColor(red: 99/255, green: 103/255, blue: 211/255, alpha: 1)
     let yellow: UIColor = UIColor(red: 250/255, green: 235/255, blue: 83/255, alpha: 1)
     
-    var appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    var appDelegate = UIApplication.shared.delegate as! AppDelegate
     var muteButton = SKSpriteNode(imageNamed: "playNow.png")
     var audioPlayer = AVAudioPlayer()
     var firstCounter = 0
     var collisionBool = false
     
-    override func didMoveToView(view: SKView) {
+    override func didMove(to view: SKView) {
         createHomeScreen()
         playMusic("bensound-straight", type: "mp3")
     }
@@ -65,14 +65,14 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         }
     }
     
-    func playMusic(path: String, type: String) {
-        let alertSound = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource(path, ofType: type)!)
+    func playMusic(_ path: String, type: String) {
+        let alertSound = URL(fileURLWithPath: Bundle.main.path(forResource: path, ofType: type)!)
         //print(alertSound)
         
         do {
             try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
             try AVAudioSession.sharedInstance().setActive(true)
-            try audioPlayer = AVAudioPlayer(contentsOfURL: alertSound)
+            try audioPlayer = AVAudioPlayer(contentsOf: alertSound)
         }
         catch {
             
@@ -86,11 +86,11 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     func trackHome() {
         // JEFFREY look into trackers
         let tracker = GAI.sharedInstance().defaultTracker
-        tracker.set(kGAIScreenName, value: "Home Screen")
+        tracker?.set(kGAIScreenName, value: "Home Screen")
         let builder = GAIDictionaryBuilder.createScreenView()
-        tracker.send(builder.build() as [NSObject : AnyObject])
-        let event = GAIDictionaryBuilder.createEventWithCategory("Action", action: "Open App", label: nil, value: nil)
-        tracker.send(event.build() as [NSObject : AnyObject])
+        tracker?.send(builder?.build() as? [AnyHashable: Any] ?? [:])
+        let event = GAIDictionaryBuilder.createEvent(withCategory: "Action", action: "Open App", label: nil, value: nil)
+        tracker?.send(event?.build() as? [AnyHashable: Any] ?? [:])
     }
     
     func createHomeScreen(){
@@ -140,7 +140,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         bottomLeft.name = "bottomLeft"
         
         // Sets bg image to fill the entire screen
-        self.view!.backgroundColor = UIColor.blackColor()
+        self.view!.backgroundColor = UIColor.black
 //        bgImage.size = CGSize(width: self.size.width, height: self.size.height);
 //        bgImage.position = CGPointMake(self.size.width/2, self.size.height/2);
         
@@ -181,20 +181,20 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         delay(0.5) {
             self.animateBinsAtStart()
             self.delay(0.5) {
-                let fadeAction = SKAction.fadeAlphaTo(1, duration: 2)
-                let growAction = SKAction.scaleBy(1.5, duration: 1)
-                let shrinkAction = SKAction.scaleBy(0.8333, duration: 1)
+                let fadeAction = SKAction.fadeAlpha(to: 1, duration: 2)
+                let growAction = SKAction.scale(by: 1.5, duration: 1)
+                let shrinkAction = SKAction.scale(by: 0.8333, duration: 1)
                 let growAndShrink = SKAction.sequence([growAction, shrinkAction])
-                let moveLabel: SKAction = SKAction.moveByX(0.0, y: -1*self.size.width*2.5/4, duration: 0.5)
-                self.titleLabel.runAction(growAndShrink)
-                self.titleLabel.runAction(fadeAction)
-                self.titleLabel.runAction(moveLabel)
+                let moveLabel: SKAction = SKAction.moveBy(x: 0.0, y: -1*self.size.width*2.5/4, duration: 0.5)
+                self.titleLabel.run(growAndShrink)
+                self.titleLabel.run(fadeAction)
+                self.titleLabel.run(moveLabel)
             }
         }
     }
     
-    func setUpBinsPhysicsBody(bin: SKShapeNode) {
-        bin.physicsBody?.dynamic=false
+    func setUpBinsPhysicsBody(_ bin: SKShapeNode) {
+        bin.physicsBody?.isDynamic=false
         bin.physicsBody?.affectedByGravity = false
         bin.physicsBody?.categoryBitMask=PhysicsCategory.Bin
         bin.physicsBody?.collisionBitMask=PhysicsCategory.Shape
@@ -202,29 +202,29 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     }
     
     func setupAboutLabel() {
-        aboutIcon.position = CGPointMake(self.size.width*9/10, self.size.height*18.5/20)
+        aboutIcon.position = CGPoint(x: self.size.width*9/10, y: self.size.height*18.5/20)
         aboutIcon.xScale = 0.17
         aboutIcon.yScale = 0.17
     }
     
-    func addCurvedLines(curve: SKShapeNode, dub1: Double, dub2: Double, bol: Bool, arch: Double, radi: CGFloat, color: UIColor) {
-        let circlePath : UIBezierPath = UIBezierPath(arcCenter: CGPointMake(CGFloat(0), CGFloat(0)), radius: radi, startAngle: CGFloat(dub1), endAngle: CGFloat(dub2), clockwise: bol)
-        curve.path = circlePath.CGPath
+    func addCurvedLines(_ curve: SKShapeNode, dub1: Double, dub2: Double, bol: Bool, arch: Double, radi: CGFloat, color: UIColor) {
+        let circlePath : UIBezierPath = UIBezierPath(arcCenter: CGPoint(x: CGFloat(0), y: CGFloat(0)), radius: radi, startAngle: CGFloat(dub1), endAngle: CGFloat(dub2), clockwise: bol)
+        curve.path = circlePath.cgPath
         curve.strokeColor = color
         curve.lineWidth = 3
         curve.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
     }
     
-    private func pointFrom(angle: CGFloat, radius: CGFloat, offset: CGPoint) -> CGPoint {
+    fileprivate func pointFrom(_ angle: CGFloat, radius: CGFloat, offset: CGPoint) -> CGPoint {
         return CGPoint(x: radius * cos(angle) + offset.x, y: radius * sin(angle) + offset.y)
     }
     
-    func degree2radian(a:CGFloat)->CGFloat {
+    func degree2radian(_ a:CGFloat)->CGFloat {
         let b = CGFloat(M_PI) * a/180
         return b
     }
     
-    func polygonPointArray(sides:Int,x:CGFloat,y:CGFloat,radius:CGFloat,adjustment:CGFloat=0)->[CGPoint] {
+    func polygonPointArray(_ sides:Int,x:CGFloat,y:CGFloat,radius:CGFloat,adjustment:CGFloat=0)->[CGPoint] {
         let angle = degree2radian(360/CGFloat(sides))
         let cx = x // x origin
         let cy = y // y origin
@@ -240,40 +240,45 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         return points
     }
     
-    func starPath(x:CGFloat, y:CGFloat, radius:CGFloat, sides:Int, pointyness:CGFloat) -> CGPathRef {
+    func starPath(_ x:CGFloat, y:CGFloat, radius:CGFloat, sides:Int, pointyness:CGFloat) -> CGPath {
         let adjustment = 360/sides/2
-        let path = CGPathCreateMutable()
+        let path = CGMutablePath()
         let points = polygonPointArray(sides,x: x,y: y,radius: radius)
         let cpg = points[0]
         let points2 = polygonPointArray(sides,x: x,y: y,radius: radius*pointyness,adjustment:CGFloat(adjustment))
         var i = 0
-        CGPathMoveToPoint(path, nil, cpg.x, cpg.y)
+        path.move(to: CGPoint(x: cpg.x, y: cpg.y))
+        //CGPathMoveToPoint(path, nil, cpg.x, cpg.y)
         for p in points {
-            CGPathAddLineToPoint(path, nil, points2[i].x, points2[i].y)
-            CGPathAddLineToPoint(path, nil, p.x, p.y)
+            path.addLine(to: CGPoint(x: points2[i].x, y: points[i].y))
+            path.addLine(to: CGPoint(x: p.x, y: p.y))
+            //CGPathAddLineToPoint(path, nil, points2[i].x, points2[i].y)
+            //CGPathAddLineToPoint(path, nil, p.x, p.y)
             i += 1
         }
-        CGPathCloseSubpath(path)
+        path.closeSubpath()
         return path
     }
     
+    //Jeff 
     func createStar() {
-        let rect: CGRect = CGRectMake(0, 0, self.size.width/6, self.size.width/6)
+        let rect: CGRect = CGRect(x: 0, y: 0, width: self.size.width/6, height: self.size.width/6)
         star.path = self.starPath(0, y: 0, radius: rect.size.width/3, sides: 5, pointyness: 2)
         star.strokeColor = yellow
         star.fillColor = yellow
-        star.position = CGPointMake(self.size.width/2, self.size.height/2);
+        star.position = CGPoint(x: self.size.width/2, y: self.size.height/2);
         // Set names for the launcher so that we can check what node is touched in the touchesEnded method
         star.name = "launchStar";
         //could randomize rotation here
-        let rotation = SKAction.rotateByAngle(CGFloat(2 * M_PI), duration: 10)
-        star.runAction(SKAction.repeatActionForever(rotation))
+        let rotation = SKAction.rotate(byAngle: CGFloat(2 * M_PI), duration: 10)
+        star.run(SKAction.repeatForever(rotation))
     }
     
+    
     func setupStarPhysics() {
-        star.userInteractionEnabled = false
-        star.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: star.frame.width, height: star.frame.height))
-        star.physicsBody?.dynamic = true
+        star.isUserInteractionEnabled = false
+        star.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: star.frame.width, height: star.frame.height))
+        star.physicsBody?.isDynamic = true
         star.physicsBody?.affectedByGravity=false
         star.physicsBody?.categoryBitMask = PhysicsCategory.Shape
         star.physicsBody?.collisionBitMask=PhysicsCategory.Bin
@@ -282,17 +287,17 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     }
     
     func setupTitleLabel() {
-        titleLabel.position = CGPointMake(self.size.width/2, self.size.height - titleLabel.frame.height - 20);
-        titleLabel.horizontalAlignmentMode = .Center
-        titleLabel.fontColor = UIColor.whiteColor()
+        titleLabel.position = CGPoint(x: self.size.width/2, y: self.size.height - titleLabel.frame.height - 20);
+        titleLabel.horizontalAlignmentMode = .center
+        titleLabel.fontColor = UIColor.white
         titleLabel.fontName = "BigNoodleTitling"
         titleLabel.fontSize = 50
-        let fadeAction = SKAction.fadeAlphaTo(0, duration: 0.1)
-        titleLabel.runAction(fadeAction)
+        let fadeAction = SKAction.fadeAlpha(to: 0, duration: 0.1)
+        titleLabel.run(fadeAction)
     }
     
-    func setupStartLabel(rad: CGFloat) {
-        startLabel.position = CGPointMake(self.size.width/8, self.size.height*18/20)
+    func setupStartLabel(_ rad: CGFloat) {
+        startLabel.position = CGPoint(x: self.size.width/8, y: self.size.height*18/20)
         startLabel.fontName = "BigNoodleTitling"
         startLabel.fontSize = 30
         
@@ -300,8 +305,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 //        startIcon.yScale = 0.30
     }
     
-    func setupSettingIcon(rad: CGFloat) {
-        settingIcon.position = CGPointMake(self.size.width*9/10, self.size.height*1/12)
+    func setupSettingIcon(_ rad: CGFloat) {
+        settingIcon.position = CGPoint(x: self.size.width*9/10, y: self.size.height*1/12)
         settingIcon.xScale = 0.8
         settingIcon.yScale = 0.8
     }
@@ -311,7 +316,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         muteButton.size = CGSize(width: self.size.width/5, height: self.size.height/10);
     }
     
-    func didBeginContact(contact: SKPhysicsContact){
+    func didBegin(_ contact: SKPhysicsContact){
         if(collisionBool) {
             var firstBody=contact.bodyA
             var secondBody=contact.bodyB
@@ -338,8 +343,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
                         self.unmuteIt()
                     }
                     self.star.removeFromParent()
-                    self.star.physicsBody?.velocity = CGVectorMake(0, 0)
-                    self.star.position = CGPointMake(self.size.width/2, self.size.height/2)
+                    self.star.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
+                    self.star.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
                     self.addChild(star)
                 }
                 else if(secondBody.node!.name == "bottomRight"){
@@ -352,40 +357,40 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
        /* Called when a touch begins */
         let touch: UITouch = touches.first!
-        let location: CGPoint = touch.locationInNode(self)
+        let location: CGPoint = touch.location(in: self)
         // Save start location and time
         start = location
         startTime = touch.timestamp
-        if(star.containsPoint(location)){
+        if(star.contains(location)){
             touching = true
         }
-        if muteButton.containsPoint(location) {
+        if muteButton.contains(location) {
             if appDelegate.muted == false {  //MUTE IT
                 muteIt()
             }
             else if appDelegate.muted == true { //UNMUTE IT
                 unmuteIt()
             }
-            self.star.position = CGPointMake(self.size.width/2, self.size.height/2)
-            self.star.physicsBody?.velocity = CGVectorMake(0, 0)
+            self.star.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
+            self.star.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
 
-        } else if aboutIcon.containsPoint(location) {
+        } else if aboutIcon.contains(location) {
             startAbout()
-        } else if startLabel.containsPoint(location) {
+        } else if startLabel.contains(location) {
             startGame()
-        } else if settingIcon.containsPoint(location) {
+        } else if settingIcon.contains(location) {
             openSettings()
         }   
     }
     
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        if (self.nodeAtPoint(start).name != nil && touching && self.nodeAtPoint(start).physicsBody?.categoryBitMask == PhysicsCategory.Shape) {
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if (self.atPoint(start).name != nil && touching && self.atPoint(start).physicsBody?.categoryBitMask == PhysicsCategory.Shape) {
             for touch in touches{
-                self.removeChildrenInArray([line])
-                let currentLocation=touch.locationInNode(self)
+                self.removeChildren(in: [line])
+                let currentLocation=touch.location(in: self)
                 createLine(currentLocation)
                 self.addChild(line)
                 
@@ -393,30 +398,30 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         }
     }
     
-    func createLine(end: CGPoint){
+    func createLine(_ end: CGPoint){
         line.lineWidth=1.5
         line.path = linePath(end)
-        line.fillColor = UIColor.whiteColor()
-        line.strokeColor = UIColor.whiteColor()
+        line.fillColor = UIColor.white
+        line.strokeColor = UIColor.white
         line.zPosition=4
     }
     
-    func linePath(end: CGPoint) -> CGPath {
+    func linePath(_ end: CGPoint) -> CGPath {
         let path = UIBezierPath()
         for i in 0...1 {
             if i == 0 {
-                path.moveToPoint(start)
+                path.move(to: start)
             } else {
-                path.addLineToPoint(end)
+                path.addLine(to: end)
             }
         }
     
-        path.moveToPoint(end)
-        path.addLineToPoint(CGPointMake(end.x - 5, end.y))
-        path.addLineToPoint(CGPointMake(end.x, end.y + 7))
-        path.addLineToPoint(CGPointMake(end.x + 5, end.y))
-        path.closePath()
-        return path.CGPath
+        path.move(to: end)
+        path.addLine(to: CGPoint(x: end.x - 5, y: end.y))
+        path.addLine(to: CGPoint(x: end.x, y: end.y + 7))
+        path.addLine(to: CGPoint(x: end.x + 5, y: end.y))
+        path.close()
+        return path.cgPath
     }
     
     func muteIt() {
@@ -432,10 +437,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     }
     
     
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        self.removeChildrenInArray([line])
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.removeChildren(in: [line])
         let touch: UITouch = touches.first!
-        let location: CGPoint = touch.locationInNode(self)
+        let location: CGPoint = touch.location(in: self)
         // Determine distance from the starting point
         var dx: CGFloat = location.x - start.x
         var dy: CGFloat = location.y - start.y
@@ -445,10 +450,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
             // Determine time difference from start of the gesture
             dx = dx / magnitude
             dy = dy / magnitude
-            let touchedNode=self.nodeAtPoint(start)
+            let touchedNode=self.atPoint(start)
             //make it move
-            touchedNode.physicsBody?.velocity=CGVectorMake(0.0, 0.0)
-            touchedNode.physicsBody?.applyImpulse(CGVectorMake(400*dx, 400*dy))
+            touchedNode.physicsBody?.velocity=CGVector(dx: 0.0, dy: 0.0)
+            touchedNode.physicsBody?.applyImpulse(CGVector(dx: 400*dx, dy: 400*dy))
         }
         touching = false
     }
@@ -457,13 +462,13 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         let scene: SKScene = AboutScene(size: self.size)
         // Configure the view.
         let skView = self.view as SKView!
-        skView.showsFPS = false
-        skView.showsNodeCount = false
+        skView?.showsFPS = false
+        skView?.showsNodeCount = false
         /* Sprite Kit applies additional optimizations to improve rendering performance */
-        skView.ignoresSiblingOrder = true
+        skView?.ignoresSiblingOrder = true
         /* Set the scale mode to scale to fit the window */
-        scene.scaleMode = .AspectFill
-        skView.presentScene(scene)
+        scene.scaleMode = .aspectFill
+        skView?.presentScene(scene)
         
     }
     
@@ -471,39 +476,39 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         let scene: SKScene = StartGameScene(size: self.size)
         // Configure the view.
         let skView = self.view as SKView!
-        skView.showsFPS = false
-        skView.showsNodeCount = false
+        skView?.showsFPS = false
+        skView?.showsNodeCount = false
             
         /* Sprite Kit applies additional optimizations to improve rendering performance */
-        skView.ignoresSiblingOrder = true
+        skView?.ignoresSiblingOrder = true
             
         /* Set the scale mode to scale to fit the window */
-        scene.scaleMode = .AspectFill
-        skView.presentScene(scene)
+        scene.scaleMode = .aspectFill
+        skView?.presentScene(scene)
         
     }
     
     func animateBinsAtStart() {
-        let rotate = SKAction.rotateByAngle(CGFloat(M_PI), duration: 0.5);
+        let rotate = SKAction.rotate(byAngle: CGFloat(M_PI), duration: 0.5);
         //bin_1.anchorPoint = CGPoint(x: 0, y: 1)
-        topRight.runAction(rotate)
-        topRight.runAction(SKAction.moveTo(CGPoint(x: self.size.width, y: self.size.height), duration: 0.5))
+        topRight.run(rotate)
+        topRight.run(SKAction.move(to: CGPoint(x: self.size.width, y: self.size.height), duration: 0.5))
         
-        topLeft.runAction(rotate)
-        topLeft.runAction(SKAction.moveTo(CGPoint(x: 0, y: self.size.height), duration: 0.5))
+        topLeft.run(rotate)
+        topLeft.run(SKAction.move(to: CGPoint(x: 0, y: self.size.height), duration: 0.5))
         
-        bottomLeft.runAction(rotate)
-        bottomLeft.runAction(SKAction.moveTo(CGPoint(x: 0, y: 0), duration: 0.5))
+        bottomLeft.run(rotate)
+        bottomLeft.run(SKAction.move(to: CGPoint(x: 0, y: 0), duration: 0.5))
         
-        bottomRight.runAction(rotate)
-        bottomRight.runAction(SKAction.moveTo(CGPoint(x: self.size.width, y: 0), duration: 0.5))
+        bottomRight.run(rotate)
+        bottomRight.run(SKAction.move(to: CGPoint(x: self.size.width, y: 0), duration: 0.5))
     }
     
     let timeBeforeHandAppears = 5.0
     var time = 0.0
     var secondTime = true
     
-    override func update(currentTime: CFTimeInterval) {
+    override func update(_ currentTime: TimeInterval) {
         if (secondTime && bottomLeft.position == CGPoint(x: 0, y: 0))  {
             collisionBool = true
             setupStarPhysics()
@@ -525,32 +530,32 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         scene.setOriginalScener(GameScene())
         // Configure the view.
         let skView = self.view as SKView!
-        skView.showsFPS = false
-        skView.showsNodeCount = false
+        skView?.showsFPS = false
+        skView?.showsNodeCount = false
         
         /* Sprite Kit applies additional optimizations to improve rendering performance */
-        skView.ignoresSiblingOrder = true
+        skView?.ignoresSiblingOrder = true
         
         /* Set the scale mode to scale to fit the window */
-        scene.scaleMode = .AspectFill
-        skView.presentScene(scene)
+        scene.scaleMode = .aspectFill
+        skView?.presentScene(scene)
         
         
     }
     
-    func delay(delay:Double, closure:()->()) {
-        dispatch_after(
-            dispatch_time( DISPATCH_TIME_NOW, Int64(delay * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), closure)
+    func delay(_ delay:Double, closure:@escaping ()->()) {
+        DispatchQueue.main.asyncAfter(
+            deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
     }
     
     func removeOffScreenNodes() {
         for shape in ["launchStar"] {
-            self.enumerateChildNodesWithName(shape, usingBlock: {
+            self.enumerateChildNodes(withName: shape, using: {
                 node, stop in
                 let sprite = node 
                 if (sprite.position.y < 0 || sprite.position.x < 0 || sprite.position.x > self.size.width || sprite.position.y > self.size.height) {
-                    self.star.position = CGPointMake(self.size.width/2, self.size.height/2);
-                    self.star.physicsBody?.velocity = CGVectorMake(0, 0)
+                    self.star.position = CGPoint(x: self.size.width/2, y: self.size.height/2);
+                    self.star.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
                 }
             })
         }
@@ -562,7 +567,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
             (view, error) in
             if view != nil {
                 let vc = self.view!.window?.rootViewController
-                vc!.presentViewController(view!, animated: true, completion: nil)
+                vc!.present(view!, animated: true, completion: nil)
             }
             else {
                 //print(GKLocalPlayer.localPlayer().authenticated)
@@ -582,8 +587,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         self.hand.yScale = self.size.width / 5770
         self.hand.zPosition = 3
         self.addChild(self.hand)
-        let move = SKAction.moveTo(CGPoint(x: self.size.width * 1 / 8, y: self.size.height * 7 / 8), duration: 1.5)
+        let move = SKAction.move(to: CGPoint(x: self.size.width * 1 / 8, y: self.size.height * 7 / 8), duration: 1.5)
         let remove = SKAction.removeFromParent()
-        self.hand.runAction(SKAction.sequence([move, remove]))
+        self.hand.run(SKAction.sequence([move, remove]))
     }
 }

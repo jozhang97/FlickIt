@@ -24,7 +24,7 @@ class RulesScene: SKScene {
     var swipe = UISwipeGestureRecognizer();
     var bgImage = SKSpriteNode(imageNamed: "flickitbg")
     var i = 0;
-    var timer: NSTimer = NSTimer()
+    var timer: Timer = Timer()
     var strings = ["There's 4 basic shapes that will enter the screen...", "Flick them into the proper bins they belong to!", "Earn as many points as you can with 3 lives!", "Avoid bombs and use hearts to get extra lives!", "Swipe to Play"]
     
     
@@ -43,14 +43,14 @@ class RulesScene: SKScene {
     func createScene () {
         numTouches = 0;
         rules.text = "How to Play"
-        rules.color = UIColor.yellowColor()
+        rules.color = UIColor.yellow
         rules.position = CGPoint(x: self.frame.width/2, y: self.frame.height*1/4)
         rules.fontSize = 40
         rules.zPosition = 3
         self.addChild(rules)
         
         caption.text = strings[0]
-        caption.color = UIColor.yellowColor()
+        caption.color = UIColor.yellow
         caption.position = CGPoint(x: self.frame.width/2, y: self.frame.height*3/4)
         caption.fontSize = 20
         caption.zPosition = 1
@@ -59,12 +59,12 @@ class RulesScene: SKScene {
         playVideo()
         
         bgImage.size = CGSize(width: self.size.width, height: self.size.height);
-        bgImage.position = CGPointMake(self.size.width/2, self.size.height/2);
+        bgImage.position = CGPoint(x: self.size.width/2, y: self.size.height/2);
         bgImage.zPosition = 0;
         
         self.addChild(bgImage)
 
-        timer = NSTimer.scheduledTimerWithTimeInterval(6.7, target: self, selector: #selector(RulesScene.changeTextMethod), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 6.7, target: self, selector: #selector(RulesScene.changeTextMethod), userInfo: nil, repeats: true)
         //should put a pause of 10 seconds here for flicking period
         
         addSwipe()
@@ -84,15 +84,15 @@ class RulesScene: SKScene {
     
     
     func playVideo() {
-        let fileURL: NSURL = NSURL.fileURLWithPath(NSBundle.mainBundle().pathForResource("FlickItDemoDone2", ofType: "mov")!)
-        let player = AVPlayer(URL: fileURL)
-        player.actionAtItemEnd = AVPlayerActionAtItemEnd.None
-        NSNotificationCenter.defaultCenter().addObserver(self,
+        let fileURL: URL = URL(fileURLWithPath: Bundle.main.path(forResource: "FlickItDemoDone2", ofType: "mov")!)
+        let player = AVPlayer(url: fileURL)
+        player.actionAtItemEnd = AVPlayerActionAtItemEnd.none
+        NotificationCenter.default.addObserver(self,
                                                          selector: #selector(RulesScene.playerItemDidReachEnd(_:)),
-                                                         name: AVPlayerItemDidPlayToEndTimeNotification,
+                                                         name: NSNotification.Name.AVPlayerItemDidPlayToEndTime,
                                                          object: player.currentItem)
-        player.muted = true
-        let video2 = SKVideoNode(AVPlayer: player)
+        player.isMuted = true
+        let video2 = SKVideoNode(avPlayer: player)
         video2.position = CGPoint(x: self.size.width * 1/2, y: self.size.height * 1/2)
         video2.zPosition = 1
         video2.setScale(self.size.width/610)
@@ -102,19 +102,19 @@ class RulesScene: SKScene {
     }
     
 
-    func playerItemDidReachEnd(notification: NSNotification) {
+    func playerItemDidReachEnd(_ notification: Notification) {
         if let playerItem: AVPlayerItem = notification.object as? AVPlayerItem {
-            playerItem.seekToTime(kCMTimeZero)
+            playerItem.seek(to: kCMTimeZero)
         }
     }
 
     func track() {
         let tracker = GAI.sharedInstance().defaultTracker
-        tracker.set(kGAIScreenName, value: "Rule Screen")
+        tracker?.set(kGAIScreenName, value: "Rule Screen")
         let builder = GAIDictionaryBuilder.createScreenView()
-        tracker.send(builder.build() as [NSObject : AnyObject])
-        let event = GAIDictionaryBuilder.createEventWithCategory("Action", action: "Opened rules", label: nil, value: nil)
-        tracker.send(event.build() as [NSObject : AnyObject])
+        tracker?.send(builder?.build() as? [AnyHashable: Any] ?? [:])
+        let event = GAIDictionaryBuilder.createEvent(withCategory: "Action", action: "Opened rules", label: nil, value: nil)
+        tracker?.send(event?.build() as? [AnyHashable: Any] ?? [:])
     }
     
     func setCaptionText () {
@@ -147,15 +147,15 @@ class RulesScene: SKScene {
             // Configure the view.
             self.removeAllChildren()
             let skView = self.view as SKView!
-            skView.showsFPS = false
-            skView.showsNodeCount = false
+            skView?.showsFPS = false
+            skView?.showsNodeCount = false
             
             /* Sprite Kit applies additional optimizations to improve rendering performance */
-            skView.ignoresSiblingOrder = true
+            skView?.ignoresSiblingOrder = true
             
             /* Set the scale mode to scale to fit the window */
-            scene.scaleMode = .AspectFill
-            skView.presentScene(scene)
+            scene.scaleMode = .aspectFill
+            skView?.presentScene(scene)
             
         }
     }
@@ -163,7 +163,7 @@ class RulesScene: SKScene {
     
     func addSwipe() {
         swipe =  UISwipeGestureRecognizer(target: self, action: #selector(RulesScene.handleSwipe(_:)))
-        let directions: [UISwipeGestureRecognizerDirection] = [.Right, .Left]
+        let directions: [UISwipeGestureRecognizerDirection] = [.right, .left]
         for direction in directions {
             let gesture = UISwipeGestureRecognizer(target: self, action: #selector(RulesScene.handleSwipe(_:)))
             gesture.direction = direction
@@ -171,41 +171,41 @@ class RulesScene: SKScene {
         }
     }
     
-    func handleSwipe(sender: UISwipeGestureRecognizer) {
+    func handleSwipe(_ sender: UISwipeGestureRecognizer) {
         print(sender.direction)
-        if (sender.direction == .Left && numTouches < total){
+        if (sender.direction == .left && numTouches < total){
             print("Left")
             numTouches += 1
-        } else if (sender.direction == .Right && numTouches > 0) {
+        } else if (sender.direction == .right && numTouches > 0) {
             print("right")
             numTouches -= 1
         }
         setCaptionText();
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch: UITouch = touches.first!
-        let location: CGPoint = touch.locationInNode(self)
+        let location: CGPoint = touch.location(in: self)
         start = location
     }
     
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch: UITouch = touches.first!
-        let location: CGPoint = touch.locationInNode(self)
+        let location: CGPoint = touch.location(in: self)
         let dx: CGFloat = location.x - start.x
         let dy: CGFloat = location.y - start.y
         let magnitude: CGFloat = sqrt(dx * dx + dy * dy)
         if (magnitude >= 50){
-            swipe.direction = .Left
+            swipe.direction = .left
             handleSwipe(swipe)
         }
         
         start = CGPoint(x: self.size.width/2, y: self.size.height/2)
     }
     
-    func delay(delay:Double, closure:()->()) {
-        dispatch_after(
-            dispatch_time( DISPATCH_TIME_NOW, Int64(delay * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), closure)
+    func delay(_ delay:Double, closure:@escaping ()->()) {
+        DispatchQueue.main.asyncAfter(
+            deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
     }
     
 }

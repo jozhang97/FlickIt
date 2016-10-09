@@ -28,27 +28,27 @@ class GameViewController: UIViewController {
         
         if(skView.scene == nil){
             
-            scene.scaleMode = .AspectFill
+            scene.scaleMode = .aspectFill
             scene.size  = skView.bounds.size
             skView.presentScene(scene)
         }
         
     }
     
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return true
     }
 
 
-    override func shouldAutorotate() -> Bool {
+    override var shouldAutorotate : Bool {
         return false
     }
 
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
-            return .AllButUpsideDown
+    override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            return .allButUpsideDown
         } else {
-            return .All
+            return .all
         }
     }
 
