@@ -32,6 +32,7 @@ class HomeScene: SKScene , SKPhysicsContactDelegate {
     let starLargerBin = SKShapeNode()
     let screenWidth = UIScreen.main.bounds.width
     let screenHeight = UIScreen.main.bounds.height
+    let titleLabel = SKLabelNode(text: "Flick It")
     
     override func didMove(to view: SKView) {
         createBackground()
@@ -45,12 +46,43 @@ class HomeScene: SKScene , SKPhysicsContactDelegate {
         createStar(star: star, name: star.name!)
         createStar(star: starBin, name: starBin.name!)
         createStar(star: starLargerBin, name: starLargerBin.name!)
-        //playMusic("bensound-straight", type: "mp3")
         
+        //playMusic("bensound-straight", type: "mp3")
+        titleLabel.zPosition = 3
+        setupTitleLabel()
         self.addChild(starLargerBin)
         self.addChild(star)
         self.addChild(starBin)
+        self.addChild(titleLabel)
+        delay(0.5) {
+            self.delay(0.5) {
+                let fadeAction = SKAction.fadeAlpha(to: 1, duration: 2)
+                let growAction = SKAction.scale(by: 1.5, duration: 1)
+                let shrinkAction = SKAction.scale(by: 0.8333, duration: 1)
+                let growAndShrink = SKAction.sequence([growAction, shrinkAction])
+                let moveLabel: SKAction = SKAction.moveBy(x: 0.0, y: -1*self.size.width*2.5/4, duration: 0.5)
+                self.titleLabel.run(growAndShrink)
+                self.titleLabel.run(fadeAction)
+                self.titleLabel.run(moveLabel)
+            }
+        }
     }
+    
+    func delay(_ delay:Double, closure:@escaping ()->()) {
+        DispatchQueue.main.asyncAfter(
+            deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
+    }
+    
+    func setupTitleLabel() {
+        titleLabel.position = CGPoint(x: screenWidth/2, y: screenHeight);
+        titleLabel.horizontalAlignmentMode = .center
+        titleLabel.fontColor = UIColor.white
+        titleLabel.fontName = "Avenir"
+        titleLabel.fontSize = 50
+        let fadeAction = SKAction.fadeAlpha(to: 0, duration: 0.1)
+        titleLabel.run(fadeAction)
+    }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         /* Called when a touch begins */
         let touch: UITouch = touches.first!
@@ -186,6 +218,8 @@ class HomeScene: SKScene , SKPhysicsContactDelegate {
             let rect: CGRect = CGRect(x: 0, y: 0, width: screenWidth/6, height: screenWidth/6)
             star.path = self.starPath(0, y: 0, radius: rect.size.width/3, sides: 5, pointyness: 2)
             star.position = CGPoint(x: screenWidth*4/5, y: self.size.height/2);
+            let rotation = SKAction.rotate(byAngle: CGFloat(M_PI/9.5), duration: 1)
+            star.run(rotation)
             star.fillColor = yellowLight
             setupStarBinPhysics(bin: star)
         }
@@ -193,6 +227,8 @@ class HomeScene: SKScene , SKPhysicsContactDelegate {
             let rect: CGRect = CGRect(x: 0, y: 0, width: screenWidth/4, height: screenWidth/4)
             star.path = self.starPath(0, y: 0, radius: rect.size.width/3, sides: 5, pointyness: 2)
             star.position = CGPoint(x: screenWidth*4/5, y: self.size.height/2);
+            let rotation = SKAction.rotate(byAngle: CGFloat(M_PI/9.5), duration: 1)
+            star.run(rotation)
             star.strokeColor = UIColor.black
             star.fillColor = yellow
         }
