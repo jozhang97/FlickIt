@@ -240,6 +240,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         return points
     }
     
+    
     func starPath(_ x:CGFloat, y:CGFloat, radius:CGFloat, sides:Int, pointyness:CGFloat) -> CGPath {
         let adjustment = 360/sides/2
         let path = CGMutablePath()
@@ -250,7 +251,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         path.move(to: CGPoint(x: cpg.x, y: cpg.y))
         //CGPathMoveToPoint(path, nil, cpg.x, cpg.y)
         for p in points {
-            path.addLine(to: CGPoint(x: points2[i].x, y: points[i].y))
+            path.addLine(to: CGPoint(x: points2[i].x, y: points2[i].y))
             path.addLine(to: CGPoint(x: p.x, y: p.y))
             //CGPathAddLineToPoint(path, nil, points2[i].x, points2[i].y)
             //CGPathAddLineToPoint(path, nil, p.x, p.y)
