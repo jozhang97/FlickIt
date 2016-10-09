@@ -140,7 +140,22 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         bottomLeft.name = "bottomLeft"
         
         // Sets bg image to fill the entire screen
-        self.view!.backgroundColor = UIColor.black
+        let gradient = CAGradientLayer()
+        gradient.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+        let color1 = UIColor(red: 171/255.0, green: 232/255.0, blue: 243/255.0, alpha: 1.0).cgColor
+        let color2 = UIColor(red: 246/255.0, green: 204/255.0, blue: 208/255.0, alpha: 1.0).cgColor
+        //layer.zPosition = 0
+        gradient.opacity = 1.0
+        gradient.colors = [color1, color2]
+        let nov = UIView()
+        nov.layer.insertSublayer(gradient, at: 0)
+        self.view?.addSubview(nov)
+        //self.view?.layer.insertSublayer(layer,at: 0)
+        //        self.view!.backgroundColor = UIColor.black
+        //        bgImage.size = CGSize(width: self.size.width, height: self.size.height);
+        //        bgImage.position = CGPointMake(self.size.width/2, self.size.height/2);
+        
+    //self.view!.backgroundColor = UIColor.black
 //        bgImage.size = CGSize(width: self.size.width, height: self.size.height);
 //        bgImage.position = CGPointMake(self.size.width/2, self.size.height/2);
         

@@ -13,7 +13,9 @@ import FBSDKShareKit
 
 class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerDelegate {
     var NUMBEROFLIFES = 3
-
+    let screenWidth = UIScreen.main.bounds.width
+    let screenHeight = UIScreen.main.bounds.height
+    
     let red: UIColor = UIColor(red: 164/255, green: 84/255, blue: 80/255, alpha: 1)
     let blue: UIColor = UIColor(red: 85/255, green: 135/255, blue: 141/255, alpha: 1)
     let green: UIColor = UIColor(red: 147/255, green: 158/255, blue: 106/255, alpha: 1)
@@ -29,7 +31,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     
     var justSpawnedDouble = false
     
-    var bgImage = SKSpriteNode(imageNamed: "background.png")
+    //var bgImage = SKSpriteNode(imageNamed: "background.png")
 
     var bin_1_pos = 1
     
@@ -169,7 +171,23 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         
         createScene()
     }
-    
+    func createBackground(){
+        let size = CGSize(width: screenWidth, height: screenHeight)
+        let color1 = UIColor(red: 171/255.0, green: 232/255.0, blue: 243/255.0, alpha: 1.0).cgColor
+        let color2 = UIColor(red: 246/255.0, green: 204/255.0, blue: 208/255.0, alpha: 1.0).cgColor
+        let layer = CAGradientLayer()
+        layer.frame = CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight)
+        layer.colors = [color1, color2] // start color
+        UIGraphicsBeginImageContext(size)
+        layer.render(in: UIGraphicsGetCurrentContext()!)
+        let bg = UIGraphicsGetImageFromCurrentImageContext()?.cgImage
+        UIGraphicsEndImageContext()
+        let back = SKTexture.init(cgImage: bg!)
+        let backnode = SKSpriteNode(texture: back, size: size)
+        backnode.zPosition = 0
+        backnode.position = CGPoint(x:screenWidth/2,y:screenHeight/2)
+        self.addChild(backnode)
+    }
     func playMusic(_ path: String, type: String) {
         let alertSound = URL(fileURLWithPath: Bundle.main.path(forResource: path, ofType: type)!)
         //print(alertSound)
@@ -241,15 +259,15 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         playingGame = true
         timeBegan = Date()
         self.physicsWorld.contactDelegate = self
-        bgImage.size = CGSize(width: self.size.width, height: self.size.height);
-        bgImage.position = CGPoint(x: self.size.width/2, y: self.size.height/2);
-        bgImage.zPosition = 1
-        self.addChild(bgImage);
+        //bgImage.size = CGSize(width: self.size.width, height: self.size.height);
+        //bgImage.position = CGPoint(x: self.size.width/2, y: self.size.height/2);
+        //bgImage.zPosition = 1
+        //self.addChild(bgImage);
         let radius = self.size.height/6
         //adds bins on all 4 corners of screen with name, zposition and size
         //bin_1.size = CGSize(width: 100, height: 100)
         // top right
-        
+        createBackground()
         bin_1_shape.anchorPoint = CGPoint(x: 1, y: 1)
         bin_1_shape.setScale(binShapeScaleFactor)
         bin_1_shape.position = CGPoint(x: self.size.width - radius / 16, y: self.size.height - radius/16)
@@ -605,7 +623,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     }
     
     func goToHome() {
-        let scene: SKScene = GameScene(size: self.size)
+        let scene: SKScene = HomeScene(size: self.size)
         fbbutton.removeFromSuperview()
         // Configure the view.
         let skView = self.view as SKView!
@@ -1168,7 +1186,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     func openPause() {
         playingGame = false
         pauseButton.texture = SKTexture(imageNamed: "playButton")
-        bgImage.run(SKAction.fadeAlpha(to: 0.2, duration: 0.5));
+        //bgImage.run(SKAction.fadeAlpha(to: 0.2, duration: 0.5));
         arePaused = true
         if appDelegate.muted == true {
             muteLabel.text = "Unmute"
@@ -1245,7 +1263,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     
     func closePause() {
         pauseButton.texture = SKTexture(imageNamed: "pauseButton")
-        bgImage.run(SKAction.fadeAlpha(to: 1.0, duration: 0.5));
+        //bgImage.run(SKAction.fadeAlpha(to: 1.0, duration: 0.5));
         arePaused = false
         // manipulate touch end
         self.removeChildren(in: [muteLabel, restartLabel, homeLabel, themeSettingsLabel, pauseBackground, newUnPauseLabel])
