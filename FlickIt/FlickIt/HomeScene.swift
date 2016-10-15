@@ -12,7 +12,7 @@ import SpriteKit
 import AVFoundation
 import GameKit
 
-class HomeScene: SKScene , SKPhysicsContactDelegate {
+class HomeScene: SKScene , SKPhysicsContactDelegate, GKGameCenterControllerDelegate {
     var start = CGPoint()
     var line = SKShapeNode()
     var startTime = TimeInterval()
@@ -33,9 +33,22 @@ class HomeScene: SKScene , SKPhysicsContactDelegate {
     let screenWidth = UIScreen.main.bounds.width
     let screenHeight = UIScreen.main.bounds.height
     let titleLabel = SKLabelNode(text: "Flick It")
+    var appDelegate = UIApplication.shared.delegate as! AppDelegate
+    var muteButton = SKSpriteNode(imageNamed: "playNow.png")
+    var gamecenterButton = SKSpriteNode(imageNamed: "highScore.png")
+    var audioPlayer = AVAudioPlayer()
+    var arr: [SKShapeNode] = []
     
     override func didMove(to view: SKView) {
+        if (appDelegate.muted == true) {
+            muteButton = SKSpriteNode(imageNamed: "muteNow.png")
+        }
+        else {
+            muteButton = SKSpriteNode(imageNamed: "playNow.png")
+        }
         createBackground()
+        createMuteButton()
+        createGamecenterButton()
         self.physicsWorld.contactDelegate = self
         star.zPosition = 5
         star.name = "launchStar"
@@ -47,11 +60,15 @@ class HomeScene: SKScene , SKPhysicsContactDelegate {
         createStar(star: starBin, name: starBin.name!)
         createStar(star: starLargerBin, name: starLargerBin.name!)
         titleLabel.zPosition = 3
+        muteButton.zPosition = 3
+        gamecenterButton.zPosition = 3
         setupTitleLabel()
         self.addChild(starLargerBin)
         self.addChild(star)
         self.addChild(starBin)
         self.addChild(titleLabel)
+        self.addChild(muteButton)
+        self.addChild(gamecenterButton)
         delay(0.5) {
             self.delay(0.5) {
                 let fadeAction = SKAction.fadeAlpha(to: 1, duration: 2)
@@ -64,8 +81,45 @@ class HomeScene: SKScene , SKPhysicsContactDelegate {
                 self.titleLabel.run(moveLabel)
             }
         }
-        //playMusic("bensound-straight", type: "mp3")
+        playMusic("bensound-straight", type: "mp3")
         startFlashingArrow()
+    }
+    
+    func createGamecenterButton() {
+        gamecenterButton.position = CGPoint(x: self.size.width*8/10, y: self.size.height/20)
+        gamecenterButton.size = CGSize(width: self.size.width/10, height: self.size.height/20);
+    }
+    
+    func createMuteButton() {
+        muteButton.position = CGPoint(x: self.size.width*9/10, y: self.size.height/20)
+        muteButton.size = CGSize(width: self.size.width/10, height: self.size.height/20);
+    }
+    
+    func checkMute() {
+        if (appDelegate.muted == true) {
+            self.audioPlayer.volume = 0
+        }
+        else {
+            self.audioPlayer.volume = 1
+        }
+    }
+    
+    func playMusic(_ path: String, type: String) {
+        let alertSound = URL(fileURLWithPath: Bundle.main.path(forResource: path, ofType: type)!)
+        //print(alertSound)
+        
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            try AVAudioSession.sharedInstance().setActive(true)
+            try audioPlayer = AVAudioPlayer(contentsOf: alertSound)
+        }
+        catch {
+            
+        }
+        audioPlayer.prepareToPlay()
+        audioPlayer.numberOfLoops = -1
+        checkMute()
+        audioPlayer.play()
     }
     
     func delay(_ delay:Double, closure:@escaping ()->()) {
@@ -83,6 +137,18 @@ class HomeScene: SKScene , SKPhysicsContactDelegate {
         titleLabel.run(fadeAction)
     }
     
+    func muteIt() {
+        appDelegate.muted = true
+        muteButton.texture = SKTexture(imageNamed: "muteNow.png")
+        checkMute()
+    }
+    
+    func unmuteIt() {
+        appDelegate.muted = false
+        muteButton.texture = SKTexture(imageNamed: "playNow.png")
+        checkMute()
+    }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         /* Called when a touch begins */
         let touch: UITouch = touches.first!
@@ -93,7 +159,7 @@ class HomeScene: SKScene , SKPhysicsContactDelegate {
         if(star.contains(location)){
             touching = true
         }
-        /*
+        
         if muteButton.contains(location) {
             if appDelegate.muted == false {  //MUTE IT
                 muteIt()
@@ -101,17 +167,29 @@ class HomeScene: SKScene , SKPhysicsContactDelegate {
             else if appDelegate.muted == true { //UNMUTE IT
                 unmuteIt()
             }
-            self.star.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
-            self.star.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
-            
-        } else if aboutIcon.contains(location) {
-            startAbout()
-        } else if startLabel.contains(location) {
-            startGame()
-        } else if settingIcon.contains(location) {
-            openSettings()
         }
-        */
+        else if gamecenterButton.contains(location) {
+            showLeaderboard()
+        }
+        
+    }
+    
+    func showLeaderboard() {
+        let viewController = self.view!.window?.rootViewController
+        let gameCenterVC: GKGameCenterViewController! = GKGameCenterViewController()
+        
+        //        let gameCenterVC: GKGameCenterViewController! = GKGameCenterViewController(rootViewController: viewController!)
+        gameCenterVC.gameCenterDelegate = self
+        viewController?.dismiss(animated: true, completion: nil)
+        print("HERO")
+        print(viewController?.presentedViewController) // thought this wasn't nil then can't put one vc on top of another
+        viewController?.removeFromParentViewController()
+        
+        viewController!.present(gameCenterVC, animated: true, completion: nil)
+        print(viewController?.presentedViewController)
+        
+        print("da subviews")
+        print(self.view?.subviews)
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -124,6 +202,9 @@ class HomeScene: SKScene , SKPhysicsContactDelegate {
                 
             }
         }
+    }
+    func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController) {
+        gameCenterViewController.dismiss(animated: true, completion: nil)
     }
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.removeChildren(in: [line])
@@ -321,37 +402,41 @@ class HomeScene: SKScene , SKPhysicsContactDelegate {
             })
         }
     }
-
-
-    let arrowShape1 = SKShapeNode()
-    let arrowShape2 = SKShapeNode()
-    let arrowShape3 = SKShapeNode()
-    let arrowShape4 = SKShapeNode()
-    let arrowShape5 = SKShapeNode()
+    
     func startFlashingArrow() {
         createFlashingArrow()
         animateFlashingArrow()
     }
     
+   
     func createFlashingArrow() {
         // helper for startFlashingArrow
-        let width = self.size.width
-        let height = self.size.height
-        var i: CGFloat = CGFloat(1)
-        var colorVal:CGFloat = CGFloat(1)
-        for arrowShapeRect in [arrowShape1, arrowShape2, arrowShape3, arrowShape4, arrowShape5] {
-            let rect = CGRect(x: 7, y: 7, width: 7, height: height * 0.021 * i)
-            var bPath = UIBezierPath(roundedRect: rect, cornerRadius: 2)
-            let pos = CGPoint(x: width * (3/8 + i/32), y: height * (4/8 - 0.01 * i))
-            let color = UIColor(red: colorVal, green: colorVal, blue: colorVal, alpha: 1)
-            if (i == 5) {
-                bPath = triangleInRect(rect)
-            }
-            createShape(shape: arrowShapeRect, path: bPath, position: pos, color: color)
-            colorVal = 40 * i
-            i += 1
+        for i in 0...3 {
+            let rectshape = CGRect(x: screenWidth*2.8/8 + CGFloat(i)*screenWidth/15, y: screenHeight*0.89/2, width: screenWidth/25, height: screenHeight/10)
+            
+            let rect = SKShapeNode(rect: rectshape)
+            rect.fillColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
+            //arr[i] = rect
+            rect.zPosition = 3
+            self.addChild(rect)
         }
-        arrowShape5.position = CGPoint(x: width * 4.5 / 8, y: height * 4.1/8)
+//        let width = self.size.width
+//        let height = self.size.height
+//        var i: CGFloat = CGFloat(1)
+//        var colorVal:CGFloat = CGFloat(1)
+//        for arrowShapeRect in [arrowShape1, arrowShape2, arrowShape3, arrowShape4, arrowShape5] {
+//            let rect = CGRect(x: 7, y: 7, width: 7, height: height * 0.021 * i)
+//            var bPath = UIBezierPath(roundedRect: rect, cornerRadius: 2)
+//            let pos = CGPoint(x: width * (3/8 + i/32), y: height * (4/8 - 0.01 * i))
+//            let color = UIColor(red: colorVal, green: colorVal, blue: colorVal, alpha: 1)
+//            if (i == 5) {
+//                bPath = triangleInRect(rect)
+//            }
+//            createShape(shape: arrowShapeRect, path: bPath, position: pos, color: color)
+//            colorVal = 40 * i
+//            i += 1
+//        }
+//        arrowShape5.position = CGPoint(x: width * 4.5 / 8, y: height * 4.1/8)
         
         // TODO: not sure how to get the triangle in the right spot w/o hardcoding
     }
@@ -403,19 +488,19 @@ class HomeScene: SKScene , SKPhysicsContactDelegate {
     func animateFlashingArrow() {
         // helper for startFlashingArrow
 
-        // TODO: can't figure out how to alter color (not sure if alpha is right) in time 
-        let waitAction = SKAction.wait(forDuration: 4)
-        var sequence: [SKAction] = []
-
-        for arrowShapeRect in [self.arrowShape1, self.arrowShape2, self.arrowShape3, self.arrowShape4, self.arrowShape5] {
-            sequence.append(bigAction(shape: arrowShapeRect))
-            sequence.append(waitAction)
-        }
-        for arrowShapeRect in [self.arrowShape1, self.arrowShape2, self.arrowShape3, self.arrowShape4, self.arrowShape5] {
-            sequence.append(smallAction(shape: arrowShapeRect))
-        }
-        sequence.append(waitAction)
-        run(SKAction.repeatForever(SKAction.sequence((sequence))))
+        // TODO: can't figure out how to alter color (not sure if alpha is right) in time
+//        let waitAction = SKAction.wait(forDuration: 4)
+//        var sequence: [SKAction] = []
+//
+//        for arrowShapeRect in [self.arrowShape1, self.arrowShape2, self.arrowShape3, self.arrowShape4, self.arrowShape5] {
+//            sequence.append(bigAction(shape: arrowShapeRect))
+//            sequence.append(waitAction)
+//        }
+//        for arrowShapeRect in [self.arrowShape1, self.arrowShape2, self.arrowShape3, self.arrowShape4, self.arrowShape5] {
+//            sequence.append(smallAction(shape: arrowShapeRect))
+//        }
+//        sequence.append(waitAction)
+//        run(SKAction.repeatForever(SKAction.sequence((sequence))))
 
     }
 }
