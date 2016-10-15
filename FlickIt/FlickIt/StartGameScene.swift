@@ -44,12 +44,12 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     var bin_3 = SKShapeNode()
     var bin_4 = SKShapeNode()
     
-    var bin_1_shape = SKSpriteNode(imageNamed: "pentagonOutline") //change this to differently oriented triangles
-    var bin_2_shape = SKSpriteNode(imageNamed: "squareOutline")
-    var bin_3_shape = SKSpriteNode(imageNamed: "circleOutline")
-    var bin_4_shape = SKSpriteNode(imageNamed: "triangleOutline")
+    var bin_1_shape = SKSpriteNode(imageNamed: "pentagonOutline-1") //change this to differently oriented triangles
+    var bin_2_shape = SKSpriteNode(imageNamed: "squareOutline-1")
+    var bin_3_shape = SKSpriteNode(imageNamed: "circleOutline-1")
+    var bin_4_shape = SKSpriteNode(imageNamed: "triangleOutline-1")
     
-    var bin_3_shape_width = CGFloat(1024)
+    var bin_3_shape_width = CGFloat(2048)
     var bin_1_width = CGFloat(85)
     var bin_2_width = CGFloat(85)
     var bin_3_width = CGFloat(85)
@@ -64,7 +64,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     var pauseRestart = false
     
     let shapes = ["pentagon", "square","circle","triangle", "gameOverStar", "bomb", "heart"]
-    var bin_shape_image_names = ["pentagonOutline", "squareOutline", "circleOutline","triangleOutline"]
+    var bin_shape_image_names = ["pentagonOutline-1", "squareOutline-1", "circleOutline-1","triangleOutline-1"]
     let bins = ["bin_1", "bin_2", "bin_3", "bin_4"]
     
     var start=CGPoint();
@@ -117,7 +117,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         sceneWidth = sizeRect.size.width * UIScreen.main.scale;
         let radius = self.size.height/6
         shapeScaleFactor = 0.14 * self.size.width/bin_3_shape_width
-        binShapeScaleFactor = 0.29 * self.size.width/radius
+        binShapeScaleFactor = 0.24 * self.size.width/radius
         
         playMusic("bensound-cute", type: "mp3")
         
@@ -272,25 +272,25 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         bin_1_shape.setScale(binShapeScaleFactor)
         bin_1_shape.position = CGPoint(x: self.size.width - radius / 16, y: self.size.height - radius/16)
         bin_1_shape.zPosition = 4;
-        bin_1_shape.texture = SKTexture(imageNamed: "pentagonOutline")
+        bin_1_shape.texture = SKTexture(imageNamed: "pentagonOutline-1")
         
         bin_2_shape.anchorPoint = CGPoint(x: 0, y: 1)
         bin_2_shape.setScale(binShapeScaleFactor)
         bin_2_shape.position = CGPoint(x: radius / 16, y: self.size.height - radius / 16)
         bin_2_shape.zPosition = 4;
-        bin_2_shape.texture = SKTexture(imageNamed: "squareOutline")
+        bin_2_shape.texture = SKTexture(imageNamed: "squareOutline-1")
 
         bin_3_shape.anchorPoint = CGPoint(x: 0, y: 0)
         bin_3_shape.setScale(binShapeScaleFactor)
         bin_3_shape.position = CGPoint(x: radius / 16, y: radius / 16)
         bin_3_shape.zPosition = 4;
-        bin_3_shape.texture = SKTexture(imageNamed: "circleOutline")
+        bin_3_shape.texture = SKTexture(imageNamed: "circleOutline-1")
 
         bin_4_shape.anchorPoint = CGPoint(x: 1, y: 0)
         bin_4_shape.setScale(binShapeScaleFactor)
         bin_4_shape.position = CGPoint(x: self.size.width - radius / 16, y: radius / 16)
         bin_4_shape.zPosition = 4;
-        bin_4_shape.texture = SKTexture(imageNamed: "triangleOutline")
+        bin_4_shape.texture = SKTexture(imageNamed: "triangleOutline-1")
 
         self.addChild(bin_1_shape)
         self.addChild(bin_2_shape)
@@ -592,7 +592,6 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         }
     }
     func pressedHighScore() {
-        authPlayer()
         saveScore(score)
         showLeaderboard()
     }
@@ -1048,7 +1047,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     func createStar() {
         let rect: CGRect = CGRect(x: 0, y: 0, width: self.size.width/6, height: self.size.width/6)
         restart_star.path = self.starPath(0, y: 0, radius: rect.size.width/3, sides: 5, pointyness: 2)
-        restart_star.strokeColor = yellow
+        restart_star.strokeColor = UIColor.black
         restart_star.fillColor = yellow
         restart_star.zPosition = 7
         restart_star.position = CGPoint(x: self.size.width/2, y: self.size.height/2 - self.gameOverLabel.frame.height*2);
@@ -1358,20 +1357,9 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         line.zPosition=4
     }
     
-    func authPlayer() {
-        let localPlayer = GKLocalPlayer.localPlayer()
-        localPlayer.authenticateHandler = {
-            (view, error) in
-            if view != nil && !localPlayer.isAuthenticated {
-//                let viewController = self.view!.window?.rootViewController
-//                viewController?.presentViewController(view!, animated: true, completion: nil)
-//                viewController?.removeFromParentViewController()
-//                self.view?.removeFromSuperview() //idk about this
-            }
-            else { 
-                print("Authenticated status: " + String(GKLocalPlayer.localPlayer().isAuthenticated))
-            }
-        }
+    func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController)
+    {
+        gameCenterViewController.dismiss(animated: true, completion: nil)
     }
     
     func saveScore(_ score: Int) {
@@ -1384,32 +1372,41 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
                 print(NSError)
                 return
             })
-            print("Score is")
-            print(score)
 //        }
     }
     
     func showLeaderboard() {
-        let viewController = self.view!.window?.rootViewController
-        let gameCenterVC: GKGameCenterViewController! = GKGameCenterViewController()
-
-//        let gameCenterVC: GKGameCenterViewController! = GKGameCenterViewController(rootViewController: viewController!)
-        gameCenterVC.gameCenterDelegate = self
-        viewController?.dismiss(animated: true, completion: nil)
-        print("HERO")
-        print(viewController?.presentedViewController) // thought this wasn't nil then can't put one vc on top of another
-        viewController?.removeFromParentViewController()
-        
-        viewController!.present(gameCenterVC, animated: true, completion: nil)
-        print(viewController?.presentedViewController)
-
-        print("da subviews")
-        print(self.view?.subviews)
+        let localPlayer = GKLocalPlayer.localPlayer()
+        if !localPlayer.isAuthenticated {
+            let alert = UIAlertController(title: "Not logged into GameCenter", message: "To see high scores, please log in to GameCenter via Settings", preferredStyle: UIAlertControllerStyle.actionSheet)
+            alert.addAction(
+                UIAlertAction(
+                    title: "Cancel",
+                    style: UIAlertActionStyle.cancel,
+                    handler: nil
+                )
+            )
+            self.view?.window?.rootViewController?.present(alert, animated: true, completion: nil)
+            
+            // UIAlertView
+            // open "Do you want to log in gamecenter?"
+            // if wants to log in, open sign in sheet
+            // if not, go back
+        } else {
+            let viewController = self.view!.window?.rootViewController
+            let gameCenterVC: GKGameCenterViewController! = GKGameCenterViewController()
+    //        let gameCenterVC: GKGameCenterViewController! = GKGameCenterViewController(rootViewController: viewController!)
+            gameCenterVC.gameCenterDelegate = self
+            viewController?.dismiss(animated: true, completion: nil)
+            
+            print(viewController?.presentedViewController) // thought this wasn't nil then can't put one vc on top of another
+            viewController?.removeFromParentViewController()
+            
+            viewController!.present(gameCenterVC, animated: true, completion: nil)
+            print(viewController?.presentedViewController)
+        }
     }
     
-    func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController) {
-        gameCenterViewController.dismiss(animated: true, completion: nil)
-    }
     
 //    deinit{
 //        let vc = self.view!.window?.rootViewController
