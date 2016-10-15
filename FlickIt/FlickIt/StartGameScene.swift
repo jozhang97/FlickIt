@@ -606,6 +606,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     func pressedSettings() {
         resetGameOverStar()
         let scene = SettingScene(size: self.size)
+        fbbutton.removeFromSuperview()
         let origScene = self
         scene.setOriginalScener(origScene)
         // Configure the view.

@@ -10,10 +10,13 @@ import UIKit
 import SpriteKit
 
 class SettingScene: SKScene {
-    let backButton = SKLabelNode(text: "BACK")
-    let resetHighScoreButton = SKLabelNode(text: "Clear my highscore")
-    let muteButton = SKLabelNode()    
+    let backButton = SKLabelNode(text: "Back")
+    let resetHighScoreButton = SKLabelNode(text: "Clear Highscore")
+    let muteButton = SKLabelNode()
+    let settingsTitle = SKLabelNode(text: "Settings")
     var appDelegate = UIApplication.shared.delegate as! AppDelegate
+    let screenWidth = UIScreen.main.bounds.width
+    let screenHeight = UIScreen.main.bounds.height
 
     /*
     let highScoreButton = SKLabelNode(text: "See My HighScore")
@@ -157,11 +160,21 @@ class SettingScene: SKScene {
     
     override init(size: CGSize) {
         super.init(size: size)
-        backButton.position = CGPoint(x: self.frame.size.width/9, y: self.frame.size.height*9/10);
+        
+        settingsTitle.position = CGPoint(x: self.frame.size.width/2, y: 3*self.frame.size.height/4)
+        settingsTitle.horizontalAlignmentMode = .center
+        settingsTitle.fontColor = UIColor.white
+        settingsTitle.fontName = "Avenir"
+        settingsTitle.fontSize = 54
+        settingsTitle.zPosition = 5
+        self.addChild(settingsTitle)
+        
+        backButton.position = CGPoint(x: self.frame.size.width/9, y: 12*self.frame.size.height/13);
         backButton.horizontalAlignmentMode = .center
         backButton.fontColor = UIColor.white
-        backButton.fontName = "BigNoodleTitling"
-        backButton.fontSize = 50
+        backButton.fontName = "Avenir"
+        backButton.fontSize = 24
+        backButton.zPosition = 5
         self.addChild(backButton)
         
         /*
@@ -190,17 +203,21 @@ class SettingScene: SKScene {
         resetHighScoreButton.position = CGPoint(x: self.frame.size.width/2, y: self.frame.size.height*5/10);
         resetHighScoreButton.horizontalAlignmentMode = .center
         resetHighScoreButton.fontColor = UIColor.white
-        resetHighScoreButton.fontName = "BigNoodleTitling"
-        resetHighScoreButton.fontSize = 50
+        resetHighScoreButton.fontName = "Avenir"
+        resetHighScoreButton.fontSize = 24
+        resetHighScoreButton.zPosition = 5
         self.addChild(resetHighScoreButton)
 
         muteButton.position = CGPoint(x: self.frame.size.width/2, y: self.frame.size.height*6/10);
         muteButton.horizontalAlignmentMode = .center
         muteButton.fontColor = UIColor.white
-        muteButton.fontName = "BigNoodleTitling"
-        muteButton.fontSize = 50
+        muteButton.fontName = "Avenir"
+        muteButton.fontSize = 24
+        muteButton.zPosition = 5
         updateMuteButtonText()
         self.addChild(muteButton)
+        
+        createBackground()
         
     }
     
@@ -221,6 +238,23 @@ class SettingScene: SKScene {
     func resetLocalHighScore() {
         UserDefaults.standard.set(0, forKey: "score")
         UserDefaults.standard.synchronize()
+    }
+    func createBackground(){
+        let size = CGSize(width: screenWidth, height: screenHeight)
+        let color1 = UIColor(red: 171/255.0, green: 232/255.0, blue: 243/255.0, alpha: 1.0).cgColor
+        let color2 = UIColor(red: 246/255.0, green: 204/255.0, blue: 208/255.0, alpha: 1.0).cgColor
+        let layer = CAGradientLayer()
+        layer.frame = CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight)
+        layer.colors = [color1, color2] // start color
+        UIGraphicsBeginImageContext(size)
+        layer.render(in: UIGraphicsGetCurrentContext()!)
+        let bg = UIGraphicsGetImageFromCurrentImageContext()?.cgImage
+        UIGraphicsEndImageContext()
+        let back = SKTexture.init(cgImage: bg!)
+        let backnode = SKSpriteNode(texture: back, size: size)
+        backnode.zPosition = 0
+        backnode.position = CGPoint(x:screenWidth/2,y:screenHeight/2)
+        self.addChild(backnode)
     }
 
 
