@@ -592,7 +592,6 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         }
     }
     func pressedHighScore() {
-        authPlayer()
         saveScore(score)
         showLeaderboard()
     }
@@ -1358,20 +1357,9 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         line.zPosition=4
     }
     
-    func authPlayer() {
-        let localPlayer = GKLocalPlayer.localPlayer()
-        localPlayer.authenticateHandler = {
-            (view, error) in
-            if view != nil && !localPlayer.isAuthenticated {
-//                let viewController = self.view!.window?.rootViewController
-//                viewController?.presentViewController(view!, animated: true, completion: nil)
-//                viewController?.removeFromParentViewController()
-//                self.view?.removeFromSuperview() //idk about this
-            }
-            else { 
-                print("Authenticated status: " + String(GKLocalPlayer.localPlayer().isAuthenticated))
-            }
-        }
+    func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController)
+    {
+        gameCenterViewController.dismiss(animated: true, completion: nil)
     }
     
     func saveScore(_ score: Int) {
@@ -1384,32 +1372,41 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
                 print(NSError)
                 return
             })
-            print("Score is")
-            print(score)
 //        }
     }
     
     func showLeaderboard() {
-        let viewController = self.view!.window?.rootViewController
-        let gameCenterVC: GKGameCenterViewController! = GKGameCenterViewController()
-
-//        let gameCenterVC: GKGameCenterViewController! = GKGameCenterViewController(rootViewController: viewController!)
-        gameCenterVC.gameCenterDelegate = self
-        viewController?.dismiss(animated: true, completion: nil)
-        print("HERO")
-        print(viewController?.presentedViewController) // thought this wasn't nil then can't put one vc on top of another
-        viewController?.removeFromParentViewController()
-        
-        viewController!.present(gameCenterVC, animated: true, completion: nil)
-        print(viewController?.presentedViewController)
-
-        print("da subviews")
-        print(self.view?.subviews)
+        let localPlayer = GKLocalPlayer.localPlayer()
+        if !localPlayer.isAuthenticated {
+            let alert = UIAlertController(title: "Not logged into GameCenter", message: "To see high scores, please log in to GameCenter via Settings", preferredStyle: UIAlertControllerStyle.actionSheet)
+            alert.addAction(
+                UIAlertAction(
+                    title: "Cancel",
+                    style: UIAlertActionStyle.cancel,
+                    handler: nil
+                )
+            )
+            self.view?.window?.rootViewController?.present(alert, animated: true, completion: nil)
+            
+            // UIAlertView
+            // open "Do you want to log in gamecenter?"
+            // if wants to log in, open sign in sheet
+            // if not, go back
+        } else {
+            let viewController = self.view!.window?.rootViewController
+            let gameCenterVC: GKGameCenterViewController! = GKGameCenterViewController()
+    //        let gameCenterVC: GKGameCenterViewController! = GKGameCenterViewController(rootViewController: viewController!)
+            gameCenterVC.gameCenterDelegate = self
+            viewController?.dismiss(animated: true, completion: nil)
+            
+            print(viewController?.presentedViewController) // thought this wasn't nil then can't put one vc on top of another
+            viewController?.removeFromParentViewController()
+            
+            viewController!.present(gameCenterVC, animated: true, completion: nil)
+            print(viewController?.presentedViewController)
+        }
     }
     
-    func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController) {
-        gameCenterViewController.dismiss(animated: true, completion: nil)
-    }
     
 //    deinit{
 //        let vc = self.view!.window?.rootViewController
