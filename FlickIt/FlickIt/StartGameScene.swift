@@ -30,15 +30,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     let restart_star = SKShapeNode()
     
     var justSpawnedDouble = false
-    
-    //var bgImage = SKSpriteNode(imageNamed: "background.png")
 
     var bin_1_pos = 1
-    
-    //var bin_1 = SKSpriteNode(imageNamed: "blue_bin_t.png"); // all bins are facing bottom right corner
-    //var bin_2 = SKSpriteNode(imageNamed: "red_bin_t.png");
-    //var bin_3 = SKSpriteNode(imageNamed: "green_bin_t.png");
-    //var bin_4 = SKSpriteNode(imageNamed: "purple_bin_t.png");
     var bin_1 = SKShapeNode()
     var bin_2 = SKShapeNode()
     var bin_3 = SKShapeNode()
@@ -97,6 +90,9 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     let fbbutton = FBSDKShareButton()
     let content = FBSDKShareLinkContent()
     var doubleShapeProbability = 300
+    var gradient_colors = [CGColor]()
+
+    var backgroundNode = SKSpriteNode()
     
     var timeBegan = Date()
     var appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -108,6 +104,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     override init() {
         super.init()
     }
+    
     override init(size: CGSize) {
         super.init(size: size)
         shapeController = SpawnShape()
@@ -134,7 +131,16 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
             bin.physicsBody?.collisionBitMask=PhysicsCategory.Shape
             bin.physicsBody?.contactTestBitMask=PhysicsCategory.Shape
         }
-        
+        func setupGradientColors(){
+            let gradient_blue = UIColor(red: 171/255.0, green: 232/255.0, blue: 243/255.0, alpha: 1.0).cgColor
+            let gradient_red = UIColor(red: 246/255.0, green: 204/255.0, blue: 208/255.0, alpha: 1.0).cgColor
+            let gradient_yellow = UIColor(red: 244/255.0, green: 216/255.0, blue: 178/255.0, alpha: 1.0).cgColor
+            gradient_colors.append(gradient_blue)
+            gradient_colors.append(gradient_red)
+            gradient_colors.append(gradient_yellow)
+            
+        }
+        setupGradientColors()
         bin_1.position = CGPoint(x: self.size.width, y: self.size.height)
         bin_1.zPosition = 3
         bin_1.physicsBody = SKPhysicsBody(circleOfRadius: bin_1.frame.size.width)
@@ -171,10 +177,9 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         
         createScene()
     }
-    func createBackground(){
+    
+    func createBackground(color1: CGColor, color2: CGColor){
         let size = CGSize(width: screenWidth, height: screenHeight)
-        let color1 = UIColor(red: 171/255.0, green: 232/255.0, blue: 243/255.0, alpha: 1.0).cgColor
-        let color2 = UIColor(red: 246/255.0, green: 204/255.0, blue: 208/255.0, alpha: 1.0).cgColor
         let layer = CAGradientLayer()
         layer.frame = CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight)
         layer.colors = [color1, color2] // start color
@@ -183,10 +188,21 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         let bg = UIGraphicsGetImageFromCurrentImageContext()?.cgImage
         UIGraphicsEndImageContext()
         let back = SKTexture.init(cgImage: bg!)
-        let backnode = SKSpriteNode(texture: back, size: size)
-        backnode.zPosition = 0
-        backnode.position = CGPoint(x:screenWidth/2,y:screenHeight/2)
-        self.addChild(backnode)
+        backgroundNode = SKSpriteNode(texture: back, size: size)
+        backgroundNode.zPosition = 0
+        backgroundNode.position = CGPoint(x:screenWidth/2,y:screenHeight/2)
+        self.addChild(backgroundNode)
+    }
+    func changeBackground(scorediv20: Int){
+        //if score is 40, use the 40 / 20 = 2 and 3 elements of array
+        let first = scorediv20 % gradient_colors.count
+        var second = first+1
+        //it cycles if we don't have enought colors.
+        if(second >= gradient_colors.count){
+            second = 0
+        }
+        backgroundNode.removeFromParent()
+        createBackground(color1: gradient_colors[first] , color2: gradient_colors[second] )
     }
     func playMusic(_ path: String, type: String) {
         let alertSound = URL(fileURLWithPath: Bundle.main.path(forResource: path, ofType: type)!)
@@ -267,7 +283,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         //adds bins on all 4 corners of screen with name, zposition and size
         //bin_1.size = CGSize(width: 100, height: 100)
         // top right
-        createBackground()
+        createBackground(color1: gradient_colors[0],color2: gradient_colors[1])
         bin_1_shape.anchorPoint = CGPoint(x: 1, y: 1)
         bin_1_shape.setScale(binShapeScaleFactor)
         bin_1_shape.position = CGPoint(x: self.size.width - radius / 16, y: self.size.height - radius/16)
@@ -549,6 +565,9 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
                     explosionEmitterNode?.zPosition=100
                     if (firstBody.node?.name == secondBody.node?.name) {
                         score += 1
+                        if(score % 5 == 0){
+                            changeBackground(scorediv20: score / 5)
+                        }
                         aud3exists = true
                         playSwoosh("swoosh")
                         aud3exists = false
@@ -701,7 +720,6 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
                     self.shapeController.speedUpVelocity(5);
                     //            timeRequired = max(timeRequired - timeSpeedUpFactor, minTimeRequired)
                     timeRequired = max(timeRequired * multiplicativeSpeedUpFactor, minTimeRequired)
-                    //                self.shapeController.specialShapeProbability = max(Int(multiplicativeSpeedUpFactor * Double( self.shapeController.specialShapeProbability)), self.shapeController.sShapeProbabilityBound)
                     
                     self.shapeController.specialShapeProbability = max(self.shapeController.specialShapeProbability - 4, self.shapeController.sShapeProbabilityBound)
                     multiplicativeSpeedUpFactor -= 0.005

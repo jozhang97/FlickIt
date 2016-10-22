@@ -247,12 +247,7 @@ class SpawnShape
             dy = CGFloat(Float(arc4random())/0xFFFFFFFF)
             dy = Y_VELOCITY_RANGE*dy - Y_VELOCITY_RANGE/2
         }
-        if(shape.name == "heart"){
-            shape.physicsBody?.velocity = CGVector(dx: 2*dx, dy: 2*dy)
-        }
-        else{
-            shape.physicsBody?.velocity = CGVector(dx: dx, dy: dy)
-        }
+        shape.physicsBody?.velocity = CGVector(dx: dx, dy: dy)
         return shape;
         
     }

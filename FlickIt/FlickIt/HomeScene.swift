@@ -242,8 +242,8 @@ class HomeScene: SKScene , SKPhysicsContactDelegate, GKGameCenterControllerDeleg
                 explosionEmitterNode?.zPosition=100
                 explosionEmitterNode?.particleColorSequence=SKKeyframeSequence(keyframeValues: [UIColor.red], times: [0])
                 self.addChild(explosionEmitterNode!)
-                self.startGame();
-                self.removeAllChildren();
+                self.startGame()
+                self.removeAllChildren()
                 self.star.position.y = 0
         }
     }
