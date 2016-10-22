@@ -1044,20 +1044,25 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     func setUpLocalHighScore() {
         var prevHighScore: Int = UserDefaults.standard.integer(forKey: "score")
         if prevHighScore < score {
+            // score from game just played is best
             UserDefaults.standard.set(score, forKey: "score")
             UserDefaults.standard.synchronize()
             prevHighScore = score
+            gameOverHighScoreLabel.fontColor = UIColor.red
+            gameOverHighScoreLabel.text = "* Your New High Score: " + String(prevHighScore) + " *"
+
+        } else {
+            gameOverHighScoreLabel.fontColor = UIColor.white
+            gameOverHighScoreLabel.text = "Your High Score: " + String(prevHighScore)
         }
         if (self.children.contains(gameOverHighScoreLabel)) {
             self.removeChildren(in: [gameOverHighScoreLabel])
         }
         gameOverHighScoreLabel.position = CGPoint(x: self.size.width/2, y: self.size.height/3.9);
         gameOverHighScoreLabel.horizontalAlignmentMode = .center
-        gameOverHighScoreLabel.fontColor = UIColor.white
         gameOverHighScoreLabel.fontName = "BigNoodleTitling"
         gameOverHighScoreLabel.fontSize = 20
         gameOverHighScoreLabel.zPosition = 5
-        gameOverHighScoreLabel.text = "Your High Score: " + String(prevHighScore)
         self.addChild(gameOverHighScoreLabel)
         
     }
