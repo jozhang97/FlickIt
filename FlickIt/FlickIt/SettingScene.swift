@@ -44,7 +44,26 @@ class SettingScene: SKScene {
         //if(skView.scene == nil){
         scene.scaleMode = .aspectFill
         scene.size  = skView.bounds.size
+        
+        
+        if isStartGameScene(scene: scene) {
+            let startGameScene = scene as! StartGameScene
+            startGameScene.score = 0
+            /*** CAUTION
+             Our desire here is to set the label on the lose screen to show "High Score: 0"
+             little hackish to set score back to 0, but when we run setUpLocalHighScore, it picks the bigger of score and prevHighScore
+             We do not update the score label after this is called, it stays the same and is not affected
+             GameCenter gets reported the score when lose screen appears, so is not affected by this hack either
+            ***/
+            startGameScene.setUpLocalHighScore()
+        }
         skView.presentScene(scene)
+        
+    }
+    
+    func isStartGameScene(scene: SKScene) -> Bool {
+        let sceneMirror = Mirror.init(reflecting: scene)
+        return sceneMirror.subjectType == StartGameScene.self
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

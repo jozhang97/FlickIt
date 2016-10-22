@@ -175,21 +175,35 @@ class HomeScene: SKScene , SKPhysicsContactDelegate, GKGameCenterControllerDeleg
     }
     
     func showLeaderboard() {
-        let viewController = self.view!.window?.rootViewController
-        let gameCenterVC: GKGameCenterViewController! = GKGameCenterViewController()
-        
-        //        let gameCenterVC: GKGameCenterViewController! = GKGameCenterViewController(rootViewController: viewController!)
-        gameCenterVC.gameCenterDelegate = self
-        viewController?.dismiss(animated: true, completion: nil)
-        print("HERO")
-        print(viewController?.presentedViewController) // thought this wasn't nil then can't put one vc on top of another
-        viewController?.removeFromParentViewController()
-        
-        viewController!.present(gameCenterVC, animated: true, completion: nil)
-        print(viewController?.presentedViewController)
-        
-        print("da subviews")
-        print(self.view?.subviews)
+        let localPlayer = GKLocalPlayer.localPlayer()
+        if !localPlayer.isAuthenticated {
+            let alert = UIAlertController(title: "Not logged into GameCenter", message: "To see high scores, please log in to GameCenter via Settings", preferredStyle: UIAlertControllerStyle.actionSheet)
+            alert.addAction(
+                UIAlertAction(
+                    title: "Cancel",
+                    style: UIAlertActionStyle.cancel,
+                    handler: nil
+                )
+            )
+            self.view?.window?.rootViewController?.present(alert, animated: true, completion: nil)
+            
+            // UIAlertView
+            // open "Do you want to log in gamecenter?"
+            // if wants to log in, open sign in sheet
+            // if not, go back
+        } else {
+            let viewController = self.view!.window?.rootViewController
+            let gameCenterVC: GKGameCenterViewController! = GKGameCenterViewController()
+            //        let gameCenterVC: GKGameCenterViewController! = GKGameCenterViewController(rootViewController: viewController!)
+            gameCenterVC.gameCenterDelegate = self
+            viewController?.dismiss(animated: true, completion: nil)
+            
+            print(viewController?.presentedViewController) // thought this wasn't nil then can't put one vc on top of another
+            viewController?.removeFromParentViewController()
+            
+            viewController!.present(gameCenterVC, animated: true, completion: nil)
+            print(viewController?.presentedViewController)
+        }
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {

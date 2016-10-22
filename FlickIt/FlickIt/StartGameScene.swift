@@ -89,10 +89,10 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     var touchedNode=SKNode()
     let fbbutton = FBSDKShareButton()
     let content = FBSDKShareLinkContent()
-    var doubleShapeProbability = 300
     var gradient_colors = [CGColor]()
 
     var backgroundNode = SKSpriteNode()
+    var doubleShapeProbability = 600
     
     var timeBegan = Date()
     var appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -698,13 +698,21 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
                     shapeToAdd = self.shapeController.spawnShape(score, lives: lives);
                     shapeToAdd.position = CGPoint(x: self.size.width/2, y: self.size.height/2);
                     self.addChild(shapeToAdd);
-                    if (!justSpawnedDouble && score > 10) { // double spawns start at score 10
-                        doubleShapeProbability = max(doubleShapeProbability - 4, 150)
-                        
-                        //spawn two shapes 33% -> 50% of the time
-                        if(Int(arc4random_uniform(UInt32(doubleShapeProbability))) <= 100){
+                    if (!justSpawnedDouble && score > 20) {
+                        doubleShapeProbability = max(doubleShapeProbability - 4, 300)
+                        /***
+                         double spawns start at score 20
+                         doubleShapeProbability starts at 600 and drops slowly to 300.
+                         Pick random number from 0 to doubleShapeProbability and compare with 100
+                         spawn two shapes 16.7% -> 33.3% of the time
+                         delay of 0.1 seconds between the double spawn
+                         
+                         (Before, was after score of 10, delay of 0.2, probability 33% -> 67%)
+                        ***/
+                        let rand = Int(arc4random_uniform(UInt32(doubleShapeProbability)))
+                        if(rand <= 100){
                             //change above value for difficulty purposes!!!!!!!!
-                            delay(0.2) {
+                            delay(0.1) {
                                 self.shapeToAdd = self.shapeController.spawnShape(self.score, lives: self.lives);
                                 self.shapeToAdd.position = CGPoint(x: self.size.width/2, y: self.size.height/2);
                                 self.addChild(self.shapeToAdd);
@@ -1039,6 +1047,9 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
             UserDefaults.standard.set(score, forKey: "score")
             UserDefaults.standard.synchronize()
             prevHighScore = score
+        }
+        if (self.children.contains(gameOverHighScoreLabel)) {
+            self.removeChildren(in: [gameOverHighScoreLabel])
         }
         gameOverHighScoreLabel.position = CGPoint(x: self.size.width/2, y: self.size.height/3.9);
         gameOverHighScoreLabel.horizontalAlignmentMode = .center
