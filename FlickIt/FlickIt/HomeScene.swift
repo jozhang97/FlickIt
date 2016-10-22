@@ -50,7 +50,7 @@ class HomeScene: SKScene , SKPhysicsContactDelegate, GKGameCenterControllerDeleg
         createMuteButton()
         createGamecenterButton()
         self.physicsWorld.contactDelegate = self
-        star.zPosition = 5
+        star.zPosition = 7
         star.name = "launchStar"
         starBin.zPosition = 5
         starBin.name = "regularBinStar"
@@ -241,27 +241,15 @@ class HomeScene: SKScene , SKPhysicsContactDelegate, GKGameCenterControllerDeleg
         touching = false
     }
     override func update(_ currentTime: TimeInterval) {
+        if(star.contains(CGPoint.init(x: screenWidth*5/6, y: self.size.height/2)) ||
+           star.contains(CGPoint.init(x: screenWidth*5/6, y: 3*self.size.height/5)) ||
+           star.contains(CGPoint.init(x: screenWidth*5/6, y: 2*self.size.height/5))){
+            self.startGame()
+            self.removeAllChildren()
+        }
         removeOffScreenNodes()
     }
-    func didBegin(_ contact: SKPhysicsContact){
-        var firstBody=contact.bodyA
-        var secondBody=contact.bodyB
-        if(firstBody.categoryBitMask==PhysicsCategory.Bin && secondBody.categoryBitMask==PhysicsCategory.Shape){
-            firstBody=contact.bodyB
-            secondBody=contact.bodyA
-        }
-        if (firstBody.categoryBitMask==PhysicsCategory.Shape && secondBody.categoryBitMask==PhysicsCategory.Bin){
-                let explosionEmitterNode = SKEmitterNode(fileNamed:"ExplosionEffect.sks")
-                explosionEmitterNode!.position = contact.contactPoint
-                explosionEmitterNode?.zPosition=100
-                explosionEmitterNode?.particleColorSequence=SKKeyframeSequence(keyframeValues: [UIColor.red], times: [0])
-                self.addChild(explosionEmitterNode!)
-                self.startGame()
-                self.removeAllChildren()
-                self.star.position.y = 0
-        }
-    }
-
+    
     func startGame() {
         let scene: SKScene = StartGameScene(size: self.size)
         // Configure the view.
@@ -300,8 +288,8 @@ class HomeScene: SKScene , SKPhysicsContactDelegate, GKGameCenterControllerDeleg
             let rect: CGRect = CGRect(x: 0, y: 0, width: screenWidth/6, height: screenWidth/6)
             star.path = self.starPath(0, y: 0, radius: rect.size.width/3, sides: 5, pointyness: 2)
             star.position = CGPoint(x: screenWidth/5, y: self.size.height/2);
-            let rotation = SKAction.rotate(byAngle: CGFloat(2 * M_PI), duration: 10)
-            star.run(SKAction.repeatForever(rotation))
+            let rotation = SKAction.rotate(byAngle: CGFloat(M_PI/9.5), duration: 1)
+            star.run(rotation)
             star.strokeColor = UIColor.black
             star.fillColor = yellow
             setupStarPhysics(star: star)
@@ -313,7 +301,6 @@ class HomeScene: SKScene , SKPhysicsContactDelegate, GKGameCenterControllerDeleg
             let rotation = SKAction.rotate(byAngle: CGFloat(M_PI/9.5), duration: 1)
             star.run(rotation)
             star.fillColor = yellowLight
-            setupStarBinPhysics(bin: star)
         }
         else {
             let rect: CGRect = CGRect(x: 0, y: 0, width: screenWidth/4, height: screenWidth/4)
@@ -371,14 +358,6 @@ class HomeScene: SKScene , SKPhysicsContactDelegate, GKGameCenterControllerDeleg
         star.physicsBody?.categoryBitMask = PhysicsCategory.Shape
         star.physicsBody?.collisionBitMask=PhysicsCategory.Bin
         star.physicsBody?.contactTestBitMask=PhysicsCategory.Bin
-    }
-    func setupStarBinPhysics(bin: SKShapeNode){
-        bin.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: starBin.frame.width, height: starBin.frame.height))
-        bin.physicsBody?.isDynamic=false
-        bin.physicsBody?.affectedByGravity = false
-        bin.physicsBody?.categoryBitMask=PhysicsCategory.Bin
-        bin.physicsBody?.collisionBitMask=PhysicsCategory.Shape
-        bin.physicsBody?.contactTestBitMask=PhysicsCategory.Shape
     }
     func createLine(_ end: CGPoint){
         line.lineWidth=1.5
