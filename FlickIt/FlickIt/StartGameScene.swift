@@ -87,7 +87,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     let sizeRect = UIScreen.main.applicationFrame;
     var line = SKShapeNode()
     var touchedNode=SKNode()
-    let fbbutton = FBSDKShareButton()
+    let fbshare = FBSDKShareButton()
+    var fbsend = FBSDKSendButton()
     let content = FBSDKShareLinkContent()
     var gradient_colors = [CGColor]()
 
@@ -173,7 +174,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         self.addChild(bin_3)
         self.addChild(bin_4)
         
-        fbbutton.frame = CGRect(x: UIScreen.main.bounds.width/4, y: UIScreen.main.bounds.height*6/8, width: UIScreen.main.bounds.width/3, height: UIScreen.main.bounds.height/12)
+        fbshare.frame = CGRect(x: UIScreen.main.bounds.width/2-UIScreen.main.bounds.width/4-15, y: UIScreen.main.bounds.height*4/5, width: UIScreen.main.bounds.width/4, height: UIScreen.main.bounds.height/14)
+        fbsend.frame = CGRect(x: UIScreen.main.bounds.width/2+15, y: UIScreen.main.bounds.height*4/5, width: UIScreen.main.bounds.width/4, height: UIScreen.main.bounds.height/14)
         
         createScene()
     }
@@ -642,8 +644,9 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     }
     
     func goToHome() {
-        let scene: SKScene = HomeScene(size: self.size)
-        fbbutton.removeFromSuperview()
+        let scene: SKScene = GameScene(size: self.size)
+        fbshare.removeFromSuperview()
+        fbsend.removeFromSuperview()
         // Configure the view.
         let skView = self.view as SKView!
         skView?.showsFPS = false
@@ -1032,8 +1035,14 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         content.contentTitle = "Download FlickIt! (or else)"
         let prevHighScore: Int = UserDefaults.standard.integer(forKey: "score")
         content.contentDescription = "My high score is "+String(prevHighScore)
-        fbbutton.shareContent = content
-        self.view?.addSubview(fbbutton)
+        fbshare.shareContent = content
+        fbsend.shareContent = content
+        self.view?.addSubview(fbshare)
+        if(fbsend.isHidden){
+            print("send is hidden")
+        }else{
+            self.view?.addSubview(fbsend)
+        }
         gameOverTrack()
         putBackPhysicsBodyBin()
         playingGame = false
@@ -1169,7 +1178,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     func restartScene() {
         // makes bins smaller
         restartBTN = SKSpriteNode() // stopped being able to click when not there
-        fbbutton.removeFromSuperview()
+        fbshare.removeFromSuperview()
+        fbsend.removeFromSuperview()
         self.removeAllActions()
         self.removeAllChildren()
         
