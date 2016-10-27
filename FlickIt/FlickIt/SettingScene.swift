@@ -8,6 +8,7 @@
 
 import UIKit
 import SpriteKit
+import AVFoundation
 
 class SettingScene: SKScene {
     let backButton = SKLabelNode(text: "Back")
@@ -17,6 +18,7 @@ class SettingScene: SKScene {
     var appDelegate = UIApplication.shared.delegate as! AppDelegate
     let screenWidth = UIScreen.main.bounds.width
     let screenHeight = UIScreen.main.bounds.height
+    var audioPlaya = AVAudioPlayer()
 
     /*
     let highScoreButton = SKLabelNode(text: "See My HighScore")
@@ -107,7 +109,16 @@ class SettingScene: SKScene {
             
         } else if muteButton.contains(location) {
             // TODO: set appdelegate.muted and make music start or end
-            updateMuteButtonText()
+            if appDelegate.muted == true {
+                muteButton.text = "Mute"
+                appDelegate.muted = false
+                audioPlaya.volume = 1
+            }
+            else {
+                muteButton.text = "Unmute"
+                appDelegate.muted = true
+                audioPlaya.volume = 0
+            }
         } else if resetHighScoreButton.contains(location) {
             resetLocalHighScore()
         }
@@ -177,9 +188,37 @@ class SettingScene: SKScene {
     }
     */
     
-    override init(size: CGSize) {
-        super.init(size: size)
+    let musicLabel = SKLabelNode()
+    let musicLabel2 = SKLabelNode()
+    func setUpMusicLabel() {
+        musicLabel.text = "Music: http://www.bensound.com"
+        musicLabel.position = CGPoint(x: self.frame.width/2, y: self.frame.height * 1/8)
+        musicLabel.horizontalAlignmentMode = .center
+        musicLabel.fontColor = UIColor.white
+        musicLabel.fontName = "Avenir"
+        musicLabel.fontSize = 20
+        musicLabel.zPosition = 3
+        self.addChild(musicLabel)
         
+        musicLabel2.text = "Licensed under Creative Commons"
+        musicLabel2.position = CGPoint(x: self.frame.width/2, y: self.frame.height * 0.5/8)
+        musicLabel2.horizontalAlignmentMode = .center
+        musicLabel2.fontColor = UIColor.white
+        musicLabel2.fontName = "Avenir"
+        musicLabel2.fontSize = 20
+        musicLabel2.zPosition = 3
+        self.addChild(musicLabel2)
+    }
+    
+    init(size: CGSize, ap: AVAudioPlayer) {
+        super.init(size: size)
+        audioPlaya = ap
+        if (appDelegate.muted == false) {
+            muteButton.text = "Mute"
+        }
+        else {
+            muteButton.text = "Unmute"
+        }
         settingsTitle.position = CGPoint(x: self.frame.size.width/2, y: 3*self.frame.size.height/4)
         settingsTitle.horizontalAlignmentMode = .center
         settingsTitle.fontColor = UIColor.white
@@ -218,6 +257,7 @@ class SettingScene: SKScene {
         storeButton.fontSize = 50
         self.addChild(storeButton)
         */
+        setUpMusicLabel()
  
         resetHighScoreButton.position = CGPoint(x: self.frame.size.width/2, y: self.frame.size.height*5/10);
         resetHighScoreButton.horizontalAlignmentMode = .center
@@ -233,7 +273,6 @@ class SettingScene: SKScene {
         muteButton.fontName = "Avenir"
         muteButton.fontSize = 24
         muteButton.zPosition = 5
-        updateMuteButtonText()
         self.addChild(muteButton)
         
         createBackground()

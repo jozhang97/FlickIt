@@ -30,7 +30,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // [END tracker_swift]
         GCHelper.sharedInstance.authenticateLocalUser()
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
-        
+        if !(UserDefaults.standard.object(forKey: "muted") != nil)
+        {
+            
+        }
+        else
+        {
+            UserDefaults.standard.set(false, forKey: "muted")
+        }
+        muted = (UserDefaults.standard.object(forKey: "muted") != nil)
         return true
     }
 
@@ -51,16 +59,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-        muted = false
+        muted = true
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         FBSDKAppEvents.activateApp()
+        muted = false;
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        muted = true;
     }
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {

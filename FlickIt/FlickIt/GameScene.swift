@@ -542,7 +542,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     }
     
     func openSettings() {
-        let scene = SettingScene(size: self.size)
+        /*let scene = SettingScene(coder: self.size)
         scene.setOriginalScener(GameScene())
         // Configure the view.
         let skView = self.view as SKView!
@@ -555,6 +555,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         /* Set the scale mode to scale to fit the window */
         scene.scaleMode = .aspectFill
         skView?.presentScene(scene)
+ */
         
         
     }
