@@ -82,7 +82,7 @@ class HomeScene: SKScene , SKPhysicsContactDelegate, GKGameCenterControllerDeleg
             }
         }
         playMusic("bensound-straight", type: "mp3")
-        startFlashingArrow()
+        createFlashingArrow()
     }
     
     func createGamecenterButton() {
@@ -396,42 +396,22 @@ class HomeScene: SKScene , SKPhysicsContactDelegate, GKGameCenterControllerDeleg
         }
     }
     
-    func startFlashingArrow() {
-        createFlashingArrow()
-        animateFlashingArrow()
-    }
-    
-   
     func createFlashingArrow() {
         // helper for startFlashingArrow
-        for i in 0...3 {
+        var rectangles = [SKShapeNode]()
+        let endlessAction = SKAction.repeatForever(bigAction())
+        for i in 0...4 {
             let rectshape = CGRect(x: screenWidth*2.8/8 + CGFloat(i)*screenWidth/15, y: screenHeight*0.89/2, width: screenWidth/25, height: screenHeight/10)
             
             let rect = SKShapeNode(rect: rectshape)
-            rect.fillColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
-            //arr[i] = rect
+            rect.fillColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: (CGFloat(1.0) - CGFloat(Double(i)*0.2)))
+            rectangles.append(rect)
             rect.zPosition = 3
             self.addChild(rect)
         }
-//        let width = self.size.width
-//        let height = self.size.height
-//        var i: CGFloat = CGFloat(1)
-//        var colorVal:CGFloat = CGFloat(1)
-//        for arrowShapeRect in [arrowShape1, arrowShape2, arrowShape3, arrowShape4, arrowShape5] {
-//            let rect = CGRect(x: 7, y: 7, width: 7, height: height * 0.021 * i)
-//            var bPath = UIBezierPath(roundedRect: rect, cornerRadius: 2)
-//            let pos = CGPoint(x: width * (3/8 + i/32), y: height * (4/8 - 0.01 * i))
-//            let color = UIColor(red: colorVal, green: colorVal, blue: colorVal, alpha: 1)
-//            if (i == 5) {
-//                bPath = triangleInRect(rect)
-//            }
-//            createShape(shape: arrowShapeRect, path: bPath, position: pos, color: color)
-//            colorVal = 40 * i
-//            i += 1
-//        }
-//        arrowShape5.position = CGPoint(x: width * 4.5 / 8, y: height * 4.1/8)
-        
-        // TODO: not sure how to get the triangle in the right spot w/o hardcoding
+        for i in 0...4 {
+            rectangles[i].run(endlessAction)
+        }
     }
     
     func triangleInRect(_ rect: CGRect) -> UIBezierPath {
@@ -458,42 +438,12 @@ class HomeScene: SKScene , SKPhysicsContactDelegate, GKGameCenterControllerDeleg
         addChild(shape)
     }
     
-    func bigAction(shape: SKShapeNode) -> SKAction{
+    func bigAction() -> SKAction{
         // helper for animateFlashingArrow
-        let fadeHighAction = SKAction.fadeAlpha(to: 1, duration: 5)
-        let growAction = SKAction.scale(by: 1.2, duration: 4)
-        let bigSequence = SKAction.sequence([fadeHighAction, growAction])
-        return SKAction.run( {
-            shape.run(bigSequence)
-        })
-    }
-    
-    func smallAction(shape: SKShapeNode) -> SKAction {
-        // helper for animateFlashingArrow
-        let fadeLowAction = SKAction.fadeAlpha(to: 1, duration: 5)
-        let shrinkAction = SKAction.scale(by: 5/6, duration: 4)
-        let smallSequence = SKAction.sequence([fadeLowAction, shrinkAction])
-        return SKAction.run( {
-            shape.run(smallSequence)
-        })
-    }
-    
-    func animateFlashingArrow() {
-        // helper for startFlashingArrow
-
-        // TODO: can't figure out how to alter color (not sure if alpha is right) in time
-//        let waitAction = SKAction.wait(forDuration: 4)
-//        var sequence: [SKAction] = []
-//
-//        for arrowShapeRect in [self.arrowShape1, self.arrowShape2, self.arrowShape3, self.arrowShape4, self.arrowShape5] {
-//            sequence.append(bigAction(shape: arrowShapeRect))
-//            sequence.append(waitAction)
-//        }
-//        for arrowShapeRect in [self.arrowShape1, self.arrowShape2, self.arrowShape3, self.arrowShape4, self.arrowShape5] {
-//            sequence.append(smallAction(shape: arrowShapeRect))
-//        }
-//        sequence.append(waitAction)
-//        run(SKAction.repeatForever(SKAction.sequence((sequence))))
-
+        let fadeHighAction = SKAction.fadeAlpha(to: 0.1, duration: 2)
+        let fadeBackAction = SKAction.fadeAlpha(to: 1, duration: 2)
+        //let growAction = SKAction.scale(by: 1.2, duration: 4)
+        let bigSequence = SKAction.sequence([fadeHighAction, fadeBackAction])
+        return bigSequence
     }
 }
