@@ -210,7 +210,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         let alertSound = URL(fileURLWithPath: Bundle.main.path(forResource: path, ofType: type)!)
         //print(alertSound)
         do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
             try AVAudioSession.sharedInstance().setActive(true)
             try audioPlayer = AVAudioPlayer(contentsOf: alertSound)
         }
@@ -255,8 +255,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         //print(alertSound)
         
         do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
-            
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
             try AVAudioSession.sharedInstance().setActive(true)
             try audioPlayer2 = AVAudioPlayer(contentsOf: alertSound)
         }
@@ -266,6 +265,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         audioPlayer2.prepareToPlay()
         checkMute2()
         audioPlayer2.play()
+        audioPlayer2.numberOfLoops = -1
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -626,7 +626,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     
     func pressedSettings() {
         resetGameOverStar()
-        let scene = SettingScene(size: self.size, ap: audioPlayer)
+        let scene = SettingScene(size: self.size)
         fbbutton.removeFromSuperview()
         let origScene = self
         scene.setOriginalScener(origScene)
