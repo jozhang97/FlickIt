@@ -399,22 +399,27 @@ class HomeScene: SKScene , SKPhysicsContactDelegate, GKGameCenterControllerDeleg
     func createFlashingArrow() {
         // helper for startFlashingArrow
         var rectangles = [SKShapeNode]()
-        let endlessAction = SKAction.repeatForever(bigAction())
+        
         for i in 0...4 {
-            let rectshape = CGRect(x: screenWidth*2.8/8 + CGFloat(i)*screenWidth/15, y: screenHeight*0.89/2, width: screenWidth/25, height: screenHeight/10)
-            
-            let rect = SKShapeNode(rect: rectshape)
+            let rect : SKShapeNode
+            let rectshape = CGRect(x: screenWidth*2.5/8 + CGFloat(4 - i)*screenWidth/20, y: screenHeight*0.89/2, width: screenWidth/30, height: screenHeight/10)
+            if (i == 4) {
+                rect = createShape(path: triangleInRect(rect: CGRect(x: screenWidth*2.5/8 + CGFloat(4 - i)*screenWidth/20, y: screenHeight*0.89/2, width: screenWidth/30, height: screenHeight/10)))
+            }
+            else {
+                rect = SKShapeNode(rect: rectshape)
+            }
             rect.fillColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: (CGFloat(1.0) - CGFloat(Double(i)*0.2)))
+            rect.strokeColor = UIColor.clear
             rectangles.append(rect)
             rect.zPosition = 3
             self.addChild(rect)
-        }
-        for i in 0...4 {
+            let endlessAction = SKAction.repeatForever(bigAction(rect: CGFloat(1.0) - CGFloat(Double(i)*0.2)))
             rectangles[i].run(endlessAction)
         }
     }
     
-    func triangleInRect(_ rect: CGRect) -> UIBezierPath {
+    func triangleInRect(rect: CGRect) -> CGPath {
         //helper for createFlashingArrow
         let offsetX: CGFloat = rect.midX
         let offsetY: CGFloat = rect.midY
@@ -423,27 +428,40 @@ class HomeScene: SKScene , SKPhysicsContactDelegate, GKGameCenterControllerDeleg
         bezierPath.addLine(to: CGPoint(x: 0, y: -offsetY))
         bezierPath.addLine(to: CGPoint(x: 0, y: offsetY))
         bezierPath.close()
-        return bezierPath
+        return bezierPath.cgPath
     }
     
-    func createShape(shape: SKShapeNode, path: UIBezierPath, position: CGPoint, color: UIColor) {
+    func createShape(path: CGPath) -> SKShapeNode {
         // helper for createFlashingArrow
-        shape.name = "foo"
-        shape.path = path.cgPath
-        shape.position = position
-        shape.fillColor = color
-        shape.strokeColor = UIColor.black
+        let shape = SKShapeNode()
+        shape.name = "triangle_arrow"
+        shape.path = path
+        //shape.strokeColor = UIColor.black
         shape.lineWidth = 1
-        shape.zPosition = 4
-        addChild(shape)
+        return shape
     }
     
-    func bigAction() -> SKAction{
+    func bigAction(rect: CGFloat) -> SKAction{
         // helper for animateFlashingArrow
-        let fadeHighAction = SKAction.fadeAlpha(to: 0.1, duration: 2)
-        let fadeBackAction = SKAction.fadeAlpha(to: 1, duration: 2)
-        //let growAction = SKAction.scale(by: 1.2, duration: 4)
-        let bigSequence = SKAction.sequence([fadeHighAction, fadeBackAction])
-        return bigSequence
+        if (rect == 1) {
+            let fadeHighAction = SKAction.fadeAlpha(to: 0.0, duration: 1)
+            let fadeBackAction = SKAction.fadeAlpha(to: 1, duration: 1)
+            let bigSequence = SKAction.sequence([fadeHighAction, fadeBackAction])
+            return bigSequence
+        }
+        else if (rect == 0) {
+            let fadeHighAction = SKAction.fadeAlpha(to: 1, duration: 1)
+            let fadeBackAction = SKAction.fadeAlpha(to: 0, duration: 1)
+            let bigSequence = SKAction.sequence([fadeHighAction, fadeBackAction])
+            return bigSequence
+        }
+        else {
+            let fadeHighAction = SKAction.fadeAlpha(to: 0.0, duration: TimeInterval(CGFloat(rect)))
+            let fadeBackAction = SKAction.fadeAlpha(to: 1, duration: 1)
+            let thirdAction = SKAction.fadeAlpha(to: CGFloat(rect), duration: TimeInterval(1 - CGFloat(rect)))
+            let bigSequence = SKAction.sequence([fadeHighAction, fadeBackAction, thirdAction])
+            return bigSequence
+        }
+        
     }
 }
