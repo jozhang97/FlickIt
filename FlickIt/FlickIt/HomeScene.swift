@@ -39,6 +39,16 @@ class HomeScene: SKScene , SKPhysicsContactDelegate, GKGameCenterControllerDeleg
     var audioPlayer = AVAudioPlayer()
     var arr: [SKShapeNode] = []
     
+    
+    func trackHome() {
+        let tracker = GAI.sharedInstance().defaultTracker
+        tracker?.set(kGAIScreenName, value: "Home Screen")
+        let builder = GAIDictionaryBuilder.createScreenView()
+        tracker?.send(builder?.build() as? [AnyHashable: Any] ?? [:])
+        let event = GAIDictionaryBuilder.createEvent(withCategory: "Action", action: "Open App", label: nil, value: nil)
+        tracker?.send(event?.build() as? [AnyHashable: Any] ?? [:])
+    }
+    
     override func didMove(to view: SKView) {
         if (appDelegate.muted == true) {
             muteButton = SKSpriteNode(imageNamed: "muteNow.png")
@@ -83,6 +93,7 @@ class HomeScene: SKScene , SKPhysicsContactDelegate, GKGameCenterControllerDeleg
         }
         playMusic("bensound-straight", type: "mp3")
         createFlashingArrow()
+        trackHome()
     }
     
     func createGamecenterButton() {
@@ -203,7 +214,18 @@ class HomeScene: SKScene , SKPhysicsContactDelegate, GKGameCenterControllerDeleg
             
             viewController!.present(gameCenterVC, animated: true, completion: nil)
             print(viewController?.presentedViewController)
+            
+            trackLeaderboard()
         }
+    }
+    
+    func trackLeaderboard() {
+        let tracker = GAI.sharedInstance().defaultTracker
+        tracker?.set(kGAIScreenName, value: "GameCenter Screen")
+        let builder = GAIDictionaryBuilder.createScreenView()
+        tracker?.send(builder?.build() as? [AnyHashable: Any] ?? [:])
+        let event = GAIDictionaryBuilder.createEvent(withCategory: "Action", action: "Opened game center", label: nil, value: nil)
+        tracker?.send(event?.build() as? [AnyHashable: Any] ?? [:])
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -218,6 +240,7 @@ class HomeScene: SKScene , SKPhysicsContactDelegate, GKGameCenterControllerDeleg
         }
     }
     func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController) {
+        trackHome()
         gameCenterViewController.dismiss(animated: true, completion: nil)
     }
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -402,9 +425,11 @@ class HomeScene: SKScene , SKPhysicsContactDelegate, GKGameCenterControllerDeleg
         
         for i in 0...4 {
             let rect : SKShapeNode
-            let rectshape = CGRect(x: screenWidth*2.5/8 + CGFloat(4 - i)*screenWidth/20, y: screenHeight*0.89/2, width: screenWidth/30, height: screenHeight/10)
-            if (i == 4) {
-                rect = createShape(path: triangleInRect(rect: CGRect(x: screenWidth*2.5/8 + CGFloat(4 - i)*screenWidth/20, y: screenHeight*0.89/2, width: screenWidth/30, height: screenHeight/10)))
+            let rectshape = CGRect(x: screenWidth*2.8/8 + CGFloat(4 - i)*screenWidth/20, y: screenHeight*0.89/2, width: screenWidth/30, height: screenHeight/10 )
+            if (i == 0) {
+                let recter: CGRect = CGRect(x: 0, y: 0, width: screenWidth/15, height: screenHeight/6)
+                rect = createShape(path: triangleInRect(recter))
+                rect.position = CGPoint(x: screenWidth*3.06/8 + CGFloat(4 - i)*screenWidth/20, y: screenHeight*1/2)
             }
             else {
                 rect = SKShapeNode(rect: rectshape)
@@ -415,18 +440,21 @@ class HomeScene: SKScene , SKPhysicsContactDelegate, GKGameCenterControllerDeleg
             rect.zPosition = 3
             self.addChild(rect)
             let endlessAction = SKAction.repeatForever(bigAction(rect: CGFloat(1.0) - CGFloat(Double(i)*0.2)))
+            if (i == 0) {
+                rect.run(SKAction.rotate(byAngle: CGFloat(0), duration: 0.2))
+            }
+            
             rectangles[i].run(endlessAction)
         }
     }
     
-    func triangleInRect(rect: CGRect) -> CGPath {
-        //helper for createFlashingArrow
+    func triangleInRect(_ rect: CGRect) -> CGPath {
         let offsetX: CGFloat = rect.midX
         let offsetY: CGFloat = rect.midY
         let bezierPath: UIBezierPath = UIBezierPath()
-        bezierPath.move(to: CGPoint(x: 2 * offsetX, y: 0))
-        bezierPath.addLine(to: CGPoint(x: 0, y: -offsetY))
-        bezierPath.addLine(to: CGPoint(x: 0, y: offsetY))
+        bezierPath.move(to: CGPoint(x: offsetX, y: 0))
+        bezierPath.addLine(to: CGPoint(x: -offsetX, y: offsetY))
+        bezierPath.addLine(to: CGPoint(x: -offsetX, y: -offsetY))
         bezierPath.close()
         return bezierPath.cgPath
     }
@@ -436,30 +464,30 @@ class HomeScene: SKScene , SKPhysicsContactDelegate, GKGameCenterControllerDeleg
         let shape = SKShapeNode()
         shape.name = "triangle_arrow"
         shape.path = path
-        //shape.strokeColor = UIColor.black
         shape.lineWidth = 1
         return shape
     }
     
     func bigAction(rect: CGFloat) -> SKAction{
         // helper for animateFlashingArrow
+        let waitAction = SKAction.wait(forDuration: 0.7)
         if (rect == 1) {
             let fadeHighAction = SKAction.fadeAlpha(to: 0.0, duration: 1)
             let fadeBackAction = SKAction.fadeAlpha(to: 1, duration: 1)
-            let bigSequence = SKAction.sequence([fadeHighAction, fadeBackAction])
+            let bigSequence = SKAction.sequence([fadeHighAction, fadeBackAction, waitAction])
             return bigSequence
         }
-        else if (rect == 0) {
+        else if (rect == 0.2) {
             let fadeHighAction = SKAction.fadeAlpha(to: 1, duration: 1)
             let fadeBackAction = SKAction.fadeAlpha(to: 0, duration: 1)
-            let bigSequence = SKAction.sequence([fadeHighAction, fadeBackAction])
+            let bigSequence = SKAction.sequence([fadeHighAction, fadeBackAction, waitAction])
             return bigSequence
         }
         else {
             let fadeHighAction = SKAction.fadeAlpha(to: 0.0, duration: TimeInterval(CGFloat(rect)))
             let fadeBackAction = SKAction.fadeAlpha(to: 1, duration: 1)
             let thirdAction = SKAction.fadeAlpha(to: CGFloat(rect), duration: TimeInterval(1 - CGFloat(rect)))
-            let bigSequence = SKAction.sequence([fadeHighAction, fadeBackAction, thirdAction])
+            let bigSequence = SKAction.sequence([fadeHighAction, fadeBackAction, thirdAction, waitAction])
             return bigSequence
         }
         

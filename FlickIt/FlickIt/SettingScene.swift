@@ -58,6 +58,7 @@ class SettingScene: SKScene {
              GameCenter gets reported the score when lose screen appears, so is not affected by this hack either
             ***/
             startGameScene.setUpLocalHighScore()
+            startGameScene.trackLose()
         }
         skView.presentScene(scene)
         
@@ -276,8 +277,18 @@ class SettingScene: SKScene {
         self.addChild(muteButton)
         
         createBackground()
-        
+        trackSettings()
     }
+    
+    func trackSettings() {
+        let tracker = GAI.sharedInstance().defaultTracker
+        tracker?.set(kGAIScreenName, value: "Settings Screen")
+        let builder = GAIDictionaryBuilder.createScreenView()
+        tracker?.send(builder?.build() as? [AnyHashable: Any] ?? [:])
+        let event = GAIDictionaryBuilder.createEvent(withCategory: "Action", action: "Go To settings", label: nil, value: nil)
+        tracker?.send(event?.build() as? [AnyHashable: Any] ?? [:])
+    }
+    
     
     func updateMuteButtonText() {
         if appDelegate.muted {

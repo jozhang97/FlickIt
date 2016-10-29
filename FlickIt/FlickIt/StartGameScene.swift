@@ -1034,7 +1034,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         content.contentDescription = "My high score is "+String(prevHighScore)
         fbbutton.shareContent = content
         self.view?.addSubview(fbbutton)
-        gameOverTrack()
+        trackLose()
         putBackPhysicsBodyBin()
         playingGame = false
         self.removeChildren(in: [firstShapeLabel, firstBombLabel, firstHeartLabel])
@@ -1062,7 +1062,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         
     }
     
-    func gameOverTrack() {
+    func trackLose() {
         let tracker = GAI.sharedInstance().defaultTracker
         tracker?.set(kGAIScreenName, value: "Lose Screen")
         let builder = GAIDictionaryBuilder.createScreenView()
@@ -1389,6 +1389,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     
     func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController)
     {
+        trackLose()
         gameCenterViewController.dismiss(animated: true, completion: nil)
     }
     
@@ -1434,9 +1435,19 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
             
             viewController!.present(gameCenterVC, animated: true, completion: nil)
             print(viewController?.presentedViewController)
+            
+            trackLeaderboard()
         }
     }
     
+    func trackLeaderboard() {
+        let tracker = GAI.sharedInstance().defaultTracker
+        tracker?.set(kGAIScreenName, value: "GameCenter Screen")
+        let builder = GAIDictionaryBuilder.createScreenView()
+        tracker?.send(builder?.build() as? [AnyHashable: Any] ?? [:])
+        let event = GAIDictionaryBuilder.createEvent(withCategory: "Action", action: "Opened game center", label: nil, value: nil)
+        tracker?.send(event?.build() as? [AnyHashable: Any] ?? [:])
+    }
     
 //    deinit{
 //        let vc = self.view!.window?.rootViewController

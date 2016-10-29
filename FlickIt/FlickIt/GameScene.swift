@@ -84,7 +84,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     }
     
     func trackHome() {
-        // JEFFREY look into trackers
         let tracker = GAI.sharedInstance().defaultTracker
         tracker?.set(kGAIScreenName, value: "Home Screen")
         let builder = GAIDictionaryBuilder.createScreenView()
