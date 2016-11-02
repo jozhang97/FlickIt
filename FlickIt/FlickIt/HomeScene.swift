@@ -180,6 +180,7 @@ class HomeScene: SKScene , SKPhysicsContactDelegate, GKGameCenterControllerDeleg
             else if appDelegate.muted == true { //UNMUTE IT
                 unmuteIt()
             }
+            trackMuting()
         }
         else if gamecenterButton.contains(location) {
             showLeaderboard()
@@ -495,5 +496,13 @@ class HomeScene: SKScene , SKPhysicsContactDelegate, GKGameCenterControllerDeleg
             return bigSequence
         }
         
+    }
+    
+    func trackMuting() {
+        if Platform.testingOrNotSimulator {
+            let tracker = GAI.sharedInstance().defaultTracker
+            let event = GAIDictionaryBuilder.createEvent(withCategory: "Action", action: "Mute/Unmute", label: nil, value: nil)
+            tracker?.send(event?.build() as? [AnyHashable: Any] ?? [:])
+        }
     }
 }

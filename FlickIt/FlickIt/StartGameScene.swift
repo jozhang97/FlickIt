@@ -806,6 +806,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
                     closePause()
                     pauseRestart = true
                     restartScene()
+                    trackRestartFromPause()
                 } else if (homeLabel.contains(location)) {
                     goToHome()
                     closePause()
@@ -1074,6 +1075,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         }
     }
     
+
+    
     func createStar() {
         let rect: CGRect = CGRect(x: 0, y: 0, width: self.size.width/6, height: self.size.width/6)
         restart_star.path = self.starPath(0, y: 0, radius: rect.size.width/3, sides: 5, pointyness: 2)
@@ -1319,6 +1322,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
             muteLabel.text = "Unmute"
             muteThis()
         }
+        trackMuting()
     }
     
     func muteThis() {
@@ -1538,6 +1542,39 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         run(showAction)
     }
     
+    func trackFacebookShare() {
+        // TODO CALL THIS IN THE FB SHARE **
+        if Platform.testingOrNotSimulator {
+            let tracker = GAI.sharedInstance().defaultTracker
+            let event = GAIDictionaryBuilder.createEvent(withCategory: "Action", action: "Facebook Share", label: nil, value: nil)
+            tracker?.send(event?.build() as? [AnyHashable: Any] ?? [:])
+        }
+    }
+    
+    func trackFacebookMessage() {
+        // TODO CALL THIS IN THE FB MSG **
+        if Platform.testingOrNotSimulator {
+            let tracker = GAI.sharedInstance().defaultTracker
+            let event = GAIDictionaryBuilder.createEvent(withCategory: "Action", action: "Facebook Message", label: nil, value: nil)
+            tracker?.send(event?.build() as? [AnyHashable: Any] ?? [:])
+        }
+    }
+    
+    func trackRestartFromPause() {
+        if Platform.testingOrNotSimulator {
+            let tracker = GAI.sharedInstance().defaultTracker
+            let event = GAIDictionaryBuilder.createEvent(withCategory: "Action", action: "Restart from pause", label: nil, value: nil)
+            tracker?.send(event?.build() as? [AnyHashable: Any] ?? [:])
+        }
+    }
+    
+    func trackMuting() {
+        if Platform.testingOrNotSimulator {
+            let tracker = GAI.sharedInstance().defaultTracker
+            let event = GAIDictionaryBuilder.createEvent(withCategory: "Action", action: "Mute/Unmute", label: nil, value: nil)
+            tracker?.send(event?.build() as? [AnyHashable: Any] ?? [:])
+        }
+    }
 }
 
 extension Array {

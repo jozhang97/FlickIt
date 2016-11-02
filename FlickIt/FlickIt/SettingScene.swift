@@ -120,6 +120,7 @@ class SettingScene: SKScene {
                 appDelegate.muted = true
                 audioPlaya.volume = 0
             }
+            trackMuting()
         } else if resetHighScoreButton.contains(location) {
             resetLocalHighScore()
         }
@@ -309,7 +310,17 @@ class SettingScene: SKScene {
     func resetLocalHighScore() {
         UserDefaults.standard.set(0, forKey: "score")
         UserDefaults.standard.synchronize()
+        trackResetHighScore()
     }
+    
+    func trackResetHighScore() {
+        if Platform.testingOrNotSimulator {
+            let tracker = GAI.sharedInstance().defaultTracker
+            let event = GAIDictionaryBuilder.createEvent(withCategory: "Action", action: "Reset high score", label: nil, value: nil)
+            tracker?.send(event?.build() as? [AnyHashable: Any] ?? [:])
+        }
+    }
+    
     func createBackground(){
         let size = CGSize(width: screenWidth, height: screenHeight)
         let color1 = UIColor(red: 171/255.0, green: 232/255.0, blue: 243/255.0, alpha: 1.0).cgColor
@@ -327,6 +338,12 @@ class SettingScene: SKScene {
         backnode.position = CGPoint(x:screenWidth/2,y:screenHeight/2)
         self.addChild(backnode)
     }
-
-
+    
+    func trackMuting() {
+        if Platform.testingOrNotSimulator {
+            let tracker = GAI.sharedInstance().defaultTracker
+            let event = GAIDictionaryBuilder.createEvent(withCategory: "Action", action: "Mute/Unmute", label: nil, value: nil)
+            tracker?.send(event?.build() as? [AnyHashable: Any] ?? [:])
+        }
+    }
 }
