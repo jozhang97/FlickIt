@@ -653,12 +653,6 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         /* Set the scale mode to scale to fit the window */
         scene.scaleMode = .aspectFill
         skView?.presentScene(scene)
-        let tracker = GAI.sharedInstance().defaultTracker
-        tracker?.set(kGAIScreenName, value: "Home Screen")
-        let builder = GAIDictionaryBuilder.createScreenView()
-        tracker?.send(builder?.build() as? [AnyHashable: AnyObject] ?? [:])
-        let event = GAIDictionaryBuilder.createEvent(withCategory: "Action", action: "Go To Home", label: nil, value: nil)
-        tracker?.send(event?.build() as? [AnyHashable: Any] ?? [:])
     }
     
     var timeRequired = 1.6
@@ -803,6 +797,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
                 let currNode = self.atPoint(start)
                 if currNode.name == "pauseButton" {
                     closePause()
+                    track()
                 } else if muteLabel.contains(location) {
                     pressedMute()
                 } else if (restartLabel.contains(location)) {
@@ -817,6 +812,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
                     closePause()
                 } else if (newUnPauseLabel.contains(location)) {
                     closePause()
+                    track()
                 }
             } else if !isRotating {
                 touchedNode=self.atPoint(start)
@@ -1308,7 +1304,6 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         newUnPauseLabel.fontName = "Avenir"
         unfreezeShapes()
         playingGame = true
-        track()
     }
     
     func pressedMute() {

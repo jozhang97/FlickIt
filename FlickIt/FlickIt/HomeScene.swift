@@ -12,6 +12,12 @@ import SpriteKit
 import AVFoundation
 import GameKit
 
+struct Platform {
+    static var isSimulator: Bool {
+        return TARGET_OS_SIMULATOR != 0
+    }
+}
+
 class HomeScene: SKScene , SKPhysicsContactDelegate, GKGameCenterControllerDelegate {
     var start = CGPoint()
     var line = SKShapeNode()
