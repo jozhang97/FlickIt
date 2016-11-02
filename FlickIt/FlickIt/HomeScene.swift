@@ -12,12 +12,6 @@ import SpriteKit
 import AVFoundation
 import GameKit
 
-struct Platform {
-    static var isSimulator: Bool {
-        return TARGET_OS_SIMULATOR != 0
-    }
-}
-
 class HomeScene: SKScene , SKPhysicsContactDelegate, GKGameCenterControllerDelegate {
     var start = CGPoint()
     var line = SKShapeNode()
@@ -47,12 +41,14 @@ class HomeScene: SKScene , SKPhysicsContactDelegate, GKGameCenterControllerDeleg
     
     
     func trackHome() {
+        if Platform.testingOrNotSimulator {
         let tracker = GAI.sharedInstance().defaultTracker
         tracker?.set(kGAIScreenName, value: "Home Screen")
         let builder = GAIDictionaryBuilder.createScreenView()
         tracker?.send(builder?.build() as? [AnyHashable: Any] ?? [:])
         let event = GAIDictionaryBuilder.createEvent(withCategory: "Action", action: "Open App", label: nil, value: nil)
         tracker?.send(event?.build() as? [AnyHashable: Any] ?? [:])
+        }
     }
     
     override func didMove(to view: SKView) {
@@ -226,12 +222,14 @@ class HomeScene: SKScene , SKPhysicsContactDelegate, GKGameCenterControllerDeleg
     }
     
     func trackLeaderboard() {
+        if Platform.testingOrNotSimulator {
         let tracker = GAI.sharedInstance().defaultTracker
         tracker?.set(kGAIScreenName, value: "GameCenter Screen")
         let builder = GAIDictionaryBuilder.createScreenView()
         tracker?.send(builder?.build() as? [AnyHashable: Any] ?? [:])
         let event = GAIDictionaryBuilder.createEvent(withCategory: "Action", action: "Opened game center", label: nil, value: nil)
         tracker?.send(event?.build() as? [AnyHashable: Any] ?? [:])
+        }
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {

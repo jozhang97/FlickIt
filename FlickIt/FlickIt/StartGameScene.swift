@@ -348,12 +348,14 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     }
     
     func track() {
+        if Platform.testingOrNotSimulator {
         let tracker = GAI.sharedInstance().defaultTracker
         tracker?.set(kGAIScreenName, value: "Game Screen")
         let builder = GAIDictionaryBuilder.createScreenView()
         tracker?.send(builder?.build() as? [AnyHashable: Any] ?? [:])
         let event = GAIDictionaryBuilder.createEvent(withCategory: "Action", action: "Play Game", label: nil, value: nil)
         tracker?.send(event?.build() as? [AnyHashable: Any] ?? [:])
+        }
     }
     var isRotating = false
     
@@ -1059,6 +1061,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     }
     
     func trackLose() {
+        if Platform.testingOrNotSimulator {
         let tracker = GAI.sharedInstance().defaultTracker
         tracker?.set(kGAIScreenName, value: "Lose Screen")
         let builder = GAIDictionaryBuilder.createScreenView()
@@ -1068,6 +1071,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         tracker?.set(GAIFields.customMetric(for: 1), value: String(score))
         let timeElapsed = Date().timeIntervalSince(timeBegan)
         tracker?.set(GAIFields.customMetric(for: 2), value: String(timeElapsed))
+        }
     }
     
     func createStar() {
@@ -1436,12 +1440,14 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     }
     
     func trackLeaderboard() {
+        if Platform.testingOrNotSimulator {
         let tracker = GAI.sharedInstance().defaultTracker
         tracker?.set(kGAIScreenName, value: "GameCenter Screen")
         let builder = GAIDictionaryBuilder.createScreenView()
         tracker?.send(builder?.build() as? [AnyHashable: Any] ?? [:])
         let event = GAIDictionaryBuilder.createEvent(withCategory: "Action", action: "Opened game center", label: nil, value: nil)
         tracker?.send(event?.build() as? [AnyHashable: Any] ?? [:])
+        }
     }
     
 //    deinit{

@@ -84,12 +84,15 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     }
     
     func trackHome() {
+        if Platform.testingOrNotSimulator {
+
         let tracker = GAI.sharedInstance().defaultTracker
         tracker?.set(kGAIScreenName, value: "Home Screen")
         let builder = GAIDictionaryBuilder.createScreenView()
         tracker?.send(builder?.build() as? [AnyHashable: Any] ?? [:])
         let event = GAIDictionaryBuilder.createEvent(withCategory: "Action", action: "Open App", label: nil, value: nil)
         tracker?.send(event?.build() as? [AnyHashable: Any] ?? [:])
+        }
     }
     
     func createHomeScreen(){

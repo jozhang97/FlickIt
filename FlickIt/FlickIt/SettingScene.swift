@@ -281,12 +281,14 @@ class SettingScene: SKScene {
     }
     
     func trackSettings() {
+        if Platform.testingOrNotSimulator {
         let tracker = GAI.sharedInstance().defaultTracker
         tracker?.set(kGAIScreenName, value: "Settings Screen")
         let builder = GAIDictionaryBuilder.createScreenView()
         tracker?.send(builder?.build() as? [AnyHashable: Any] ?? [:])
         let event = GAIDictionaryBuilder.createEvent(withCategory: "Action", action: "Go To settings", label: nil, value: nil)
         tracker?.send(event?.build() as? [AnyHashable: Any] ?? [:])
+        }
     }
     
     
