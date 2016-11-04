@@ -567,9 +567,14 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
                     explosionEmitterNode?.zPosition=100
                     if (firstBody.node?.name == secondBody.node?.name) {
                         score += 1
-                        if(score % 5 == 0){
+                        if(score % 20 == 0){
                             changeBackground(scorediv20: score / 5)
                         }
+                        let currHighScore = UserDefaults.standard.integer(forKey: "score")
+                        if ((score % 10 == 0 && score >= currHighScore - 10) || (score == currHighScore + 1 && currHighScore >= 10)) {
+                            flashScore(score: score)
+                        }
+                        
                         aud3exists = true
                         playSwoosh("swoosh")
                         aud3exists = false
@@ -679,7 +684,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         flashingScoreNode.text = String(score)
         flashingScoreNode.position = CGPoint(x: self.size.width/2, y: self.size.height/2);
         flashingScoreNode.horizontalAlignmentMode = .center
-        flashingScoreNode.fontColor = UIColor.white
+        flashingScoreNode.fontColor = UIColor.green
         flashingScoreNode.fontName = "Avenir"
         flashingScoreNode.fontSize = 45
         flashingScoreNode.zPosition = 5
@@ -708,9 +713,6 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
                 time = currentTime
             }
         } else {
-            if score % 10 == 0 {
-                flashScore(score: score)
-            }
             if currentTime - time >= timeRequired {
                 if (firstTimeCount > 0) {
                     time = currentTime;
@@ -1521,6 +1523,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         firstShapeLabel.position=CGPoint(x: self.size.width/2,y: self.size.height * 1.5/9)
         firstShapeLabel.zPosition=5
         firstShapeLabel.fontName = "Avenir"
+        firstShapeLabel.fontSize = 22
         let firstShapeLabelAddAction = SKAction.run({
             self.addChild(self.firstShapeLabel)
         })
@@ -1538,7 +1541,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         firstBombLabel.position=CGPoint(x: self.size.width/2,y: self.size.height * 1.5/9)
         firstBombLabel.zPosition=5
         firstBombLabel.fontName = "Avenir"
-        
+        firstBombLabel.fontSize = 22
         let firstBombLabelAddAction = SKAction.run({
             self.addChild(self.firstBombLabel)
         })
@@ -1556,6 +1559,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         firstHeartLabel.position=CGPoint(x: self.size.width/2,y: self.size.height * 1.5/9)
         firstHeartLabel.zPosition=5
         firstHeartLabel.fontName = "Avenir"
+        firstHeartLabel.fontSize = 22
         let firstHeartLabelAddAction = SKAction.run({
             self.addChild(self.firstHeartLabel)
         })

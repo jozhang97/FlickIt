@@ -99,13 +99,13 @@ class HomeScene: SKScene , SKPhysicsContactDelegate, GKGameCenterControllerDeleg
     }
     
     func createGamecenterButton() {
-        gamecenterButton.position = CGPoint(x: self.size.width*7.5/10, y: self.size.height/20)
-        gamecenterButton.size = CGSize(width: 1.5 * self.size.width/10, height: 1.5 * self.size.height/20);
+        gamecenterButton.position = CGPoint(x: self.size.width*7.25/10, y: self.size.height/20)
+        gamecenterButton.size = CGSize(width: 1.25 * self.size.width/10, height: 1.25 * self.size.height/20);
     }
     
     func createMuteButton() {
         muteButton.position = CGPoint(x: self.size.width*9/10, y: self.size.height/20)
-        muteButton.size = CGSize(width: 1.5 * self.size.width/10, height: 1.5 * self.size.height/20);
+        muteButton.size = CGSize(width: 1.25 * self.size.width/10, height: 1.25 * self.size.height/20);
     }
     
     func checkMute() {
