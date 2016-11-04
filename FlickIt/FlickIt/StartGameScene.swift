@@ -91,6 +91,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     var fbsend = FBSDKSendButton()
     let content = FBSDKShareLinkContent()
     var gradient_colors = [CGColor]()
+    var rotate_bins = arc4random_uniform(4)+6
 
     var backgroundNode = SKSpriteNode()
     var doubleShapeProbability = 600
@@ -174,10 +175,18 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         self.addChild(bin_3)
         self.addChild(bin_4)
         
+        createScene()
+    }
+    
+    func setupFB(){
         fbshare.frame = CGRect(x: UIScreen.main.bounds.width/2-UIScreen.main.bounds.width/4-15, y: UIScreen.main.bounds.height*4/5, width: UIScreen.main.bounds.width/4, height: UIScreen.main.bounds.height/14)
         fbsend.frame = CGRect(x: UIScreen.main.bounds.width/2+15, y: UIScreen.main.bounds.height*4/5, width: UIScreen.main.bounds.width/4, height: UIScreen.main.bounds.height/14)
-        
-        createScene()
+        content.contentURL = URL(string: "https://itunes.apple.com/us/app/flick-it-xtreme/id1103070396?mt=8")!
+        content.contentTitle = "Download FlickIt! (or else)"
+        let prevHighScore: Int = UserDefaults.standard.integer(forKey: "score")
+        content.contentDescription = "My high score is "+String(prevHighScore)
+        fbshare.shareContent = content
+        fbsend.shareContent = content
     }
     
     func createBackground(color1: CGColor, color2: CGColor){
@@ -579,6 +588,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
                     explosionEmitterNode?.zPosition=100
                     if (firstBody.node?.name == secondBody.node?.name) {
                         score += 1
+                        rotate_bins -= 1
                         if(score % 20 == 0){
                             changeBackground(scorediv20: score / 5)
                         }
@@ -586,18 +596,24 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
                         if ((score % 10 == 0 && score >= currHighScore - 10) || (score == currHighScore + 1 && currHighScore >= 10)) {
                             flashScore(score: score)
                         }
-                        
-                        aud3exists = true
-                        playSwoosh("swoosh")
-                        aud3exists = false
-                        if(score % 10 == 0){ // rotate bins every 10 points
+                        //rotate bins every (6-9) points. choice of interval is random
+                        if(rotate_bins == 0){
+                            rotate_bins = arc4random_uniform(3)+6
                             self.rotateBins(Int(arc4random_uniform(2) + 1));
                             capVelocitiesOfShapes(limit: 50.0)
                         }
+                        
+                        //aud3exists = true
+                        //playSwoosh("swoosh")
+                        //aud3exists = false
                     } else {
                         explosionEmitterNode?.particleColorSequence=SKKeyframeSequence(keyframeValues: [UIColor.red], times: [0])
                         aud3exists = true
                         playSwoosh("incorrectSound")
+                        //vibration code:
+                        //if(!appDelegate.muted){
+                        //    AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
+                        //}
                         aud3exists = false
                         lives -= 1
                     }
@@ -645,8 +661,6 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     func pressedSettings() {
         resetGameOverStar()
         let scene = SettingScene(size: self.size, ap: audioPlayer)
-        fbshare.removeFromSuperview()
-        fbsend.removeFromSuperview()
         let origScene = self
         scene.setOriginalScener(origScene)
         // Configure the view.
@@ -1072,13 +1086,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         // add collision actions
         setUpLocalHighScore()
         GCHelper.sharedInstance.reportLeaderboardIdentifier("scoreLeaderboard", score:score)
-        content.contentURL = URL(string: "https://itunes.apple.com/us/app/flick-it-xtreme/id1103070396?mt=8")!
-        content.contentTitle = "Download FlickIt! (or else)"
-        let prevHighScore: Int = UserDefaults.standard.integer(forKey: "score")
-        content.contentDescription = "My high score is "+String(prevHighScore)
-        
-        fbshare.shareContent = content
-        fbsend.shareContent = content
+        setupFB()
         self.view?.addSubview(fbshare)
         if(fbsend.isHidden){
             print("send is hidden")
@@ -1089,8 +1097,15 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         putBackPhysicsBodyBin()
         playingGame = false
         self.removeChildren(in: [firstShapeLabel, firstBombLabel, firstHeartLabel])
+        //displayShareSheet(shareContent: "high score")
     }
-    
+    /*
+    func displayShareSheet(shareContent:String) {
+        let activityViewController = UIActivityViewController(activityItems: [shareContent as NSString], applicationActivities: nil)
+        let currentViewController:UIViewController=UIApplication.shared.keyWindow!.rootViewController!
+        currentViewController.present(activityViewController, animated: true, completion: {})
+    }
+    */
     
     func setUpLocalHighScore() {
         var prevHighScore: Int = UserDefaults.standard.integer(forKey: "score")
