@@ -592,13 +592,17 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
                             self.rotateBins(Int(arc4random_uniform(2) + 1));
                         }
                         
-                        aud3exists = true
-                        playSwoosh("swoosh")
-                        aud3exists = false
+                        //aud3exists = true
+                        //playSwoosh("swoosh")
+                        //aud3exists = false
                     } else {
                         explosionEmitterNode?.particleColorSequence=SKKeyframeSequence(keyframeValues: [UIColor.red], times: [0])
                         aud3exists = true
                         playSwoosh("incorrectSound")
+                        //vibration code:
+                        //if(!appDelegate.muted){
+                        //    AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
+                        //}
                         aud3exists = false
                         lives -= 1
                     }
