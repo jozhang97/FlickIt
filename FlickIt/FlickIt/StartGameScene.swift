@@ -91,6 +91,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     var fbsend = FBSDKSendButton()
     let content = FBSDKShareLinkContent()
     var gradient_colors = [CGColor]()
+    var rotate_bins = arc4random_uniform(4)+6
 
     var backgroundNode = SKSpriteNode()
     var doubleShapeProbability = 600
@@ -577,6 +578,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
                     explosionEmitterNode?.zPosition=100
                     if (firstBody.node?.name == secondBody.node?.name) {
                         score += 1
+                        rotate_bins -= 1
                         if(score % 20 == 0){
                             changeBackground(scorediv20: score / 5)
                         }
@@ -584,13 +586,15 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
                         if ((score % 10 == 0 && score >= currHighScore - 10) || (score == currHighScore + 1 && currHighScore >= 10)) {
                             flashScore(score: score)
                         }
+                        //rotate bins every (6-9) points. choice of interval is random
+                        if(rotate_bins == 0){
+                            rotate_bins = arc4random_uniform(3)+6
+                            self.rotateBins(Int(arc4random_uniform(2) + 1));
+                        }
                         
                         aud3exists = true
                         playSwoosh("swoosh")
                         aud3exists = false
-                        if(score % 10 == 0){ // rotate bins every 10 points
-                            self.rotateBins(Int(arc4random_uniform(2) + 1));
-                        }
                     } else {
                         explosionEmitterNode?.particleColorSequence=SKKeyframeSequence(keyframeValues: [UIColor.red], times: [0])
                         aud3exists = true
