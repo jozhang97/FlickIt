@@ -551,6 +551,16 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         audioPlayer3.play()
     }
     
+    func capVelocitiesOfShapes(limit: CGFloat) {
+        for node in self.children {
+            if node.physicsBody?.categoryBitMask == PhysicsCategory.Shape {
+                let v = node.physicsBody?.velocity
+                let dx = min((v?.dx)!, limit)
+                let dy = min((v?.dy)!, limit)
+                node.physicsBody?.velocity = CGVector(dx: dx, dy: dy)
+            }
+        }
+    }
     func didBegin(_ contact: SKPhysicsContact) {
         var firstBody=contact.bodyA
         var secondBody=contact.bodyB
@@ -582,6 +592,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
                         aud3exists = false
                         if(score % 10 == 0){ // rotate bins every 10 points
                             self.rotateBins(Int(arc4random_uniform(2) + 1));
+                            capVelocitiesOfShapes(limit: 50.0)
                         }
                     } else {
                         explosionEmitterNode?.particleColorSequence=SKKeyframeSequence(keyframeValues: [UIColor.red], times: [0])
@@ -1185,7 +1196,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     }
     
     let gameOverHighScoreLabel = SKLabelNode(text: "")
-    let gameOverLabel = SKLabelNode(text: "GAMEOVER")
+    let gameOverLabel = SKLabelNode(text: "GAME OVER")
     
     
     let gameOverScoreLabel = SKLabelNode(text: "")
@@ -1569,7 +1580,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     }
     
     func showHeartLabel() {
-        firstHeartLabel.text = "Touch hearts for extra live"
+        firstHeartLabel.text = "Touch hearts for extra life"
         firstHeartLabel.fontColor=UIColor.yellow
         firstHeartLabel.position=CGPoint(x: self.size.width/2,y: self.size.height * 1.5/9)
         firstHeartLabel.zPosition=5
@@ -1617,6 +1628,15 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
             let tracker = GAI.sharedInstance().defaultTracker
             let event = GAIDictionaryBuilder.createEvent(withCategory: "Action", action: "Mute/Unmute", label: nil, value: nil)
             tracker?.send(event?.build() as? [AnyHashable: Any] ?? [:])
+        }
+    }
+    
+    func printShapeVelocities() {
+        for node in self.children {
+            if node.physicsBody?.categoryBitMask == PhysicsCategory.Shape {
+                let v = node.physicsBody?.velocity
+                print(v)
+            }
         }
     }
 }
