@@ -9,6 +9,7 @@
 import UIKit
 import SpriteKit
 import AVFoundation
+import FBSDKShareKit
 
 class SettingScene: SKScene {
     let backButton = SKLabelNode(text: "Back")
@@ -59,6 +60,7 @@ class SettingScene: SKScene {
             ***/
             startGameScene.setUpLocalHighScore()
             startGameScene.trackLose()
+            
         }
         skView.presentScene(scene)
         
@@ -194,20 +196,20 @@ class SettingScene: SKScene {
     let musicLabel2 = SKLabelNode()
     func setUpMusicLabel() {
         musicLabel.text = "Music: http://www.bensound.com"
-        musicLabel.position = CGPoint(x: self.frame.width/2, y: self.frame.height * 1/8)
+        musicLabel.position = CGPoint(x: self.frame.width/2, y: self.frame.height * 0.7/10)
         musicLabel.horizontalAlignmentMode = .center
         musicLabel.fontColor = UIColor.white
         musicLabel.fontName = "Avenir"
-        musicLabel.fontSize = 20
+        musicLabel.fontSize = 12
         musicLabel.zPosition = 3
         self.addChild(musicLabel)
         
         musicLabel2.text = "Licensed under Creative Commons"
-        musicLabel2.position = CGPoint(x: self.frame.width/2, y: self.frame.height * 0.5/8)
+        musicLabel2.position = CGPoint(x: self.frame.width/2, y: self.frame.height * 0.5/10)
         musicLabel2.horizontalAlignmentMode = .center
         musicLabel2.fontColor = UIColor.white
         musicLabel2.fontName = "Avenir"
-        musicLabel2.fontSize = 20
+        musicLabel2.fontSize = 12
         musicLabel2.zPosition = 3
         self.addChild(musicLabel2)
     }

@@ -174,10 +174,18 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         self.addChild(bin_3)
         self.addChild(bin_4)
         
+        createScene()
+    }
+    
+    func setupFB(){
         fbshare.frame = CGRect(x: UIScreen.main.bounds.width/2-UIScreen.main.bounds.width/4-15, y: UIScreen.main.bounds.height*4/5, width: UIScreen.main.bounds.width/4, height: UIScreen.main.bounds.height/14)
         fbsend.frame = CGRect(x: UIScreen.main.bounds.width/2+15, y: UIScreen.main.bounds.height*4/5, width: UIScreen.main.bounds.width/4, height: UIScreen.main.bounds.height/14)
-        
-        createScene()
+        content.contentURL = URL(string: "https://itunes.apple.com/us/app/flick-it-xtreme/id1103070396?mt=8")!
+        content.contentTitle = "Download FlickIt! (or else)"
+        let prevHighScore: Int = UserDefaults.standard.integer(forKey: "score")
+        content.contentDescription = "My high score is "+String(prevHighScore)
+        fbshare.shareContent = content
+        fbsend.shareContent = content
     }
     
     func createBackground(color1: CGColor, color2: CGColor){
@@ -634,8 +642,6 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     func pressedSettings() {
         resetGameOverStar()
         let scene = SettingScene(size: self.size, ap: audioPlayer)
-        fbshare.removeFromSuperview()
-        fbsend.removeFromSuperview()
         let origScene = self
         scene.setOriginalScener(origScene)
         // Configure the view.
@@ -1061,13 +1067,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         // add collision actions
         setUpLocalHighScore()
         GCHelper.sharedInstance.reportLeaderboardIdentifier("scoreLeaderboard", score:score)
-        content.contentURL = URL(string: "https://itunes.apple.com/us/app/flick-it-xtreme/id1103070396?mt=8")!
-        content.contentTitle = "Download FlickIt! (or else)"
-        let prevHighScore: Int = UserDefaults.standard.integer(forKey: "score")
-        content.contentDescription = "My high score is "+String(prevHighScore)
-        
-        fbshare.shareContent = content
-        fbsend.shareContent = content
+        setupFB()
         self.view?.addSubview(fbshare)
         if(fbsend.isHidden){
             print("send is hidden")

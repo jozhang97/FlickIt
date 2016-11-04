@@ -11,6 +11,7 @@
 		18F84F8B1CB04BBB00053DE8 /* bokeh.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F84F891CB04BBB00053DE8 /* bokeh.png */; };
 		18F84F8C1CB04BBB00053DE8 /* ExplosionEffect.sks in Resources */ = {isa = PBXBuildFile; fileRef = 18F84F8A1CB04BBB00053DE8 /* ExplosionEffect.sks */; };
 		1C171BE11D8DC7130031AFC9 /* SettingScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C171BE01D8DC7130031AFC9 /* SettingScene.swift */; };
+		1C26014A1DCC4C6600E4D312 /* Platform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2601491DCC4C6600E4D312 /* Platform.swift */; };
 		1C641B851DA9EC400072255F /* HomeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C641B841DA9EC400072255F /* HomeScene.swift */; };
 		1CD5BCA31D96FA8B009F46B6 /* GCHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD5BCA21D96FA8B009F46B6 /* GCHelper.swift */; };
 		1CD5BCA51D970EB0009F46B6 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CD5BCA41D970EB0009F46B6 /* GameKit.framework */; };
@@ -56,6 +57,7 @@
 		18F84F891CB04BBB00053DE8 /* bokeh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bokeh.png; sourceTree = "<group>"; };
 		18F84F8A1CB04BBB00053DE8 /* ExplosionEffect.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ExplosionEffect.sks; sourceTree = "<group>"; };
 		1C171BE01D8DC7130031AFC9 /* SettingScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingScene.swift; sourceTree = "<group>"; };
+		1C2601491DCC4C6600E4D312 /* Platform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Platform.swift; sourceTree = "<group>"; };
 		1C641B841DA9EC400072255F /* HomeScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeScene.swift; sourceTree = "<group>"; };
 		1CD5BCA21D96FA8B009F46B6 /* GCHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCHelper.swift; sourceTree = "<group>"; };
 		1CD5BCA41D970EB0009F46B6 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
@@ -151,6 +153,7 @@
 				CF3B18DC1CB0D2F500C763E2 /* AboutScene.swift */,
 				18F84F8A1CB04BBB00053DE8 /* ExplosionEffect.sks */,
 				1CD5BCA21D96FA8B009F46B6 /* GCHelper.swift */,
+				1C2601491DCC4C6600E4D312 /* Platform.swift */,
 				CF3B18DE1CB0D2FC00C763E2 /* RulesScene.swift */,
 				187EF1DB1C7900DB0087A94A /* StartGameScene.swift */,
 				1C171BE01D8DC7130031AFC9 /* SettingScene.swift */,
@@ -406,6 +409,7 @@
 				1FA8C6561C6FB1E40072E83F /* GameScene.swift in Sources */,
 				1FA8C6581C6FB1E40072E83F /* GameViewController.swift in Sources */,
 				187EF1DC1C7900DB0087A94A /* StartGameScene.swift in Sources */,
+				1C26014A1DCC4C6600E4D312 /* Platform.swift in Sources */,
 				1C641B851DA9EC400072255F /* HomeScene.swift in Sources */,
 				1CD5BCA31D96FA8B009F46B6 /* GCHelper.swift in Sources */,
 				CF3B18DD1CB0D2F500C763E2 /* AboutScene.swift in Sources */,
