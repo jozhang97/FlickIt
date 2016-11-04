@@ -665,8 +665,30 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     
     var jeffHandCounter = 0
     
+    let flashingScoreNode = SKLabelNode()
+    var flashingScoreTracker = 0
+    func flashScore(score: Int) {
+        if flashingScoreTracker == score {
+            return
+        }
+        flashingScoreTracker = score
+        if self.children.contains(flashingScoreNode) {
+            self.removeChildren(in: [flashingScoreNode])
+        }
+        flashingScoreNode.alpha = 1
+        flashingScoreNode.text = String(score)
+        flashingScoreNode.position = CGPoint(x: self.size.width/2, y: self.size.height/2);
+        flashingScoreNode.horizontalAlignmentMode = .center
+        flashingScoreNode.fontColor = UIColor.white
+        flashingScoreNode.fontName = "Avenir"
+        flashingScoreNode.fontSize = 45
+        flashingScoreNode.zPosition = 5
+        self.addChild(flashingScoreNode)
+        let fadeAction = SKAction.fadeAlpha(to: 0, duration: 2)
+        flashingScoreNode.run(fadeAction)
+    }
+    
     override func update(_ currentTime: TimeInterval) {
-        
         let didRemoveGameover = removeOffScreenNodes()
         if isRotating || arePaused {
             time = currentTime
@@ -686,6 +708,9 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
                 time = currentTime
             }
         } else {
+            if score % 10 == 0 {
+                flashScore(score: score)
+            }
             if currentTime - time >= timeRequired {
                 if (firstTimeCount > 0) {
                     time = currentTime;
