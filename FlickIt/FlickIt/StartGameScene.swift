@@ -752,12 +752,12 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
                     //shapeToAdd.physicsBody?.applyImpulse(CGVectorMake(shapeController.dx, shapeController.dy))
                     //self.addChild(self.shapeController.spawnShape());
                     time = currentTime;
-                    self.shapeController.speedUpVelocity(5);
+                    self.shapeController.speedUpVelocity(6);
                     //            timeRequired = max(timeRequired - timeSpeedUpFactor, minTimeRequired)
                     timeRequired = max(timeRequired * multiplicativeSpeedUpFactor, minTimeRequired)
                     
                     self.shapeController.specialShapeProbability = max(self.shapeController.specialShapeProbability - 4, self.shapeController.sShapeProbabilityBound)
-                    multiplicativeSpeedUpFactor -= 0.005
+                    multiplicativeSpeedUpFactor -= 0.0045
                     applyFirstShapeLabel()
                 }
             }

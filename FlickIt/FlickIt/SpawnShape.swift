@@ -15,11 +15,11 @@ class SpawnShape
     var shapeCounter = [0,0,0,0,0,0]
     let delayTime = 1.7 // time between spawns
     var range = 100.0 //range of X velocities
-    let UPPERRANGEBOUND = 300.0;
-    let LOWESTBOUND = CGFloat(100.0)
+    let UPPERRANGEBOUND = 325.0
+    let LOWESTBOUND = CGFloat(120.0)
     var X_VELOCITY_RANGE = CGFloat(0);
     var Y_VELOCITY_RANGE = CGFloat(0);
-    var LOWERBOUND = CGFloat(40.0) // smallest velocity possible
+    var LOWERBOUND = CGFloat(50.0) // smallest velocity possible
     var sShapeProbabilityBound = 600
     var specialShapeProbability = 1000
     var dx = CGFloat(0)
@@ -247,11 +247,22 @@ class SpawnShape
             dy = CGFloat(Float(arc4random())/0xFFFFFFFF)
             dy = Y_VELOCITY_RANGE*dy - Y_VELOCITY_RANGE/2
         }
+        dx = updateVelocityForScreenSize(v: dx)
+        dy = updateVelocityForScreenSize(v: dy)
         shape.physicsBody?.velocity = CGVector(dx: dx, dy: dy)
         return shape;
         
     }
     
+    let PARAMETER_NAME_BASE_SCREEN_WIDTH: CGFloat = 320.0
+    func updateVelocityForScreenSize(v: CGFloat) -> CGFloat {
+        // too easy so we sped up the velocity (still capped at same value) by 1.3
+        // make shapes on the bigger screens faster
+
+        let scalingFactor: CGFloat = 1.3 * (UIScreen.main.applicationFrame.size.width / PARAMETER_NAME_BASE_SCREEN_WIDTH) * (UIScreen.main.applicationFrame.size.width / PARAMETER_NAME_BASE_SCREEN_WIDTH)
+        let ret = v * scalingFactor
+        return min(ret, CGFloat(UPPERRANGEBOUND))
+    }
     func getShapeCounter() -> [Int] {
         return shapeCounter
     }    
