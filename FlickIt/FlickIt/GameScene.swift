@@ -84,13 +84,15 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     }
     
     func trackHome() {
-        // JEFFREY look into trackers
+        if Platform.testingOrNotSimulator {
+
         let tracker = GAI.sharedInstance().defaultTracker
         tracker?.set(kGAIScreenName, value: "Home Screen")
         let builder = GAIDictionaryBuilder.createScreenView()
         tracker?.send(builder?.build() as? [AnyHashable: Any] ?? [:])
         let event = GAIDictionaryBuilder.createEvent(withCategory: "Action", action: "Open App", label: nil, value: nil)
         tracker?.send(event?.build() as? [AnyHashable: Any] ?? [:])
+        }
     }
     
     func createHomeScreen(){
@@ -140,7 +142,22 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         bottomLeft.name = "bottomLeft"
         
         // Sets bg image to fill the entire screen
-        self.view!.backgroundColor = UIColor.black
+        let gradient = CAGradientLayer()
+        gradient.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+        let color1 = UIColor(red: 171/255.0, green: 232/255.0, blue: 243/255.0, alpha: 1.0).cgColor
+        let color2 = UIColor(red: 246/255.0, green: 204/255.0, blue: 208/255.0, alpha: 1.0).cgColor
+        //layer.zPosition = 0
+        gradient.opacity = 1.0
+        gradient.colors = [color1, color2]
+        let nov = UIView()
+        nov.layer.insertSublayer(gradient, at: 0)
+        self.view?.addSubview(nov)
+        //self.view?.layer.insertSublayer(layer,at: 0)
+        //        self.view!.backgroundColor = UIColor.black
+        //        bgImage.size = CGSize(width: self.size.width, height: self.size.height);
+        //        bgImage.position = CGPointMake(self.size.width/2, self.size.height/2);
+        
+    //self.view!.backgroundColor = UIColor.black
 //        bgImage.size = CGSize(width: self.size.width, height: self.size.height);
 //        bgImage.position = CGPointMake(self.size.width/2, self.size.height/2);
         
@@ -261,7 +278,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         return path
     }
     
-    //Jeff 
+
     func createStar() {
         let rect: CGRect = CGRect(x: 0, y: 0, width: self.size.width/6, height: self.size.width/6)
         star.path = self.starPath(0, y: 0, radius: rect.size.width/3, sides: 5, pointyness: 2)
@@ -527,7 +544,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     }
     
     func openSettings() {
-        let scene = SettingScene(size: self.size)
+        /*let scene = SettingScene(coder: self.size)
         scene.setOriginalScener(GameScene())
         // Configure the view.
         let skView = self.view as SKView!
@@ -540,6 +557,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         /* Set the scale mode to scale to fit the window */
         scene.scaleMode = .aspectFill
         skView?.presentScene(scene)
+ */
         
         
     }

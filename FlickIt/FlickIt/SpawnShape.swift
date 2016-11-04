@@ -71,7 +71,7 @@ class SpawnShape
         if (score >= colorScoreLimit) {
             c = colors[Int(arc4random_uniform(4))]
         }
-        pentagon.strokeColor = c
+        pentagon.strokeColor = UIColor.black
         pentagon.fillColor = c
         //circle.position = CGPointMake(sceneWidth/2, sceneHeight/2);
         pentagon.name = "pentagon";
@@ -108,7 +108,7 @@ class SpawnShape
             c = colors[Int(arc4random_uniform(4))]
         }
         square.path = squarePath(rect)
-        square.strokeColor = c
+        square.strokeColor = UIColor.black
         square.fillColor = c
         square.name = "square";
         square.zPosition=5
@@ -124,7 +124,7 @@ class SpawnShape
             c = colors[Int(arc4random_uniform(4))]
         }
         circle.path = self.circlePath()
-        circle.strokeColor = c
+        circle.strokeColor = UIColor.black
         circle.fillColor = c
         //circle.position = CGPointMake(sceneWidth/2, sceneHeight/2);
         circle.name = "circle";
@@ -151,7 +151,7 @@ class SpawnShape
             c = colors[Int(arc4random_uniform(4))]
         }
         triangle.path = self.triangleInRect(rect)
-        triangle.strokeColor = c
+        triangle.strokeColor = UIColor.black
         triangle.fillColor = c
         triangle.position = CGPoint(x: sizeRect.size.width/2 - triangle.frame.width/2, y: sizeRect.size.height/2);
         // Set names for the launcher so that we can check what node is touched in the touchesEnded method
@@ -247,12 +247,7 @@ class SpawnShape
             dy = CGFloat(Float(arc4random())/0xFFFFFFFF)
             dy = Y_VELOCITY_RANGE*dy - Y_VELOCITY_RANGE/2
         }
-        if(shape.name == "heart"){
-            shape.physicsBody?.velocity = CGVector(dx: 2*dx, dy: 2*dy)
-        }
-        else{
-            shape.physicsBody?.velocity = CGVector(dx: dx, dy: dy)
-        }
+        shape.physicsBody?.velocity = CGVector(dx: dx, dy: dy)
         return shape;
         
     }

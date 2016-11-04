@@ -31,12 +31,16 @@ class AboutScene: SKScene {
     }
     
     func trackAbout() {
+        if Platform.testingOrNotSimulator {
+
         let tracker = GAI.sharedInstance().defaultTracker
         tracker?.set(kGAIScreenName, value: "About Screen")
         let builder = GAIDictionaryBuilder.createScreenView()
         tracker?.send(builder?.build() as? [AnyHashable: Any] ?? [:])
         let event = GAIDictionaryBuilder.createEvent(withCategory: "Action", action: "Opened About", label: nil, value: nil)
-        tracker?.send(event?.build() as? [AnyHashable: Any] ?? [:])    }
+        tracker?.send(event?.build() as? [AnyHashable: Any] ?? [:])
+        }
+    }
     
     func createDetailsLabel() {
         titleLabel.text = "This app was made by Ashwin Vaidyanathan,"

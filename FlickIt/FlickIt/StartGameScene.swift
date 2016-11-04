@@ -13,7 +13,9 @@ import FBSDKShareKit
 
 class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerDelegate {
     var NUMBEROFLIFES = 3
-
+    let screenWidth = UIScreen.main.bounds.width
+    let screenHeight = UIScreen.main.bounds.height
+    
     let red: UIColor = UIColor(red: 164/255, green: 84/255, blue: 80/255, alpha: 1)
     let blue: UIColor = UIColor(red: 85/255, green: 135/255, blue: 141/255, alpha: 1)
     let green: UIColor = UIColor(red: 147/255, green: 158/255, blue: 106/255, alpha: 1)
@@ -28,26 +30,19 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     let restart_star = SKShapeNode()
     
     var justSpawnedDouble = false
-    
-    var bgImage = SKSpriteNode(imageNamed: "background.png")
 
     var bin_1_pos = 1
-    
-    //var bin_1 = SKSpriteNode(imageNamed: "blue_bin_t.png"); // all bins are facing bottom right corner
-    //var bin_2 = SKSpriteNode(imageNamed: "red_bin_t.png");
-    //var bin_3 = SKSpriteNode(imageNamed: "green_bin_t.png");
-    //var bin_4 = SKSpriteNode(imageNamed: "purple_bin_t.png");
     var bin_1 = SKShapeNode()
     var bin_2 = SKShapeNode()
     var bin_3 = SKShapeNode()
     var bin_4 = SKShapeNode()
     
-    var bin_1_shape = SKSpriteNode(imageNamed: "pentagonOutline") //change this to differently oriented triangles
-    var bin_2_shape = SKSpriteNode(imageNamed: "squareOutline")
-    var bin_3_shape = SKSpriteNode(imageNamed: "circleOutline")
-    var bin_4_shape = SKSpriteNode(imageNamed: "triangleOutline")
+    var bin_1_shape = SKSpriteNode(imageNamed: "pentagonOutline-1") //change this to differently oriented triangles
+    var bin_2_shape = SKSpriteNode(imageNamed: "squareOutline-1")
+    var bin_3_shape = SKSpriteNode(imageNamed: "circleOutline-1")
+    var bin_4_shape = SKSpriteNode(imageNamed: "triangleOutline-1")
     
-    var bin_3_shape_width = CGFloat(1024)
+    var bin_3_shape_width = CGFloat(2048)
     var bin_1_width = CGFloat(85)
     var bin_2_width = CGFloat(85)
     var bin_3_width = CGFloat(85)
@@ -62,7 +57,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     var pauseRestart = false
     
     let shapes = ["pentagon", "square","circle","triangle", "gameOverStar", "bomb", "heart"]
-    var bin_shape_image_names = ["pentagonOutline", "squareOutline", "circleOutline","triangleOutline"]
+    var bin_shape_image_names = ["pentagonOutline-1", "squareOutline-1", "circleOutline-1","triangleOutline-1"]
     let bins = ["bin_1", "bin_2", "bin_3", "bin_4"]
     
     var start=CGPoint();
@@ -95,7 +90,10 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     let fbshare = FBSDKShareButton()
     var fbsend = FBSDKSendButton()
     let content = FBSDKShareLinkContent()
-    var doubleShapeProbability = 300
+    var gradient_colors = [CGColor]()
+
+    var backgroundNode = SKSpriteNode()
+    var doubleShapeProbability = 600
     
     var timeBegan = Date()
     var appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -107,6 +105,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     override init() {
         super.init()
     }
+    
     override init(size: CGSize) {
         super.init(size: size)
         shapeController = SpawnShape()
@@ -116,7 +115,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         sceneWidth = sizeRect.size.width * UIScreen.main.scale;
         let radius = self.size.height/6
         shapeScaleFactor = 0.14 * self.size.width/bin_3_shape_width
-        binShapeScaleFactor = 0.29 * self.size.width/radius
+        binShapeScaleFactor = 0.24 * self.size.width/radius
         
         playMusic("bensound-cute", type: "mp3")
         
@@ -133,7 +132,16 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
             bin.physicsBody?.collisionBitMask=PhysicsCategory.Shape
             bin.physicsBody?.contactTestBitMask=PhysicsCategory.Shape
         }
-        
+        func setupGradientColors(){
+            let gradient_blue = UIColor(red: 171/255.0, green: 232/255.0, blue: 243/255.0, alpha: 1.0).cgColor
+            let gradient_red = UIColor(red: 246/255.0, green: 204/255.0, blue: 208/255.0, alpha: 1.0).cgColor
+            let gradient_yellow = UIColor(red: 244/255.0, green: 216/255.0, blue: 178/255.0, alpha: 1.0).cgColor
+            gradient_colors.append(gradient_blue)
+            gradient_colors.append(gradient_red)
+            gradient_colors.append(gradient_yellow)
+            
+        }
+        setupGradientColors()
         bin_1.position = CGPoint(x: self.size.width, y: self.size.height)
         bin_1.zPosition = 3
         bin_1.physicsBody = SKPhysicsBody(circleOfRadius: bin_1.frame.size.width)
@@ -172,11 +180,37 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         createScene()
     }
     
+    func createBackground(color1: CGColor, color2: CGColor){
+        let size = CGSize(width: screenWidth, height: screenHeight)
+        let layer = CAGradientLayer()
+        layer.frame = CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight)
+        layer.colors = [color1, color2] // start color
+        UIGraphicsBeginImageContext(size)
+        layer.render(in: UIGraphicsGetCurrentContext()!)
+        let bg = UIGraphicsGetImageFromCurrentImageContext()?.cgImage
+        UIGraphicsEndImageContext()
+        let back = SKTexture.init(cgImage: bg!)
+        backgroundNode = SKSpriteNode(texture: back, size: size)
+        backgroundNode.zPosition = 0
+        backgroundNode.position = CGPoint(x:screenWidth/2,y:screenHeight/2)
+        self.addChild(backgroundNode)
+    }
+    func changeBackground(scorediv20: Int){
+        //if score is 40, use the 40 / 20 = 2 and 3 elements of array
+        let first = scorediv20 % gradient_colors.count
+        var second = first+1
+        //it cycles if we don't have enought colors.
+        if(second >= gradient_colors.count){
+            second = 0
+        }
+        backgroundNode.removeFromParent()
+        createBackground(color1: gradient_colors[first] , color2: gradient_colors[second] )
+    }
     func playMusic(_ path: String, type: String) {
         let alertSound = URL(fileURLWithPath: Bundle.main.path(forResource: path, ofType: type)!)
         //print(alertSound)
         do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
             try AVAudioSession.sharedInstance().setActive(true)
             try audioPlayer = AVAudioPlayer(contentsOf: alertSound)
         }
@@ -221,7 +255,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         //print(alertSound)
         
         do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
+            
             try AVAudioSession.sharedInstance().setActive(true)
             try audioPlayer2 = AVAudioPlayer(contentsOf: alertSound)
         }
@@ -231,7 +266,6 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         audioPlayer2.prepareToPlay()
         checkMute2()
         audioPlayer2.play()
-        audioPlayer2.numberOfLoops = -1
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -243,38 +277,38 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         playingGame = true
         timeBegan = Date()
         self.physicsWorld.contactDelegate = self
-        bgImage.size = CGSize(width: self.size.width, height: self.size.height);
-        bgImage.position = CGPoint(x: self.size.width/2, y: self.size.height/2);
-        bgImage.zPosition = 1
-        self.addChild(bgImage);
+        //bgImage.size = CGSize(width: self.size.width, height: self.size.height);
+        //bgImage.position = CGPoint(x: self.size.width/2, y: self.size.height/2);
+        //bgImage.zPosition = 1
+        //self.addChild(bgImage);
         let radius = self.size.height/6
         //adds bins on all 4 corners of screen with name, zposition and size
         //bin_1.size = CGSize(width: 100, height: 100)
         // top right
-        
+        createBackground(color1: gradient_colors[0],color2: gradient_colors[1])
         bin_1_shape.anchorPoint = CGPoint(x: 1, y: 1)
         bin_1_shape.setScale(binShapeScaleFactor)
         bin_1_shape.position = CGPoint(x: self.size.width - radius / 16, y: self.size.height - radius/16)
         bin_1_shape.zPosition = 4;
-        bin_1_shape.texture = SKTexture(imageNamed: "pentagonOutline")
+        bin_1_shape.texture = SKTexture(imageNamed: "pentagonOutline-1")
         
         bin_2_shape.anchorPoint = CGPoint(x: 0, y: 1)
         bin_2_shape.setScale(binShapeScaleFactor)
         bin_2_shape.position = CGPoint(x: radius / 16, y: self.size.height - radius / 16)
         bin_2_shape.zPosition = 4;
-        bin_2_shape.texture = SKTexture(imageNamed: "squareOutline")
+        bin_2_shape.texture = SKTexture(imageNamed: "squareOutline-1")
 
         bin_3_shape.anchorPoint = CGPoint(x: 0, y: 0)
         bin_3_shape.setScale(binShapeScaleFactor)
         bin_3_shape.position = CGPoint(x: radius / 16, y: radius / 16)
         bin_3_shape.zPosition = 4;
-        bin_3_shape.texture = SKTexture(imageNamed: "circleOutline")
+        bin_3_shape.texture = SKTexture(imageNamed: "circleOutline-1")
 
         bin_4_shape.anchorPoint = CGPoint(x: 1, y: 0)
         bin_4_shape.setScale(binShapeScaleFactor)
         bin_4_shape.position = CGPoint(x: self.size.width - radius / 16, y: radius / 16)
         bin_4_shape.zPosition = 4;
-        bin_4_shape.texture = SKTexture(imageNamed: "triangleOutline")
+        bin_4_shape.texture = SKTexture(imageNamed: "triangleOutline-1")
 
         self.addChild(bin_1_shape)
         self.addChild(bin_2_shape)
@@ -286,7 +320,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         scoreLabel.fontColor=UIColor.yellow
         scoreLabel.position=CGPoint(x: self.frame.width/2,y: self.frame.height * 7.5/9)
         scoreLabel.zPosition=2
-        scoreLabel.fontName = "BigNoodleTitling"
+        scoreLabel.fontName = "Avenir"
         self.addChild(scoreLabel)
         
         livesLabel = SKLabelNode()
@@ -294,7 +328,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         livesLabel.fontColor = UIColor.red
         livesLabel.position = CGPoint(x: self.frame.width/2, y: self.frame.height * 0.5/9)
         livesLabel.zPosition = 2
-        livesLabel.fontName = "BigNoodleTitling"
+        livesLabel.fontName = "Avenir"
         self.addChild(livesLabel)
         
         gameOver = false
@@ -316,12 +350,14 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     }
     
     func track() {
+        if Platform.testingOrNotSimulator {
         let tracker = GAI.sharedInstance().defaultTracker
         tracker?.set(kGAIScreenName, value: "Game Screen")
         let builder = GAIDictionaryBuilder.createScreenView()
         tracker?.send(builder?.build() as? [AnyHashable: Any] ?? [:])
         let event = GAIDictionaryBuilder.createEvent(withCategory: "Action", action: "Play Game", label: nil, value: nil)
         tracker?.send(event?.build() as? [AnyHashable: Any] ?? [:])
+        }
     }
     var isRotating = false
     
@@ -533,6 +569,14 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
                     explosionEmitterNode?.zPosition=100
                     if (firstBody.node?.name == secondBody.node?.name) {
                         score += 1
+                        if(score % 20 == 0){
+                            changeBackground(scorediv20: score / 5)
+                        }
+                        let currHighScore = UserDefaults.standard.integer(forKey: "score")
+                        if ((score % 10 == 0 && score >= currHighScore - 10) || (score == currHighScore + 1 && currHighScore >= 10)) {
+                            flashScore(score: score)
+                        }
+                        
                         aud3exists = true
                         playSwoosh("swoosh")
                         aud3exists = false
@@ -576,7 +620,6 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         }
     }
     func pressedHighScore() {
-        authPlayer()
         saveScore(score)
         showLeaderboard()
     }
@@ -590,7 +633,9 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     
     func pressedSettings() {
         resetGameOverStar()
-        let scene = SettingScene(size: self.size)
+        let scene = SettingScene(size: self.size, ap: audioPlayer)
+        fbshare.removeFromSuperview()
+        fbsend.removeFromSuperview()
         let origScene = self
         scene.setOriginalScener(origScene)
         // Configure the view.
@@ -607,7 +652,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     }
     
     func goToHome() {
-        let scene: SKScene = GameScene(size: self.size)
+        let scene: SKScene = HomeScene(size: self.size)
         fbshare.removeFromSuperview()
         fbsend.removeFromSuperview()
         // Configure the view.
@@ -619,12 +664,6 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         /* Set the scale mode to scale to fit the window */
         scene.scaleMode = .aspectFill
         skView?.presentScene(scene)
-        let tracker = GAI.sharedInstance().defaultTracker
-        tracker?.set(kGAIScreenName, value: "Home Screen")
-        let builder = GAIDictionaryBuilder.createScreenView()
-        tracker?.send(builder?.build() as? [AnyHashable: AnyObject] ?? [:])
-        let event = GAIDictionaryBuilder.createEvent(withCategory: "Action", action: "Go To Home", label: nil, value: nil)
-        tracker?.send(event?.build() as? [AnyHashable: Any] ?? [:])
     }
     
     var timeRequired = 1.6
@@ -635,8 +674,30 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     
     var jeffHandCounter = 0
     
+    let flashingScoreNode = SKLabelNode()
+    var flashingScoreTracker = 0
+    func flashScore(score: Int) {
+        if flashingScoreTracker == score {
+            return
+        }
+        flashingScoreTracker = score
+        if self.children.contains(flashingScoreNode) {
+            self.removeChildren(in: [flashingScoreNode])
+        }
+        flashingScoreNode.alpha = 1
+        flashingScoreNode.text = String(score)
+        flashingScoreNode.position = CGPoint(x: self.size.width/2, y: self.size.height/2);
+        flashingScoreNode.horizontalAlignmentMode = .center
+        flashingScoreNode.fontColor = UIColor.green
+        flashingScoreNode.fontName = "Avenir"
+        flashingScoreNode.fontSize = 45
+        flashingScoreNode.zPosition = 5
+        self.addChild(flashingScoreNode)
+        let fadeAction = SKAction.fadeAlpha(to: 0, duration: 2)
+        flashingScoreNode.run(fadeAction)
+    }
+    
     override func update(_ currentTime: TimeInterval) {
-        
         let didRemoveGameover = removeOffScreenNodes()
         if isRotating || arePaused {
             time = currentTime
@@ -664,13 +725,21 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
                     shapeToAdd = self.shapeController.spawnShape(score, lives: lives);
                     shapeToAdd.position = CGPoint(x: self.size.width/2, y: self.size.height/2);
                     self.addChild(shapeToAdd);
-                    if (!justSpawnedDouble && score > 10) { // double spawns start at score 10
-                        doubleShapeProbability = max(doubleShapeProbability - 4, 150)
-                        
-                        //spawn two shapes 33% -> 50% of the time
-                        if(Int(arc4random_uniform(UInt32(doubleShapeProbability))) <= 100){
+                    if (!justSpawnedDouble && score > 20) {
+                        doubleShapeProbability = max(doubleShapeProbability - 4, 300)
+                        /***
+                         double spawns start at score 20
+                         doubleShapeProbability starts at 600 and drops slowly to 300.
+                         Pick random number from 0 to doubleShapeProbability and compare with 100
+                         spawn two shapes 16.7% -> 33.3% of the time
+                         delay of 0.1 seconds between the double spawn
+                         
+                         (Before, was after score of 10, delay of 0.2, probability 33% -> 67%)
+                        ***/
+                        let rand = Int(arc4random_uniform(UInt32(doubleShapeProbability)))
+                        if(rand <= 100){
                             //change above value for difficulty purposes!!!!!!!!
-                            delay(0.2) {
+                            delay(0.1) {
                                 self.shapeToAdd = self.shapeController.spawnShape(self.score, lives: self.lives);
                                 self.shapeToAdd.position = CGPoint(x: self.size.width/2, y: self.size.height/2);
                                 self.addChild(self.shapeToAdd);
@@ -686,7 +755,6 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
                     self.shapeController.speedUpVelocity(5);
                     //            timeRequired = max(timeRequired - timeSpeedUpFactor, minTimeRequired)
                     timeRequired = max(timeRequired * multiplicativeSpeedUpFactor, minTimeRequired)
-                    //                self.shapeController.specialShapeProbability = max(Int(multiplicativeSpeedUpFactor * Double( self.shapeController.specialShapeProbability)), self.shapeController.sShapeProbabilityBound)
                     
                     self.shapeController.specialShapeProbability = max(self.shapeController.specialShapeProbability - 4, self.shapeController.sShapeProbabilityBound)
                     multiplicativeSpeedUpFactor -= 0.005
@@ -762,12 +830,14 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
                 let currNode = self.atPoint(start)
                 if currNode.name == "pauseButton" {
                     closePause()
+                    track()
                 } else if muteLabel.contains(location) {
                     pressedMute()
                 } else if (restartLabel.contains(location)) {
                     closePause()
                     pauseRestart = true
                     restartScene()
+                    trackRestartFromPause()
                 } else if (homeLabel.contains(location)) {
                     goToHome()
                     closePause()
@@ -776,6 +846,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
                     closePause()
                 } else if (newUnPauseLabel.contains(location)) {
                     closePause()
+                    track()
                 }
             } else if !isRotating {
                 touchedNode=self.atPoint(start)
@@ -868,7 +939,10 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
             delay(0.5) {
                 if (self.gameOver && self.showHand > 2) {
                     self.showHand = 0
-                    self.moveHand()
+                    let action = SKAction.sequence([SKAction.wait(forDuration: 2),
+                                                    SKAction.run({self.moveHand()})])
+                    //self.moveHand()
+                    self.run(action)
                 }
             }
             showHand += 1;
@@ -991,6 +1065,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         content.contentTitle = "Download FlickIt! (or else)"
         let prevHighScore: Int = UserDefaults.standard.integer(forKey: "score")
         content.contentDescription = "My high score is "+String(prevHighScore)
+        
         fbshare.shareContent = content
         fbsend.shareContent = content
         self.view?.addSubview(fbshare)
@@ -999,7 +1074,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         }else{
             self.view?.addSubview(fbsend)
         }
-        gameOverTrack()
+        trackLose()
         putBackPhysicsBodyBin()
         playingGame = false
         self.removeChildren(in: [firstShapeLabel, firstBombLabel, firstHeartLabel])
@@ -1013,10 +1088,13 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
             UserDefaults.standard.synchronize()
             prevHighScore = score
         }
+        if (self.children.contains(gameOverHighScoreLabel)) {
+            self.removeChildren(in: [gameOverHighScoreLabel])
+        }
         gameOverHighScoreLabel.position = CGPoint(x: self.size.width/2, y: self.size.height/3.9);
         gameOverHighScoreLabel.horizontalAlignmentMode = .center
         gameOverHighScoreLabel.fontColor = UIColor.white
-        gameOverHighScoreLabel.fontName = "BigNoodleTitling"
+        gameOverHighScoreLabel.fontName = "Avenir"
         gameOverHighScoreLabel.fontSize = 20
         gameOverHighScoreLabel.zPosition = 5
         gameOverHighScoreLabel.text = "Your High Score: " + String(prevHighScore)
@@ -1024,7 +1102,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         
     }
     
-    func gameOverTrack() {
+    func trackLose() {
+        if Platform.testingOrNotSimulator {
         let tracker = GAI.sharedInstance().defaultTracker
         tracker?.set(kGAIScreenName, value: "Lose Screen")
         let builder = GAIDictionaryBuilder.createScreenView()
@@ -1034,12 +1113,15 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         tracker?.set(GAIFields.customMetric(for: 1), value: String(score))
         let timeElapsed = Date().timeIntervalSince(timeBegan)
         tracker?.set(GAIFields.customMetric(for: 2), value: String(timeElapsed))
+        }
     }
+    
+
     
     func createStar() {
         let rect: CGRect = CGRect(x: 0, y: 0, width: self.size.width/6, height: self.size.width/6)
         restart_star.path = self.starPath(0, y: 0, radius: rect.size.width/3, sides: 5, pointyness: 2)
-        restart_star.strokeColor = yellow
+        restart_star.strokeColor = UIColor.black
         restart_star.fillColor = yellow
         restart_star.zPosition = 7
         restart_star.position = CGPoint(x: self.size.width/2, y: self.size.height/2 - self.gameOverLabel.frame.height*2);
@@ -1112,7 +1194,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         gameOverScoreLabel.position = CGPoint(x: self.size.width/2, y: self.size.height/2);
         gameOverScoreLabel.horizontalAlignmentMode = .center
         gameOverScoreLabel.fontColor = UIColor.white
-        gameOverScoreLabel.fontName = "BigNoodleTitling"
+        gameOverScoreLabel.fontName = "Avenir"
         gameOverScoreLabel.fontSize = 25
         gameOverScoreLabel.zPosition = 5
         gameOverScoreLabel.text = "Score " + String(score)
@@ -1121,7 +1203,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         gameOverLabel.position = CGPoint(x: self.size.width/2, y: self.size.height/2 + gameOverScoreLabel.frame.height + 5);
         gameOverLabel.horizontalAlignmentMode = .center
         gameOverLabel.fontColor = UIColor.yellow
-        gameOverLabel.fontName = "BigNoodleTitling"
+        gameOverLabel.fontName = "Avenir"
         gameOverLabel.fontSize = 30
         gameOverLabel.zPosition = 5
         self.addChild(gameOverLabel)
@@ -1178,7 +1260,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     func openPause() {
         playingGame = false
         pauseButton.texture = SKTexture(imageNamed: "playButton")
-        bgImage.run(SKAction.fadeAlpha(to: 0.2, duration: 0.5));
+        //bgImage.run(SKAction.fadeAlpha(to: 0.2, duration: 0.5));
         arePaused = true
         if appDelegate.muted == true {
             muteLabel.text = "Unmute"
@@ -1188,28 +1270,28 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         }
         muteLabel.fontColor=UIColor.white
         muteLabel.position=CGPoint(x: self.frame.width/2, y: 3.5*self.frame.height/12)
-        muteLabel.fontName = "BigNoodleTitling"
+        muteLabel.fontName = "Avenir"
         muteLabel.zPosition = 7
         self.addChild(muteLabel)
         
         newUnPauseLabel.text = "Resume"
         newUnPauseLabel.fontColor=UIColor.white
         newUnPauseLabel.position=CGPoint(x: self.frame.width/2, y: 8*self.frame.height/12)
-        newUnPauseLabel.fontName = "BigNoodleTitling"
+        newUnPauseLabel.fontName = "Avenir"
         newUnPauseLabel.zPosition = 7
         self.addChild(newUnPauseLabel)
         
         restartLabel.text = "Restart"
         restartLabel.fontColor=UIColor.white
         restartLabel.position=CGPoint(x: self.frame.width/2, y: 6.5*self.frame.height/12)
-        restartLabel.fontName = "BigNoodleTitling"
+        restartLabel.fontName = "Avenir"
         restartLabel.zPosition = 7
         self.addChild(restartLabel)
         
         homeLabel.text = "Home"
         homeLabel.fontColor=UIColor.white
         homeLabel.position=CGPoint(x: self.frame.width/2, y: 5*self.frame.height/12)
-        homeLabel.fontName = "BigNoodleTitling"
+        homeLabel.fontName = "Avenir"
         homeLabel.zPosition = 7
         self.addChild(homeLabel)
 //        addThemeSettingLabel()
@@ -1233,7 +1315,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         themeSettingsLabel.fontColor=UIColor.white
         themeSettingsLabel.position=CGPoint(x: self.frame.width/2,y: self.frame.height/5)
         themeSettingsLabel.zPosition=5
-        themeSettingsLabel.fontName = "BigNoodleTitling"
+        themeSettingsLabel.fontName = "Avenir"
         self.addChild(themeSettingsLabel)
     }
     
@@ -1255,23 +1337,22 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     
     func closePause() {
         pauseButton.texture = SKTexture(imageNamed: "pauseButton")
-        bgImage.run(SKAction.fadeAlpha(to: 1.0, duration: 0.5));
+        //bgImage.run(SKAction.fadeAlpha(to: 1.0, duration: 0.5));
         arePaused = false
         // manipulate touch end
         self.removeChildren(in: [muteLabel, restartLabel, homeLabel, themeSettingsLabel, pauseBackground, newUnPauseLabel])
         muteLabel = SKLabelNode()
-        muteLabel.fontName = "BigNoodleTitling"
+        muteLabel.fontName = "Avenir"
         restartLabel = SKLabelNode()
-        restartLabel.fontName = "BigNoodleTitling"
+        restartLabel.fontName = "Avenir"
         homeLabel = SKLabelNode()
-        homeLabel.fontName = "BigNoodleTitling"
+        homeLabel.fontName = "Avenir"
         themeSettingsLabel = SKLabelNode()
-        themeSettingsLabel.fontName = "BigNoodleTitling"
+        themeSettingsLabel.fontName = "Avenir"
         newUnPauseLabel = SKLabelNode()
-        newUnPauseLabel.fontName = "BigNoodleTitling"
+        newUnPauseLabel.fontName = "Avenir"
         unfreezeShapes()
         playingGame = true
-        track()
     }
     
     func pressedMute() {
@@ -1283,6 +1364,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
             muteLabel.text = "Unmute"
             muteThis()
         }
+        trackMuting()
     }
     
     func muteThis() {
@@ -1350,20 +1432,10 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         line.zPosition=4
     }
     
-    func authPlayer() {
-        let localPlayer = GKLocalPlayer.localPlayer()
-        localPlayer.authenticateHandler = {
-            (view, error) in
-            if view != nil && !localPlayer.isAuthenticated {
-//                let viewController = self.view!.window?.rootViewController
-//                viewController?.presentViewController(view!, animated: true, completion: nil)
-//                viewController?.removeFromParentViewController()
-//                self.view?.removeFromSuperview() //idk about this
-            }
-            else { 
-                print("Authenticated status: " + String(GKLocalPlayer.localPlayer().isAuthenticated))
-            }
-        }
+    func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController)
+    {
+        trackLose()
+        gameCenterViewController.dismiss(animated: true, completion: nil)
     }
     
     func saveScore(_ score: Int) {
@@ -1376,31 +1448,52 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
                 print(NSError)
                 return
             })
-            print("Score is")
-            print(score)
 //        }
     }
     
     func showLeaderboard() {
-        let viewController = self.view!.window?.rootViewController
-        let gameCenterVC: GKGameCenterViewController! = GKGameCenterViewController()
-
-//        let gameCenterVC: GKGameCenterViewController! = GKGameCenterViewController(rootViewController: viewController!)
-        gameCenterVC.gameCenterDelegate = self
-        viewController?.dismiss(animated: true, completion: nil)
-        print("HERO")
-        print(viewController?.presentedViewController) // thought this wasn't nil then can't put one vc on top of another
-        viewController?.removeFromParentViewController()
-        
-        viewController!.present(gameCenterVC, animated: true, completion: nil)
-        print(viewController?.presentedViewController)
-
-        print("da subviews")
-        print(self.view?.subviews)
+        let localPlayer = GKLocalPlayer.localPlayer()
+        if !localPlayer.isAuthenticated {
+            let alert = UIAlertController(title: "Not logged into GameCenter", message: "To see high scores, please log in to GameCenter via Settings", preferredStyle: UIAlertControllerStyle.actionSheet)
+            alert.addAction(
+                UIAlertAction(
+                    title: "Cancel",
+                    style: UIAlertActionStyle.cancel,
+                    handler: nil
+                )
+            )
+            self.view?.window?.rootViewController?.present(alert, animated: true, completion: nil)
+            
+            // UIAlertView
+            // open "Do you want to log in gamecenter?"
+            // if wants to log in, open sign in sheet
+            // if not, go back
+        } else {
+            let viewController = self.view!.window?.rootViewController
+            let gameCenterVC: GKGameCenterViewController! = GKGameCenterViewController()
+    //        let gameCenterVC: GKGameCenterViewController! = GKGameCenterViewController(rootViewController: viewController!)
+            gameCenterVC.gameCenterDelegate = self
+            viewController?.dismiss(animated: true, completion: nil)
+            
+            print(viewController?.presentedViewController) // thought this wasn't nil then can't put one vc on top of another
+            viewController?.removeFromParentViewController()
+            
+            viewController!.present(gameCenterVC, animated: true, completion: nil)
+            print(viewController?.presentedViewController)
+            
+            trackLeaderboard()
+        }
     }
     
-    func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController) {
-        gameCenterViewController.dismiss(animated: true, completion: nil)
+    func trackLeaderboard() {
+        if Platform.testingOrNotSimulator {
+        let tracker = GAI.sharedInstance().defaultTracker
+        tracker?.set(kGAIScreenName, value: "GameCenter Screen")
+        let builder = GAIDictionaryBuilder.createScreenView()
+        tracker?.send(builder?.build() as? [AnyHashable: Any] ?? [:])
+        let event = GAIDictionaryBuilder.createEvent(withCategory: "Action", action: "Opened game center", label: nil, value: nil)
+        tracker?.send(event?.build() as? [AnyHashable: Any] ?? [:])
+        }
     }
     
 //    deinit{
@@ -1444,7 +1537,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         firstShapeLabel.fontColor=UIColor.yellow
         firstShapeLabel.position=CGPoint(x: self.size.width/2,y: self.size.height * 1.5/9)
         firstShapeLabel.zPosition=5
-        firstShapeLabel.fontName = "BigNoodleTitling"
+        firstShapeLabel.fontName = "Avenir"
+        firstShapeLabel.fontSize = 22
         let firstShapeLabelAddAction = SKAction.run({
             self.addChild(self.firstShapeLabel)
         })
@@ -1461,8 +1555,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         firstBombLabel.fontColor=UIColor.yellow
         firstBombLabel.position=CGPoint(x: self.size.width/2,y: self.size.height * 1.5/9)
         firstBombLabel.zPosition=5
-        firstBombLabel.fontName = "BigNoodleTitling"
-        
+        firstBombLabel.fontName = "Avenir"
+        firstBombLabel.fontSize = 22
         let firstBombLabelAddAction = SKAction.run({
             self.addChild(self.firstBombLabel)
         })
@@ -1479,7 +1573,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         firstHeartLabel.fontColor=UIColor.yellow
         firstHeartLabel.position=CGPoint(x: self.size.width/2,y: self.size.height * 1.5/9)
         firstHeartLabel.zPosition=5
-        firstHeartLabel.fontName = "BigNoodleTitling"
+        firstHeartLabel.fontName = "Avenir"
+        firstHeartLabel.fontSize = 22
         let firstHeartLabelAddAction = SKAction.run({
             self.addChild(self.firstHeartLabel)
         })
@@ -1491,6 +1586,39 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         run(showAction)
     }
     
+    func trackFacebookShare() {
+        // TODO CALL THIS IN THE FB SHARE **
+        if Platform.testingOrNotSimulator {
+            let tracker = GAI.sharedInstance().defaultTracker
+            let event = GAIDictionaryBuilder.createEvent(withCategory: "Action", action: "Facebook Share", label: nil, value: nil)
+            tracker?.send(event?.build() as? [AnyHashable: Any] ?? [:])
+        }
+    }
+    
+    func trackFacebookMessage() {
+        // TODO CALL THIS IN THE FB MSG **
+        if Platform.testingOrNotSimulator {
+            let tracker = GAI.sharedInstance().defaultTracker
+            let event = GAIDictionaryBuilder.createEvent(withCategory: "Action", action: "Facebook Message", label: nil, value: nil)
+            tracker?.send(event?.build() as? [AnyHashable: Any] ?? [:])
+        }
+    }
+    
+    func trackRestartFromPause() {
+        if Platform.testingOrNotSimulator {
+            let tracker = GAI.sharedInstance().defaultTracker
+            let event = GAIDictionaryBuilder.createEvent(withCategory: "Action", action: "Restart from pause", label: nil, value: nil)
+            tracker?.send(event?.build() as? [AnyHashable: Any] ?? [:])
+        }
+    }
+    
+    func trackMuting() {
+        if Platform.testingOrNotSimulator {
+            let tracker = GAI.sharedInstance().defaultTracker
+            let event = GAIDictionaryBuilder.createEvent(withCategory: "Action", action: "Mute/Unmute", label: nil, value: nil)
+            tracker?.send(event?.build() as? [AnyHashable: Any] ?? [:])
+        }
+    }
 }
 
 extension Array {
