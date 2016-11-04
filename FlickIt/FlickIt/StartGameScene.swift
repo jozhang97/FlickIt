@@ -935,7 +935,10 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
             delay(0.5) {
                 if (self.gameOver && self.showHand > 2) {
                     self.showHand = 0
-                    self.moveHand()
+                    let action = SKAction.sequence([SKAction.wait(forDuration: 2),
+                                                    SKAction.run({self.moveHand()})])
+                    //self.moveHand()
+                    self.run(action)
                 }
             }
             showHand += 1;
