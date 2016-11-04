@@ -1086,8 +1086,15 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         putBackPhysicsBodyBin()
         playingGame = false
         self.removeChildren(in: [firstShapeLabel, firstBombLabel, firstHeartLabel])
+        //displayShareSheet(shareContent: "high score")
     }
-    
+    /*
+    func displayShareSheet(shareContent:String) {
+        let activityViewController = UIActivityViewController(activityItems: [shareContent as NSString], applicationActivities: nil)
+        let currentViewController:UIViewController=UIApplication.shared.keyWindow!.rootViewController!
+        currentViewController.present(activityViewController, animated: true, completion: {})
+    }
+    */
     
     func setUpLocalHighScore() {
         var prevHighScore: Int = UserDefaults.standard.integer(forKey: "score")
