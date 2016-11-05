@@ -59,11 +59,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-        print(muted)
         UserDefaults.standard.set(muted, forKey: "muted")
         UserDefaults.standard.synchronize()
-        print("SDFSDFDSF")
-        print(UserDefaults.standard.bool(forKey: "muted"))
     }
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {

@@ -199,7 +199,7 @@ class SettingScene: SKScene {
         musicLabel.position = CGPoint(x: self.frame.width/2, y: self.frame.height * 0.7/10)
         musicLabel.horizontalAlignmentMode = .center
         musicLabel.fontColor = UIColor.white
-        musicLabel.fontName = "Avenir"
+        musicLabel.fontName = "AppleSDGothicNeo-UltraLight"
         musicLabel.fontSize = 12
         musicLabel.zPosition = 3
         self.addChild(musicLabel)
@@ -208,7 +208,7 @@ class SettingScene: SKScene {
         musicLabel2.position = CGPoint(x: self.frame.width/2, y: self.frame.height * 0.5/10)
         musicLabel2.horizontalAlignmentMode = .center
         musicLabel2.fontColor = UIColor.white
-        musicLabel2.fontName = "Avenir"
+        musicLabel2.fontName = "AppleSDGothicNeo-UltraLight"
         musicLabel2.fontSize = 12
         musicLabel2.zPosition = 3
         self.addChild(musicLabel2)
@@ -226,7 +226,7 @@ class SettingScene: SKScene {
         settingsTitle.position = CGPoint(x: self.frame.size.width/2, y: 3*self.frame.size.height/4)
         settingsTitle.horizontalAlignmentMode = .center
         settingsTitle.fontColor = UIColor.white
-        settingsTitle.fontName = "Avenir"
+        settingsTitle.fontName = "AppleSDGothicNeo-UltraLight"
         settingsTitle.fontSize = 54
         settingsTitle.zPosition = 5
         self.addChild(settingsTitle)
@@ -234,7 +234,7 @@ class SettingScene: SKScene {
         backButton.position = CGPoint(x: self.frame.size.width/9, y: 12*self.frame.size.height/13);
         backButton.horizontalAlignmentMode = .center
         backButton.fontColor = UIColor.white
-        backButton.fontName = "Avenir"
+        backButton.fontName = "AppleSDGothicNeo-UltraLight"
         backButton.fontSize = 24
         backButton.zPosition = 5
         self.addChild(backButton)
@@ -266,7 +266,7 @@ class SettingScene: SKScene {
         resetHighScoreButton.position = CGPoint(x: self.frame.size.width/2, y: self.frame.size.height*5/10);
         resetHighScoreButton.horizontalAlignmentMode = .center
         resetHighScoreButton.fontColor = UIColor.white
-        resetHighScoreButton.fontName = "Avenir"
+        resetHighScoreButton.fontName = "AppleSDGothicNeo-UltraLight"
         resetHighScoreButton.fontSize = 24
         resetHighScoreButton.zPosition = 5
         self.addChild(resetHighScoreButton)
@@ -274,7 +274,7 @@ class SettingScene: SKScene {
         muteButton.position = CGPoint(x: self.frame.size.width/2, y: self.frame.size.height*6/10);
         muteButton.horizontalAlignmentMode = .center
         muteButton.fontColor = UIColor.white
-        muteButton.fontName = "Avenir"
+        muteButton.fontName = "AppleSDGothicNeo-UltraLight"
         muteButton.fontSize = 24
         muteButton.zPosition = 5
         self.addChild(muteButton)

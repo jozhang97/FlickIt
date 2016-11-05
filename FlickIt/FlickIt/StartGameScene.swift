@@ -179,8 +179,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     }
     
     func setupFB(){
-        fbshare.frame = CGRect(x: UIScreen.main.bounds.width/2-UIScreen.main.bounds.width/4-15, y: UIScreen.main.bounds.height*4/5, width: UIScreen.main.bounds.width/4, height: UIScreen.main.bounds.height/14)
-        fbsend.frame = CGRect(x: UIScreen.main.bounds.width/2+15, y: UIScreen.main.bounds.height*4/5, width: UIScreen.main.bounds.width/4, height: UIScreen.main.bounds.height/14)
+        fbshare.frame = CGRect(x: UIScreen.main.bounds.width/2-UIScreen.main.bounds.width/4-15, y: UIScreen.main.bounds.height*3.8/5, width: UIScreen.main.bounds.width/4, height: UIScreen.main.bounds.height/14)
+        fbsend.frame = CGRect(x: UIScreen.main.bounds.width/2+15, y: UIScreen.main.bounds.height*3.8/5, width: UIScreen.main.bounds.width/4, height: UIScreen.main.bounds.height/14)
         content.contentURL = URL(string: "https://itunes.apple.com/us/app/flick-it-xtreme/id1103070396?mt=8")!
         content.contentTitle = "Download FlickIt! (or else)"
         let prevHighScore: Int = UserDefaults.standard.integer(forKey: "score")
@@ -329,7 +329,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         scoreLabel.fontColor=UIColor.yellow
         scoreLabel.position=CGPoint(x: self.frame.width/2,y: self.frame.height * 7.5/9)
         scoreLabel.zPosition=2
-        scoreLabel.fontName = "Avenir"
+        scoreLabel.fontName = "AppleSDGothicNeo-UltraLight"
         self.addChild(scoreLabel)
         
         livesLabel = SKLabelNode()
@@ -337,7 +337,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         livesLabel.fontColor = UIColor.red
         livesLabel.position = CGPoint(x: self.frame.width/2, y: self.frame.height * 0.5/9)
         livesLabel.zPosition = 2
-        livesLabel.fontName = "Avenir"
+        livesLabel.fontName = "AppleSDGothicNeo-UltraLight"
         self.addChild(livesLabel)
         
         gameOver = false
@@ -714,7 +714,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         flashingScoreNode.position = CGPoint(x: self.size.width/2, y: self.size.height/2);
         flashingScoreNode.horizontalAlignmentMode = .center
         flashingScoreNode.fontColor = UIColor.green
-        flashingScoreNode.fontName = "Avenir"
+        flashingScoreNode.fontName = "AppleSDGothicNeo-UltraLight"
         flashingScoreNode.fontSize = 45
         flashingScoreNode.zPosition = 5
         self.addChild(flashingScoreNode)
@@ -1117,10 +1117,10 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         if (self.children.contains(gameOverHighScoreLabel)) {
             self.removeChildren(in: [gameOverHighScoreLabel])
         }
-        gameOverHighScoreLabel.position = CGPoint(x: self.size.width/2, y: self.size.height/3.9);
+        gameOverHighScoreLabel.position = CGPoint(x: self.size.width/2, y: 1.1 * self.size.height/3.9);
         gameOverHighScoreLabel.horizontalAlignmentMode = .center
         gameOverHighScoreLabel.fontColor = UIColor.white
-        gameOverHighScoreLabel.fontName = "Avenir"
+        gameOverHighScoreLabel.fontName = "AppleSDGothicNeo-UltraLight"
         gameOverHighScoreLabel.fontSize = 20
         gameOverHighScoreLabel.zPosition = 5
         gameOverHighScoreLabel.text = "Your High Score: " + String(prevHighScore)
@@ -1217,20 +1217,20 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     let gameOverScoreLabel = SKLabelNode(text: "")
 
     func setupGameOverLabels() {
-        gameOverScoreLabel.position = CGPoint(x: self.size.width/2, y: self.size.height/2);
+        gameOverScoreLabel.position = CGPoint(x: self.size.width/2, y:  1.1 * self.size.height/2);
         gameOverScoreLabel.horizontalAlignmentMode = .center
         gameOverScoreLabel.fontColor = UIColor.white
-        gameOverScoreLabel.fontName = "Avenir"
-        gameOverScoreLabel.fontSize = 25
+        gameOverScoreLabel.fontName = "AppleSDGothicNeo-UltraLight"
+        gameOverScoreLabel.fontSize = 30
         gameOverScoreLabel.zPosition = 5
         gameOverScoreLabel.text = "Score " + String(score)
         self.addChild(gameOverScoreLabel)
         
-        gameOverLabel.position = CGPoint(x: self.size.width/2, y: self.size.height/2 + gameOverScoreLabel.frame.height + 5);
+        gameOverLabel.position = CGPoint(x: self.size.width/2, y: 1.1 * (self.size.height/2 + gameOverScoreLabel.frame.height + 5));
         gameOverLabel.horizontalAlignmentMode = .center
         gameOverLabel.fontColor = UIColor.yellow
-        gameOverLabel.fontName = "Avenir"
-        gameOverLabel.fontSize = 30
+        gameOverLabel.fontName = "AppleSDGothicNeo-UltraLight"
+        gameOverLabel.fontSize = 35
         gameOverLabel.zPosition = 5
         self.addChild(gameOverLabel)
     }
@@ -1296,28 +1296,28 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         }
         muteLabel.fontColor=UIColor.white
         muteLabel.position=CGPoint(x: self.frame.width/2, y: 3.5*self.frame.height/12)
-        muteLabel.fontName = "Avenir"
+        muteLabel.fontName = "AppleSDGothicNeo-UltraLight"
         muteLabel.zPosition = 7
         self.addChild(muteLabel)
         
         newUnPauseLabel.text = "Resume"
         newUnPauseLabel.fontColor=UIColor.white
         newUnPauseLabel.position=CGPoint(x: self.frame.width/2, y: 8*self.frame.height/12)
-        newUnPauseLabel.fontName = "Avenir"
+        newUnPauseLabel.fontName = "AppleSDGothicNeo-UltraLight"
         newUnPauseLabel.zPosition = 7
         self.addChild(newUnPauseLabel)
         
         restartLabel.text = "Restart"
         restartLabel.fontColor=UIColor.white
         restartLabel.position=CGPoint(x: self.frame.width/2, y: 6.5*self.frame.height/12)
-        restartLabel.fontName = "Avenir"
+        restartLabel.fontName = "AppleSDGothicNeo-UltraLight"
         restartLabel.zPosition = 7
         self.addChild(restartLabel)
         
         homeLabel.text = "Home"
         homeLabel.fontColor=UIColor.white
         homeLabel.position=CGPoint(x: self.frame.width/2, y: 5*self.frame.height/12)
-        homeLabel.fontName = "Avenir"
+        homeLabel.fontName = "AppleSDGothicNeo-UltraLight"
         homeLabel.zPosition = 7
         self.addChild(homeLabel)
 //        addThemeSettingLabel()
@@ -1341,7 +1341,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         themeSettingsLabel.fontColor=UIColor.white
         themeSettingsLabel.position=CGPoint(x: self.frame.width/2,y: self.frame.height/5)
         themeSettingsLabel.zPosition=5
-        themeSettingsLabel.fontName = "Avenir"
+        themeSettingsLabel.fontName = "AppleSDGothicNeo-UltraLight"
         self.addChild(themeSettingsLabel)
     }
     
@@ -1368,15 +1368,15 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         // manipulate touch end
         self.removeChildren(in: [muteLabel, restartLabel, homeLabel, themeSettingsLabel, pauseBackground, newUnPauseLabel])
         muteLabel = SKLabelNode()
-        muteLabel.fontName = "Avenir"
+        muteLabel.fontName = "AppleSDGothicNeo-UltraLight"
         restartLabel = SKLabelNode()
-        restartLabel.fontName = "Avenir"
+        restartLabel.fontName = "AppleSDGothicNeo-UltraLight"
         homeLabel = SKLabelNode()
-        homeLabel.fontName = "Avenir"
+        homeLabel.fontName = "AppleSDGothicNeo-UltraLight"
         themeSettingsLabel = SKLabelNode()
-        themeSettingsLabel.fontName = "Avenir"
+        themeSettingsLabel.fontName = "AppleSDGothicNeo-UltraLight"
         newUnPauseLabel = SKLabelNode()
-        newUnPauseLabel.fontName = "Avenir"
+        newUnPauseLabel.fontName = "AppleSDGothicNeo-UltraLight"
         unfreezeShapes()
         playingGame = true
     }
@@ -1563,7 +1563,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         firstShapeLabel.fontColor=UIColor.yellow
         firstShapeLabel.position=CGPoint(x: self.size.width/2,y: self.size.height * 1.5/9)
         firstShapeLabel.zPosition=5
-        firstShapeLabel.fontName = "Avenir"
+        firstShapeLabel.fontName = "AppleSDGothicNeo-UltraLight"
         firstShapeLabel.fontSize = 22
         let firstShapeLabelAddAction = SKAction.run({
             self.addChild(self.firstShapeLabel)
@@ -1581,7 +1581,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         firstBombLabel.fontColor=UIColor.yellow
         firstBombLabel.position=CGPoint(x: self.size.width/2,y: self.size.height * 1.5/9)
         firstBombLabel.zPosition=5
-        firstBombLabel.fontName = "Avenir"
+        firstBombLabel.fontName = "AppleSDGothicNeo-UltraLight"
         firstBombLabel.fontSize = 22
         let firstBombLabelAddAction = SKAction.run({
             self.addChild(self.firstBombLabel)
@@ -1599,7 +1599,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         firstHeartLabel.fontColor=UIColor.yellow
         firstHeartLabel.position=CGPoint(x: self.size.width/2,y: self.size.height * 1.5/9)
         firstHeartLabel.zPosition=5
-        firstHeartLabel.fontName = "Avenir"
+        firstHeartLabel.fontName = "AppleSDGothicNeo-UltraLight"
         firstHeartLabel.fontSize = 22
         let firstHeartLabelAddAction = SKAction.run({
             self.addChild(self.firstHeartLabel)

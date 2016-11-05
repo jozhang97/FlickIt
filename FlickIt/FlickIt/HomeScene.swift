@@ -87,7 +87,7 @@ class HomeScene: SKScene , SKPhysicsContactDelegate, GKGameCenterControllerDeleg
                 let growAction = SKAction.scale(by: 1.5, duration: 1)
                 let shrinkAction = SKAction.scale(by: 0.8333, duration: 1)
                 let growAndShrink = SKAction.sequence([growAction, shrinkAction])
-                let moveLabel: SKAction = SKAction.moveBy(x: 0.0, y: -1*self.size.width*2.5/4, duration: 0.5)
+                let moveLabel: SKAction = SKAction.moveBy(x: 0.0, y: -1*self.size.width*2/4, duration: 0.5)
                 self.titleLabel.run(growAndShrink)
                 self.titleLabel.run(fadeAction)
                 self.titleLabel.run(moveLabel)
@@ -144,8 +144,10 @@ class HomeScene: SKScene , SKPhysicsContactDelegate, GKGameCenterControllerDeleg
         titleLabel.position = CGPoint(x: screenWidth/2, y: screenHeight);
         titleLabel.horizontalAlignmentMode = .center
         titleLabel.fontColor = UIColor.white
-        titleLabel.fontName = "Avenir"
-        titleLabel.fontSize = 50
+        //titleLabel.fontName = "AvenirNext-UltraLight"
+        titleLabel.fontName = "AppleSDGothicNeo-UltraLight"
+
+        titleLabel.fontSize = 60
         let fadeAction = SKAction.fadeAlpha(to: 0, duration: 0.1)
         titleLabel.run(fadeAction)
     }
@@ -295,7 +297,9 @@ class HomeScene: SKScene , SKPhysicsContactDelegate, GKGameCenterControllerDeleg
 
     func createBackground(){
         let size = CGSize(width: screenWidth, height: screenHeight)
+        //color 1 = blue
         let color1 = UIColor(red: 171/255.0, green: 232/255.0, blue: 243/255.0, alpha: 1.0).cgColor
+        //color 2 = red
         let color2 = UIColor(red: 246/255.0, green: 204/255.0, blue: 208/255.0, alpha: 1.0).cgColor
         let layer = CAGradientLayer()
         layer.frame = CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight)
