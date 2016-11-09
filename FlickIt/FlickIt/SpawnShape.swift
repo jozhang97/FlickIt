@@ -32,7 +32,7 @@ class SpawnShape
     
     // [red, green, blue purple]
     var colors = [UIColor(red: 164/255, green: 84/255, blue: 80/255, alpha: 1),
-                  UIColor(red: 147/255, green: 158/255, blue: 106/255, alpha: 1),
+                  UIColor(red: 172/255, green: 211/255, blue: 115/255, alpha: 1),
                   UIColor(red: 85/255, green: 135/255, blue: 141/255, alpha: 1),
                   UIColor(red: 99/255, green: 103/255, blue: 211/255, alpha: 1)]
     
