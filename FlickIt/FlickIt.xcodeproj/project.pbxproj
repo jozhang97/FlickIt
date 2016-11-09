@@ -144,24 +144,24 @@
 		1FA8C6501C6FB1E40072E83F /* FlickIt */ = {
 			isa = PBXGroup;
 			children = (
+				1C641B841DA9EC400072255F /* HomeScene.swift */,
+				187EF1DB1C7900DB0087A94A /* StartGameScene.swift */,
+				1C171BE01D8DC7130031AFC9 /* SettingScene.swift */,
 				1FA8C6511C6FB1E40072E83F /* AppDelegate.swift */,
 				1F19BEE11CB781BA0030B930 /* FlickIt-Bridging-Header.h */,
-				1FA8C6551C6FB1E40072E83F /* GameScene.swift */,
-				1C641B841DA9EC400072255F /* HomeScene.swift */,
 				1FA8C6571C6FB1E40072E83F /* GameViewController.swift */,
 				18F84F891CB04BBB00053DE8 /* bokeh.png */,
-				CF3B18DC1CB0D2F500C763E2 /* AboutScene.swift */,
 				18F84F8A1CB04BBB00053DE8 /* ExplosionEffect.sks */,
 				1CD5BCA21D96FA8B009F46B6 /* GCHelper.swift */,
 				1C2601491DCC4C6600E4D312 /* Platform.swift */,
-				CF3B18DE1CB0D2FC00C763E2 /* RulesScene.swift */,
-				187EF1DB1C7900DB0087A94A /* StartGameScene.swift */,
-				1C171BE01D8DC7130031AFC9 /* SettingScene.swift */,
 				1F693A4E1C7910DE00C6B20E /* SpawnShape.swift */,
 				1FA8C6591C6FB1E40072E83F /* Main.storyboard */,
 				1FA8C65C1C6FB1E40072E83F /* Assets.xcassets */,
 				1FA8C6611C6FB1E40072E83F /* Info.plist */,
 				1F19BEE21CB784B80030B930 /* GoogleService-Info.plist */,
+				CF3B18DC1CB0D2F500C763E2 /* AboutScene.swift */,
+				1FA8C6551C6FB1E40072E83F /* GameScene.swift */,
+				CF3B18DE1CB0D2FC00C763E2 /* RulesScene.swift */,
 			);
 			path = FlickIt;
 			sourceTree = "<group>";
