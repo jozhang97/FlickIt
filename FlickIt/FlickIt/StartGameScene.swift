@@ -685,6 +685,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         let scene: SKScene = HomeScene(size: self.size)
         fbshare.removeFromSuperview()
         fbsend.removeFromSuperview()
+        audioPlayer.stop()
         // Configure the view.
         let skView = self.view as SKView!
         skView?.showsFPS = false
