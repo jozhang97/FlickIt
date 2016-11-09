@@ -259,7 +259,7 @@ class SpawnShape
         // too easy so we sped up the velocity (still capped at same value) by 1.3
         // make shapes on the bigger screens faster
 
-        let scalingFactor: CGFloat = 1.3 * (UIScreen.main.applicationFrame.size.width / PARAMETER_NAME_BASE_SCREEN_WIDTH) * (UIScreen.main.applicationFrame.size.width / PARAMETER_NAME_BASE_SCREEN_WIDTH)
+        let scalingFactor: CGFloat = 1.3 * (UIScreen.main.applicationFrame.size.width / PARAMETER_NAME_BASE_SCREEN_WIDTH)
         let ret = v * scalingFactor
         return min(ret, CGFloat(UPPERRANGEBOUND))
     }

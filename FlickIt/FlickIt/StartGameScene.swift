@@ -329,10 +329,11 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         self.addChild(bin_4_shape)
         
         scoreLabel=SKLabelNode()
-        scoreLabel.text="Score: "+String(score)
+        scoreLabel.text=String(score)
         scoreLabel.fontColor=UIColor.yellow
-        scoreLabel.position=CGPoint(x: self.frame.width/2,y: self.frame.height * 7.5/9)
+        scoreLabel.position=CGPoint(x: self.frame.width/2,y: self.frame.height * 7/9)
         scoreLabel.zPosition=2
+        scoreLabel.fontSize=60
         scoreLabel.fontName = "AppleSDGothicNeo-UltraLight"
         self.addChild(scoreLabel)
         
@@ -622,7 +623,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
                         lives -= 1
                     }
                     self.addChild(explosionEmitterNode!)
-                    scoreLabel.text="Score: "+String(score)
+                    scoreLabel.text=String(score)
                     livesLabel.text = "Lives: " + String(lives)
                     firstBody.node?.removeFromParent();
                 }
@@ -722,7 +723,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         flashingScoreNode.fontSize = 45
         flashingScoreNode.zPosition = 5
         self.addChild(flashingScoreNode)
-        let fadeAction = SKAction.fadeAlpha(to: 0, duration: 2)
+        let fadeAction = SKAction.fadeAlpha(to: 0, duration: 3)
         flashingScoreNode.run(fadeAction)
     }
     
