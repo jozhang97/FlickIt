@@ -718,7 +718,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         flashingScoreNode.text = String(score)
         flashingScoreNode.position = CGPoint(x: self.size.width/2, y: self.size.height/2);
         flashingScoreNode.horizontalAlignmentMode = .center
-        flashingScoreNode.fontColor = UIColor.green
+        flashingScoreNode.fontColor = UIColor.white
         flashingScoreNode.fontName = "AppleSDGothicNeo-UltraLight"
         flashingScoreNode.fontSize = 45
         flashingScoreNode.zPosition = 5
