@@ -137,11 +137,11 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
             let gradient_blue = UIColor(red: 171/255.0, green: 232/255.0, blue: 243/255.0, alpha: 1.0).cgColor
             let gradient_red = UIColor(red: 246/255.0, green: 204/255.0, blue: 208/255.0, alpha: 1.0).cgColor
             let gradient_yellow = UIColor(red: 244/255.0, green: 216/255.0, blue: 178/255.0, alpha: 1.0).cgColor
-            let gradient_purple = UIColor(red: 61/255.0, green: 33/255.0, blue: 132/255.0, alpha: 1.0).cgColor
-            let gradient_darkblue = UIColor(red: 20/255.0, green: 76/255.0, blue: 181/255.0, alpha: 1.0).cgColor
+            //let gradient_purple = UIColor(red: 61/255.0, green: 33/255.0, blue: 132/255.0, alpha: 1.0).cgColor
+            //let gradient_darkblue = UIColor(red: 20/255.0, green: 76/255.0, blue: 181/255.0, alpha: 1.0).cgColor
+            gradient_colors.append(gradient_blue)
             gradient_colors.append(gradient_red)
             gradient_colors.append(gradient_yellow)
-            gradient_colors.append(gradient_blue)
             //gradient_colors.append(gradient_purple)
             //gradient_colors.append(gradient_darkblue)
             
