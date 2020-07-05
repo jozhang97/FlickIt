@@ -11,6 +11,7 @@ import SpriteKit
 import GameKit
 import FBSDKShareKit
 
+@available(iOS 10.0, *)
 class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerDelegate {
     var NUMBEROFLIFES = 3
     let screenWidth = UIScreen.main.bounds.width
@@ -120,11 +121,11 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         
         playMusic("bensound-cute", type: "mp3")
         
-        addCurvedLines(bin_1, dub1: 0, dub2: M_PI/2, bol: true, arch: Double(self.size.height/2 + radius), radi: radius, color: red)
+        addCurvedLines(bin_1, dub1: 0, dub2: Double.pi/2, bol: true, arch: Double(self.size.height/2 + radius), radi: radius, color: red)
         //curve down shape
-        addCurvedLines(bin_2, dub1: M_PI/2, dub2: M_PI, bol: true, arch: Double(self.size.height/2 - radius), radi: radius, color: green)
-        addCurvedLines(bin_3, dub1: M_PI, dub2: M_PI*3/2, bol: true, arch: Double(self.size.height/2 - radius), radi: radius, color: blue)
-        addCurvedLines(bin_4, dub1: M_PI*3/2, dub2: M_PI*2, bol: true, arch: Double(self.size.height/2 - radius), radi: radius, color: purple)
+        addCurvedLines(bin_2, dub1: Double.pi/2, dub2: Double.pi, bol: true, arch: Double(self.size.height/2 - radius), radi: radius, color: green)
+        addCurvedLines(bin_3, dub1: Double.pi, dub2: Double.pi*3/2, bol: true, arch: Double(self.size.height/2 - radius), radi: radius, color: blue)
+        addCurvedLines(bin_4, dub1: Double.pi*3/2, dub2: Double.pi*2, bol: true, arch: Double(self.size.height/2 - radius), radi: radius, color: purple)
         
         func setUpBinsPhysicsBody(_ bin: SKShapeNode) {
             bin.physicsBody?.isDynamic=false
@@ -223,7 +224,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         let alertSound = URL(fileURLWithPath: Bundle.main.path(forResource: path, ofType: type)!)
         //print(alertSound)
         do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category(rawValue: convertFromAVAudioSessionCategory(AVAudioSession.Category.ambient)), mode: AVAudioSession.Mode.default)
             try AVAudioSession.sharedInstance().setActive(true)
             try audioPlayer = AVAudioPlayer(contentsOf: alertSound)
         }
@@ -268,8 +269,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         //print(alertSound)
         
         do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
-            
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category(rawValue: convertFromAVAudioSessionCategory(AVAudioSession.Category.ambient)), mode: AVAudioSession.Mode.default)
             try AVAudioSession.sharedInstance().setActive(true)
             try audioPlayer2 = AVAudioPlayer(contentsOf: alertSound)
         }
@@ -406,7 +406,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         
         if ((randInt == 1 && bin_1_pos == 1) || (randInt == 3 && bin_1_pos == 3) || (randInt == 2 && bin_1_pos == 4)) { // 3 to bottom right, 2 to bottom left, 1 to top left, 4 to top right
             
-            let rotate = SKAction.rotate(toAngle: -(CGFloat(M_PI_2)), duration: 0.5, shortestUnitArc: true)
+            let rotate = SKAction.rotate(toAngle: -(CGFloat(Double.pi/2)), duration: 0.5, shortestUnitArc: true)
             let action1 = SKAction.move(to: CGPoint(x: 0, y: self.size.height), duration: 0.5)
             let action2 = SKAction.move(to: CGPoint(x: 0, y: 0), duration: 0.5)
             let action3 = SKAction.move(to: CGPoint(x: self.size.width, y: 0), duration: 0.5)
@@ -452,7 +452,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         
         else if ((bin_1_pos == 1 && randInt == 3) || (bin_1_pos == 2 && randInt == 2) || (bin_1_pos == 3 && randInt == 1)) { // 1 to bottom right, 2 to top right, 3 to top left, 4 to bottom lef
             
-            let rotate = SKAction.rotate(toAngle: (CGFloat(M_PI_2)), duration: 0.5, shortestUnitArc: true)
+            let rotate = SKAction.rotate(toAngle: (CGFloat(Double.pi/2)), duration: 0.5, shortestUnitArc: true)
             let action1 = SKAction.move(to: CGPoint(x: self.size.width, y: 0), duration: 0.5)
             let action2 = SKAction.move(to: CGPoint(x: self.size.width, y: self.size.height), duration: 0.5)
             let action3 = SKAction.move(to: CGPoint(x: 0, y: self.size.height), duration: 0.5)
@@ -474,7 +474,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         }
         else if ((bin_1_pos == 2 && randInt == 3) || (bin_1_pos == 3 && randInt == 2) || (bin_1_pos == 4 && randInt == 1)) { // 1 to top right, 2 to top left, 3 to bottom left, 4 to bottom righ
             
-            let rotate = SKAction.rotate(toAngle: (CGFloat(M_PI)), duration: 0.5, shortestUnitArc: true)
+            let rotate = SKAction.rotate(toAngle: (CGFloat(Double.pi/2)), duration: 0.5, shortestUnitArc: true)
             let action1 = SKAction.move(to: CGPoint(x: self.size.width, y: self.size.height), duration: 0.5)
             let action2 = SKAction.move(to: CGPoint(x: 0, y: self.size.height), duration: 0.5)
             let action3 = SKAction.move(to: CGPoint(x: 0, y: 0), duration: 0.5)
@@ -510,11 +510,11 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         curve.strokeColor = color
         curve.lineWidth = 3
         curve.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
-        curve.zRotation = CGFloat(M_PI)
+        curve.zRotation = CGFloat(Double.pi)
     }
     
     func animateBinsAtStart() {
-        let rotate = SKAction.rotate(byAngle: CGFloat(M_PI), duration: 1.0);
+        let rotate = SKAction.rotate(byAngle: CGFloat(Double.pi), duration: 1.0);
         //bin_1.anchorPoint = CGPoint(x: 0, y: 1)
         bin_1.run(rotate)
         bin_1.run(SKAction.move(to: CGPoint(x: self.size.width, y: self.size.height), duration: 1.0))
@@ -530,7 +530,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     }
     
     func animateBinsRestart() {
-        let rotate = SKAction.rotate(byAngle: CGFloat(M_PI), duration: 1.0);
+        let rotate = SKAction.rotate(byAngle: CGFloat(Double.pi), duration: 1.0);
         let move = SKAction.move(to: CGPoint(x: self.size.width / 2, y: self.size.height / 2), duration: 1.0)
         //bin_1.anchorPoint = CGPoint(x: 0, y: 1)
         bin_1.run(rotate)
@@ -553,7 +553,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         let alertSound = URL(fileURLWithPath: Bundle.main.path(forResource: which, ofType: "mp3")!)
         //print(alertSound)
         do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category(rawValue: convertFromAVAudioSessionCategory(AVAudioSession.Category.playback)), mode: AVAudioSession.Mode.default)
             try AVAudioSession.sharedInstance().setActive(true)
             try audioPlayer3 = AVAudioPlayer(contentsOf: alertSound)
         }
@@ -1160,12 +1160,12 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         // Set names for the launcher so that we can check what node is touched in the touchesEnded method
         restart_star.name = "gameOverStar";
         //could randomize rotation here
-        let rotation = SKAction.rotate(byAngle: CGFloat(2 * M_PI), duration: 10)
+        let rotation = SKAction.rotate(byAngle: CGFloat(2 * Double.pi), duration: 10)
         restart_star.run(SKAction.repeatForever(rotation))
     }
     
     func degree2radian(_ a:CGFloat)->CGFloat {
-        let b = CGFloat(M_PI) * a/180
+        let b = CGFloat(Double.pi) * a/180
         return b
     }
     
@@ -1484,13 +1484,13 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     }
     
     func showLeaderboard() {
-        let localPlayer = GKLocalPlayer.localPlayer()
+        let localPlayer = GKLocalPlayer.local
         if !localPlayer.isAuthenticated {
-            let alert = UIAlertController(title: "Not logged into GameCenter", message: "To see high scores, please log in to GameCenter via Settings", preferredStyle: UIAlertControllerStyle.actionSheet)
+            let alert = UIAlertController(title: "Not logged into GameCenter", message: "To see high scores, please log in to GameCenter via Settings", preferredStyle: UIAlertController.Style.actionSheet)
             alert.addAction(
                 UIAlertAction(
                     title: "Cancel",
-                    style: UIAlertActionStyle.cancel,
+                    style: UIAlertAction.Style.cancel,
                     handler: nil
                 )
             )
@@ -1508,7 +1508,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
             viewController?.dismiss(animated: true, completion: nil)
             
             print(viewController?.presentedViewController) // thought this wasn't nil then can't put one vc on top of another
-            viewController?.removeFromParentViewController()
+            viewController?.removeFromParent()
             
             viewController!.present(gameCenterVC, animated: true, completion: nil)
             print(viewController?.presentedViewController)
@@ -1673,4 +1673,9 @@ extension Array {
         }
         return array
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Category) -> String {
+	return input.rawValue
 }

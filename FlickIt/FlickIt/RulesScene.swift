@@ -11,6 +11,7 @@ import MediaPlayer
 import AVFoundation
 import Foundation
 
+@available(iOS 10.0, *)
 class RulesScene: SKScene {
     var moviePlayer: MPMoviePlayerController?
     //keep track of which way user swipes
@@ -72,7 +73,7 @@ class RulesScene: SKScene {
         
     }
     
-    func changeTextMethod () {
+    @objc func changeTextMethod () {
         i += 1
         //        if strings[0] == strings[i % strings.count] {
         //            timer.invalidate()
@@ -86,7 +87,7 @@ class RulesScene: SKScene {
     func playVideo() {
         let fileURL: URL = URL(fileURLWithPath: Bundle.main.path(forResource: "FlickItDemoDone2", ofType: "mov")!)
         let player = AVPlayer(url: fileURL)
-        player.actionAtItemEnd = AVPlayerActionAtItemEnd.none
+        player.actionAtItemEnd = AVPlayer.ActionAtItemEnd.none
         NotificationCenter.default.addObserver(self,
                                                          selector: #selector(RulesScene.playerItemDidReachEnd(_:)),
                                                          name: NSNotification.Name.AVPlayerItemDidPlayToEndTime,
@@ -102,9 +103,9 @@ class RulesScene: SKScene {
     }
     
 
-    func playerItemDidReachEnd(_ notification: Notification) {
+    @objc func playerItemDidReachEnd(_ notification: Notification) {
         if let playerItem: AVPlayerItem = notification.object as? AVPlayerItem {
-            playerItem.seek(to: kCMTimeZero)
+            playerItem.seek(to: CMTime.zero)
         }
     }
 
@@ -165,7 +166,7 @@ class RulesScene: SKScene {
     
     func addSwipe() {
         swipe =  UISwipeGestureRecognizer(target: self, action: #selector(RulesScene.handleSwipe(_:)))
-        let directions: [UISwipeGestureRecognizerDirection] = [.right, .left]
+        let directions: [UISwipeGestureRecognizer.Direction] = [.right, .left]
         for direction in directions {
             let gesture = UISwipeGestureRecognizer(target: self, action: #selector(RulesScene.handleSwipe(_:)))
             gesture.direction = direction
@@ -173,7 +174,7 @@ class RulesScene: SKScene {
         }
     }
     
-    func handleSwipe(_ sender: UISwipeGestureRecognizer) {
+    @objc func handleSwipe(_ sender: UISwipeGestureRecognizer) {
         print(sender.direction)
         if (sender.direction == .left && numTouches < total){
             print("Left")

@@ -14,6 +14,7 @@ struct PhysicsCategory {
     static let Shape : UInt32 = 0x1 << 2
 }
 
+@available(iOS 10.0, *)
 class GameScene: SKScene , SKPhysicsContactDelegate {
     //variables needed for flicking
     var start = CGPoint()
@@ -70,7 +71,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         //print(alertSound)
         
         do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category(rawValue: convertFromAVAudioSessionCategory(AVAudioSession.Category.playback)), mode: AVAudioSession.Mode.default)
             try AVAudioSession.sharedInstance().setActive(true)
             try audioPlayer = AVAudioPlayer(contentsOf: alertSound)
         }
@@ -119,11 +120,11 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         
         let radius = self.size.height/6
         
-        addCurvedLines(topRight, dub1: 0, dub2: M_PI/2, bol: true, arch: Double(self.view!.bounds.height/2 + radius), radi: radius, color: red)
+        addCurvedLines(topRight, dub1: 0, dub2: Double.pi/2, bol: true, arch: Double(self.view!.bounds.height/2 + radius), radi: radius, color: red)
         //curve down shape
-        addCurvedLines(topLeft, dub1: M_PI/2, dub2: M_PI, bol: true, arch: Double(self.view!.bounds.height/2 - radius), radi: radius, color: blue)
-        addCurvedLines(bottomLeft, dub1: M_PI, dub2: M_PI*3/2, bol: true, arch: Double(self.view!.bounds.height/2  - radius), radi: radius, color: green)
-        addCurvedLines(bottomRight, dub1: M_PI*3/2, dub2: M_PI*2, bol: true, arch: Double(self.view!.bounds.height/2  - radius), radi: radius, color: purple)
+        addCurvedLines(topLeft, dub1: Double.pi/2, dub2: Double.pi, bol: true, arch: Double(self.view!.bounds.height/2 - radius), radi: radius, color: blue)
+        addCurvedLines(bottomLeft, dub1: Double.pi, dub2: Double.pi*3/2, bol: true, arch: Double(self.view!.bounds.height/2  - radius), radi: radius, color: green)
+        addCurvedLines(bottomRight, dub1: Double.pi*3/2, dub2: Double.pi*2, bol: true, arch: Double(self.view!.bounds.height/2  - radius), radi: radius, color: purple)
         
         topRight.physicsBody = SKPhysicsBody(circleOfRadius: radius)
         topLeft.physicsBody = SKPhysicsBody(circleOfRadius: radius)
@@ -237,7 +238,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     }
     
     func degree2radian(_ a:CGFloat)->CGFloat {
-        let b = CGFloat(M_PI) * a/180
+        let b = CGFloat(Double.pi) * a/180
         return b
     }
     
@@ -288,7 +289,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         // Set names for the launcher so that we can check what node is touched in the touchesEnded method
         star.name = "launchStar";
         //could randomize rotation here
-        let rotation = SKAction.rotate(byAngle: CGFloat(2 * M_PI), duration: 10)
+        let rotation = SKAction.rotate(byAngle: CGFloat(2 * Double.pi), duration: 10)
         star.run(SKAction.repeatForever(rotation))
     }
     
@@ -507,7 +508,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     }
     
     func animateBinsAtStart() {
-        let rotate = SKAction.rotate(byAngle: CGFloat(M_PI), duration: 0.5);
+        let rotate = SKAction.rotate(byAngle: CGFloat(Double.pi), duration: 0.5);
         //bin_1.anchorPoint = CGPoint(x: 0, y: 1)
         topRight.run(rotate)
         topRight.run(SKAction.move(to: CGPoint(x: self.size.width, y: self.size.height), duration: 0.5))
@@ -581,7 +582,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     }
     
     func authPlayerGameCenter() {
-        let localPlayer = GKLocalPlayer.localPlayer()
+        let localPlayer = GKLocalPlayer.local
         localPlayer.authenticateHandler = {
             (view, error) in
             if view != nil {
@@ -610,4 +611,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         let remove = SKAction.removeFromParent()
         self.hand.run(SKAction.sequence([move, remove]))
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Category) -> String {
+	return input.rawValue
 }

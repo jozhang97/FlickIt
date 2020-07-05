@@ -20,13 +20,25 @@ PODS:
 DEPENDENCIES:
   - Google/Analytics
 
+SPEC REPOS:
+  trunk:
+    - FirebaseAnalytics
+    - FirebaseInstanceID
+    - Google
+    - GoogleAnalytics
+    - GoogleInterchangeUtilities
+    - GoogleSymbolUtilities
+    - GoogleUtilities
+
 SPEC CHECKSUMS:
   FirebaseAnalytics: 6f75b04e6bfb8e0b6e9ef298e04c24eea3b13863
   FirebaseInstanceID: d014d574053a2fe84478f12f7bae96979e7051bb
-  Google: 813c467362eabc11385f5a5cc9ad0cb651a58f4e
+  Google: cd92fab98f800f509da88c1e0c570275713bc9d5
   GoogleAnalytics: 9be1afdb8deeac4bb5f13ca7f7d3b9db2a1f43dc
   GoogleInterchangeUtilities: def8415a862effc67d549d5b5b0b9c7a2f97d4de
   GoogleSymbolUtilities: 33117db1b5f290c6fbf259585e4885b4c84b98d7
   GoogleUtilities: 56c5ac05b7aa5dc417a1bb85221a9516e04d7032
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: 42eb40bb0fcb70c90f93c896ef5e0e5a52f1811b
+
+COCOAPODS: 1.9.3

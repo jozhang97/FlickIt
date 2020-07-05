@@ -9,6 +9,8 @@
 import AVFoundation
 import SpriteKit
 
+@available(iOS 10.0, *)
+@available(iOS 10.0, *)
 class AboutScene: SKScene {
     
     let sizeRect = UIScreen.main.applicationFrame;

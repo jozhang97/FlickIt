@@ -48,7 +48,7 @@ class SpawnShape
     }
     
     func pentagonPath(_ rect: CGRect) -> CGPath {
-        let dw = M_PI / 2.5
+        let dw = Double.pi / 2.5
         let path = UIBezierPath()
         for i in 0...4 {
             let x = rect.size.width/2 * CGFloat(cos(Double(i) * dw))
@@ -91,7 +91,7 @@ class SpawnShape
     }
     
     func circlePath() -> CGPath {
-        let circlePath : UIBezierPath = UIBezierPath(arcCenter: CGPoint(x: CGFloat(0), y: CGFloat(0)), radius: sizeRect.width/13, startAngle: CGFloat(0), endAngle: CGFloat(2*M_PI), clockwise: true)
+        let circlePath : UIBezierPath = UIBezierPath(arcCenter: CGPoint(x: CGFloat(0), y: CGFloat(0)), radius: sizeRect.width/13, startAngle: CGFloat(0), endAngle: CGFloat(2*Double.pi), clockwise: true)
         return circlePath.cgPath
     }
     
@@ -157,7 +157,7 @@ class SpawnShape
         // Set names for the launcher so that we can check what node is touched in the touchesEnded method
         triangle.name = "triangle";
         //could randomize rotation here
-        triangle.run(SKAction.rotate(byAngle: CGFloat(M_PI/2), duration: 3))
+        triangle.run(SKAction.rotate(byAngle: CGFloat(Double.pi/2), duration: 3))
         triangle.zPosition=5
         setupTrianglePhysics(triangle)
         return triangle

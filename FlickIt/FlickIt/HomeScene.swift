@@ -12,6 +12,7 @@ import SpriteKit
 import AVFoundation
 import GameKit
 
+@available(iOS 10.0, *)
 class HomeScene: SKScene , SKPhysicsContactDelegate, GKGameCenterControllerDelegate {
     var start = CGPoint()
     var line = SKShapeNode()
@@ -122,7 +123,7 @@ class HomeScene: SKScene , SKPhysicsContactDelegate, GKGameCenterControllerDeleg
         //print(alertSound)
         
         do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category(rawValue: convertFromAVAudioSessionCategory(AVAudioSession.Category.playback)), mode: AVAudioSession.Mode.default)
             try AVAudioSession.sharedInstance().setActive(true)
             try audioPlayer = AVAudioPlayer(contentsOf: alertSound)
         }
@@ -191,13 +192,13 @@ class HomeScene: SKScene , SKPhysicsContactDelegate, GKGameCenterControllerDeleg
     }
     
     func showLeaderboard() {
-        let localPlayer = GKLocalPlayer.localPlayer()
+        let localPlayer = GKLocalPlayer.local
         if !localPlayer.isAuthenticated {
-            let alert = UIAlertController(title: "Not logged into GameCenter", message: "To see high scores, please log in to GameCenter via Settings", preferredStyle: UIAlertControllerStyle.actionSheet)
+            let alert = UIAlertController(title: "Not logged into GameCenter", message: "To see high scores, please log in to GameCenter via Settings", preferredStyle: UIAlertController.Style.actionSheet)
             alert.addAction(
                 UIAlertAction(
                     title: "Cancel",
-                    style: UIAlertActionStyle.cancel,
+                    style: UIAlertAction.Style.cancel,
                     handler: nil
                 )
             )
@@ -215,7 +216,7 @@ class HomeScene: SKScene , SKPhysicsContactDelegate, GKGameCenterControllerDeleg
             viewController?.dismiss(animated: true, completion: nil)
             
             print(viewController?.presentedViewController) // thought this wasn't nil then can't put one vc on top of another
-            viewController?.removeFromParentViewController()
+            viewController?.removeFromParent()
             
             viewController!.present(gameCenterVC, animated: true, completion: nil)
             print(viewController?.presentedViewController)
@@ -320,7 +321,7 @@ class HomeScene: SKScene , SKPhysicsContactDelegate, GKGameCenterControllerDeleg
             let rect: CGRect = CGRect(x: 0, y: 0, width: screenWidth/6, height: screenWidth/6)
             star.path = self.starPath(0, y: 0, radius: rect.size.width/3, sides: 5, pointyness: 2)
             star.position = CGPoint(x: screenWidth/5, y: self.size.height/2);
-            let rotation = SKAction.rotate(byAngle: CGFloat(M_PI/9.5), duration: 1)
+            let rotation = SKAction.rotate(byAngle: CGFloat(Double.pi/9.5), duration: 1)
             star.run(rotation)
             star.strokeColor = UIColor.black
             star.fillColor = yellow
@@ -330,7 +331,7 @@ class HomeScene: SKScene , SKPhysicsContactDelegate, GKGameCenterControllerDeleg
             let rect: CGRect = CGRect(x: 0, y: 0, width: screenWidth/6, height: screenWidth/6)
             star.path = self.starPath(0, y: 0, radius: rect.size.width/3, sides: 5, pointyness: 2)
             star.position = CGPoint(x: screenWidth*4/5, y: self.size.height/2);
-            let rotation = SKAction.rotate(byAngle: CGFloat(M_PI/9.5), duration: 1)
+            let rotation = SKAction.rotate(byAngle: CGFloat(Double.pi/9.5), duration: 1)
             star.run(rotation)
             star.fillColor = yellowLight
         }
@@ -338,14 +339,14 @@ class HomeScene: SKScene , SKPhysicsContactDelegate, GKGameCenterControllerDeleg
             let rect: CGRect = CGRect(x: 0, y: 0, width: screenWidth/4, height: screenWidth/4)
             star.path = self.starPath(0, y: 0, radius: rect.size.width/3, sides: 5, pointyness: 2)
             star.position = CGPoint(x: screenWidth*4/5, y: self.size.height/2);
-            let rotation = SKAction.rotate(byAngle: CGFloat(M_PI/9.5), duration: 1)
+            let rotation = SKAction.rotate(byAngle: CGFloat(Double.pi/9.5), duration: 1)
             star.run(rotation)
             star.strokeColor = UIColor.black
             star.fillColor = yellow
         }
     }
     func degree2radian(_ a:CGFloat)->CGFloat {
-        let b = CGFloat(M_PI) * a/180
+        let b = CGFloat(Double.pi) * a/180
         return b
     }
     func polygonPointArray(_ sides:Int,x:CGFloat,y:CGFloat,radius:CGFloat,adjustment:CGFloat=0)->[CGPoint] {
@@ -509,4 +510,9 @@ class HomeScene: SKScene , SKPhysicsContactDelegate, GKGameCenterControllerDeleg
             tracker?.send(event?.build() as? [AnyHashable: Any] ?? [:])
         }
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Category) -> String {
+	return input.rawValue
 }

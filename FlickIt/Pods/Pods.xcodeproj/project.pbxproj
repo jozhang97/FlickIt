@@ -1,2009 +1,2057 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-	<key>archiveVersion</key>
-	<string>1</string>
-	<key>classes</key>
-	<dict/>
-	<key>objectVersion</key>
-	<string>46</string>
-	<key>objects</key>
-	<dict>
-		<key>044F5FB70A3A5A3F8B60EAF3F7329AA8</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>48C602576012A040F8EC328D54F73287</string>
-				<string>083239A50D4CAB49C64654C530797945</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>083239A50D4CAB49C64654C530797945</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>44086239083285207FCE3495838908BD</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
-				<string>YES</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>8.1</string>
-				<key>MACH_O_TYPE</key>
-				<string>staticlib</string>
-				<key>MTL_ENABLE_DEBUG_INFO</key>
-				<string>NO</string>
-				<key>OTHER_LDFLAGS</key>
-				<string></string>
-				<key>OTHER_LIBTOOLFLAGS</key>
-				<string></string>
-				<key>PODS_ROOT</key>
-				<string>$(SRCROOT)</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>SKIP_INSTALL</key>
-				<string>YES</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>09D4B01AF131C68D2A750A415EC0E307</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>DEFA67C07CA9CFC217254BF0BC906269</string>
-				<string>E5A409664DCC2261EDBC8AE8169FDEF1</string>
-				<string>86222E6015D9F3CABEC6F8C7CE3376A3</string>
-				<string>BFEEC6895FA1820B0C184317F1452B29</string>
-				<string>87547C1C924419751A81E56DECA1A109</string>
-				<string>BD6AA4CBDDF577940041808E1D0660B7</string>
-				<string>7D98125F8FB9F86B201F665342B81751</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Pods-FlickItUITests</string>
-			<key>path</key>
-			<string>Target Support Files/Pods-FlickItUITests</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>0FF4E02FD9EC3F7EE7036A8241FC8C6D</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>GAIEcommerceProduct.h</string>
-			<key>path</key>
-			<string>Headers/Public/GAIEcommerceProduct.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>1158D8A8E2024404A02FCC8A4F7A254F</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>7E913C2C9AA7AD55605E36E212A88FF5</string>
-				<string>D7BD3A221432A27F319D60306D683F73</string>
-				<string>7F884B1AD36DC985D5E7A4237493430E</string>
-				<string>D73E9D4D0513E85FB378C0A80B56874E</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Products</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>1370A4D93A80EB70476E55E0A8796D80</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.framework</string>
-			<key>name</key>
-			<string>GoogleInterchangeUtilities.framework</string>
-			<key>path</key>
-			<string>Frameworks/GoogleInterchangeUtilities.framework</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>13A1A6F8DC545C1C662B698534679C37</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.framework</string>
-			<key>name</key>
-			<string>GoogleSymbolUtilities.framework</string>
-			<key>path</key>
-			<string>Frameworks/GoogleSymbolUtilities.framework</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>1469924FC52F60B0068FA24EEFCB3EFC</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>5C358AA8BB91700063133597D41C4E0E</string>
-			<key>buildPhases</key>
-			<array>
-				<string>60DB2522D6809309FA2F3B04848E7536</string>
-				<string>2E78C4AC537A1782BCFD134B2B8940E0</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>Pods</string>
-			<key>productName</key>
-			<string>Pods</string>
-			<key>productReference</key>
-			<string>7E913C2C9AA7AD55605E36E212A88FF5</string>
-			<key>productType</key>
-			<string>com.apple.product-type.library.static</string>
-		</dict>
-		<key>155B3C45176410F829BE91448D6F63DB</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>48AED0DA7713B006566C98D5B11774FD</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Frameworks</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>18B03D7130378538A6AA06185613931D</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>4CAB72C9193D6D6B2989D40F82AA6327</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>1C6B4EEFBD7A057FA1CADB523E9BEA01</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>A9A2EDE43C8E946288673C99A95BBFE4</string>
-			</array>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>1EC74C627A42F34491FDF4D2382B763C</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>B7A8EEE3A7E6A7FA4D87FA7EBF8F1346</string>
-			<key>buildPhases</key>
-			<array>
-				<string>203EF7B2631D08CBBD529FB3106EDB11</string>
-				<string>860BA59787418CD2753E68D8C9FD95CB</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>Pods-FlickItTests</string>
-			<key>productName</key>
-			<string>Pods-FlickItTests</string>
-			<key>productReference</key>
-			<string>7F884B1AD36DC985D5E7A4237493430E</string>
-			<key>productType</key>
-			<string>com.apple.product-type.library.static</string>
-		</dict>
-		<key>203EF7B2631D08CBBD529FB3106EDB11</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>A4D1026D816CA223A64F0C63B047E371</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>22453F4F3EF3618A2596B4F424FD9FD0</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>FIRInstanceID.h</string>
-			<key>path</key>
-			<string>Headers/Public/FIRInstanceID.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>22E2FD9DFE186A1CA3A27FA7C9118A89</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>7C3758831CC26B20FA48F22B47A67524</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Frameworks</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>2849D8E25B5E3638D0F0E2526C0BBF7B</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>GAIDictionaryBuilder.h</string>
-			<key>path</key>
-			<string>Headers/Public/GAIDictionaryBuilder.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>2A66F8AEF75F271E89D5FB1A11FF5DE6</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>ADF2C54D5DD719AA4822ECF08E7C1D36</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Frameworks</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>2ACDDB954D3E5A1553D9FCD10923CFEF</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>EA81DDAFB717009D6FEAC6C40EBB0C67</string>
-				<string>A237F285B4635E5632B240C1DB880C30</string>
-				<string>D0F1F2D3A93406B6F20538D9564F460B</string>
-				<string>EE341534EE7209C78CB01BCF27FB36A5</string>
-				<string>A233F3FC4CE578E1C44730EB00627608</string>
-				<string>93EECB14200D3B232114C6E839C90445</string>
-				<string>B46185945C3D77EDE52F1AD0EEDD2410</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Pods</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>2C0AB02663D83EF43EE4FDBBDFD9A4A2</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.script.sh</string>
-			<key>path</key>
-			<string>Pods-resources.sh</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>2D8E8EC45A3A1A1D94AE762CB5028504</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>9EB645C612834738B99727720210C23E</string>
-				<string>E39CD1E764776175CB82EEC82A6C9948</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>2E2319D3781ED3D8BEFFBC9AF6574204</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>D8DF97ED177502F86ACB7CEF27B48C63</string>
-				<string>2E8BFC69D3556ED77A05541941BD77CA</string>
-				<string>E8FC127298241EBCD40B95B7A52B2B35</string>
-				<string>DE588AB498231235FBEF469307B9348D</string>
-				<string>2C0AB02663D83EF43EE4FDBBDFD9A4A2</string>
-				<string>DF84EF60B4FE8FD4D3F1DF4A7018BC27</string>
-				<string>92D8CE4C95DD1F70F7E1B4347D6C0C9F</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Pods</string>
-			<key>path</key>
-			<string>Target Support Files/Pods</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>2E78C4AC537A1782BCFD134B2B8940E0</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>6E579FF358AF2261C8682A7FA383EAA6</string>
-			</array>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>2E8BFC69D3556ED77A05541941BD77CA</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.xml</string>
-			<key>path</key>
-			<string>Pods-acknowledgements.plist</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>3515B91CEC96972AA9C364DF5BC74C92</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>DC9D364AA60FFE532B990508E0A400D6</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
-				<string>YES</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>8.1</string>
-				<key>MACH_O_TYPE</key>
-				<string>staticlib</string>
-				<key>MTL_ENABLE_DEBUG_INFO</key>
-				<string>NO</string>
-				<key>OTHER_LDFLAGS</key>
-				<string></string>
-				<key>OTHER_LIBTOOLFLAGS</key>
-				<string></string>
-				<key>PODS_ROOT</key>
-				<string>$(SRCROOT)</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>SKIP_INSTALL</key>
-				<string>YES</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>3556D54D87B9F4D7C6A758FC9F85A31F</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>GAILogger.h</string>
-			<key>path</key>
-			<string>Headers/Public/GAILogger.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>3839E6955E498E0594043C7F67020719</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>SignIn-Module.h</string>
-			<key>path</key>
-			<string>Headers/ModuleHeaders/SignIn-Module.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>3C80C55FAF6D3EB7E77A671EB2D8948D</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>92D8CE4C95DD1F70F7E1B4347D6C0C9F</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
-				<string>YES</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>8.1</string>
-				<key>MACH_O_TYPE</key>
-				<string>staticlib</string>
-				<key>MTL_ENABLE_DEBUG_INFO</key>
-				<string>NO</string>
-				<key>OTHER_LDFLAGS</key>
-				<string></string>
-				<key>OTHER_LIBTOOLFLAGS</key>
-				<string></string>
-				<key>PODS_ROOT</key>
-				<string>$(SRCROOT)</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>SKIP_INSTALL</key>
-				<string>YES</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>3E02C6481CA0D168A1FBA6ED6A50982F</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>Pods-FlickItTests-dummy.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>3E4E89230EF59BC255123B67864ACF77</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.framework</string>
-			<key>name</key>
-			<string>Foundation.framework</string>
-			<key>path</key>
-			<string>Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/Foundation.framework</string>
-			<key>sourceTree</key>
-			<string>DEVELOPER_DIR</string>
-		</dict>
-		<key>43D55FCBC248D3DA55CA1D04E7B47328</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>GAIEcommercePromotion.h</string>
-			<key>path</key>
-			<string>Headers/Public/GAIEcommercePromotion.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>44074D0DD594E9CF20238FF736B95703</key>
-		<dict>
-			<key>fileRef</key>
-			<string>3E4E89230EF59BC255123B67864ACF77</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>44086239083285207FCE3495838908BD</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>path</key>
-			<string>Pods-FlickIt.release.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>452338153F554DBBE625EB509C581A3F</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text</string>
-			<key>path</key>
-			<string>Pods-FlickIt-acknowledgements.markdown</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>48AED0DA7713B006566C98D5B11774FD</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.framework</string>
-			<key>name</key>
-			<string>FirebaseAnalytics.framework</string>
-			<key>path</key>
-			<string>Frameworks/FirebaseAnalytics.framework</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>48C602576012A040F8EC328D54F73287</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>4EFE1381FE4BD2ADEF4631FEB16B17B6</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
-				<string>YES</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>8.1</string>
-				<key>MACH_O_TYPE</key>
-				<string>staticlib</string>
-				<key>MTL_ENABLE_DEBUG_INFO</key>
-				<string>YES</string>
-				<key>OTHER_LDFLAGS</key>
-				<string></string>
-				<key>OTHER_LIBTOOLFLAGS</key>
-				<string></string>
-				<key>PODS_ROOT</key>
-				<string>$(SRCROOT)</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>SKIP_INSTALL</key>
-				<string>YES</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>4AB1DDC734E5F817F4415AFB886FDE2C</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text</string>
-			<key>path</key>
-			<string>Pods-FlickItTests-acknowledgements.markdown</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>4B2F1B8C64F7F24EC5C7C5597778F08A</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>Analytics-Module.h</string>
-			<key>path</key>
-			<string>Headers/ModuleHeaders/Analytics-Module.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>4CAB72C9193D6D6B2989D40F82AA6327</key>
-		<dict>
-			<key>fileRef</key>
-			<string>86222E6015D9F3CABEC6F8C7CE3376A3</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>4EFE1381FE4BD2ADEF4631FEB16B17B6</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>path</key>
-			<string>Pods-FlickIt.debug.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>503FD9C9497A94EA883F8ABE9E732224</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>52AFC0DDB53814130FC143E8FF3C8C80</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>52001905DF33DE19D17CB263F524C87F</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>667EC18B1B5CDE03495C036E4A00353C</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Frameworks</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>52AFC0DDB53814130FC143E8FF3C8C80</key>
-		<dict>
-			<key>fileRef</key>
-			<string>F0DE0CD91E8D59114A4AB65F78D32F93</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>54FDA27A06A41EB0190AD8C984ECA39D</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>Analytics.h</string>
-			<key>path</key>
-			<string>Headers/Analytics.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>5C358AA8BB91700063133597D41C4E0E</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>A02C3DBBB40BE2282B8174B6578AC8C5</string>
-				<string>3C80C55FAF6D3EB7E77A671EB2D8948D</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>60DB2522D6809309FA2F3B04848E7536</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>B991A49F4C12A4F8462C02B69D83DB11</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>667EC18B1B5CDE03495C036E4A00353C</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.framework</string>
-			<key>name</key>
-			<string>GGLAnalytics.framework</string>
-			<key>path</key>
-			<string>Frameworks/GGLAnalytics.framework</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>6895E8711E8C895D2540E18A68CC7B77</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>GAITracker.h</string>
-			<key>path</key>
-			<string>Headers/Public/GAITracker.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>695DD416BBF6B6CB352779AE8506D4E9</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>044F5FB70A3A5A3F8B60EAF3F7329AA8</string>
-			<key>buildPhases</key>
-			<array>
-				<string>503FD9C9497A94EA883F8ABE9E732224</string>
-				<string>1C6B4EEFBD7A057FA1CADB523E9BEA01</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>Pods-FlickIt</string>
-			<key>productName</key>
-			<string>Pods-FlickIt</string>
-			<key>productReference</key>
-			<string>D7BD3A221432A27F319D60306D683F73</string>
-			<key>productType</key>
-			<string>com.apple.product-type.library.static</string>
-		</dict>
-		<key>6AA540EB4DC38B2946C0B3D9BC42D241</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>A5396FA26C1508084ABEDE2542E3E517</string>
-			<key>buildPhases</key>
-			<array>
-				<string>18B03D7130378538A6AA06185613931D</string>
-				<string>8E67A6DE462898DBA17B308CFA8A7765</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>Pods-FlickItUITests</string>
-			<key>productName</key>
-			<string>Pods-FlickItUITests</string>
-			<key>productReference</key>
-			<string>D73E9D4D0513E85FB378C0A80B56874E</string>
-			<key>productType</key>
-			<string>com.apple.product-type.library.static</string>
-		</dict>
-		<key>6B501126F03CEFD5848E80D8C4F8BE9D</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>GAIEcommerceProductAction.h</string>
-			<key>path</key>
-			<string>Headers/Public/GAIEcommerceProductAction.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>6E579FF358AF2261C8682A7FA383EAA6</key>
-		<dict>
-			<key>fileRef</key>
-			<string>3E4E89230EF59BC255123B67864ACF77</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>76BBBCA370021A95B6EFF1908C157C68</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>path</key>
-			<string>Pods-FlickItTests.debug.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>7716C849F15B28A4C1E6C58E3C0773DB</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>452338153F554DBBE625EB509C581A3F</string>
-				<string>7F04DBAB4F3C1B523ADEBD702E2ABEDD</string>
-				<string>F0DE0CD91E8D59114A4AB65F78D32F93</string>
-				<string>B7E1294F00FAC2C68CFBA6B933B47847</string>
-				<string>F69B15D23A5EA91DED487E2CDC22FF0B</string>
-				<string>4EFE1381FE4BD2ADEF4631FEB16B17B6</string>
-				<string>44086239083285207FCE3495838908BD</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Pods-FlickIt</string>
-			<key>path</key>
-			<string>Target Support Files/Pods-FlickIt</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>7A4EB40EBE5D3211830597427E0EBF70</key>
-		<dict>
-			<key>fileRef</key>
-			<string>3E4E89230EF59BC255123B67864ACF77</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>7BD47BBF15E5A44FEE7A34910CCC8029</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>2E2319D3781ED3D8BEFFBC9AF6574204</string>
-				<string>7716C849F15B28A4C1E6C58E3C0773DB</string>
-				<string>959ED5732BE37E073E4A92C1835E01D6</string>
-				<string>09D4B01AF131C68D2A750A415EC0E307</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Targets Support Files</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>7C3758831CC26B20FA48F22B47A67524</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.framework</string>
-			<key>name</key>
-			<string>FirebaseInstanceID.framework</string>
-			<key>path</key>
-			<string>Frameworks/FirebaseInstanceID.framework</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>7D98125F8FB9F86B201F665342B81751</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>path</key>
-			<string>Pods-FlickItUITests.release.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>7DB346D0F39D3F0E887471402A8071AB</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>BA6428E9F66FD5A23C0A2E06ED26CD2F</string>
-				<string>BC3CA7F9E30CC8F7E2DD044DD34432FC</string>
-				<string>2ACDDB954D3E5A1553D9FCD10923CFEF</string>
-				<string>1158D8A8E2024404A02FCC8A4F7A254F</string>
-				<string>7BD47BBF15E5A44FEE7A34910CCC8029</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>7E913C2C9AA7AD55605E36E212A88FF5</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>archive.ar</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>name</key>
-			<string>libPods.a</string>
-			<key>path</key>
-			<string>libPods.a</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>7F04DBAB4F3C1B523ADEBD702E2ABEDD</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.xml</string>
-			<key>path</key>
-			<string>Pods-FlickIt-acknowledgements.plist</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>7F884B1AD36DC985D5E7A4237493430E</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>archive.ar</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>name</key>
-			<string>libPods-FlickItTests.a</string>
-			<key>path</key>
-			<string>libPods-FlickItTests.a</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>8208AF1231A0D70DE2F2789EB4119E9F</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.xml</string>
-			<key>path</key>
-			<string>Pods-FlickItTests-acknowledgements.plist</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>83AB63D6F3F37DE721660A9B75916976</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>76BBBCA370021A95B6EFF1908C157C68</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
-				<string>YES</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>8.1</string>
-				<key>MACH_O_TYPE</key>
-				<string>staticlib</string>
-				<key>MTL_ENABLE_DEBUG_INFO</key>
-				<string>YES</string>
-				<key>OTHER_LDFLAGS</key>
-				<string></string>
-				<key>OTHER_LIBTOOLFLAGS</key>
-				<string></string>
-				<key>PODS_ROOT</key>
-				<string>$(SRCROOT)</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>SKIP_INSTALL</key>
-				<string>YES</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>860BA59787418CD2753E68D8C9FD95CB</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>44074D0DD594E9CF20238FF736B95703</string>
-			</array>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>86222E6015D9F3CABEC6F8C7CE3376A3</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>Pods-FlickItUITests-dummy.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>87547C1C924419751A81E56DECA1A109</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.script.sh</string>
-			<key>path</key>
-			<string>Pods-FlickItUITests-resources.sh</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>8A4C5231645C9597F942C546F63AC337</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>Core-Module.h</string>
-			<key>path</key>
-			<string>Headers/ModuleHeaders/Core-Module.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>8CBCF8B8C3DDA1EE7B2F7705FD7D069B</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>1370A4D93A80EB70476E55E0A8796D80</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Frameworks</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>8E67A6DE462898DBA17B308CFA8A7765</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>7A4EB40EBE5D3211830597427E0EBF70</string>
-			</array>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>92D8CE4C95DD1F70F7E1B4347D6C0C9F</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>path</key>
-			<string>Pods.release.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>93BD7A41FD902E47BE48F74BFC999A24</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>BD6AA4CBDDF577940041808E1D0660B7</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
-				<string>YES</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>8.1</string>
-				<key>MACH_O_TYPE</key>
-				<string>staticlib</string>
-				<key>MTL_ENABLE_DEBUG_INFO</key>
-				<string>YES</string>
-				<key>OTHER_LDFLAGS</key>
-				<string></string>
-				<key>OTHER_LIBTOOLFLAGS</key>
-				<string></string>
-				<key>PODS_ROOT</key>
-				<string>$(SRCROOT)</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>SKIP_INSTALL</key>
-				<string>YES</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>93EECB14200D3B232114C6E839C90445</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>D1EC5FD3D7D82F71930690AADFBE9BFA</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>GoogleSymbolUtilities</string>
-			<key>path</key>
-			<string>GoogleSymbolUtilities</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>959ED5732BE37E073E4A92C1835E01D6</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>4AB1DDC734E5F817F4415AFB886FDE2C</string>
-				<string>8208AF1231A0D70DE2F2789EB4119E9F</string>
-				<string>3E02C6481CA0D168A1FBA6ED6A50982F</string>
-				<string>BF6DAF2BCF259BB0E83283C7CC15873E</string>
-				<string>E189A34709352068B6336BA16BF9CD80</string>
-				<string>76BBBCA370021A95B6EFF1908C157C68</string>
-				<string>DC9D364AA60FFE532B990508E0A400D6</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Pods-FlickItTests</string>
-			<key>path</key>
-			<string>Target Support Files/Pods-FlickItTests</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>99816ED70DE798ADB220203A49605C1F</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>GAIFields.h</string>
-			<key>path</key>
-			<string>Headers/Public/GAIFields.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>99B2B7F490639E4C793CDF5E9333C78B</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>Core.h</string>
-			<key>path</key>
-			<string>Headers/Core.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>9EB645C612834738B99727720210C23E</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
-				<string>gnu++0x</string>
-				<key>CLANG_CXX_LIBRARY</key>
-				<string>libc++</string>
-				<key>CLANG_ENABLE_MODULES</key>
-				<string>YES</string>
-				<key>CLANG_ENABLE_OBJC_ARC</key>
-				<string>YES</string>
-				<key>CLANG_WARN_BOOL_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
-				<string>YES</string>
-				<key>CLANG_WARN_EMPTY_BODY</key>
-				<string>YES</string>
-				<key>CLANG_WARN_ENUM_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_INT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
-				<string>YES</string>
-				<key>CLANG_WARN_UNREACHABLE_CODE</key>
-				<string>YES</string>
-				<key>CLANG_WARN__DUPLICATE_METHOD_MATCH</key>
-				<string>YES</string>
-				<key>COPY_PHASE_STRIP</key>
-				<string>NO</string>
-				<key>GCC_C_LANGUAGE_STANDARD</key>
-				<string>gnu99</string>
-				<key>GCC_DYNAMIC_NO_PIC</key>
-				<string>NO</string>
-				<key>GCC_OPTIMIZATION_LEVEL</key>
-				<string>0</string>
-				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-				<array>
-					<string>DEBUG=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>GCC_SYMBOLS_PRIVATE_EXTERN</key>
-				<string>NO</string>
-				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
-				<string>YES</string>
-				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNUSED_FUNCTION</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNUSED_VARIABLE</key>
-				<string>YES</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>8.1</string>
-				<key>ONLY_ACTIVE_ARCH</key>
-				<string>YES</string>
-				<key>STRIP_INSTALLED_PRODUCT</key>
-				<string>NO</string>
-				<key>SYMROOT</key>
-				<string>${SRCROOT}/../build</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>9F565398C5B1AE20B4263AB7C3909BE3</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.framework</string>
-			<key>name</key>
-			<string>GGLCore.framework</string>
-			<key>path</key>
-			<string>Frameworks/GGLCore.framework</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>9F65ECB3252DC10E0D2E9DF116243EEA</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>GAIEcommerceFields.h</string>
-			<key>path</key>
-			<string>Headers/Public/GAIEcommerceFields.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>A02C3DBBB40BE2282B8174B6578AC8C5</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>DF84EF60B4FE8FD4D3F1DF4A7018BC27</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
-				<string>YES</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>8.1</string>
-				<key>MACH_O_TYPE</key>
-				<string>staticlib</string>
-				<key>MTL_ENABLE_DEBUG_INFO</key>
-				<string>YES</string>
-				<key>OTHER_LDFLAGS</key>
-				<string></string>
-				<key>OTHER_LIBTOOLFLAGS</key>
-				<string></string>
-				<key>PODS_ROOT</key>
-				<string>$(SRCROOT)</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>SKIP_INSTALL</key>
-				<string>YES</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>A14A97CCC4A89AAE511DD747524C409F</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>4B2F1B8C64F7F24EC5C7C5597778F08A</string>
-				<string>99B2B7F490639E4C793CDF5E9333C78B</string>
-				<string>8A4C5231645C9597F942C546F63AC337</string>
-				<string>3839E6955E498E0594043C7F67020719</string>
-				<string>A1B67F399217C8B5BD984BE0A9A6E24D</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Core</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>A1B67F399217C8B5BD984BE0A9A6E24D</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>9F565398C5B1AE20B4263AB7C3909BE3</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Frameworks</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>A1FF57F36A1D11F7D42615B5BD175087</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>GAI.h</string>
-			<key>path</key>
-			<string>Headers/Public/GAI.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>A233F3FC4CE578E1C44730EB00627608</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>8CBCF8B8C3DDA1EE7B2F7705FD7D069B</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>GoogleInterchangeUtilities</string>
-			<key>path</key>
-			<string>GoogleInterchangeUtilities</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>A237F285B4635E5632B240C1DB880C30</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>22453F4F3EF3618A2596B4F424FD9FD0</string>
-				<string>22E2FD9DFE186A1CA3A27FA7C9118A89</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>FirebaseInstanceID</string>
-			<key>path</key>
-			<string>FirebaseInstanceID</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>A4D1026D816CA223A64F0C63B047E371</key>
-		<dict>
-			<key>fileRef</key>
-			<string>3E02C6481CA0D168A1FBA6ED6A50982F</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>A5396FA26C1508084ABEDE2542E3E517</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>93BD7A41FD902E47BE48F74BFC999A24</string>
-				<string>E44FF9B98BD6371E8C5065E2D0FEF40B</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>A9A2EDE43C8E946288673C99A95BBFE4</key>
-		<dict>
-			<key>fileRef</key>
-			<string>3E4E89230EF59BC255123B67864ACF77</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>ADF2C54D5DD719AA4822ECF08E7C1D36</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>archive.ar</string>
-			<key>name</key>
-			<string>libGoogleAnalytics.a</string>
-			<key>path</key>
-			<string>Libraries/libGoogleAnalytics.a</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>B46185945C3D77EDE52F1AD0EEDD2410</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>DAFE5632CF2082A6AF76AFF134B9F87C</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>GoogleUtilities</string>
-			<key>path</key>
-			<string>GoogleUtilities</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>B7A8EEE3A7E6A7FA4D87FA7EBF8F1346</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>83AB63D6F3F37DE721660A9B75916976</string>
-				<string>3515B91CEC96972AA9C364DF5BC74C92</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>B7E1294F00FAC2C68CFBA6B933B47847</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.script.sh</string>
-			<key>path</key>
-			<string>Pods-FlickIt-frameworks.sh</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>B991A49F4C12A4F8462C02B69D83DB11</key>
-		<dict>
-			<key>fileRef</key>
-			<string>E8FC127298241EBCD40B95B7A52B2B35</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>BA6428E9F66FD5A23C0A2E06ED26CD2F</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text</string>
-			<key>name</key>
-			<string>Podfile</string>
-			<key>path</key>
-			<string>../Podfile</string>
-			<key>sourceTree</key>
-			<string>SOURCE_ROOT</string>
-			<key>xcLanguageSpecificationIdentifier</key>
-			<string>xcode.lang.ruby</string>
-		</dict>
-		<key>BC3CA7F9E30CC8F7E2DD044DD34432FC</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>BF6342C8B29F4CEEA088EFF7AB4DE362</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Frameworks</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>BD6AA4CBDDF577940041808E1D0660B7</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>path</key>
-			<string>Pods-FlickItUITests.debug.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>BF6342C8B29F4CEEA088EFF7AB4DE362</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>3E4E89230EF59BC255123B67864ACF77</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>iOS</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>BF6DAF2BCF259BB0E83283C7CC15873E</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.script.sh</string>
-			<key>path</key>
-			<string>Pods-FlickItTests-frameworks.sh</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>BFEEC6895FA1820B0C184317F1452B29</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.script.sh</string>
-			<key>path</key>
-			<string>Pods-FlickItUITests-frameworks.sh</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D0F1F2D3A93406B6F20538D9564F460B</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>F0209F154945412EE1A6969571B4833E</string>
-				<string>A14A97CCC4A89AAE511DD747524C409F</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Google</string>
-			<key>path</key>
-			<string>Google</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D1EC5FD3D7D82F71930690AADFBE9BFA</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>13A1A6F8DC545C1C662B698534679C37</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Frameworks</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D41D8CD98F00B204E9800998ECF8427E</key>
-		<dict>
-			<key>attributes</key>
-			<dict>
-				<key>LastSwiftUpdateCheck</key>
-				<string>0700</string>
-				<key>LastUpgradeCheck</key>
-				<string>0700</string>
-			</dict>
-			<key>buildConfigurationList</key>
-			<string>2D8E8EC45A3A1A1D94AE762CB5028504</string>
-			<key>compatibilityVersion</key>
-			<string>Xcode 3.2</string>
-			<key>developmentRegion</key>
-			<string>English</string>
-			<key>hasScannedForEncodings</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXProject</string>
-			<key>knownRegions</key>
-			<array>
-				<string>en</string>
-			</array>
-			<key>mainGroup</key>
-			<string>7DB346D0F39D3F0E887471402A8071AB</string>
-			<key>productRefGroup</key>
-			<string>1158D8A8E2024404A02FCC8A4F7A254F</string>
-			<key>projectDirPath</key>
-			<string></string>
-			<key>projectReferences</key>
-			<array/>
-			<key>projectRoot</key>
-			<string></string>
-			<key>targets</key>
-			<array>
-				<string>1469924FC52F60B0068FA24EEFCB3EFC</string>
-				<string>695DD416BBF6B6CB352779AE8506D4E9</string>
-				<string>1EC74C627A42F34491FDF4D2382B763C</string>
-				<string>6AA540EB4DC38B2946C0B3D9BC42D241</string>
-			</array>
-		</dict>
-		<key>D73E9D4D0513E85FB378C0A80B56874E</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>archive.ar</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>name</key>
-			<string>libPods-FlickItUITests.a</string>
-			<key>path</key>
-			<string>libPods-FlickItUITests.a</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>D7BD3A221432A27F319D60306D683F73</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>archive.ar</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>name</key>
-			<string>libPods-FlickIt.a</string>
-			<key>path</key>
-			<string>libPods-FlickIt.a</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>D8DF97ED177502F86ACB7CEF27B48C63</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text</string>
-			<key>path</key>
-			<string>Pods-acknowledgements.markdown</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>DAFE5632CF2082A6AF76AFF134B9F87C</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>EC8AA9ADBCA7F7E8CCBD0585AF653782</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Frameworks</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>DC9D364AA60FFE532B990508E0A400D6</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>path</key>
-			<string>Pods-FlickItTests.release.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>DE588AB498231235FBEF469307B9348D</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.script.sh</string>
-			<key>path</key>
-			<string>Pods-frameworks.sh</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>DEFA67C07CA9CFC217254BF0BC906269</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text</string>
-			<key>path</key>
-			<string>Pods-FlickItUITests-acknowledgements.markdown</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>DF84EF60B4FE8FD4D3F1DF4A7018BC27</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>path</key>
-			<string>Pods.debug.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>E189A34709352068B6336BA16BF9CD80</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.script.sh</string>
-			<key>path</key>
-			<string>Pods-FlickItTests-resources.sh</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>E39CD1E764776175CB82EEC82A6C9948</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
-				<string>gnu++0x</string>
-				<key>CLANG_CXX_LIBRARY</key>
-				<string>libc++</string>
-				<key>CLANG_ENABLE_MODULES</key>
-				<string>YES</string>
-				<key>CLANG_ENABLE_OBJC_ARC</key>
-				<string>YES</string>
-				<key>CLANG_WARN_BOOL_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
-				<string>YES</string>
-				<key>CLANG_WARN_EMPTY_BODY</key>
-				<string>YES</string>
-				<key>CLANG_WARN_ENUM_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_INT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
-				<string>YES</string>
-				<key>CLANG_WARN_UNREACHABLE_CODE</key>
-				<string>YES</string>
-				<key>CLANG_WARN__DUPLICATE_METHOD_MATCH</key>
-				<string>YES</string>
-				<key>COPY_PHASE_STRIP</key>
-				<string>YES</string>
-				<key>ENABLE_NS_ASSERTIONS</key>
-				<string>NO</string>
-				<key>GCC_C_LANGUAGE_STANDARD</key>
-				<string>gnu99</string>
-				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-				<array>
-					<string>RELEASE=1</string>
-				</array>
-				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
-				<string>YES</string>
-				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNUSED_FUNCTION</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNUSED_VARIABLE</key>
-				<string>YES</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>8.1</string>
-				<key>STRIP_INSTALLED_PRODUCT</key>
-				<string>NO</string>
-				<key>SYMROOT</key>
-				<string>${SRCROOT}/../build</string>
-				<key>VALIDATE_PRODUCT</key>
-				<string>YES</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>E44FF9B98BD6371E8C5065E2D0FEF40B</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>7D98125F8FB9F86B201F665342B81751</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
-				<string>YES</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>8.1</string>
-				<key>MACH_O_TYPE</key>
-				<string>staticlib</string>
-				<key>MTL_ENABLE_DEBUG_INFO</key>
-				<string>NO</string>
-				<key>OTHER_LDFLAGS</key>
-				<string></string>
-				<key>OTHER_LIBTOOLFLAGS</key>
-				<string></string>
-				<key>PODS_ROOT</key>
-				<string>$(SRCROOT)</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>SKIP_INSTALL</key>
-				<string>YES</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>E5A409664DCC2261EDBC8AE8169FDEF1</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.xml</string>
-			<key>path</key>
-			<string>Pods-FlickItUITests-acknowledgements.plist</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>E8FC127298241EBCD40B95B7A52B2B35</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>Pods-dummy.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>EA81DDAFB717009D6FEAC6C40EBB0C67</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>155B3C45176410F829BE91448D6F63DB</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>FirebaseAnalytics</string>
-			<key>path</key>
-			<string>FirebaseAnalytics</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>EC8AA9ADBCA7F7E8CCBD0585AF653782</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.framework</string>
-			<key>name</key>
-			<string>GoogleUtilities.framework</string>
-			<key>path</key>
-			<string>Frameworks/GoogleUtilities.framework</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>EE341534EE7209C78CB01BCF27FB36A5</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>A1FF57F36A1D11F7D42615B5BD175087</string>
-				<string>2849D8E25B5E3638D0F0E2526C0BBF7B</string>
-				<string>9F65ECB3252DC10E0D2E9DF116243EEA</string>
-				<string>0FF4E02FD9EC3F7EE7036A8241FC8C6D</string>
-				<string>6B501126F03CEFD5848E80D8C4F8BE9D</string>
-				<string>43D55FCBC248D3DA55CA1D04E7B47328</string>
-				<string>99816ED70DE798ADB220203A49605C1F</string>
-				<string>3556D54D87B9F4D7C6A758FC9F85A31F</string>
-				<string>EFBF93F7FF20CE4947494FA74365BF54</string>
-				<string>6895E8711E8C895D2540E18A68CC7B77</string>
-				<string>2A66F8AEF75F271E89D5FB1A11FF5DE6</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>GoogleAnalytics</string>
-			<key>path</key>
-			<string>GoogleAnalytics</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>EFBF93F7FF20CE4947494FA74365BF54</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>GAITrackedViewController.h</string>
-			<key>path</key>
-			<string>Headers/Public/GAITrackedViewController.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F0209F154945412EE1A6969571B4833E</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>54FDA27A06A41EB0190AD8C984ECA39D</string>
-				<string>52001905DF33DE19D17CB263F524C87F</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Analytics</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F0DE0CD91E8D59114A4AB65F78D32F93</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>Pods-FlickIt-dummy.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F69B15D23A5EA91DED487E2CDC22FF0B</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.script.sh</string>
-			<key>path</key>
-			<string>Pods-FlickIt-resources.sh</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-	</dict>
-	<key>rootObject</key>
-	<string>D41D8CD98F00B204E9800998ECF8427E</string>
-</dict>
-</plist>
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		1326C3E61A23EEE78A97F4787F220A13 /* GoogleSymbolUtilities-iOS9.2 */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = E50F910B3A2D0C21174F9933473125A3 /* Build configuration list for PBXAggregateTarget "GoogleSymbolUtilities-iOS9.2" */;
+			buildPhases = (
+			);
+			dependencies = (
+			);
+			name = "GoogleSymbolUtilities-iOS9.2";
+		};
+		1AAE52F7E122BB37D7BDABFC02B5C5D6 /* GoogleInterchangeUtilities-iOS9.2 */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 2C91ECDED3A315E4E9B6D9356A48A1B7 /* Build configuration list for PBXAggregateTarget "GoogleInterchangeUtilities-iOS9.2" */;
+			buildPhases = (
+			);
+			dependencies = (
+				E6A4375C10D645DE8E566871E187E38C /* PBXTargetDependency */,
+			);
+			name = "GoogleInterchangeUtilities-iOS9.2";
+		};
+		1E94AED3C7D35AB73D4247E60AA98A81 /* FirebaseInstanceID-iOS9.2 */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 2291E6D7586BEF2FCACF6BBC63E4D409 /* Build configuration list for PBXAggregateTarget "FirebaseInstanceID-iOS9.2" */;
+			buildPhases = (
+			);
+			dependencies = (
+			);
+			name = "FirebaseInstanceID-iOS9.2";
+		};
+		2F9718C2FA7C7083DADF89B02384E7F0 /* GoogleUtilities-iOS8.0 */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = AA43C72FA0BC081EB8D800F4A9D6EC3A /* Build configuration list for PBXAggregateTarget "GoogleUtilities-iOS8.0" */;
+			buildPhases = (
+			);
+			dependencies = (
+				2BD1F2741FCB03CB8AEDBF43B4393900 /* PBXTargetDependency */,
+			);
+			name = "GoogleUtilities-iOS8.0";
+		};
+		4C75F8DE5F5390A537792861A9E225D0 /* GoogleUtilities-iOS9.2 */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 92AE3C14BB7F8AB63C244D2CDC9B4104 /* Build configuration list for PBXAggregateTarget "GoogleUtilities-iOS9.2" */;
+			buildPhases = (
+			);
+			dependencies = (
+				FACEE0A00C4204F77764331306292869 /* PBXTargetDependency */,
+			);
+			name = "GoogleUtilities-iOS9.2";
+		};
+		55A9FDEC9AB9591B5C1137422710CF59 /* GoogleInterchangeUtilities-iOS8.0 */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = A17C697F231979F88DA8644B6174F2A4 /* Build configuration list for PBXAggregateTarget "GoogleInterchangeUtilities-iOS8.0" */;
+			buildPhases = (
+			);
+			dependencies = (
+				DCE4212101D5D0179C5936E0C17399B7 /* PBXTargetDependency */,
+			);
+			name = "GoogleInterchangeUtilities-iOS8.0";
+		};
+		5D040628F1D8A0C8F588940D92E39755 /* FirebaseInstanceID-iOS8.0 */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = E677265E5F34C315BF6BB3691ED3BD8F /* Build configuration list for PBXAggregateTarget "FirebaseInstanceID-iOS8.0" */;
+			buildPhases = (
+			);
+			dependencies = (
+			);
+			name = "FirebaseInstanceID-iOS8.0";
+		};
+		90A5AA589B9503937A34A5D4E7A5FFE8 /* GoogleAnalytics-iOS9.2 */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 216DE881A92368F2AFA253D2CC84A7B3 /* Build configuration list for PBXAggregateTarget "GoogleAnalytics-iOS9.2" */;
+			buildPhases = (
+			);
+			dependencies = (
+			);
+			name = "GoogleAnalytics-iOS9.2";
+		};
+		96B5D1BD344C5A1B2A911927431D109F /* FirebaseAnalytics-iOS8.0 */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = FAD26BE269522E41FC6CAA6D23CCCAC9 /* Build configuration list for PBXAggregateTarget "FirebaseAnalytics-iOS8.0" */;
+			buildPhases = (
+			);
+			dependencies = (
+				B1C9A9EBF54C79E5172F2061D0503AA3 /* PBXTargetDependency */,
+				3D2C141F3E6212A8AB2FAC9B85EE27CC /* PBXTargetDependency */,
+				367014F9A3AE0B5C6F3433A631AEFC5D /* PBXTargetDependency */,
+				835CF37DE456DA5C86269186DCE1E621 /* PBXTargetDependency */,
+			);
+			name = "FirebaseAnalytics-iOS8.0";
+		};
+		A1DB58313C0837C5F740FF5EDDA14214 /* Google-iOS9.2 */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 3BCD60828F541DD77F0B059AB54C3A3C /* Build configuration list for PBXAggregateTarget "Google-iOS9.2" */;
+			buildPhases = (
+			);
+			dependencies = (
+				434167E177680839BB5FD5EA0C444A2B /* PBXTargetDependency */,
+				88C37733FF2AC14D0D2A2BDAAB2A9F87 /* PBXTargetDependency */,
+			);
+			name = "Google-iOS9.2";
+		};
+		CE63DF287A6AE8D6BA3F9FA559260A99 /* GoogleAnalytics-iOS8.0 */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = E7EBDAD1393C0163E691264D796B7478 /* Build configuration list for PBXAggregateTarget "GoogleAnalytics-iOS8.0" */;
+			buildPhases = (
+			);
+			dependencies = (
+			);
+			name = "GoogleAnalytics-iOS8.0";
+		};
+		E2EDB3D115BDD6F85B5D9B0BA491BC65 /* GoogleSymbolUtilities-iOS8.0 */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 89EF4F14C82D1EB7C4561468D88B98C3 /* Build configuration list for PBXAggregateTarget "GoogleSymbolUtilities-iOS8.0" */;
+			buildPhases = (
+			);
+			dependencies = (
+			);
+			name = "GoogleSymbolUtilities-iOS8.0";
+		};
+		EBD45AAF28275EC159A90D4E4151F04D /* Google-iOS8.0 */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = A3EA860F6A79FAC931AF2E0FE55C4D5B /* Build configuration list for PBXAggregateTarget "Google-iOS8.0" */;
+			buildPhases = (
+			);
+			dependencies = (
+				E4A13558BC4FB214F383D481B624F538 /* PBXTargetDependency */,
+				D504754789C3703A8F4A9B43E88748DB /* PBXTargetDependency */,
+			);
+			name = "Google-iOS8.0";
+		};
+		F202BE62BB9F9B015F3FAF815EA607E1 /* FirebaseAnalytics-iOS9.2 */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 4752A7CEFDACDE2E4A66C8F6407CF419 /* Build configuration list for PBXAggregateTarget "FirebaseAnalytics-iOS9.2" */;
+			buildPhases = (
+			);
+			dependencies = (
+				6263C527B69E95CD317A71776560CD45 /* PBXTargetDependency */,
+				3853DCD9C252E32E87C7029F22EAA781 /* PBXTargetDependency */,
+				EF0B2D51DD9C5B03CEA581F0F5DF838A /* PBXTargetDependency */,
+				D3B1FE643A26D8A0A676CD159E68559B /* PBXTargetDependency */,
+			);
+			name = "FirebaseAnalytics-iOS9.2";
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		470530AD6CDF018EA01B9799DCCB1181 /* Pods-FlickIt-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A719B4EEBA9C346451934FE7B55538DD /* Pods-FlickIt-dummy.m */; };
+		530910AE6C9C2D47E3E3AA312B06F9CA /* Pods-FlickItTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E0820D439B8E3EBF19F0281BC0431A2D /* Pods-FlickItTests-dummy.m */; };
+		807F2AF97688AD35AE5E8F538BB3F7E1 /* Pods-FlickItUITests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B1209372A55602FB7C24D72E51A0449 /* Pods-FlickItUITests-dummy.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		183168009D833F95883FB417B90CB7B0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 96B5D1BD344C5A1B2A911927431D109F;
+			remoteInfo = "FirebaseAnalytics-iOS8.0";
+		};
+		2225B995F22FA70EE5419C7CF363B651 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A1DB58313C0837C5F740FF5EDDA14214;
+			remoteInfo = "Google-iOS9.2";
+		};
+		234422D0D1787F78D36CC14DCE332753 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5D040628F1D8A0C8F588940D92E39755;
+			remoteInfo = "FirebaseInstanceID-iOS8.0";
+		};
+		23E828CBAFF90FA2C45FBBE1E40F06A3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1326C3E61A23EEE78A97F4787F220A13;
+			remoteInfo = "GoogleSymbolUtilities-iOS9.2";
+		};
+		26AC1B034055F073EA288CA433CA3E2D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F202BE62BB9F9B015F3FAF815EA607E1;
+			remoteInfo = "FirebaseAnalytics-iOS9.2";
+		};
+		2A3FCE2409BF5BF71C3C7F5175CF5959 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1E94AED3C7D35AB73D4247E60AA98A81;
+			remoteInfo = "FirebaseInstanceID-iOS9.2";
+		};
+		2A4DB7AC0A332172CEC3385B728C9573 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 96B5D1BD344C5A1B2A911927431D109F;
+			remoteInfo = "FirebaseAnalytics-iOS8.0";
+		};
+		32F63D22F50876369E93CEF5AD8BCFF7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E2EDB3D115BDD6F85B5D9B0BA491BC65;
+			remoteInfo = "GoogleSymbolUtilities-iOS8.0";
+		};
+		3AE13D97C415E4599E4D05238F1DAEB9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E2EDB3D115BDD6F85B5D9B0BA491BC65;
+			remoteInfo = "GoogleSymbolUtilities-iOS8.0";
+		};
+		401FCA8466321C5D0256F1CF3F5065AB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1AAE52F7E122BB37D7BDABFC02B5C5D6;
+			remoteInfo = "GoogleInterchangeUtilities-iOS9.2";
+		};
+		4F90F17FBD95EA899EA5E4FE01120A41 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E2EDB3D115BDD6F85B5D9B0BA491BC65;
+			remoteInfo = "GoogleSymbolUtilities-iOS8.0";
+		};
+		5E27F1A44860498B99906A3BE59DE6FD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5D040628F1D8A0C8F588940D92E39755;
+			remoteInfo = "FirebaseInstanceID-iOS8.0";
+		};
+		5EFD1EE021FE95505F4B7716442DA784 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 90A5AA589B9503937A34A5D4E7A5FFE8;
+			remoteInfo = "GoogleAnalytics-iOS9.2";
+		};
+		6E05EA12EB7FFC89581FB9EDE7459D92 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 55A9FDEC9AB9591B5C1137422710CF59;
+			remoteInfo = "GoogleInterchangeUtilities-iOS8.0";
+		};
+		78A6719D98E97ABAE635820A205310BB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 55A9FDEC9AB9591B5C1137422710CF59;
+			remoteInfo = "GoogleInterchangeUtilities-iOS8.0";
+		};
+		79AD4E62D2AA079FD234B0F333E7A703 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F202BE62BB9F9B015F3FAF815EA607E1;
+			remoteInfo = "FirebaseAnalytics-iOS9.2";
+		};
+		88EFEB6C98371CA8EC34D5318F268011 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CE63DF287A6AE8D6BA3F9FA559260A99;
+			remoteInfo = "GoogleAnalytics-iOS8.0";
+		};
+		9048DBB1075C6BDB81D6658B74A89DE5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E2EDB3D115BDD6F85B5D9B0BA491BC65;
+			remoteInfo = "GoogleSymbolUtilities-iOS8.0";
+		};
+		92F37812BD9E2FEDCA44E3392D2A8CDA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1E94AED3C7D35AB73D4247E60AA98A81;
+			remoteInfo = "FirebaseInstanceID-iOS9.2";
+		};
+		9B1B2A540EE64DE45ABBBED88832434C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CE63DF287A6AE8D6BA3F9FA559260A99;
+			remoteInfo = "GoogleAnalytics-iOS8.0";
+		};
+		9F84688260D8B7E8C532567993489203 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E2EDB3D115BDD6F85B5D9B0BA491BC65;
+			remoteInfo = "GoogleSymbolUtilities-iOS8.0";
+		};
+		A1363050ADE355C01D7C9E5388CD8FB5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CE63DF287A6AE8D6BA3F9FA559260A99;
+			remoteInfo = "GoogleAnalytics-iOS8.0";
+		};
+		AF6CDAAED442D8A9F921DA253DB96CC2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E2EDB3D115BDD6F85B5D9B0BA491BC65;
+			remoteInfo = "GoogleSymbolUtilities-iOS8.0";
+		};
+		B1501065D42A7C0AA99C5ADCE9A065E9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2F9718C2FA7C7083DADF89B02384E7F0;
+			remoteInfo = "GoogleUtilities-iOS8.0";
+		};
+		B2713481525D29FFC967BD5DBA3115E5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4C75F8DE5F5390A537792861A9E225D0;
+			remoteInfo = "GoogleUtilities-iOS9.2";
+		};
+		BABDDB695F584476E1C4AC768426740F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EBD45AAF28275EC159A90D4E4151F04D;
+			remoteInfo = "Google-iOS8.0";
+		};
+		BAF420248C7953CC2CF36D87EFFF7C38 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2F9718C2FA7C7083DADF89B02384E7F0;
+			remoteInfo = "GoogleUtilities-iOS8.0";
+		};
+		BE1649FBCF97334A92BB9139447BB028 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2F9718C2FA7C7083DADF89B02384E7F0;
+			remoteInfo = "GoogleUtilities-iOS8.0";
+		};
+		BF923D365299E53A4FBAFF357C83CD20 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 55A9FDEC9AB9591B5C1137422710CF59;
+			remoteInfo = "GoogleInterchangeUtilities-iOS8.0";
+		};
+		C09B021BD9FCFD75E938449628B4DC1C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1326C3E61A23EEE78A97F4787F220A13;
+			remoteInfo = "GoogleSymbolUtilities-iOS9.2";
+		};
+		C6C5B16C080E659F3F1EBBD8AC42BF9B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E2EDB3D115BDD6F85B5D9B0BA491BC65;
+			remoteInfo = "GoogleSymbolUtilities-iOS8.0";
+		};
+		CE14161820E5595B5C602630FF74BFEB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1AAE52F7E122BB37D7BDABFC02B5C5D6;
+			remoteInfo = "GoogleInterchangeUtilities-iOS9.2";
+		};
+		D9CD2E479459388ADB27648D6C39C20C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5D040628F1D8A0C8F588940D92E39755;
+			remoteInfo = "FirebaseInstanceID-iOS8.0";
+		};
+		DBBDC9E98ECB5E91A8CBC5011E013B5C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A1DB58313C0837C5F740FF5EDDA14214;
+			remoteInfo = "Google-iOS9.2";
+		};
+		E7B9430DCCAFBADE3B6D4375623A183F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4C75F8DE5F5390A537792861A9E225D0;
+			remoteInfo = "GoogleUtilities-iOS9.2";
+		};
+		F797CA01416165F473A2EB269D410D5D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 90A5AA589B9503937A34A5D4E7A5FFE8;
+			remoteInfo = "GoogleAnalytics-iOS9.2";
+		};
+		F8CA3BB86D53B2C87768CC72A077E988 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 96B5D1BD344C5A1B2A911927431D109F;
+			remoteInfo = "FirebaseAnalytics-iOS8.0";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		036BD995C11F25E1DD756012737F7035 /* Pods-FlickIt-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-FlickIt-acknowledgements.markdown"; sourceTree = "<group>"; };
+		0521AA8F473A6F3B298896AFAD31748C /* GoogleInterchangeUtilities-iOS8.0.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "GoogleInterchangeUtilities-iOS8.0.release.xcconfig"; sourceTree = "<group>"; };
+		08E3433A73E44BDBD3AEAD3C799FE0CF /* Google-iOS9.2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Google-iOS9.2.debug.xcconfig"; path = "../Google-iOS9.2/Google-iOS9.2.debug.xcconfig"; sourceTree = "<group>"; };
+		0FD34742262284BB7D7F67902C777060 /* Pods-FlickItTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-FlickItTests.debug.xcconfig"; sourceTree = "<group>"; };
+		13737C289312DF74F3E1A3A2CCD2C89A /* Google-iOS9.2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Google-iOS9.2.release.xcconfig"; path = "../Google-iOS9.2/Google-iOS9.2.release.xcconfig"; sourceTree = "<group>"; };
+		169C4B73BED50D227815032CCFB439D0 /* libPods-FlickItTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-FlickItTests.a"; path = "libPods-FlickItTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		19607852B7419532859CF6D240F70CDA /* FirebaseInstanceID-iOS9.2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "FirebaseInstanceID-iOS9.2.release.xcconfig"; path = "../FirebaseInstanceID-iOS9.2/FirebaseInstanceID-iOS9.2.release.xcconfig"; sourceTree = "<group>"; };
+		25D1A7A90942850A020AF7C5C40678BC /* Google-iOS8.0.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Google-iOS8.0.debug.xcconfig"; sourceTree = "<group>"; };
+		2ED33579160697E59B523774E48406EA /* GGLCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GGLCore.framework; path = Frameworks/GGLCore.framework; sourceTree = "<group>"; };
+		3AF83EA9EB76CC499DC56589C9698647 /* GoogleSymbolUtilities-iOS9.2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "GoogleSymbolUtilities-iOS9.2.debug.xcconfig"; path = "../GoogleSymbolUtilities-iOS9.2/GoogleSymbolUtilities-iOS9.2.debug.xcconfig"; sourceTree = "<group>"; };
+		3D07CC41F674CB7AC0F0C7FA6288F7DA /* GAIEcommerceFields.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GAIEcommerceFields.h; path = Headers/Public/GAIEcommerceFields.h; sourceTree = "<group>"; };
+		48FBAA97AC4C9A199E2DC5914C8793AA /* libPods-FlickItUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-FlickItUITests.a"; path = "libPods-FlickItUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D618E3C104410AE9343AC9C453F1F26 /* FirebaseInstanceID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseInstanceID.framework; path = Frameworks/FirebaseInstanceID.framework; sourceTree = "<group>"; };
+		503DBE3E3BAE3B1AEFA89A3DA8ED17B0 /* Pods-FlickItTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-FlickItTests.release.xcconfig"; sourceTree = "<group>"; };
+		50783290B7ECCEC5D1E633229687BFEA /* FirebaseAnalytics-iOS9.2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "FirebaseAnalytics-iOS9.2.debug.xcconfig"; path = "../FirebaseAnalytics-iOS9.2/FirebaseAnalytics-iOS9.2.debug.xcconfig"; sourceTree = "<group>"; };
+		5319D00CE1FE37C81CAD4EBEDEB5C115 /* GoogleSymbolUtilities-iOS9.2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "GoogleSymbolUtilities-iOS9.2.release.xcconfig"; path = "../GoogleSymbolUtilities-iOS9.2/GoogleSymbolUtilities-iOS9.2.release.xcconfig"; sourceTree = "<group>"; };
+		53286A1F6941D4B489A41998BE29C583 /* FirebaseAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseAnalytics.framework; path = Frameworks/FirebaseAnalytics.framework; sourceTree = "<group>"; };
+		54A41A25DF763950BA828C137ED9CD5E /* FirebaseInstanceID-iOS9.2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "FirebaseInstanceID-iOS9.2.debug.xcconfig"; path = "../FirebaseInstanceID-iOS9.2/FirebaseInstanceID-iOS9.2.debug.xcconfig"; sourceTree = "<group>"; };
+		560CF12B54EE3040DED4D08F2C3A0A70 /* GoogleSymbolUtilities-iOS8.0.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "GoogleSymbolUtilities-iOS8.0.debug.xcconfig"; sourceTree = "<group>"; };
+		5AB253157C2EE440B58C7AEC2EEB7ABE /* FirebaseAnalytics-iOS9.2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "FirebaseAnalytics-iOS9.2.release.xcconfig"; path = "../FirebaseAnalytics-iOS9.2/FirebaseAnalytics-iOS9.2.release.xcconfig"; sourceTree = "<group>"; };
+		60B86A17FABA05EA95D58413063D57EB /* Pods-FlickIt-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-FlickIt-acknowledgements.plist"; sourceTree = "<group>"; };
+		61BB7577FA96952FD1A703BE445F6160 /* Analytics.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Analytics.h; path = Headers/Analytics.h; sourceTree = "<group>"; };
+		62417AA9E05AD3B86A538C0BC006F9A2 /* GoogleInterchangeUtilities-iOS8.0.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "GoogleInterchangeUtilities-iOS8.0.debug.xcconfig"; sourceTree = "<group>"; };
+		6309BCBA44A857A56976D9E326554271 /* FirebaseInstanceID-iOS8.0.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "FirebaseInstanceID-iOS8.0.release.xcconfig"; sourceTree = "<group>"; };
+		6573CA76B4A918C92A96FB47DF2DB086 /* Pods-FlickItUITests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-FlickItUITests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		66FDC5672CDA48B5F1740512A2B9698A /* Core.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Core.h; path = Headers/Core.h; sourceTree = "<group>"; };
+		698E202A4D10F02C85E534154513B13B /* GAIFields.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GAIFields.h; path = Headers/Public/GAIFields.h; sourceTree = "<group>"; };
+		6B1209372A55602FB7C24D72E51A0449 /* Pods-FlickItUITests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-FlickItUITests-dummy.m"; sourceTree = "<group>"; };
+		6F15C7AD14CFA189E5177B67C8BC3CD7 /* GAIDictionaryBuilder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GAIDictionaryBuilder.h; path = Headers/Public/GAIDictionaryBuilder.h; sourceTree = "<group>"; };
+		6F28A980E8361A973F029306177F27ED /* Pods-FlickIt.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-FlickIt.debug.xcconfig"; sourceTree = "<group>"; };
+		722D334069DBAD4B229C232D896B4DCF /* GoogleUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleUtilities.framework; path = Frameworks/GoogleUtilities.framework; sourceTree = "<group>"; };
+		72FE39ED22D94CEBEA730477CE7A242D /* GoogleAnalytics-iOS9.2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "GoogleAnalytics-iOS9.2.debug.xcconfig"; path = "../GoogleAnalytics-iOS9.2/GoogleAnalytics-iOS9.2.debug.xcconfig"; sourceTree = "<group>"; };
+		731EF7C6D98DAC83C92DFFE0141C44C0 /* GoogleAnalytics-iOS8.0.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "GoogleAnalytics-iOS8.0.debug.xcconfig"; sourceTree = "<group>"; };
+		7B138DE0A5E7696936D869FC21FEBE16 /* GoogleUtilities-iOS8.0.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "GoogleUtilities-iOS8.0.debug.xcconfig"; sourceTree = "<group>"; };
+		7B72B58FEA93428FCADD7E5107610BE7 /* GAIEcommercePromotion.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GAIEcommercePromotion.h; path = Headers/Public/GAIEcommercePromotion.h; sourceTree = "<group>"; };
+		7D8ED7983B7B23C86F8D30E02AA953B2 /* Pods-FlickItUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-FlickItUITests.release.xcconfig"; sourceTree = "<group>"; };
+		80575584B256A96FE7F3E6ABDE746561 /* Pods-FlickIt.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-FlickIt.release.xcconfig"; sourceTree = "<group>"; };
+		80E250A198B011FCA871DACB496FBC07 /* Google-iOS8.0.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Google-iOS8.0.release.xcconfig"; sourceTree = "<group>"; };
+		8372F05B0FECF9E5560372F30AA09C57 /* FirebaseAnalytics-iOS8.0.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "FirebaseAnalytics-iOS8.0.release.xcconfig"; sourceTree = "<group>"; };
+		84D977204022382B6031F0C481E9021D /* GoogleUtilities-iOS8.0.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "GoogleUtilities-iOS8.0.release.xcconfig"; sourceTree = "<group>"; };
+		87BC87D559B25D6EB9807D16484E1F1C /* Pods-FlickItUITests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-FlickItUITests-acknowledgements.plist"; sourceTree = "<group>"; };
+		8DABA0428A7E267BCD9C9DCE6ABB1E3C /* libPods-FlickIt.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-FlickIt.a"; path = "libPods-FlickIt.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F411FAF140CB7AAAA2BBB9804D4507F /* Pods-FlickItTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-FlickItTests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		8F6FC49DBA839702C07390975B3B5F0F /* GoogleSymbolUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleSymbolUtilities.framework; path = Frameworks/GoogleSymbolUtilities.framework; sourceTree = "<group>"; };
+		8F8CC36D157DFDC1C900437AAEA68351 /* Pods-FlickItUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-FlickItUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		942B45CC54441B885EFA0942C074BC86 /* GAITracker.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GAITracker.h; path = Headers/Public/GAITracker.h; sourceTree = "<group>"; };
+		944A2759BCCDAC3678A306F7D7BEF69E /* GAI.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GAI.h; path = Headers/Public/GAI.h; sourceTree = "<group>"; };
+		9B3654466711F06F30075D15728C359E /* Pods-FlickItTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-FlickItTests-acknowledgements.plist"; sourceTree = "<group>"; };
+		9BD48C68CDA13FD9604993395EB9A0A4 /* GGLAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GGLAnalytics.framework; path = Frameworks/GGLAnalytics.framework; sourceTree = "<group>"; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		A22095DC8C4CA0333883C2768324A925 /* Core-Module.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "Core-Module.h"; path = "Headers/ModuleHeaders/Core-Module.h"; sourceTree = "<group>"; };
+		A31A0380FDFBF68A278B3D5CE8FBC43E /* libGoogleAnalytics.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGoogleAnalytics.a; path = Libraries/libGoogleAnalytics.a; sourceTree = "<group>"; };
+		A6BA49B45E97EF77F683F650A6C11041 /* GoogleInterchangeUtilities-iOS9.2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "GoogleInterchangeUtilities-iOS9.2.release.xcconfig"; path = "../GoogleInterchangeUtilities-iOS9.2/GoogleInterchangeUtilities-iOS9.2.release.xcconfig"; sourceTree = "<group>"; };
+		A719B4EEBA9C346451934FE7B55538DD /* Pods-FlickIt-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-FlickIt-dummy.m"; sourceTree = "<group>"; };
+		AAA1689854B245FCEFE0BFFBB23092D5 /* GoogleUtilities-iOS9.2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "GoogleUtilities-iOS9.2.release.xcconfig"; path = "../GoogleUtilities-iOS9.2/GoogleUtilities-iOS9.2.release.xcconfig"; sourceTree = "<group>"; };
+		AB98B3B6A6260FD77B47F4CE3B2CBC1F /* GoogleUtilities-iOS9.2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "GoogleUtilities-iOS9.2.debug.xcconfig"; path = "../GoogleUtilities-iOS9.2/GoogleUtilities-iOS9.2.debug.xcconfig"; sourceTree = "<group>"; };
+		B04ECCDA2D217B5D5395F2400CF4B404 /* FirebaseInstanceID-iOS8.0.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "FirebaseInstanceID-iOS8.0.debug.xcconfig"; sourceTree = "<group>"; };
+		BE1EF032A6F0DAD5EAC304CDFDE23049 /* GAITrackedViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GAITrackedViewController.h; path = Headers/Public/GAITrackedViewController.h; sourceTree = "<group>"; };
+		BEA2527A41A8EFFD53689238A775C209 /* GAIEcommerceProductAction.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GAIEcommerceProductAction.h; path = Headers/Public/GAIEcommerceProductAction.h; sourceTree = "<group>"; };
+		BF128827B6F3D92099E546951FC0E001 /* GAILogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GAILogger.h; path = Headers/Public/GAILogger.h; sourceTree = "<group>"; };
+		C8362813F5E15747A2897FF7AEFC10DC /* GoogleAnalytics-iOS9.2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "GoogleAnalytics-iOS9.2.release.xcconfig"; path = "../GoogleAnalytics-iOS9.2/GoogleAnalytics-iOS9.2.release.xcconfig"; sourceTree = "<group>"; };
+		CBECE62A3F5BBBFF395A23B8560C2664 /* Analytics-Module.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "Analytics-Module.h"; path = "Headers/ModuleHeaders/Analytics-Module.h"; sourceTree = "<group>"; };
+		D04A4FD1242D088FF1E0145D7BB93101 /* SignIn-Module.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "SignIn-Module.h"; path = "Headers/ModuleHeaders/SignIn-Module.h"; sourceTree = "<group>"; };
+		D39F7E969D4F3297E825DE7D0A5CD5E4 /* GoogleInterchangeUtilities-iOS9.2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "GoogleInterchangeUtilities-iOS9.2.debug.xcconfig"; path = "../GoogleInterchangeUtilities-iOS9.2/GoogleInterchangeUtilities-iOS9.2.debug.xcconfig"; sourceTree = "<group>"; };
+		D75E20D3C05087EABD1FC32A326C58F6 /* FIRInstanceID.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FIRInstanceID.h; path = Headers/Public/FIRInstanceID.h; sourceTree = "<group>"; };
+		E0820D439B8E3EBF19F0281BC0431A2D /* Pods-FlickItTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-FlickItTests-dummy.m"; sourceTree = "<group>"; };
+		E559829187606F265F30AE41CCE5F7C6 /* GAIEcommerceProduct.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GAIEcommerceProduct.h; path = Headers/Public/GAIEcommerceProduct.h; sourceTree = "<group>"; };
+		E6BF22E0487DDEAECBB8AA34FCFD82B7 /* GoogleAnalytics-iOS8.0.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "GoogleAnalytics-iOS8.0.release.xcconfig"; sourceTree = "<group>"; };
+		E6D865089A4E36CA4F3A597283347241 /* GoogleInterchangeUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleInterchangeUtilities.framework; path = Frameworks/GoogleInterchangeUtilities.framework; sourceTree = "<group>"; };
+		FA254175BE2AF355C9B5960CE17E542C /* FirebaseAnalytics-iOS8.0.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "FirebaseAnalytics-iOS8.0.debug.xcconfig"; sourceTree = "<group>"; };
+		FC3560CF3D1E2D42574AEF9492FBA7EC /* GoogleSymbolUtilities-iOS8.0.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "GoogleSymbolUtilities-iOS8.0.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3A1848B9AB8F08E37D403DC5863994AE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3B83C6895F6855FC5E790D4C1A001299 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		591D70EA53B8905E626728BD9272CC47 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		09D8696BABA797BA65CF2A4140454E26 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A31A0380FDFBF68A278B3D5CE8FBC43E /* libGoogleAnalytics.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		0A3B787C06358E3E487B1179B570849D /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				7B138DE0A5E7696936D869FC21FEBE16 /* GoogleUtilities-iOS8.0.debug.xcconfig */,
+				84D977204022382B6031F0C481E9021D /* GoogleUtilities-iOS8.0.release.xcconfig */,
+				AB98B3B6A6260FD77B47F4CE3B2CBC1F /* GoogleUtilities-iOS9.2.debug.xcconfig */,
+				AAA1689854B245FCEFE0BFFBB23092D5 /* GoogleUtilities-iOS9.2.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/GoogleUtilities-iOS8.0";
+			sourceTree = "<group>";
+		};
+		0F1D511AF2BE5244A7C65EA7069F0132 /* Pods-FlickItTests */ = {
+			isa = PBXGroup;
+			children = (
+				8F411FAF140CB7AAAA2BBB9804D4507F /* Pods-FlickItTests-acknowledgements.markdown */,
+				9B3654466711F06F30075D15728C359E /* Pods-FlickItTests-acknowledgements.plist */,
+				E0820D439B8E3EBF19F0281BC0431A2D /* Pods-FlickItTests-dummy.m */,
+				0FD34742262284BB7D7F67902C777060 /* Pods-FlickItTests.debug.xcconfig */,
+				503DBE3E3BAE3B1AEFA89A3DA8ED17B0 /* Pods-FlickItTests.release.xcconfig */,
+			);
+			name = "Pods-FlickItTests";
+			path = "Target Support Files/Pods-FlickItTests";
+			sourceTree = "<group>";
+		};
+		14F6840D1A20A19DDF88E32D4890BD5F /* Pods-FlickItUITests */ = {
+			isa = PBXGroup;
+			children = (
+				6573CA76B4A918C92A96FB47DF2DB086 /* Pods-FlickItUITests-acknowledgements.markdown */,
+				87BC87D559B25D6EB9807D16484E1F1C /* Pods-FlickItUITests-acknowledgements.plist */,
+				6B1209372A55602FB7C24D72E51A0449 /* Pods-FlickItUITests-dummy.m */,
+				8F8CC36D157DFDC1C900437AAEA68351 /* Pods-FlickItUITests.debug.xcconfig */,
+				7D8ED7983B7B23C86F8D30E02AA953B2 /* Pods-FlickItUITests.release.xcconfig */,
+			);
+			name = "Pods-FlickItUITests";
+			path = "Target Support Files/Pods-FlickItUITests";
+			sourceTree = "<group>";
+		};
+		1BBDA9B8815B9E1DE7616F8C29394AFD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8F6FC49DBA839702C07390975B3B5F0F /* GoogleSymbolUtilities.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		252FE89E6139E8B8C35B62A563CE32FB /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				B04ECCDA2D217B5D5395F2400CF4B404 /* FirebaseInstanceID-iOS8.0.debug.xcconfig */,
+				6309BCBA44A857A56976D9E326554271 /* FirebaseInstanceID-iOS8.0.release.xcconfig */,
+				54A41A25DF763950BA828C137ED9CD5E /* FirebaseInstanceID-iOS9.2.debug.xcconfig */,
+				19607852B7419532859CF6D240F70CDA /* FirebaseInstanceID-iOS9.2.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/FirebaseInstanceID-iOS8.0";
+			sourceTree = "<group>";
+		};
+		2CD80B11E250FEB30EE6083B2A5B42DE /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				731EF7C6D98DAC83C92DFFE0141C44C0 /* GoogleAnalytics-iOS8.0.debug.xcconfig */,
+				E6BF22E0487DDEAECBB8AA34FCFD82B7 /* GoogleAnalytics-iOS8.0.release.xcconfig */,
+				72FE39ED22D94CEBEA730477CE7A242D /* GoogleAnalytics-iOS9.2.debug.xcconfig */,
+				C8362813F5E15747A2897FF7AEFC10DC /* GoogleAnalytics-iOS9.2.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/GoogleAnalytics-iOS8.0";
+			sourceTree = "<group>";
+		};
+		3A2F6958EA47838356F2BEDAADA3C17D /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				560CF12B54EE3040DED4D08F2C3A0A70 /* GoogleSymbolUtilities-iOS8.0.debug.xcconfig */,
+				FC3560CF3D1E2D42574AEF9492FBA7EC /* GoogleSymbolUtilities-iOS8.0.release.xcconfig */,
+				3AF83EA9EB76CC499DC56589C9698647 /* GoogleSymbolUtilities-iOS9.2.debug.xcconfig */,
+				5319D00CE1FE37C81CAD4EBEDEB5C115 /* GoogleSymbolUtilities-iOS9.2.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/GoogleSymbolUtilities-iOS8.0";
+			sourceTree = "<group>";
+		};
+		43BE8AA7A323D4CABDC573FB7093EA59 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4D618E3C104410AE9343AC9C453F1F26 /* FirebaseInstanceID.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		49AF4EA1BDC0227FABBD8B29945C516B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8DABA0428A7E267BCD9C9DCE6ABB1E3C /* libPods-FlickIt.a */,
+				169C4B73BED50D227815032CCFB439D0 /* libPods-FlickItTests.a */,
+				48FBAA97AC4C9A199E2DC5914C8793AA /* libPods-FlickItUITests.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4E8AB1382451C114B10B7A08E0705B0F /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				25D1A7A90942850A020AF7C5C40678BC /* Google-iOS8.0.debug.xcconfig */,
+				80E250A198B011FCA871DACB496FBC07 /* Google-iOS8.0.release.xcconfig */,
+				08E3433A73E44BDBD3AEAD3C799FE0CF /* Google-iOS9.2.debug.xcconfig */,
+				13737C289312DF74F3E1A3A2CCD2C89A /* Google-iOS9.2.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/Google-iOS8.0";
+			sourceTree = "<group>";
+		};
+		5AACA23CAFC1F80BBA475300F1461A05 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9BD48C68CDA13FD9604993395EB9A0A4 /* GGLAnalytics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6FC18D94EE41060FAD0B4137287B23F9 /* GoogleAnalytics */ = {
+			isa = PBXGroup;
+			children = (
+				944A2759BCCDAC3678A306F7D7BEF69E /* GAI.h */,
+				6F15C7AD14CFA189E5177B67C8BC3CD7 /* GAIDictionaryBuilder.h */,
+				3D07CC41F674CB7AC0F0C7FA6288F7DA /* GAIEcommerceFields.h */,
+				E559829187606F265F30AE41CCE5F7C6 /* GAIEcommerceProduct.h */,
+				BEA2527A41A8EFFD53689238A775C209 /* GAIEcommerceProductAction.h */,
+				7B72B58FEA93428FCADD7E5107610BE7 /* GAIEcommercePromotion.h */,
+				698E202A4D10F02C85E534154513B13B /* GAIFields.h */,
+				BF128827B6F3D92099E546951FC0E001 /* GAILogger.h */,
+				BE1EF032A6F0DAD5EAC304CDFDE23049 /* GAITrackedViewController.h */,
+				942B45CC54441B885EFA0942C074BC86 /* GAITracker.h */,
+				09D8696BABA797BA65CF2A4140454E26 /* Frameworks */,
+				2CD80B11E250FEB30EE6083B2A5B42DE /* Support Files */,
+			);
+			name = GoogleAnalytics;
+			path = GoogleAnalytics;
+			sourceTree = "<group>";
+		};
+		762488FDD68826CF4D61DEEBEC31D66C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E6D865089A4E36CA4F3A597283347241 /* GoogleInterchangeUtilities.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		854AF5D0EBC57BA4F4DBD8CECCE11C3B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				53286A1F6941D4B489A41998BE29C583 /* FirebaseAnalytics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		87E33670477D3B80DF1390C2343ADB3D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A11CAA0BCC64589C761774C126BBB59F /* FirebaseAnalytics */,
+				E4B4AE0A61958B79F5C9AE8E2BA40D98 /* FirebaseInstanceID */,
+				880126C4BF1044E13BBA6E7E0F02BCF9 /* Google */,
+				6FC18D94EE41060FAD0B4137287B23F9 /* GoogleAnalytics */,
+				DC3AB5208671BFCDC51711084268178F /* GoogleInterchangeUtilities */,
+				E56A78BB3BE6C608C69D1C7E832FF321 /* GoogleSymbolUtilities */,
+				E5C62C1BC231064C216CDF35F82067CD /* GoogleUtilities */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		880126C4BF1044E13BBA6E7E0F02BCF9 /* Google */ = {
+			isa = PBXGroup;
+			children = (
+				D5AA32577DB9AC46A0B30196C6286666 /* Analytics */,
+				DD20A1E79C6CE9DC316CEB2FD15957C8 /* Core */,
+				4E8AB1382451C114B10B7A08E0705B0F /* Support Files */,
+			);
+			name = Google;
+			path = Google;
+			sourceTree = "<group>";
+		};
+		A11CAA0BCC64589C761774C126BBB59F /* FirebaseAnalytics */ = {
+			isa = PBXGroup;
+			children = (
+				854AF5D0EBC57BA4F4DBD8CECCE11C3B /* Frameworks */,
+				F8476C98D7282CCBF1A2805D7C6DF012 /* Support Files */,
+			);
+			name = FirebaseAnalytics;
+			path = FirebaseAnalytics;
+			sourceTree = "<group>";
+		};
+		A995E58FB19935B4917E1D9FC9156965 /* Pods-FlickIt */ = {
+			isa = PBXGroup;
+			children = (
+				036BD995C11F25E1DD756012737F7035 /* Pods-FlickIt-acknowledgements.markdown */,
+				60B86A17FABA05EA95D58413063D57EB /* Pods-FlickIt-acknowledgements.plist */,
+				A719B4EEBA9C346451934FE7B55538DD /* Pods-FlickIt-dummy.m */,
+				6F28A980E8361A973F029306177F27ED /* Pods-FlickIt.debug.xcconfig */,
+				80575584B256A96FE7F3E6ABDE746561 /* Pods-FlickIt.release.xcconfig */,
+			);
+			name = "Pods-FlickIt";
+			path = "Target Support Files/Pods-FlickIt";
+			sourceTree = "<group>";
+		};
+		BB2BA9CCAC500C867E2B585FF2F3F520 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				62417AA9E05AD3B86A538C0BC006F9A2 /* GoogleInterchangeUtilities-iOS8.0.debug.xcconfig */,
+				0521AA8F473A6F3B298896AFAD31748C /* GoogleInterchangeUtilities-iOS8.0.release.xcconfig */,
+				D39F7E969D4F3297E825DE7D0A5CD5E4 /* GoogleInterchangeUtilities-iOS9.2.debug.xcconfig */,
+				A6BA49B45E97EF77F683F650A6C11041 /* GoogleInterchangeUtilities-iOS9.2.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/GoogleInterchangeUtilities-iOS8.0";
+			sourceTree = "<group>";
+		};
+		CF1408CF629C7361332E53B88F7BD30C = {
+			isa = PBXGroup;
+			children = (
+				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
+				D89477F20FB1DE18A04690586D7808C4 /* Frameworks */,
+				87E33670477D3B80DF1390C2343ADB3D /* Pods */,
+				49AF4EA1BDC0227FABBD8B29945C516B /* Products */,
+				D77698738AA0F61B805BEB0353CFBEBB /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		D5AA32577DB9AC46A0B30196C6286666 /* Analytics */ = {
+			isa = PBXGroup;
+			children = (
+				61BB7577FA96952FD1A703BE445F6160 /* Analytics.h */,
+				5AACA23CAFC1F80BBA475300F1461A05 /* Frameworks */,
+			);
+			name = Analytics;
+			sourceTree = "<group>";
+		};
+		D77698738AA0F61B805BEB0353CFBEBB /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				A995E58FB19935B4917E1D9FC9156965 /* Pods-FlickIt */,
+				0F1D511AF2BE5244A7C65EA7069F0132 /* Pods-FlickItTests */,
+				14F6840D1A20A19DDF88E32D4890BD5F /* Pods-FlickItUITests */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		D89477F20FB1DE18A04690586D7808C4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DC3AB5208671BFCDC51711084268178F /* GoogleInterchangeUtilities */ = {
+			isa = PBXGroup;
+			children = (
+				762488FDD68826CF4D61DEEBEC31D66C /* Frameworks */,
+				BB2BA9CCAC500C867E2B585FF2F3F520 /* Support Files */,
+			);
+			name = GoogleInterchangeUtilities;
+			path = GoogleInterchangeUtilities;
+			sourceTree = "<group>";
+		};
+		DCDAA594C511D13E9F44F0D036E7DAEF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				722D334069DBAD4B229C232D896B4DCF /* GoogleUtilities.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DD20A1E79C6CE9DC316CEB2FD15957C8 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				CBECE62A3F5BBBFF395A23B8560C2664 /* Analytics-Module.h */,
+				66FDC5672CDA48B5F1740512A2B9698A /* Core.h */,
+				A22095DC8C4CA0333883C2768324A925 /* Core-Module.h */,
+				D04A4FD1242D088FF1E0145D7BB93101 /* SignIn-Module.h */,
+				E09F22D3D5AE7C030CEE11F6FDFDACEB /* Frameworks */,
+			);
+			name = Core;
+			sourceTree = "<group>";
+		};
+		E09F22D3D5AE7C030CEE11F6FDFDACEB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2ED33579160697E59B523774E48406EA /* GGLCore.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E4B4AE0A61958B79F5C9AE8E2BA40D98 /* FirebaseInstanceID */ = {
+			isa = PBXGroup;
+			children = (
+				D75E20D3C05087EABD1FC32A326C58F6 /* FIRInstanceID.h */,
+				43BE8AA7A323D4CABDC573FB7093EA59 /* Frameworks */,
+				252FE89E6139E8B8C35B62A563CE32FB /* Support Files */,
+			);
+			name = FirebaseInstanceID;
+			path = FirebaseInstanceID;
+			sourceTree = "<group>";
+		};
+		E56A78BB3BE6C608C69D1C7E832FF321 /* GoogleSymbolUtilities */ = {
+			isa = PBXGroup;
+			children = (
+				1BBDA9B8815B9E1DE7616F8C29394AFD /* Frameworks */,
+				3A2F6958EA47838356F2BEDAADA3C17D /* Support Files */,
+			);
+			name = GoogleSymbolUtilities;
+			path = GoogleSymbolUtilities;
+			sourceTree = "<group>";
+		};
+		E5C62C1BC231064C216CDF35F82067CD /* GoogleUtilities */ = {
+			isa = PBXGroup;
+			children = (
+				DCDAA594C511D13E9F44F0D036E7DAEF /* Frameworks */,
+				0A3B787C06358E3E487B1179B570849D /* Support Files */,
+			);
+			name = GoogleUtilities;
+			path = GoogleUtilities;
+			sourceTree = "<group>";
+		};
+		F8476C98D7282CCBF1A2805D7C6DF012 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				FA254175BE2AF355C9B5960CE17E542C /* FirebaseAnalytics-iOS8.0.debug.xcconfig */,
+				8372F05B0FECF9E5560372F30AA09C57 /* FirebaseAnalytics-iOS8.0.release.xcconfig */,
+				50783290B7ECCEC5D1E633229687BFEA /* FirebaseAnalytics-iOS9.2.debug.xcconfig */,
+				5AB253157C2EE440B58C7AEC2EEB7ABE /* FirebaseAnalytics-iOS9.2.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/FirebaseAnalytics-iOS8.0";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		990EA1182D148E4B5D85D5794B0911F3 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ABBCBE4D84A47C00139E122EDF8AB85C /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B89FF0E83815DBAB45D07815D7C60D7E /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		3FFF181D1CB1E4A9FB7C8A62314C74B8 /* Pods-FlickItTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C346A21D1B20919C7D12BCE179A4C8D7 /* Build configuration list for PBXNativeTarget "Pods-FlickItTests" */;
+			buildPhases = (
+				ABBCBE4D84A47C00139E122EDF8AB85C /* Headers */,
+				5A0D95475CCDB87D79057ABD983226CE /* Sources */,
+				3A1848B9AB8F08E37D403DC5863994AE /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				43914DE04A07E036C2D42C0FBF2B8056 /* PBXTargetDependency */,
+				183C217533EF5DD84E28628DBB47BEE5 /* PBXTargetDependency */,
+				A1640C62F1D5F24ED8B87D7C2684B699 /* PBXTargetDependency */,
+				44459827E7B449D01A9E802CDDE26DA0 /* PBXTargetDependency */,
+				BF7BDFCB151000E462C1C3C8F4D3EA84 /* PBXTargetDependency */,
+				4B1880DE619BBB8B0EF4CBFC014B822E /* PBXTargetDependency */,
+				BDEC58A7977A8EE7D69193CAE9F0B6C0 /* PBXTargetDependency */,
+			);
+			name = "Pods-FlickItTests";
+			productName = "Pods-FlickItTests";
+			productReference = 169C4B73BED50D227815032CCFB439D0 /* libPods-FlickItTests.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		D932FCBC6EBBEE44CCE6467820688D5B /* Pods-FlickItUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9731520F05A6A4D1E1CB79383D3765FE /* Build configuration list for PBXNativeTarget "Pods-FlickItUITests" */;
+			buildPhases = (
+				B89FF0E83815DBAB45D07815D7C60D7E /* Headers */,
+				CB94D091A58E47AE3007F2905345EF4D /* Sources */,
+				3B83C6895F6855FC5E790D4C1A001299 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				57938F0E776FD4C322AE758C4A872E89 /* PBXTargetDependency */,
+				CFA960D39E5F9776F0A52D4E8E55F4E3 /* PBXTargetDependency */,
+				45A878E13178355B6B5E79A7F294B442 /* PBXTargetDependency */,
+				C68FD78EE51BBB77170468CD0107DB2D /* PBXTargetDependency */,
+				B2B12A89F02CA1A6A3A6C32DF45283B0 /* PBXTargetDependency */,
+				68AE5506AF6F34C2758DD98CEBF37F4D /* PBXTargetDependency */,
+				F65631E517E3EE865AB56234EACDE036 /* PBXTargetDependency */,
+			);
+			name = "Pods-FlickItUITests";
+			productName = "Pods-FlickItUITests";
+			productReference = 48FBAA97AC4C9A199E2DC5914C8793AA /* libPods-FlickItUITests.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		F2787A555827CCBA6C4C9BF54044C4D9 /* Pods-FlickIt */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 945CD56E01C203163A56A67B9D463967 /* Build configuration list for PBXNativeTarget "Pods-FlickIt" */;
+			buildPhases = (
+				990EA1182D148E4B5D85D5794B0911F3 /* Headers */,
+				367371148C0AF637DCF7155B775F4C55 /* Sources */,
+				591D70EA53B8905E626728BD9272CC47 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D2128FA1C42D57FCB78F9ADECE6E0892 /* PBXTargetDependency */,
+				902FE792A9BD51DEF3027A3DD0E40AFE /* PBXTargetDependency */,
+				8C56EB474EF6B2F3574423898D8F0166 /* PBXTargetDependency */,
+				8CC439B96A7BF3004203387A5C2BF3CD /* PBXTargetDependency */,
+				A72DD268CB01041A774DFAA4DB7D109C /* PBXTargetDependency */,
+				BC202279872624E64E7DE000DA245A06 /* PBXTargetDependency */,
+				2BCC75A93890FD8B671DEBC0EF3B7B45 /* PBXTargetDependency */,
+			);
+			name = "Pods-FlickIt";
+			productName = "Pods-FlickIt";
+			productReference = 8DABA0428A7E267BCD9C9DCE6ABB1E3C /* libPods-FlickIt.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BFDFE7DC352907FC980B868725387E98 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1100;
+				LastUpgradeCheck = 1100;
+			};
+			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
+			productRefGroup = 49AF4EA1BDC0227FABBD8B29945C516B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				96B5D1BD344C5A1B2A911927431D109F /* FirebaseAnalytics-iOS8.0 */,
+				F202BE62BB9F9B015F3FAF815EA607E1 /* FirebaseAnalytics-iOS9.2 */,
+				5D040628F1D8A0C8F588940D92E39755 /* FirebaseInstanceID-iOS8.0 */,
+				1E94AED3C7D35AB73D4247E60AA98A81 /* FirebaseInstanceID-iOS9.2 */,
+				EBD45AAF28275EC159A90D4E4151F04D /* Google-iOS8.0 */,
+				A1DB58313C0837C5F740FF5EDDA14214 /* Google-iOS9.2 */,
+				CE63DF287A6AE8D6BA3F9FA559260A99 /* GoogleAnalytics-iOS8.0 */,
+				90A5AA589B9503937A34A5D4E7A5FFE8 /* GoogleAnalytics-iOS9.2 */,
+				55A9FDEC9AB9591B5C1137422710CF59 /* GoogleInterchangeUtilities-iOS8.0 */,
+				1AAE52F7E122BB37D7BDABFC02B5C5D6 /* GoogleInterchangeUtilities-iOS9.2 */,
+				E2EDB3D115BDD6F85B5D9B0BA491BC65 /* GoogleSymbolUtilities-iOS8.0 */,
+				1326C3E61A23EEE78A97F4787F220A13 /* GoogleSymbolUtilities-iOS9.2 */,
+				2F9718C2FA7C7083DADF89B02384E7F0 /* GoogleUtilities-iOS8.0 */,
+				4C75F8DE5F5390A537792861A9E225D0 /* GoogleUtilities-iOS9.2 */,
+				F2787A555827CCBA6C4C9BF54044C4D9 /* Pods-FlickIt */,
+				3FFF181D1CB1E4A9FB7C8A62314C74B8 /* Pods-FlickItTests */,
+				D932FCBC6EBBEE44CCE6467820688D5B /* Pods-FlickItUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		367371148C0AF637DCF7155B775F4C55 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				470530AD6CDF018EA01B9799DCCB1181 /* Pods-FlickIt-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5A0D95475CCDB87D79057ABD983226CE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				530910AE6C9C2D47E3E3AA312B06F9CA /* Pods-FlickItTests-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CB94D091A58E47AE3007F2905345EF4D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				807F2AF97688AD35AE5E8F538BB3F7E1 /* Pods-FlickItUITests-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		183C217533EF5DD84E28628DBB47BEE5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "FirebaseInstanceID-iOS9.2";
+			target = 1E94AED3C7D35AB73D4247E60AA98A81 /* FirebaseInstanceID-iOS9.2 */;
+			targetProxy = 2A3FCE2409BF5BF71C3C7F5175CF5959 /* PBXContainerItemProxy */;
+		};
+		2BCC75A93890FD8B671DEBC0EF3B7B45 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "GoogleUtilities-iOS8.0";
+			target = 2F9718C2FA7C7083DADF89B02384E7F0 /* GoogleUtilities-iOS8.0 */;
+			targetProxy = BE1649FBCF97334A92BB9139447BB028 /* PBXContainerItemProxy */;
+		};
+		2BD1F2741FCB03CB8AEDBF43B4393900 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "GoogleSymbolUtilities-iOS8.0";
+			target = E2EDB3D115BDD6F85B5D9B0BA491BC65 /* GoogleSymbolUtilities-iOS8.0 */;
+			targetProxy = C6C5B16C080E659F3F1EBBD8AC42BF9B /* PBXContainerItemProxy */;
+		};
+		367014F9A3AE0B5C6F3433A631AEFC5D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "GoogleSymbolUtilities-iOS8.0";
+			target = E2EDB3D115BDD6F85B5D9B0BA491BC65 /* GoogleSymbolUtilities-iOS8.0 */;
+			targetProxy = 9048DBB1075C6BDB81D6658B74A89DE5 /* PBXContainerItemProxy */;
+		};
+		3853DCD9C252E32E87C7029F22EAA781 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "GoogleInterchangeUtilities-iOS8.0";
+			target = 55A9FDEC9AB9591B5C1137422710CF59 /* GoogleInterchangeUtilities-iOS8.0 */;
+			targetProxy = BF923D365299E53A4FBAFF357C83CD20 /* PBXContainerItemProxy */;
+		};
+		3D2C141F3E6212A8AB2FAC9B85EE27CC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "GoogleInterchangeUtilities-iOS8.0";
+			target = 55A9FDEC9AB9591B5C1137422710CF59 /* GoogleInterchangeUtilities-iOS8.0 */;
+			targetProxy = 78A6719D98E97ABAE635820A205310BB /* PBXContainerItemProxy */;
+		};
+		434167E177680839BB5FD5EA0C444A2B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "FirebaseAnalytics-iOS8.0";
+			target = 96B5D1BD344C5A1B2A911927431D109F /* FirebaseAnalytics-iOS8.0 */;
+			targetProxy = 2A4DB7AC0A332172CEC3385B728C9573 /* PBXContainerItemProxy */;
+		};
+		43914DE04A07E036C2D42C0FBF2B8056 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "FirebaseAnalytics-iOS9.2";
+			target = F202BE62BB9F9B015F3FAF815EA607E1 /* FirebaseAnalytics-iOS9.2 */;
+			targetProxy = 79AD4E62D2AA079FD234B0F333E7A703 /* PBXContainerItemProxy */;
+		};
+		44459827E7B449D01A9E802CDDE26DA0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "GoogleAnalytics-iOS9.2";
+			target = 90A5AA589B9503937A34A5D4E7A5FFE8 /* GoogleAnalytics-iOS9.2 */;
+			targetProxy = F797CA01416165F473A2EB269D410D5D /* PBXContainerItemProxy */;
+		};
+		45A878E13178355B6B5E79A7F294B442 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Google-iOS9.2";
+			target = A1DB58313C0837C5F740FF5EDDA14214 /* Google-iOS9.2 */;
+			targetProxy = DBBDC9E98ECB5E91A8CBC5011E013B5C /* PBXContainerItemProxy */;
+		};
+		4B1880DE619BBB8B0EF4CBFC014B822E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "GoogleSymbolUtilities-iOS9.2";
+			target = 1326C3E61A23EEE78A97F4787F220A13 /* GoogleSymbolUtilities-iOS9.2 */;
+			targetProxy = 23E828CBAFF90FA2C45FBBE1E40F06A3 /* PBXContainerItemProxy */;
+		};
+		57938F0E776FD4C322AE758C4A872E89 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "FirebaseAnalytics-iOS9.2";
+			target = F202BE62BB9F9B015F3FAF815EA607E1 /* FirebaseAnalytics-iOS9.2 */;
+			targetProxy = 26AC1B034055F073EA288CA433CA3E2D /* PBXContainerItemProxy */;
+		};
+		6263C527B69E95CD317A71776560CD45 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "FirebaseInstanceID-iOS8.0";
+			target = 5D040628F1D8A0C8F588940D92E39755 /* FirebaseInstanceID-iOS8.0 */;
+			targetProxy = 5E27F1A44860498B99906A3BE59DE6FD /* PBXContainerItemProxy */;
+		};
+		68AE5506AF6F34C2758DD98CEBF37F4D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "GoogleSymbolUtilities-iOS9.2";
+			target = 1326C3E61A23EEE78A97F4787F220A13 /* GoogleSymbolUtilities-iOS9.2 */;
+			targetProxy = C09B021BD9FCFD75E938449628B4DC1C /* PBXContainerItemProxy */;
+		};
+		835CF37DE456DA5C86269186DCE1E621 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "GoogleUtilities-iOS8.0";
+			target = 2F9718C2FA7C7083DADF89B02384E7F0 /* GoogleUtilities-iOS8.0 */;
+			targetProxy = BAF420248C7953CC2CF36D87EFFF7C38 /* PBXContainerItemProxy */;
+		};
+		88C37733FF2AC14D0D2A2BDAAB2A9F87 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "GoogleAnalytics-iOS8.0";
+			target = CE63DF287A6AE8D6BA3F9FA559260A99 /* GoogleAnalytics-iOS8.0 */;
+			targetProxy = 9B1B2A540EE64DE45ABBBED88832434C /* PBXContainerItemProxy */;
+		};
+		8C56EB474EF6B2F3574423898D8F0166 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Google-iOS8.0";
+			target = EBD45AAF28275EC159A90D4E4151F04D /* Google-iOS8.0 */;
+			targetProxy = BABDDB695F584476E1C4AC768426740F /* PBXContainerItemProxy */;
+		};
+		8CC439B96A7BF3004203387A5C2BF3CD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "GoogleAnalytics-iOS8.0";
+			target = CE63DF287A6AE8D6BA3F9FA559260A99 /* GoogleAnalytics-iOS8.0 */;
+			targetProxy = A1363050ADE355C01D7C9E5388CD8FB5 /* PBXContainerItemProxy */;
+		};
+		902FE792A9BD51DEF3027A3DD0E40AFE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "FirebaseInstanceID-iOS8.0";
+			target = 5D040628F1D8A0C8F588940D92E39755 /* FirebaseInstanceID-iOS8.0 */;
+			targetProxy = 234422D0D1787F78D36CC14DCE332753 /* PBXContainerItemProxy */;
+		};
+		A1640C62F1D5F24ED8B87D7C2684B699 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Google-iOS9.2";
+			target = A1DB58313C0837C5F740FF5EDDA14214 /* Google-iOS9.2 */;
+			targetProxy = 2225B995F22FA70EE5419C7CF363B651 /* PBXContainerItemProxy */;
+		};
+		A72DD268CB01041A774DFAA4DB7D109C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "GoogleInterchangeUtilities-iOS8.0";
+			target = 55A9FDEC9AB9591B5C1137422710CF59 /* GoogleInterchangeUtilities-iOS8.0 */;
+			targetProxy = 6E05EA12EB7FFC89581FB9EDE7459D92 /* PBXContainerItemProxy */;
+		};
+		B1C9A9EBF54C79E5172F2061D0503AA3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "FirebaseInstanceID-iOS8.0";
+			target = 5D040628F1D8A0C8F588940D92E39755 /* FirebaseInstanceID-iOS8.0 */;
+			targetProxy = D9CD2E479459388ADB27648D6C39C20C /* PBXContainerItemProxy */;
+		};
+		B2B12A89F02CA1A6A3A6C32DF45283B0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "GoogleInterchangeUtilities-iOS9.2";
+			target = 1AAE52F7E122BB37D7BDABFC02B5C5D6 /* GoogleInterchangeUtilities-iOS9.2 */;
+			targetProxy = CE14161820E5595B5C602630FF74BFEB /* PBXContainerItemProxy */;
+		};
+		BC202279872624E64E7DE000DA245A06 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "GoogleSymbolUtilities-iOS8.0";
+			target = E2EDB3D115BDD6F85B5D9B0BA491BC65 /* GoogleSymbolUtilities-iOS8.0 */;
+			targetProxy = 32F63D22F50876369E93CEF5AD8BCFF7 /* PBXContainerItemProxy */;
+		};
+		BDEC58A7977A8EE7D69193CAE9F0B6C0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "GoogleUtilities-iOS9.2";
+			target = 4C75F8DE5F5390A537792861A9E225D0 /* GoogleUtilities-iOS9.2 */;
+			targetProxy = E7B9430DCCAFBADE3B6D4375623A183F /* PBXContainerItemProxy */;
+		};
+		BF7BDFCB151000E462C1C3C8F4D3EA84 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "GoogleInterchangeUtilities-iOS9.2";
+			target = 1AAE52F7E122BB37D7BDABFC02B5C5D6 /* GoogleInterchangeUtilities-iOS9.2 */;
+			targetProxy = 401FCA8466321C5D0256F1CF3F5065AB /* PBXContainerItemProxy */;
+		};
+		C68FD78EE51BBB77170468CD0107DB2D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "GoogleAnalytics-iOS9.2";
+			target = 90A5AA589B9503937A34A5D4E7A5FFE8 /* GoogleAnalytics-iOS9.2 */;
+			targetProxy = 5EFD1EE021FE95505F4B7716442DA784 /* PBXContainerItemProxy */;
+		};
+		CFA960D39E5F9776F0A52D4E8E55F4E3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "FirebaseInstanceID-iOS9.2";
+			target = 1E94AED3C7D35AB73D4247E60AA98A81 /* FirebaseInstanceID-iOS9.2 */;
+			targetProxy = 92F37812BD9E2FEDCA44E3392D2A8CDA /* PBXContainerItemProxy */;
+		};
+		D2128FA1C42D57FCB78F9ADECE6E0892 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "FirebaseAnalytics-iOS8.0";
+			target = 96B5D1BD344C5A1B2A911927431D109F /* FirebaseAnalytics-iOS8.0 */;
+			targetProxy = 183168009D833F95883FB417B90CB7B0 /* PBXContainerItemProxy */;
+		};
+		D3B1FE643A26D8A0A676CD159E68559B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "GoogleUtilities-iOS8.0";
+			target = 2F9718C2FA7C7083DADF89B02384E7F0 /* GoogleUtilities-iOS8.0 */;
+			targetProxy = B1501065D42A7C0AA99C5ADCE9A065E9 /* PBXContainerItemProxy */;
+		};
+		D504754789C3703A8F4A9B43E88748DB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "GoogleAnalytics-iOS8.0";
+			target = CE63DF287A6AE8D6BA3F9FA559260A99 /* GoogleAnalytics-iOS8.0 */;
+			targetProxy = 88EFEB6C98371CA8EC34D5318F268011 /* PBXContainerItemProxy */;
+		};
+		DCE4212101D5D0179C5936E0C17399B7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "GoogleSymbolUtilities-iOS8.0";
+			target = E2EDB3D115BDD6F85B5D9B0BA491BC65 /* GoogleSymbolUtilities-iOS8.0 */;
+			targetProxy = 4F90F17FBD95EA899EA5E4FE01120A41 /* PBXContainerItemProxy */;
+		};
+		E4A13558BC4FB214F383D481B624F538 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "FirebaseAnalytics-iOS8.0";
+			target = 96B5D1BD344C5A1B2A911927431D109F /* FirebaseAnalytics-iOS8.0 */;
+			targetProxy = F8CA3BB86D53B2C87768CC72A077E988 /* PBXContainerItemProxy */;
+		};
+		E6A4375C10D645DE8E566871E187E38C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "GoogleSymbolUtilities-iOS8.0";
+			target = E2EDB3D115BDD6F85B5D9B0BA491BC65 /* GoogleSymbolUtilities-iOS8.0 */;
+			targetProxy = AF6CDAAED442D8A9F921DA253DB96CC2 /* PBXContainerItemProxy */;
+		};
+		EF0B2D51DD9C5B03CEA581F0F5DF838A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "GoogleSymbolUtilities-iOS8.0";
+			target = E2EDB3D115BDD6F85B5D9B0BA491BC65 /* GoogleSymbolUtilities-iOS8.0 */;
+			targetProxy = 3AE13D97C415E4599E4D05238F1DAEB9 /* PBXContainerItemProxy */;
+		};
+		F65631E517E3EE865AB56234EACDE036 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "GoogleUtilities-iOS9.2";
+			target = 4C75F8DE5F5390A537792861A9E225D0 /* GoogleUtilities-iOS9.2 */;
+			targetProxy = B2713481525D29FFC967BD5DBA3115E5 /* PBXContainerItemProxy */;
+		};
+		FACEE0A00C4204F77764331306292869 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "GoogleSymbolUtilities-iOS8.0";
+			target = E2EDB3D115BDD6F85B5D9B0BA491BC65 /* GoogleSymbolUtilities-iOS8.0 */;
+			targetProxy = 9F84688260D8B7E8C532567993489203 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		03A6CF4B25899D05A337FEA9032D7BE0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 08E3433A73E44BDBD3AEAD3C799FE0CF /* Google-iOS9.2.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		135095F0E840B4C436B9750293674D25 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E6BF22E0487DDEAECBB8AA34FCFD82B7 /* GoogleAnalytics-iOS8.0.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		13D70471EA6E9C55448335F836FDD5D6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8372F05B0FECF9E5560372F30AA09C57 /* FirebaseAnalytics-iOS8.0.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		1E61068205ABAE5EBD39FB02337BD248 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5AB253157C2EE440B58C7AEC2EEB7ABE /* FirebaseAnalytics-iOS9.2.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		201C84B945E56088659362ED8C87D5FB /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 80E250A198B011FCA871DACB496FBC07 /* Google-iOS8.0.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		279A0DCFE261BC51AF36BBC77873690B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8F8CC36D157DFDC1C900437AAEA68351 /* Pods-FlickItUITests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MACH_O_TYPE = staticlib;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		2DFA7310667D7B2E116777425675786F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 731EF7C6D98DAC83C92DFFE0141C44C0 /* GoogleAnalytics-iOS8.0.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		31B3EB3E34935F76447CA236480BCC92 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 54A41A25DF763950BA828C137ED9CD5E /* FirebaseInstanceID-iOS9.2.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		32CD78D103DBC700216A769DFF0B0E35 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7B138DE0A5E7696936D869FC21FEBE16 /* GoogleUtilities-iOS8.0.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		3AF9AF02C86345F39E1EF1A58F7F39A0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 13737C289312DF74F3E1A3A2CCD2C89A /* Google-iOS9.2.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		4BE66A09A74FD25164AAB3C2645B9B93 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Release;
+		};
+		4E1CA27F8D3D82C03E253184D2CDD4F9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C8362813F5E15747A2897FF7AEFC10DC /* GoogleAnalytics-iOS9.2.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		74F178A487D431300DBAB1E5727D3A38 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6309BCBA44A857A56976D9E326554271 /* FirebaseInstanceID-iOS8.0.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		7EF7227D9B20A1D549000096ACCB23D7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		802A817BE4CC15187264B318E19F361E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A6BA49B45E97EF77F683F650A6C11041 /* GoogleInterchangeUtilities-iOS9.2.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		85C0141A38181E7FFD9B319276A2EE9D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0FD34742262284BB7D7F67902C777060 /* Pods-FlickItTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MACH_O_TYPE = staticlib;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		9A68FE061C38A12A7A109C5CD4D06B4F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FC3560CF3D1E2D42574AEF9492FBA7EC /* GoogleSymbolUtilities-iOS8.0.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		9F3DB799E4FEFADD50AE2A384AA9B69E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B04ECCDA2D217B5D5395F2400CF4B404 /* FirebaseInstanceID-iOS8.0.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		9FD0095EFE69D3387118991B17529759 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AB98B3B6A6260FD77B47F4CE3B2CBC1F /* GoogleUtilities-iOS9.2.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A80AC6EEF8AEECBC68EC61407FC3F414 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D39F7E969D4F3297E825DE7D0A5CD5E4 /* GoogleInterchangeUtilities-iOS9.2.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		AAF6977210162A2965DC46CA71053FEF /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 19607852B7419532859CF6D240F70CDA /* FirebaseInstanceID-iOS9.2.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AB0FF1940060DDAEC83CF831E916534D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 62417AA9E05AD3B86A538C0BC006F9A2 /* GoogleInterchangeUtilities-iOS8.0.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		AB8768D6DA63FB44245781500894BDB9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 50783290B7ECCEC5D1E633229687BFEA /* FirebaseAnalytics-iOS9.2.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B4F34C97461EC420E24B2963B1A74282 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7D8ED7983B7B23C86F8D30E02AA953B2 /* Pods-FlickItUITests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MACH_O_TYPE = staticlib;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		BBE2EC965D0C68B4210FE31DA000B5BF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3AF83EA9EB76CC499DC56589C9698647 /* GoogleSymbolUtilities-iOS9.2.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BC60A513E697638831A66CD61A1D5B72 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 84D977204022382B6031F0C481E9021D /* GoogleUtilities-iOS8.0.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		BEB02720F3A31E758A6D7307481A89B3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 25D1A7A90942850A020AF7C5C40678BC /* Google-iOS8.0.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C27272B0E503D1F790A7A5DFC63B2FC3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6F28A980E8361A973F029306177F27ED /* Pods-FlickIt.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACH_O_TYPE = staticlib;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C91D412A9B3A8A59097F7FFAEC76DBB3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 560CF12B54EE3040DED4D08F2C3A0A70 /* GoogleSymbolUtilities-iOS8.0.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		CD178CDC1238D3EE0FCD90C3604B18C5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5319D00CE1FE37C81CAD4EBEDEB5C115 /* GoogleSymbolUtilities-iOS9.2.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CE77C4139DDF2A5DB978A38085FA10AD /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0521AA8F473A6F3B298896AFAD31748C /* GoogleInterchangeUtilities-iOS8.0.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D0CC487FD23EEA02F75EAC6ECDC0E287 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 72FE39ED22D94CEBEA730477CE7A242D /* GoogleAnalytics-iOS9.2.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		ED8C015B45CE0C7DB6E3C74FBE50113F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 80575584B256A96FE7F3E6ABDE746561 /* Pods-FlickIt.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACH_O_TYPE = staticlib;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		EFC38922FFFC5994DB28CB14CBF8A934 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FA254175BE2AF355C9B5960CE17E542C /* FirebaseAnalytics-iOS8.0.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		FCFB288155FA44A367E44C2EF83BE262 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AAA1689854B245FCEFE0BFFBB23092D5 /* GoogleUtilities-iOS9.2.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		FED39A25E75EE77BCE3F457C8F8A9FA6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 503DBE3E3BAE3B1AEFA89A3DA8ED17B0 /* Pods-FlickItTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MACH_O_TYPE = staticlib;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		216DE881A92368F2AFA253D2CC84A7B3 /* Build configuration list for PBXAggregateTarget "GoogleAnalytics-iOS9.2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D0CC487FD23EEA02F75EAC6ECDC0E287 /* Debug */,
+				4E1CA27F8D3D82C03E253184D2CDD4F9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2291E6D7586BEF2FCACF6BBC63E4D409 /* Build configuration list for PBXAggregateTarget "FirebaseInstanceID-iOS9.2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				31B3EB3E34935F76447CA236480BCC92 /* Debug */,
+				AAF6977210162A2965DC46CA71053FEF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2C91ECDED3A315E4E9B6D9356A48A1B7 /* Build configuration list for PBXAggregateTarget "GoogleInterchangeUtilities-iOS9.2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A80AC6EEF8AEECBC68EC61407FC3F414 /* Debug */,
+				802A817BE4CC15187264B318E19F361E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3BCD60828F541DD77F0B059AB54C3A3C /* Build configuration list for PBXAggregateTarget "Google-iOS9.2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				03A6CF4B25899D05A337FEA9032D7BE0 /* Debug */,
+				3AF9AF02C86345F39E1EF1A58F7F39A0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4752A7CEFDACDE2E4A66C8F6407CF419 /* Build configuration list for PBXAggregateTarget "FirebaseAnalytics-iOS9.2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AB8768D6DA63FB44245781500894BDB9 /* Debug */,
+				1E61068205ABAE5EBD39FB02337BD248 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7EF7227D9B20A1D549000096ACCB23D7 /* Debug */,
+				4BE66A09A74FD25164AAB3C2645B9B93 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		89EF4F14C82D1EB7C4561468D88B98C3 /* Build configuration list for PBXAggregateTarget "GoogleSymbolUtilities-iOS8.0" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C91D412A9B3A8A59097F7FFAEC76DBB3 /* Debug */,
+				9A68FE061C38A12A7A109C5CD4D06B4F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		92AE3C14BB7F8AB63C244D2CDC9B4104 /* Build configuration list for PBXAggregateTarget "GoogleUtilities-iOS9.2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9FD0095EFE69D3387118991B17529759 /* Debug */,
+				FCFB288155FA44A367E44C2EF83BE262 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		945CD56E01C203163A56A67B9D463967 /* Build configuration list for PBXNativeTarget "Pods-FlickIt" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C27272B0E503D1F790A7A5DFC63B2FC3 /* Debug */,
+				ED8C015B45CE0C7DB6E3C74FBE50113F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9731520F05A6A4D1E1CB79383D3765FE /* Build configuration list for PBXNativeTarget "Pods-FlickItUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				279A0DCFE261BC51AF36BBC77873690B /* Debug */,
+				B4F34C97461EC420E24B2963B1A74282 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A17C697F231979F88DA8644B6174F2A4 /* Build configuration list for PBXAggregateTarget "GoogleInterchangeUtilities-iOS8.0" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AB0FF1940060DDAEC83CF831E916534D /* Debug */,
+				CE77C4139DDF2A5DB978A38085FA10AD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A3EA860F6A79FAC931AF2E0FE55C4D5B /* Build configuration list for PBXAggregateTarget "Google-iOS8.0" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BEB02720F3A31E758A6D7307481A89B3 /* Debug */,
+				201C84B945E56088659362ED8C87D5FB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AA43C72FA0BC081EB8D800F4A9D6EC3A /* Build configuration list for PBXAggregateTarget "GoogleUtilities-iOS8.0" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				32CD78D103DBC700216A769DFF0B0E35 /* Debug */,
+				BC60A513E697638831A66CD61A1D5B72 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C346A21D1B20919C7D12BCE179A4C8D7 /* Build configuration list for PBXNativeTarget "Pods-FlickItTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				85C0141A38181E7FFD9B319276A2EE9D /* Debug */,
+				FED39A25E75EE77BCE3F457C8F8A9FA6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E50F910B3A2D0C21174F9933473125A3 /* Build configuration list for PBXAggregateTarget "GoogleSymbolUtilities-iOS9.2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BBE2EC965D0C68B4210FE31DA000B5BF /* Debug */,
+				CD178CDC1238D3EE0FCD90C3604B18C5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E677265E5F34C315BF6BB3691ED3BD8F /* Build configuration list for PBXAggregateTarget "FirebaseInstanceID-iOS8.0" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9F3DB799E4FEFADD50AE2A384AA9B69E /* Debug */,
+				74F178A487D431300DBAB1E5727D3A38 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E7EBDAD1393C0163E691264D796B7478 /* Build configuration list for PBXAggregateTarget "GoogleAnalytics-iOS8.0" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2DFA7310667D7B2E116777425675786F /* Debug */,
+				135095F0E840B4C436B9750293674D25 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FAD26BE269522E41FC6CAA6D23CCCAC9 /* Build configuration list for PBXAggregateTarget "FirebaseAnalytics-iOS8.0" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EFC38922FFFC5994DB28CB14CBF8A934 /* Debug */,
+				13D70471EA6E9C55448335F836FDD5D6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+}

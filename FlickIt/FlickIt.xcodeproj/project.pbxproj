@@ -15,9 +15,6 @@
 		1C641B851DA9EC400072255F /* HomeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C641B841DA9EC400072255F /* HomeScene.swift */; };
 		1CD5BCA31D96FA8B009F46B6 /* GCHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD5BCA21D96FA8B009F46B6 /* GCHelper.swift */; };
 		1CD5BCA51D970EB0009F46B6 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CD5BCA41D970EB0009F46B6 /* GameKit.framework */; };
-		1CDEAD601D984CBF00D27214 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CDEAD5D1D984CBF00D27214 /* FBSDKCoreKit.framework */; };
-		1CDEAD611D984CBF00D27214 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CDEAD5E1D984CBF00D27214 /* FBSDKLoginKit.framework */; };
-		1CDEAD621D984CBF00D27214 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CDEAD5F1D984CBF00D27214 /* FBSDKShareKit.framework */; };
 		1CDEAD641D98516000D27214 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CDEAD631D98516000D27214 /* Bolts.framework */; };
 		1F19BEE31CB784B80030B930 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F19BEE21CB784B80030B930 /* GoogleService-Info.plist */; };
 		1F19BEE41CB784B80030B930 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F19BEE21CB784B80030B930 /* GoogleService-Info.plist */; };
@@ -30,7 +27,6 @@
 		1FA8C65D1C6FB1E40072E83F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FA8C65C1C6FB1E40072E83F /* Assets.xcassets */; };
 		1FA8C66B1C6FB1E40072E83F /* FlickItTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA8C66A1C6FB1E40072E83F /* FlickItTests.swift */; };
 		1FA8C6761C6FB1E40072E83F /* FlickItUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA8C6751C6FB1E40072E83F /* FlickItUITests.swift */; };
-		68F666C702121242D64B3C39 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2143432F0F4947862F575E02 /* libPods.a */; };
 		CF3B18DD1CB0D2F500C763E2 /* AboutScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF3B18DC1CB0D2F500C763E2 /* AboutScene.swift */; };
 		CF3B18DF1CB0D2FC00C763E2 /* RulesScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF3B18DE1CB0D2FC00C763E2 /* RulesScene.swift */; };
 /* End PBXBuildFile section */
@@ -81,11 +77,17 @@
 		1FA8C6711C6FB1E40072E83F /* FlickItUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlickItUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FA8C6751C6FB1E40072E83F /* FlickItUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickItUITests.swift; sourceTree = "<group>"; };
 		1FA8C6771C6FB1E40072E83F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2143432F0F4947862F575E02 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		671832A9E6B704EBA564C578 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		33FB74C7524348B4CA7AEDD6 /* Pods-FlickItTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlickItTests.debug.xcconfig"; path = "Target Support Files/Pods-FlickItTests/Pods-FlickItTests.debug.xcconfig"; sourceTree = "<group>"; };
+		3616D9476F561195DEA014CC /* Pods-FlickItTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlickItTests.release.xcconfig"; path = "Target Support Files/Pods-FlickItTests/Pods-FlickItTests.release.xcconfig"; sourceTree = "<group>"; };
+		5E01FDA237D42C353A49A9A0 /* Pods-FlickItUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlickItUITests.release.xcconfig"; path = "Target Support Files/Pods-FlickItUITests/Pods-FlickItUITests.release.xcconfig"; sourceTree = "<group>"; };
+		7D8702C02B6FF404FBDAF544 /* Pods-FlickItUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlickItUITests.debug.xcconfig"; path = "Target Support Files/Pods-FlickItUITests/Pods-FlickItUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		979DBDF3D44A78A1DF7B93D5 /* libPods-FlickItTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FlickItTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A2B55B9673082700F86F59AE /* libPods-FlickIt.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FlickIt.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B6021F627AFDCEAD1AB36D20 /* Pods-FlickIt.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlickIt.release.xcconfig"; path = "Target Support Files/Pods-FlickIt/Pods-FlickIt.release.xcconfig"; sourceTree = "<group>"; };
+		C0F28A9129F1D10AAAB11496 /* Pods-FlickIt.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlickIt.debug.xcconfig"; path = "Target Support Files/Pods-FlickIt/Pods-FlickIt.debug.xcconfig"; sourceTree = "<group>"; };
 		CF3B18DC1CB0D2F500C763E2 /* AboutScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutScene.swift; sourceTree = "<group>"; };
 		CF3B18DE1CB0D2FC00C763E2 /* RulesScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RulesScene.swift; sourceTree = "<group>"; };
-		E5159313417D3D50D48045D1 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		E537EDB4050C5036EBF24C7A /* libPods-FlickItUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FlickItUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,11 +95,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				68F666C702121242D64B3C39 /* libPods.a in Frameworks */,
-				1CDEAD601D984CBF00D27214 /* FBSDKCoreKit.framework in Frameworks */,
-				1CDEAD621D984CBF00D27214 /* FBSDKShareKit.framework in Frameworks */,
 				1CDEAD641D98516000D27214 /* Bolts.framework in Frameworks */,
-				1CDEAD611D984CBF00D27214 /* FBSDKLoginKit.framework in Frameworks */,
 				1CD5BCA51D970EB0009F46B6 /* GameKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -126,8 +124,8 @@
 				1FA8C6691C6FB1E40072E83F /* FlickItTests */,
 				1FA8C6741C6FB1E40072E83F /* FlickItUITests */,
 				1FA8C64F1C6FB1E40072E83F /* Products */,
-				F36E6A09D9CB1958EEC70987 /* Pods */,
 				5211FE1CBA31AF3965B71E66 /* Frameworks */,
+				E0568D40868B22B737B263C7 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -192,18 +190,24 @@
 				1CDEAD5E1D984CBF00D27214 /* FBSDKLoginKit.framework */,
 				1CDEAD5F1D984CBF00D27214 /* FBSDKShareKit.framework */,
 				1CD5BCA41D970EB0009F46B6 /* GameKit.framework */,
-				2143432F0F4947862F575E02 /* libPods.a */,
+				A2B55B9673082700F86F59AE /* libPods-FlickIt.a */,
+				979DBDF3D44A78A1DF7B93D5 /* libPods-FlickItTests.a */,
+				E537EDB4050C5036EBF24C7A /* libPods-FlickItUITests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		F36E6A09D9CB1958EEC70987 /* Pods */ = {
+		E0568D40868B22B737B263C7 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				671832A9E6B704EBA564C578 /* Pods.debug.xcconfig */,
-				E5159313417D3D50D48045D1 /* Pods.release.xcconfig */,
+				C0F28A9129F1D10AAAB11496 /* Pods-FlickIt.debug.xcconfig */,
+				B6021F627AFDCEAD1AB36D20 /* Pods-FlickIt.release.xcconfig */,
+				33FB74C7524348B4CA7AEDD6 /* Pods-FlickItTests.debug.xcconfig */,
+				3616D9476F561195DEA014CC /* Pods-FlickItTests.release.xcconfig */,
+				7D8702C02B6FF404FBDAF544 /* Pods-FlickItUITests.debug.xcconfig */,
+				5E01FDA237D42C353A49A9A0 /* Pods-FlickItUITests.release.xcconfig */,
 			);
-			name = Pods;
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -213,12 +217,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1FA8C67A1C6FB1E40072E83F /* Build configuration list for PBXNativeTarget "FlickIt" */;
 			buildPhases = (
-				6B01EBA804D218A904C4E7EB /* Check Pods Manifest.lock */,
+				0A6AE8CF66D378EEBC553F57 /* [CP] Check Pods Manifest.lock */,
 				1FA8C64A1C6FB1E40072E83F /* Sources */,
 				1FA8C64B1C6FB1E40072E83F /* Frameworks */,
 				1FA8C64C1C6FB1E40072E83F /* Resources */,
-				97B2733E023D20D9CFA91D50 /* Embed Pods Frameworks */,
-				235DA535850F4B3C3F6A3F86 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -233,6 +235,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1FA8C67D1C6FB1E40072E83F /* Build configuration list for PBXNativeTarget "FlickItTests" */;
 			buildPhases = (
+				EE2CB3756B2A9E700C2C6DEA /* [CP] Check Pods Manifest.lock */,
 				1FA8C6621C6FB1E40072E83F /* Sources */,
 				1FA8C6631C6FB1E40072E83F /* Frameworks */,
 				1FA8C6641C6FB1E40072E83F /* Resources */,
@@ -251,6 +254,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1FA8C6801C6FB1E40072E83F /* Build configuration list for PBXNativeTarget "FlickItUITests" */;
 			buildPhases = (
+				8DF89FAC474078428B37EA1A /* [CP] Check Pods Manifest.lock */,
 				1FA8C66D1C6FB1E40072E83F /* Sources */,
 				1FA8C66E1C6FB1E40072E83F /* Frameworks */,
 				1FA8C66F1C6FB1E40072E83F /* Resources */,
@@ -278,7 +282,7 @@
 					1FA8C64D1C6FB1E40072E83F = {
 						CreatedOnToolsVersion = 7.2.1;
 						DevelopmentTeam = Y2JVY29H4R;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 1010;
 						SystemCapabilities = {
 							com.apple.GameCenter = {
 								enabled = 1;
@@ -288,13 +292,13 @@
 					1FA8C6651C6FB1E40072E83F = {
 						CreatedOnToolsVersion = 7.2.1;
 						DevelopmentTeam = 2ZAB53W5TP;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 1010;
 						TestTargetID = 1FA8C64D1C6FB1E40072E83F;
 					};
 					1FA8C6701C6FB1E40072E83F = {
 						CreatedOnToolsVersion = 7.2.1;
 						DevelopmentTeam = 2ZAB53W5TP;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 1010;
 						TestTargetID = 1FA8C64D1C6FB1E40072E83F;
 					};
 				};
@@ -351,49 +355,70 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		235DA535850F4B3C3F6A3F86 /* Copy Pods Resources */ = {
+		0A6AE8CF66D378EEBC553F57 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
+			inputFileListPaths = (
 			);
-			name = "Copy Pods Resources";
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-FlickIt-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		6B01EBA804D218A904C4E7EB /* Check Pods Manifest.lock */ = {
+		8DF89FAC474078428B37EA1A /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
+			inputFileListPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-FlickItUITests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		97B2733E023D20D9CFA91D50 /* Embed Pods Frameworks */ = {
+		EE2CB3756B2A9E700C2C6DEA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
+			inputFileListPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-FlickItTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -545,7 +570,7 @@
 		};
 		1FA8C67B1C6FB1E40072E83F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 671832A9E6B704EBA564C578 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = C0F28A9129F1D10AAAB11496 /* Pods-FlickIt.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -562,13 +587,14 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "FlickIt/FlickIt-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
 		1FA8C67C1C6FB1E40072E83F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E5159313417D3D50D48045D1 /* Pods.release.xcconfig */;
+			baseConfigurationReference = B6021F627AFDCEAD1AB36D20 /* Pods-FlickIt.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -585,12 +611,14 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "FlickIt/FlickIt-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
 		1FA8C67E1C6FB1E40072E83F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 33FB74C7524348B4CA7AEDD6 /* Pods-FlickItTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -598,33 +626,38 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = test.FlickItTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.2;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FlickIt.app/FlickIt";
 			};
 			name = Debug;
 		};
 		1FA8C67F1C6FB1E40072E83F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3616D9476F561195DEA014CC /* Pods-FlickItTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = FlickItTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = test.FlickItTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.2;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FlickIt.app/FlickIt";
 			};
 			name = Release;
 		};
 		1FA8C6811C6FB1E40072E83F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7D8702C02B6FF404FBDAF544 /* Pods-FlickItUITests.debug.xcconfig */;
 			buildSettings = {
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				INFOPLIST_FILE = FlickItUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = test.FlickItUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.2;
 				TEST_TARGET_NAME = FlickIt;
 				USES_XCTRUNNER = YES;
 			};
@@ -632,12 +665,14 @@
 		};
 		1FA8C6821C6FB1E40072E83F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5E01FDA237D42C353A49A9A0 /* Pods-FlickItUITests.release.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = FlickItUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = test.FlickItUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.2;
 				TEST_TARGET_NAME = FlickIt;
 				USES_XCTRUNNER = YES;
 			};
