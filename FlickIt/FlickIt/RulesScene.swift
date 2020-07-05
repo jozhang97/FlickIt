@@ -149,17 +149,17 @@ class RulesScene: SKScene {
             
             // Configure the view.
             self.removeAllChildren()
-            let skView = self.view as SKView!
-            skView?.showsFPS = false
-            skView?.showsNodeCount = false
-            
-            /* Sprite Kit applies additional optimizations to improve rendering performance */
-            skView?.ignoresSiblingOrder = true
-            
-            /* Set the scale mode to scale to fit the window */
-            scene.scaleMode = .aspectFill
-            skView?.presentScene(scene)
-            
+            if let skView = self.view {
+                skView.showsFPS = false
+                skView.showsNodeCount = false
+                
+                /* Sprite Kit applies additional optimizations to improve rendering performance */
+                skView.ignoresSiblingOrder = true
+                
+                /* Set the scale mode to scale to fit the window */
+                scene.scaleMode = .aspectFill
+                skView.presentScene(scene)
+            }
         }
     }
     

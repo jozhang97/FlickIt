@@ -480,30 +480,32 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     func startAbout() {
         let scene: SKScene = AboutScene(size: self.size)
         // Configure the view.
-        let skView = self.view as SKView!
-        skView?.showsFPS = false
-        skView?.showsNodeCount = false
-        /* Sprite Kit applies additional optimizations to improve rendering performance */
-        skView?.ignoresSiblingOrder = true
-        /* Set the scale mode to scale to fit the window */
-        scene.scaleMode = .aspectFill
-        skView?.presentScene(scene)
+        if let skView = self.view {
+            skView.showsFPS = false
+            skView.showsNodeCount = false
+            /* Sprite Kit applies additional optimizations to improve rendering performance */
+            skView.ignoresSiblingOrder = true
+            /* Set the scale mode to scale to fit the window */
+            scene.scaleMode = .aspectFill
+            skView.presentScene(scene)
+        }
         
     }
     
     func startGame() {
         let scene: SKScene = StartGameScene(size: self.size)
         // Configure the view.
-        let skView = self.view as SKView!
-        skView?.showsFPS = false
-        skView?.showsNodeCount = false
+        if let skView = self.view {
+            skView.showsFPS = false
+            skView.showsNodeCount = false
             
-        /* Sprite Kit applies additional optimizations to improve rendering performance */
-        skView?.ignoresSiblingOrder = true
+            /* Sprite Kit applies additional optimizations to improve rendering performance */
+            skView.ignoresSiblingOrder = true
             
-        /* Set the scale mode to scale to fit the window */
-        scene.scaleMode = .aspectFill
-        skView?.presentScene(scene)
+            /* Set the scale mode to scale to fit the window */
+            scene.scaleMode = .aspectFill
+            skView.presentScene(scene)
+        }
         
     }
     

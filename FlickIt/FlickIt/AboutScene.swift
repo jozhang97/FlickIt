@@ -10,7 +10,6 @@ import AVFoundation
 import SpriteKit
 
 @available(iOS 10.0, *)
-@available(iOS 10.0, *)
 class AboutScene: SKScene {
     
     let sizeRect = UIScreen.main.applicationFrame;
@@ -148,17 +147,18 @@ class AboutScene: SKScene {
         let scene: SKScene = GameScene(size: self.size)
         
         // Configure the view.
-        let skView = self.view as SKView!
-        skView?.showsFPS = false
-        skView?.showsNodeCount = false
-        
-        /* Sprite Kit applies additional optimizations to improve rendering performance */
-        skView?.ignoresSiblingOrder = true
-        
-        /* Set the scale mode to scale to fit the window */
-        scene.scaleMode = .aspectFill
-        skView?.presentScene(scene)
-        
+        if let skView = self.view {
+            skView.showsFPS = false
+            skView.showsNodeCount = false
+            
+            /* Sprite Kit applies additional optimizations to improve rendering performance */
+            skView.ignoresSiblingOrder = true
+            
+            /* Set the scale mode to scale to fit the window */
+            scene.scaleMode = .aspectFill
+            skView.presentScene(scene)
+            
+        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -175,7 +175,4 @@ class AboutScene: SKScene {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    
-    
 }

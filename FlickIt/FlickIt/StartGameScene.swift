@@ -669,16 +669,17 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         let origScene = self
         scene.setOriginalScener(origScene)
         // Configure the view.
-        let skView = self.view as SKView!
-        skView?.showsFPS = false
-        skView?.showsNodeCount = false
-        
-        /* Sprite Kit applies additional optimizations to improve rendering performance */
-        skView?.ignoresSiblingOrder = true
-        
-        /* Set the scale mode to scale to fit the window */
-        scene.scaleMode = .aspectFill
-        skView?.presentScene(scene)
+        if let skView = self.view {
+            skView.showsFPS = false
+            skView.showsNodeCount = false
+            
+            /* Sprite Kit applies additional optimizations to improve rendering performance */
+            skView.ignoresSiblingOrder = true
+            
+            /* Set the scale mode to scale to fit the window */
+            scene.scaleMode = .aspectFill
+            skView.presentScene(scene)
+        }
     }
     
     func goToHome() {
@@ -687,14 +688,15 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         fbsend.removeFromSuperview()
         audioPlayer.stop()
         // Configure the view.
-        let skView = self.view as SKView!
-        skView?.showsFPS = false
-        skView?.showsNodeCount = false
-        /* Sprite Kit applies additional optimizations to improve rendering performance */
-        skView?.ignoresSiblingOrder = true
-        /* Set the scale mode to scale to fit the window */
-        scene.scaleMode = .aspectFill
-        skView?.presentScene(scene)
+        if let skView = self.view {
+            skView.showsFPS = false
+            skView.showsNodeCount = false
+            /* Sprite Kit applies additional optimizations to improve rendering performance */
+            skView.ignoresSiblingOrder = true
+            /* Set the scale mode to scale to fit the window */
+            scene.scaleMode = .aspectFill
+            skView.presentScene(scene)
+        }
     }
     
     var timeRequired = 1.6
@@ -1477,7 +1479,6 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
             let scoreArray : [GKScore] = [scoreReporter]
             GKScore.report(scoreArray, withCompletionHandler: {
                 (NSError) in
-                print(NSError)
                 return
             })
 //        }
@@ -1507,11 +1508,9 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
             gameCenterVC.gameCenterDelegate = self
             viewController?.dismiss(animated: true, completion: nil)
             
-            print(viewController?.presentedViewController) // thought this wasn't nil then can't put one vc on top of another
             viewController?.removeFromParent()
             
             viewController!.present(gameCenterVC, animated: true, completion: nil)
-            print(viewController?.presentedViewController)
             
             trackLeaderboard()
         }
@@ -1656,7 +1655,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         for node in self.children {
             if node.physicsBody?.categoryBitMask == PhysicsCategory.Shape {
                 let v = node.physicsBody?.velocity
-                print(v)
+                print(v!)
             }
         }
     }
