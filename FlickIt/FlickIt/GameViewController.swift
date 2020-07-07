@@ -41,12 +41,14 @@ class GameViewController: UIViewController, GADInterstitialDelegate {
     }
     
     public func showAdInterstitial(callbackFn: @escaping () -> Void) {
-        if interstitial.isReady {
-          interstitial.present(fromRootViewController: self)
-        } else {
-          print("Ad wasn't ready")
+        if (Int(arc4random_uniform(3)) == 0) {
+            if interstitial.isReady {
+                interstitial.present(fromRootViewController: self)
+                callback = callbackFn
+                return
+            }
         }
-        callback = callbackFn
+        callbackFn()
     }
     
     func interstitialDidDismissScreen(_ ad: GADInterstitial) {

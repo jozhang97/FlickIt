@@ -1508,7 +1508,6 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         } else {
             let viewController = self.view!.window?.rootViewController
             let gameCenterVC: GKGameCenterViewController! = GKGameCenterViewController()
-    //        let gameCenterVC: GKGameCenterViewController! = GKGameCenterViewController(rootViewController: viewController!)
             gameCenterVC.gameCenterDelegate = self
             viewController?.dismiss(animated: true, completion: nil)
             
