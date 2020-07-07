@@ -8,9 +8,13 @@
 
 import SpriteKit
 import Foundation
+struct PhysicsCategory {
+    static let Bin : UInt32 = 0x1 << 1
+    static let Shape : UInt32 = 0x1 << 2
+}
+
 class SpawnShape
 {
-
     let specialShapes = ["bomb", "heart"]
     var shapeCounter = [0,0,0,0,0,0]
     let delayTime = 1.7 // time between spawns

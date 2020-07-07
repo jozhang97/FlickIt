@@ -10,6 +10,7 @@ import AVFoundation
 import SpriteKit
 import GameKit
 import FBSDKShareKit
+import GoogleMobileAds
 
 @available(iOS 10.0, *)
 class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerDelegate {
@@ -54,6 +55,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     var pauseButton = SKSpriteNode(imageNamed: "pauseButton")
     var score = 0;
     var lives = 3;
+    var viewController = GameViewController.init()
     
     var pauseRestart = false
     
@@ -72,7 +74,6 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     var shapeToAdd = SKNode()
     var touched:Bool = false
     var shapeController: SpawnShape!
-    var gameSceneController: GameScene!
     var restartBTN = SKSpriteNode()
     var gameOver = false; // SET THESE
     var oldVelocities = [SKNode: CGVector]()
@@ -88,9 +89,9 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     let sizeRect = UIScreen.main.applicationFrame;
     var line = SKShapeNode()
     var touchedNode=SKNode()
-    let fbshare = FBSDKShareButton()
-    var fbsend = FBSDKSendButton()
-    let content = FBSDKShareLinkContent()
+    let fbshare = FBShareButton()
+    var fbsend = FBSendButton()
+    let content = ShareLinkContent()
     var gradient_colors = [CGColor]()
     var rotate_bins = arc4random_uniform(4)+6
 
@@ -110,8 +111,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     
     override init(size: CGSize) {
         super.init(size: size)
+        
         shapeController = SpawnShape()
-        gameSceneController = GameScene()
         lives = NUMBEROFLIFES
         sceneHeight = sizeRect.size.height * UIScreen.main.scale;
         sceneWidth = sizeRect.size.width * UIScreen.main.scale;
@@ -187,9 +188,8 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         fbshare.frame = CGRect(x: UIScreen.main.bounds.width/2-UIScreen.main.bounds.width/4-15, y: UIScreen.main.bounds.height*3.8/5, width: UIScreen.main.bounds.width/4, height: UIScreen.main.bounds.height/14)
         fbsend.frame = CGRect(x: UIScreen.main.bounds.width/2+15, y: UIScreen.main.bounds.height*3.8/5, width: UIScreen.main.bounds.width/4, height: UIScreen.main.bounds.height/14)
         content.contentURL = URL(string: "https://itunes.apple.com/us/app/flick-it-xtreme/id1103070396?mt=8")!
-        content.contentTitle = "Download FlickIt! (or else)"
         let prevHighScore: Int = UserDefaults.standard.integer(forKey: "score")
-        content.contentDescription = "My high score is "+String(prevHighScore)
+        content.quote = "Download FlickIt! My high score is "+String(prevHighScore)
         fbshare.shareContent = content
         fbsend.shareContent = content
     }
@@ -1245,13 +1245,17 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
 
     
     func restartScene() {
-        // makes bins smaller
         restartBTN = SKSpriteNode() // stopped being able to click when not there
         fbshare.removeFromSuperview()
         fbsend.removeFromSuperview()
         self.removeAllActions()
         self.removeAllChildren()
+        let viewController = self.view!.window?.rootViewController as! GameViewController
+        viewController.showAdInterstitial(callbackFn: self.setupRestartScene)
+    }
         
+    func setupRestartScene() {
+        // makes bins smaller
         self.addChild(bin_1)
         bin_1.name = shapes[0]
         
@@ -1527,14 +1531,6 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         }
     }
     
-//    deinit{
-//        let vc = self.view!.window?.rootViewController
-//        vc!.view.removeFromSuperview()
-////        if let superView = vc!.view.superview
-////        {
-////            superView.removeFromSuperview()
-////        }
-//    }
     var doneCounter = [0,0,0]
     
     func applyFirstShapeLabel() {
@@ -1671,6 +1667,18 @@ extension Array {
             }
         }
         return array
+    }
+}
+
+extension UIView {
+    func findViewController() -> UIViewController? {
+        if let nextResponder = self.next as? UIViewController {
+            return nextResponder
+        } else if let nextResponder = self.next as? UIView {
+            return nextResponder.findViewController()
+        } else {
+            return nil
+        }
     }
 }
 
