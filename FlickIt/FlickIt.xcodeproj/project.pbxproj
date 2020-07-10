@@ -3,15 +3,19 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0419485A3C1AF7F897235C34 /* libPods-FlickIt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A2B55B9673082700F86F59AE /* libPods-FlickIt.a */; };
 		187EF1DC1C7900DB0087A94A /* StartGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187EF1DB1C7900DB0087A94A /* StartGameScene.swift */; };
 		18F84F8B1CB04BBB00053DE8 /* bokeh.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F84F891CB04BBB00053DE8 /* bokeh.png */; };
 		18F84F8C1CB04BBB00053DE8 /* ExplosionEffect.sks in Resources */ = {isa = PBXBuildFile; fileRef = 18F84F8A1CB04BBB00053DE8 /* ExplosionEffect.sks */; };
+		19E53F184F1C86B4A2E7EC30 /* libPods-FlickItUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E537EDB4050C5036EBF24C7A /* libPods-FlickItUITests.a */; };
 		1C171BE11D8DC7130031AFC9 /* SettingScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C171BE01D8DC7130031AFC9 /* SettingScene.swift */; };
 		1C26014A1DCC4C6600E4D312 /* Platform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2601491DCC4C6600E4D312 /* Platform.swift */; };
+		1C3F028B24B394A30016530E /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 1C3F028A24B394A30016530E /* SwiftPackageProductDependency */; };
+		1C3F028D24B394A30016530E /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 1C3F028C24B394A30016530E /* SwiftPackageProductDependency */; };
 		1C641B851DA9EC400072255F /* HomeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C641B841DA9EC400072255F /* HomeScene.swift */; };
 		1CD5BCA31D96FA8B009F46B6 /* GCHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD5BCA21D96FA8B009F46B6 /* GCHelper.swift */; };
 		1CD5BCA51D970EB0009F46B6 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CD5BCA41D970EB0009F46B6 /* GameKit.framework */; };
@@ -21,14 +25,13 @@
 		1F19BEE51CB784B80030B930 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F19BEE21CB784B80030B930 /* GoogleService-Info.plist */; };
 		1F693A4F1C7910DE00C6B20E /* SpawnShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F693A4E1C7910DE00C6B20E /* SpawnShape.swift */; };
 		1FA8C6521C6FB1E40072E83F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA8C6511C6FB1E40072E83F /* AppDelegate.swift */; };
-		1FA8C6561C6FB1E40072E83F /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA8C6551C6FB1E40072E83F /* GameScene.swift */; };
 		1FA8C6581C6FB1E40072E83F /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA8C6571C6FB1E40072E83F /* GameViewController.swift */; };
 		1FA8C65B1C6FB1E40072E83F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FA8C6591C6FB1E40072E83F /* Main.storyboard */; };
 		1FA8C65D1C6FB1E40072E83F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FA8C65C1C6FB1E40072E83F /* Assets.xcassets */; };
 		1FA8C66B1C6FB1E40072E83F /* FlickItTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA8C66A1C6FB1E40072E83F /* FlickItTests.swift */; };
 		1FA8C6761C6FB1E40072E83F /* FlickItUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA8C6751C6FB1E40072E83F /* FlickItUITests.swift */; };
-		CF3B18DD1CB0D2F500C763E2 /* AboutScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF3B18DC1CB0D2F500C763E2 /* AboutScene.swift */; };
 		CF3B18DF1CB0D2FC00C763E2 /* RulesScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF3B18DE1CB0D2FC00C763E2 /* RulesScene.swift */; };
+		D93CE0BEB4F6D56B330CCCDE /* libPods-FlickItTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 979DBDF3D44A78A1DF7B93D5 /* libPods-FlickItTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,7 +69,6 @@
 		1F693A4E1C7910DE00C6B20E /* SpawnShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpawnShape.swift; sourceTree = "<group>"; };
 		1FA8C64E1C6FB1E40072E83F /* FlickIt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlickIt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FA8C6511C6FB1E40072E83F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		1FA8C6551C6FB1E40072E83F /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		1FA8C6571C6FB1E40072E83F /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		1FA8C65A1C6FB1E40072E83F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1FA8C65C1C6FB1E40072E83F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -85,7 +87,6 @@
 		A2B55B9673082700F86F59AE /* libPods-FlickIt.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FlickIt.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6021F627AFDCEAD1AB36D20 /* Pods-FlickIt.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlickIt.release.xcconfig"; path = "Target Support Files/Pods-FlickIt/Pods-FlickIt.release.xcconfig"; sourceTree = "<group>"; };
 		C0F28A9129F1D10AAAB11496 /* Pods-FlickIt.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlickIt.debug.xcconfig"; path = "Target Support Files/Pods-FlickIt/Pods-FlickIt.debug.xcconfig"; sourceTree = "<group>"; };
-		CF3B18DC1CB0D2F500C763E2 /* AboutScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutScene.swift; sourceTree = "<group>"; };
 		CF3B18DE1CB0D2FC00C763E2 /* RulesScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RulesScene.swift; sourceTree = "<group>"; };
 		E537EDB4050C5036EBF24C7A /* libPods-FlickItUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FlickItUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -97,6 +98,9 @@
 			files = (
 				1CDEAD641D98516000D27214 /* Bolts.framework in Frameworks */,
 				1CD5BCA51D970EB0009F46B6 /* GameKit.framework in Frameworks */,
+				1C3F028B24B394A30016530E /* BuildFile in Frameworks */,
+				1C3F028D24B394A30016530E /* BuildFile in Frameworks */,
+				0419485A3C1AF7F897235C34 /* libPods-FlickIt.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -104,6 +108,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D93CE0BEB4F6D56B330CCCDE /* libPods-FlickItTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -111,6 +116,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				19E53F184F1C86B4A2E7EC30 /* libPods-FlickItUITests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -157,8 +163,6 @@
 				1FA8C65C1C6FB1E40072E83F /* Assets.xcassets */,
 				1FA8C6611C6FB1E40072E83F /* Info.plist */,
 				1F19BEE21CB784B80030B930 /* GoogleService-Info.plist */,
-				CF3B18DC1CB0D2F500C763E2 /* AboutScene.swift */,
-				1FA8C6551C6FB1E40072E83F /* GameScene.swift */,
 				CF3B18DE1CB0D2FC00C763E2 /* RulesScene.swift */,
 			);
 			path = FlickIt;
@@ -227,6 +231,10 @@
 			dependencies = (
 			);
 			name = FlickIt;
+			packageProductDependencies = (
+				1C3F028A24B394A30016530E /* SwiftPackageProductDependency */,
+				1C3F028C24B394A30016530E /* SwiftPackageProductDependency */,
+			);
 			productName = FlickIt;
 			productReference = 1FA8C64E1C6FB1E40072E83F /* FlickIt.app */;
 			productType = "com.apple.product-type.application";
@@ -281,7 +289,7 @@
 				TargetAttributes = {
 					1FA8C64D1C6FB1E40072E83F = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = Y2JVY29H4R;
+						DevelopmentTeam = C7CVG856AD;
 						LastSwiftMigration = 1010;
 						SystemCapabilities = {
 							com.apple.GameCenter = {
@@ -308,10 +316,14 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
 			mainGroup = 1FA8C6451C6FB1E40072E83F;
+			packageReferences = (
+				1C3F028924B394A30016530E /* RemoteSwiftPackageReference */,
+			);
 			productRefGroup = 1FA8C64F1C6FB1E40072E83F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -431,13 +443,11 @@
 				1F693A4F1C7910DE00C6B20E /* SpawnShape.swift in Sources */,
 				1C171BE11D8DC7130031AFC9 /* SettingScene.swift in Sources */,
 				CF3B18DF1CB0D2FC00C763E2 /* RulesScene.swift in Sources */,
-				1FA8C6561C6FB1E40072E83F /* GameScene.swift in Sources */,
 				1FA8C6581C6FB1E40072E83F /* GameViewController.swift in Sources */,
 				187EF1DC1C7900DB0087A94A /* StartGameScene.swift in Sources */,
 				1C26014A1DCC4C6600E4D312 /* Platform.swift in Sources */,
 				1C641B851DA9EC400072255F /* HomeScene.swift in Sources */,
 				1CD5BCA31D96FA8B009F46B6 /* GCHelper.swift in Sources */,
-				CF3B18DD1CB0D2F500C763E2 /* AboutScene.swift in Sources */,
 				1FA8C6521C6FB1E40072E83F /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -575,15 +585,18 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = Y2JVY29H4R;
+				DEVELOPMENT_TEAM = C7CVG856AD;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = FlickIt/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mdb.flickit;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.flickgames.flickit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "FlickIt/FlickIt-Bridging-Header.h";
@@ -599,15 +612,18 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = Y2JVY29H4R;
+				DEVELOPMENT_TEAM = C7CVG856AD;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = FlickIt/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mdb.flickit;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.flickgames.flickit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "FlickIt/FlickIt-Bridging-Header.h";
@@ -623,7 +639,11 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				INFOPLIST_FILE = FlickItTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = test.FlickItTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
@@ -638,7 +658,11 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = FlickItTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = test.FlickItTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
@@ -653,7 +677,11 @@
 			buildSettings = {
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				INFOPLIST_FILE = FlickItUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = test.FlickItUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
@@ -668,7 +696,11 @@
 			baseConfigurationReference = 5E01FDA237D42C353A49A9A0 /* Pods-FlickItUITests.release.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = FlickItUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = test.FlickItUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
@@ -718,6 +750,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1C3F028924B394A30016530E /* RemoteSwiftPackageReference */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/facebook/facebook-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.1.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1C3F028A24B394A30016530E /* SwiftPackageProductDependency */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C3F028924B394A30016530E /* RemoteSwiftPackageReference */;
+			productName = FacebookShare;
+		};
+		1C3F028C24B394A30016530E /* SwiftPackageProductDependency */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C3F028924B394A30016530E /* RemoteSwiftPackageReference */;
+			productName = FacebookCore;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 1FA8C6461C6FB1E40072E83F /* Project object */;
 }
