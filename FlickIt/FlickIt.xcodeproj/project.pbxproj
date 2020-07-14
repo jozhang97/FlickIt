@@ -14,8 +14,8 @@
 		19E53F184F1C86B4A2E7EC30 /* libPods-FlickItUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E537EDB4050C5036EBF24C7A /* libPods-FlickItUITests.a */; };
 		1C171BE11D8DC7130031AFC9 /* SettingScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C171BE01D8DC7130031AFC9 /* SettingScene.swift */; };
 		1C26014A1DCC4C6600E4D312 /* Platform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2601491DCC4C6600E4D312 /* Platform.swift */; };
-		1C3F028B24B394A30016530E /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 1C3F028A24B394A30016530E /* SwiftPackageProductDependency */; };
-		1C3F028D24B394A30016530E /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 1C3F028C24B394A30016530E /* SwiftPackageProductDependency */; };
+		1C3F028B24B394A30016530E /* FacebookShare in Frameworks */ = {isa = PBXBuildFile; productRef = 1C3F028A24B394A30016530E /* FacebookShare */; };
+		1C3F028D24B394A30016530E /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = 1C3F028C24B394A30016530E /* FacebookCore */; };
 		1C641B851DA9EC400072255F /* HomeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C641B841DA9EC400072255F /* HomeScene.swift */; };
 		1CD5BCA31D96FA8B009F46B6 /* GCHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD5BCA21D96FA8B009F46B6 /* GCHelper.swift */; };
 		1CD5BCA51D970EB0009F46B6 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CD5BCA41D970EB0009F46B6 /* GameKit.framework */; };
@@ -98,8 +98,8 @@
 			files = (
 				1CDEAD641D98516000D27214 /* Bolts.framework in Frameworks */,
 				1CD5BCA51D970EB0009F46B6 /* GameKit.framework in Frameworks */,
-				1C3F028B24B394A30016530E /* BuildFile in Frameworks */,
-				1C3F028D24B394A30016530E /* BuildFile in Frameworks */,
+				1C3F028B24B394A30016530E /* FacebookShare in Frameworks */,
+				1C3F028D24B394A30016530E /* FacebookCore in Frameworks */,
 				0419485A3C1AF7F897235C34 /* libPods-FlickIt.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -232,8 +232,8 @@
 			);
 			name = FlickIt;
 			packageProductDependencies = (
-				1C3F028A24B394A30016530E /* SwiftPackageProductDependency */,
-				1C3F028C24B394A30016530E /* SwiftPackageProductDependency */,
+				1C3F028A24B394A30016530E /* FacebookShare */,
+				1C3F028C24B394A30016530E /* FacebookCore */,
 			);
 			productName = FlickIt;
 			productReference = 1FA8C64E1C6FB1E40072E83F /* FlickIt.app */;
@@ -322,7 +322,7 @@
 			);
 			mainGroup = 1FA8C6451C6FB1E40072E83F;
 			packageReferences = (
-				1C3F028924B394A30016530E /* RemoteSwiftPackageReference */,
+				1C3F028924B394A30016530E /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
 			);
 			productRefGroup = 1FA8C64F1C6FB1E40072E83F /* Products */;
 			projectDirPath = "";
@@ -591,11 +591,12 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = FlickIt/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.flickgames.flickit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -618,11 +619,12 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = FlickIt/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.flickgames.flickit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -752,7 +754,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		1C3F028924B394A30016530E /* RemoteSwiftPackageReference */ = {
+		1C3F028924B394A30016530E /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/facebook/facebook-ios-sdk";
 			requirement = {
@@ -763,14 +765,14 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		1C3F028A24B394A30016530E /* SwiftPackageProductDependency */ = {
+		1C3F028A24B394A30016530E /* FacebookShare */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 1C3F028924B394A30016530E /* RemoteSwiftPackageReference */;
+			package = 1C3F028924B394A30016530E /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
 			productName = FacebookShare;
 		};
-		1C3F028C24B394A30016530E /* SwiftPackageProductDependency */ = {
+		1C3F028C24B394A30016530E /* FacebookCore */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 1C3F028924B394A30016530E /* RemoteSwiftPackageReference */;
+			package = 1C3F028924B394A30016530E /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
 			productName = FacebookCore;
 		};
 /* End XCSwiftPackageProductDependency section */

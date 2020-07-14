@@ -12,7 +12,7 @@ import GameKit
 import FBSDKShareKit
 import GoogleMobileAds
 
-@available(iOS 10.0, *)
+@available(iOS 11.0, *)
 class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerDelegate {
     var NUMBEROFLIFES = 3
     let screenWidth = UIScreen.main.bounds.width
@@ -1553,18 +1553,20 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         }
     }
     
-    let delayTime = 1.5
+    let delayTime = 3.0
     let firstShapeLabel=SKLabelNode()
     let firstBombLabel=SKLabelNode()
     let firstHeartLabel=SKLabelNode()
 
     func showShapeLabel() {
-        firstShapeLabel.text = "Flick shape to its bin!"
-        firstShapeLabel.fontColor=UIColor.yellow
+        firstShapeLabel.text = "Flick the shape to the correct corner!"
+        firstShapeLabel.fontColor=UIColor.white
         firstShapeLabel.position=CGPoint(x: self.size.width/2,y: self.size.height * 1.5/9)
         firstShapeLabel.zPosition=5
         firstShapeLabel.fontName = "AppleSDGothicNeo-UltraLight"
-        firstShapeLabel.fontSize = 22
+        firstShapeLabel.fontSize = 30
+        firstShapeLabel.numberOfLines = 2
+        firstShapeLabel.preferredMaxLayoutWidth = self.size.width*3/4
         let firstShapeLabelAddAction = SKAction.run({
             self.addChild(self.firstShapeLabel)
         })
@@ -1577,12 +1579,12 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     }
     
     func showBombLabel() {
-        firstBombLabel.text = "Don't touch the bombs"
-        firstBombLabel.fontColor=UIColor.yellow
+        firstBombLabel.text = "Don't touch the bombs!"
+        firstBombLabel.fontColor=UIColor.white
         firstBombLabel.position=CGPoint(x: self.size.width/2,y: self.size.height * 1.5/9)
         firstBombLabel.zPosition=5
         firstBombLabel.fontName = "AppleSDGothicNeo-UltraLight"
-        firstBombLabel.fontSize = 22
+        firstBombLabel.fontSize = 30
         let firstBombLabelAddAction = SKAction.run({
             self.addChild(self.firstBombLabel)
         })
@@ -1595,12 +1597,12 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     }
     
     func showHeartLabel() {
-        firstHeartLabel.text = "Touch hearts for extra life"
-        firstHeartLabel.fontColor=UIColor.yellow
+        firstHeartLabel.text = "Touch hearts for extra life!"
+        firstHeartLabel.fontColor=UIColor.white
         firstHeartLabel.position=CGPoint(x: self.size.width/2,y: self.size.height * 1.5/9)
         firstHeartLabel.zPosition=5
         firstHeartLabel.fontName = "AppleSDGothicNeo-UltraLight"
-        firstHeartLabel.fontSize = 22
+        firstHeartLabel.fontSize = 30
         let firstHeartLabelAddAction = SKAction.run({
             self.addChild(self.firstHeartLabel)
         })

@@ -12,7 +12,7 @@ import SpriteKit
 import AVFoundation
 import GameKit
 
-@available(iOS 10.0, *)
+@available(iOS 11.0, *)
 class HomeScene: SKScene , SKPhysicsContactDelegate, GKGameCenterControllerDelegate {
     var start = CGPoint()
     var line = SKShapeNode()

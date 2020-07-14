@@ -10,7 +10,7 @@ import GoogleMobileAds
 import UIKit
 import SpriteKit
 
-@available(iOS 10.0, *)
+@available(iOS 11.0, *)
 class GameViewController: UIViewController, GADInterstitialDelegate {
     var interstitial: GADInterstitial!
     var callback: (() -> Void)!

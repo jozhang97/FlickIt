@@ -11,7 +11,7 @@ import MediaPlayer
 import AVFoundation
 import Foundation
 
-@available(iOS 10.0, *)
+@available(iOS 11.0, *)
 class RulesScene: SKScene {
     var moviePlayer: MPMoviePlayerController?
     //keep track of which way user swipes

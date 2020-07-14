@@ -11,7 +11,7 @@ import SpriteKit
 import AVFoundation
 import FBSDKShareKit
 
-@available(iOS 10.0, *)
+@available(iOS 11.0, *)
 class SettingScene: SKScene {
     let backButton = SKLabelNode(text: "Back")
     let resetHighScoreButton = SKLabelNode(text: "Clear Highscore")
