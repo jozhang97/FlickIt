@@ -86,7 +86,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     var pausedShapeVelocities = [SKNode: CGVector]()
     var aud2exists: Bool = false
     var aud3exists: Bool = false
-    let sizeRect = UIScreen.main.applicationFrame;
+    let sizeRect = UIScreen.main.bounds;
     var line = SKShapeNode()
     var touchedNode=SKNode()
     let fbshare = FBShareButton()
@@ -1093,7 +1093,7 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         self.removeChildren(in: [pauseButton])
         // add collision actions
         setUpLocalHighScore()
-        GCHelper.sharedInstance.reportLeaderboardIdentifier("scoreLeaderboard", score:score)
+        GCHelper.sharedInstance.reportLeaderboardIdentifier("flickit_gc_leaderboard", score:score)
         setupFB()
         self.view?.addSubview(fbshare)
         if(fbsend.isHidden){

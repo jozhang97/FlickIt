@@ -9,11 +9,12 @@
 import SpriteKit
 import MediaPlayer
 import AVFoundation
+import AVKit
 import Foundation
 
 @available(iOS 11.0, *)
 class RulesScene: SKScene {
-    var moviePlayer: MPMoviePlayerController?
+    var moviePlayer: AVPlayerViewController?
     //keep track of which way user swipes
     var numTouches = 0;
     //create caption for "how to play" screenshots

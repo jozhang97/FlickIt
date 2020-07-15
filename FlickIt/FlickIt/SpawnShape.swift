@@ -42,7 +42,7 @@ class SpawnShape
     
     var colorScoreLimit = 15
     
-    let sizeRect = UIScreen.main.applicationFrame;
+    let sizeRect = UIScreen.main.bounds;
     
     func speedUpVelocity(_ speedFactor: Double) {
         range += speedFactor
@@ -263,7 +263,7 @@ class SpawnShape
         // too easy so we sped up the velocity (still capped at same value) by 1.3
         // make shapes on the bigger screens faster
 
-        let scalingFactor: CGFloat = 1.3 * (UIScreen.main.applicationFrame.size.width / PARAMETER_NAME_BASE_SCREEN_WIDTH)
+        let scalingFactor: CGFloat = 1.3 * (UIScreen.main.bounds.size.width / PARAMETER_NAME_BASE_SCREEN_WIDTH)
         let ret = v * scalingFactor
         return min(ret, CGFloat(UPPERRANGEBOUND))
     }
