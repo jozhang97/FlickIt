@@ -13,6 +13,13 @@
 		1C171BE11D8DC7130031AFC9 /* SettingScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C171BE01D8DC7130031AFC9 /* SettingScene.swift */; };
 		1C26014A1DCC4C6600E4D312 /* Platform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2601491DCC4C6600E4D312 /* Platform.swift */; };
 		1C641B851DA9EC400072255F /* HomeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C641B841DA9EC400072255F /* HomeScene.swift */; };
+		1C956E9924C025FD002E8EA7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FA8C65C1C6FB1E40072E83F /* Assets.xcassets */; };
+		1C956EA724C02898002E8EA7 /* bensound-cute.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1C956EA124C0285F002E8EA7 /* bensound-cute.mp3 */; };
+		1C956EA824C02898002E8EA7 /* bensound-sadday.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1C956EA524C02880002E8EA7 /* bensound-sadday.mp3 */; };
+		1C956EA924C02898002E8EA7 /* bensound-straight.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1C956EA324C02874002E8EA7 /* bensound-straight.mp3 */; };
+		1C956EAD24C02925002E8EA7 /* swoosh.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1C956EAC24C02925002E8EA7 /* swoosh.mp3 */; };
+		1C956EAF24C02982002E8EA7 /* incorrectSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1C956EAE24C02982002E8EA7 /* incorrectSound.mp3 */; };
+		1C956EB124C02999002E8EA7 /* bombSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1C956EB024C02999002E8EA7 /* bombSound.mp3 */; };
 		1CD5BCA31D96FA8B009F46B6 /* GCHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD5BCA21D96FA8B009F46B6 /* GCHelper.swift */; };
 		1CD5BCA51D970EB0009F46B6 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CD5BCA41D970EB0009F46B6 /* GameKit.framework */; };
 		1F19BEE31CB784B80030B930 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F19BEE21CB784B80030B930 /* GoogleService-Info.plist */; };
@@ -22,7 +29,6 @@
 		1FA8C6521C6FB1E40072E83F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA8C6511C6FB1E40072E83F /* AppDelegate.swift */; };
 		1FA8C6581C6FB1E40072E83F /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA8C6571C6FB1E40072E83F /* GameViewController.swift */; };
 		1FA8C65B1C6FB1E40072E83F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FA8C6591C6FB1E40072E83F /* Main.storyboard */; };
-		1FA8C65D1C6FB1E40072E83F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FA8C65C1C6FB1E40072E83F /* Assets.xcassets */; };
 		1FA8C66B1C6FB1E40072E83F /* FlickItTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA8C66A1C6FB1E40072E83F /* FlickItTests.swift */; };
 		1FA8C6761C6FB1E40072E83F /* FlickItUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA8C6751C6FB1E40072E83F /* FlickItUITests.swift */; };
 		6A99B69FEBEF406CEB782E3D /* Pods_FlickItUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F1E774044C01DC61C7C4E67 /* Pods_FlickItUITests.framework */; };
@@ -55,6 +61,12 @@
 		1C171BE01D8DC7130031AFC9 /* SettingScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingScene.swift; sourceTree = "<group>"; };
 		1C2601491DCC4C6600E4D312 /* Platform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Platform.swift; sourceTree = "<group>"; };
 		1C641B841DA9EC400072255F /* HomeScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeScene.swift; sourceTree = "<group>"; };
+		1C956EA124C0285F002E8EA7 /* bensound-cute.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "bensound-cute.mp3"; sourceTree = "<group>"; };
+		1C956EA324C02874002E8EA7 /* bensound-straight.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "bensound-straight.mp3"; sourceTree = "<group>"; };
+		1C956EA524C02880002E8EA7 /* bensound-sadday.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "bensound-sadday.mp3"; sourceTree = "<group>"; };
+		1C956EAC24C02925002E8EA7 /* swoosh.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = swoosh.mp3; sourceTree = "<group>"; };
+		1C956EAE24C02982002E8EA7 /* incorrectSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = incorrectSound.mp3; sourceTree = "<group>"; };
+		1C956EB024C02999002E8EA7 /* bombSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bombSound.mp3; sourceTree = "<group>"; };
 		1CD5BCA21D96FA8B009F46B6 /* GCHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCHelper.swift; sourceTree = "<group>"; };
 		1CD5BCA41D970EB0009F46B6 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		1CDEAD5D1D984CBF00D27214 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
@@ -117,6 +129,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1C956E9A24C027F9002E8EA7 /* AudioFiles */ = {
+			isa = PBXGroup;
+			children = (
+				1C956EAC24C02925002E8EA7 /* swoosh.mp3 */,
+				1C956EAE24C02982002E8EA7 /* incorrectSound.mp3 */,
+				1C956EB024C02999002E8EA7 /* bombSound.mp3 */,
+				1C956EA124C0285F002E8EA7 /* bensound-cute.mp3 */,
+				1C956EA524C02880002E8EA7 /* bensound-sadday.mp3 */,
+				1C956EA324C02874002E8EA7 /* bensound-straight.mp3 */,
+			);
+			path = AudioFiles;
+			sourceTree = "<group>";
+		};
 		1FA8C6451C6FB1E40072E83F = {
 			isa = PBXGroup;
 			children = (
@@ -142,6 +167,7 @@
 		1FA8C6501C6FB1E40072E83F /* FlickIt */ = {
 			isa = PBXGroup;
 			children = (
+				1C956E9A24C027F9002E8EA7 /* AudioFiles */,
 				1C641B841DA9EC400072255F /* HomeScene.swift */,
 				187EF1DB1C7900DB0087A94A /* StartGameScene.swift */,
 				1C171BE01D8DC7130031AFC9 /* SettingScene.swift */,
@@ -331,11 +357,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C956EA724C02898002E8EA7 /* bensound-cute.mp3 in Resources */,
+				1C956EA824C02898002E8EA7 /* bensound-sadday.mp3 in Resources */,
+				1C956EB124C02999002E8EA7 /* bombSound.mp3 in Resources */,
+				1C956EAF24C02982002E8EA7 /* incorrectSound.mp3 in Resources */,
+				1C956EA924C02898002E8EA7 /* bensound-straight.mp3 in Resources */,
+				1C956E9924C025FD002E8EA7 /* Assets.xcassets in Resources */,
 				18F84F8C1CB04BBB00053DE8 /* ExplosionEffect.sks in Resources */,
-				1FA8C65D1C6FB1E40072E83F /* Assets.xcassets in Resources */,
 				1FA8C65B1C6FB1E40072E83F /* Main.storyboard in Resources */,
 				18F84F8B1CB04BBB00053DE8 /* bokeh.png in Resources */,
 				1F19BEE31CB784B80030B930 /* GoogleService-Info.plist in Resources */,
+				1C956EAD24C02925002E8EA7 /* swoosh.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -648,7 +680,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = C7CVG856AD;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -677,7 +709,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = C7CVG856AD;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
