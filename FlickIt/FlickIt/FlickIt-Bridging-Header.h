@@ -9,6 +9,11 @@
 //#ifndef FlickIt_Bridging_Header_h
 //#define FlickIt_Bridging_Header_h
 
-#import <Google/Analytics.h>
+#import "GoogleAnalytics/GAI.h"
+#import "GoogleAnalytics/GAIDictionaryBuilder.h"
+#import "GoogleAnalytics/GAITrackedViewController.h"
+#import "GoogleAnalytics/GAITracker.h"
+#import "GoogleAnalytics/GAIFields.h"
+
 
 //#endif /* FlickIt_Bridging_Header_h */

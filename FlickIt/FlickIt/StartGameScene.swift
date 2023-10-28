@@ -10,7 +10,6 @@ import AVFoundation
 import SpriteKit
 import GameKit
 import FBSDKShareKit
-import GoogleMobileAds
 
 @available(iOS 11.0, *)
 class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerDelegate {
@@ -89,9 +88,6 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     let sizeRect = UIScreen.main.bounds;
     var line = SKShapeNode()
     var touchedNode=SKNode()
-    let fbshare = FBShareButton()
-    var fbsend = FBSendButton()
-    let content = ShareLinkContent()
     var gradient_colors = [CGColor]()
     var rotate_bins = arc4random_uniform(4)+6
 
@@ -182,16 +178,6 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         self.addChild(bin_4)
         
         createScene()
-    }
-    
-    func setupFB(){
-        fbshare.frame = CGRect(x: UIScreen.main.bounds.width/2-UIScreen.main.bounds.width/4-15, y: UIScreen.main.bounds.height*3.8/5, width: UIScreen.main.bounds.width/4, height: UIScreen.main.bounds.height/14)
-        fbsend.frame = CGRect(x: UIScreen.main.bounds.width/2+15, y: UIScreen.main.bounds.height*3.8/5, width: UIScreen.main.bounds.width/4, height: UIScreen.main.bounds.height/14)
-        content.contentURL = URL(string: "https://itunes.apple.com/us/app/flick-it-xtreme/id1103070396?mt=8")!
-        let prevHighScore: Int = UserDefaults.standard.integer(forKey: "score")
-        content.quote = "Download FlickIt! My high score is "+String(prevHighScore)
-        fbshare.shareContent = content
-        fbsend.shareContent = content
     }
     
     func createBackground(color1: CGColor, color2: CGColor){
@@ -613,13 +599,13 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
                         //aud3exists = false
                     } else {
                         explosionEmitterNode?.particleColorSequence=SKKeyframeSequence(keyframeValues: [UIColor.red], times: [0])
-                        aud3exists = true
-                        playSwoosh("incorrectSound")
+                        //aud3exists = true
+                        //playSwoosh("incorrectSound")
                         //vibration code:
                         //if(!appDelegate.muted){
                         //    AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
                         //}
-                        aud3exists = false
+                        //aud3exists = false
                         lives -= 1
                     }
                     self.addChild(explosionEmitterNode!)
@@ -684,8 +670,6 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     
     func goToHome() {
         let scene: SKScene = HomeScene(size: self.size)
-        fbshare.removeFromSuperview()
-        fbsend.removeFromSuperview()
         audioPlayer.stop()
         // Configure the view.
         if let skView = self.view {
@@ -821,9 +805,9 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
                                 return;
                             }
                             self.lives -= 1;
-                            self.aud3exists = true
-                            self.playSwoosh("incorrectSound")
-                            self.aud3exists = false
+//                            self.aud3exists = true
+//                            self.playSwoosh("incorrectSound")
+//                            self.aud3exists = false
                             let explosionEmitterNode = SKEmitterNode(fileNamed: "ExplosionEffect.sks")
                             explosionEmitterNode?.position=sprite.position
                             explosionEmitterNode?.zPosition=100
@@ -1094,13 +1078,6 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
         // add collision actions
         setUpLocalHighScore()
         GCHelper.sharedInstance.reportLeaderboardIdentifier("flickit_gc_leaderboard", score:score)
-        setupFB()
-        self.view?.addSubview(fbshare)
-        if(fbsend.isHidden){
-            print("send is hidden")
-        }else{
-            self.view?.addSubview(fbsend)
-        }
         trackLose()
         putBackPhysicsBodyBin()
         playingGame = false
@@ -1246,12 +1223,9 @@ class StartGameScene: SKScene, SKPhysicsContactDelegate, GKGameCenterControllerD
     
     func restartScene() {
         restartBTN = SKSpriteNode() // stopped being able to click when not there
-        fbshare.removeFromSuperview()
-        fbsend.removeFromSuperview()
         self.removeAllActions()
         self.removeAllChildren()
-        let viewController = self.view!.window?.rootViewController as! GameViewController
-        viewController.showAdInterstitial(callbackFn: self.setupRestartScene)
+        self.setupRestartScene()
     }
         
     func setupRestartScene() {

@@ -6,18 +6,14 @@
 //  Copyright (c) 2016 Abhi_Shaili_Jeffrey_Rohan_Ashwin. All rights reserved.
 //
 
-import GoogleMobileAds
 import UIKit
 import SpriteKit
 
 @available(iOS 11.0, *)
-class GameViewController: UIViewController, GADInterstitialDelegate {
-    var interstitial: GADInterstitial!
-    var callback: (() -> Void)!
+class GameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        interstitial = createAndLoadInterstitial()
         let scene = HomeScene(size: view.bounds.size)
         let skView = self.view as! SKView
         skView.showsFPS = false
@@ -38,29 +34,6 @@ class GameViewController: UIViewController, GADInterstitialDelegate {
             skView.presentScene(scene)
         }
         
-    }
-    
-    public func showAdInterstitial(callbackFn: @escaping () -> Void) {
-        if (Int(arc4random_uniform(3)) == 0) {
-            if interstitial.isReady {
-                interstitial.present(fromRootViewController: self)
-                callback = callbackFn
-                return
-            }
-        }
-        callbackFn()
-    }
-    
-    func interstitialDidDismissScreen(_ ad: GADInterstitial) {
-        interstitial = createAndLoadInterstitial()
-        callback()
-    }
-    
-    func createAndLoadInterstitial() -> GADInterstitial {
-        let localInterstitial = GADInterstitial(adUnitID: "ca-app-pub-7612920209755023/3341506375")
-        localInterstitial.delegate = self
-        localInterstitial.load(GADRequest())
-        return localInterstitial
     }
     
     override var prefersStatusBarHidden : Bool {
